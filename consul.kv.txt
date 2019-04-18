@@ -1,0 +1,51 @@
+/* imbp-gateway */
+curl -X PUT -d http://etl-service/api/aoi/etl http://localhost:8500/v1/kv/config/imbp-gateway/url/etl-aoi
+curl -X PUT -d http://etl-large-service/api/aoi/etl/large http://localhost:8500/v1/kv/config/imbp-gateway/url/etl-aoi-large
+curl -X PUT -d http://imbp-admin/api/admin/metadata/db http://localhost:8500/v1/kv/config/imbp-gateway/url/metadata-generate
+curl -X PUT -d INFO http://localhost:8500/v1/kv/config/imbp-gateway/logging/level-root
+curl -X PUT -d 8085 http://localhost:8500/v1/kv/config/imbp-gateway/server/port
+curl -X PUT -d x-image http://localhost:8500/v1/kv/config/imbp-gateway/filter/imageHeader
+curl -X PUT -d /api/aoi/etl/large http://localhost:8500/v1/kv/config/imbp-gateway/filter/largeImagePath
+curl -X PUT -d 2000000 http://localhost:8500/v1/kv/config/imbp-gateway/filter/imageSize
+
+
+/* imbp-etl */
+curl -X PUT -d 8081 http://localhost:8500/v1/kv/config/etl-service/server/port
+curl -X PUT -d "{\"contact-points\": \"10.208.51.74,10.208.51.85\", \"heart-beat\" : \"60\"}" http://localhost:8500/v1/kv/config/etl-service/db/cassandra
+curl -X PUT -d INFO http://localhost:8500/v1/kv/config/etl-service/logging/level-root
+curl -X PUT -d 55000 http://localhost:8500/v1/kv/config/etl-service/image/breakImageSize
+curl -X PUT -d 200 http://localhost:8500/v1/kv/config/etl-service/request/timeout
+curl -X PUT -d "D://project//sec//" http://localhost:8500/v1/kv/config/etl-service/sec/location
+curl -X PUT -d "index.sec" http://localhost:8500/v1/kv/config/etl-service/sec/indexName
+curl -X PUT -d "data.sec" http://localhost:8500/v1/kv/config/etl-service/sec/secLogName
+curl -X PUT -d "{\"system\":{\"origTable\": {\"db\":{\"origColumn\":{ \"column1\": \"id\",\"column2\": \"lastname\"}}}}}" http://localhost:8500/v1/kv/config/etl-service/metadata/data
+
+
+/* imbp-etl-large */
+curl -X PUT -d 8081 http://localhost:8500/v1/kv/config/etl-large-service/server/port
+curl -X PUT -d "{\"contact-points\": \"10.208.51.74,10.208.51.85\", \"heart-beat\" : \"60\"}" http://localhost:8500/v1/kv/config/etl-large-service/db/cassandra
+curl -X PUT -d INFO http://localhost:8500/v1/kv/config/etl-large-service/logging/level-root
+curl -X PUT -d 55000 http://localhost:8500/v1/kv/config/etl-large-service/image/breakImageSize
+curl -X PUT -d 200 http://localhost:8500/v1/kv/config/etl-large-service/request/timeout
+curl -X PUT -d "D://project//sec//" http://localhost:8500/v1/kv/config/etl-large-service/sec/location
+curl -X PUT -d "index.sec" http://localhost:8500/v1/kv/config/etl-large-service/sec/indexName
+curl -X PUT -d "data.sec" http://localhost:8500/v1/kv/config/etl-large-service/sec/secLogName
+curl -X PUT -d "{\"system\":{\"origTable\": {\"db\":{\"origColumn\":{ \"column1\": \"id\",\"column2\": \"lastname\"}}}}}" http://localhost:8500/v1/kv/config/etl-large-service/metadata/data
+
+
+/* imbp-rt */
+curl -X PUT -d 8083 http://localhost:8500/v1/kv/config/imbp-rt/server/port
+curl -X PUT -d "{\"contact-points\": \"192.168.30.16,192.168.30.17\", \"heart-beat\" : \"60\"}" http://localhost:8500/v1/kv/config/imbp-rt/db/cassandra
+curl -X PUT -d INFO http://localhost:8500/v1/kv/config/imbp-rt/logging/level-root
+
+
+
+/* imbp-admin */
+curl -X PUT -d 8082 http://localhost:8500/v1/kv/config/imbp-admin/server/port
+curl -X PUT -d http://localhost:8500/v1/kv/config/etl-service/metadata/data http://localhost:8500/v1/kv/config/imbp-admin/url/metadata-push
+curl -X PUT -d "CASSANDRA" http://localhost:8500/v1/kv/config/imbp-admin/db/target
+curl -X PUT -d "{\"username\": \"mfg\", \"password\": \"password\", \"datasourceClassName\": \"org.mariadb.jdbc.MariaDbDataSource\", \"connectionTestQuery\": \"select 1\", \"host\": \"10.208.51.172\", \"port\": \"3306\", \"dbName\": \"mfg_metadata_test\", \"properties\": \""useUnicode=true;characterEncoding=utf8&autoReconnect=true\"", \"poolName\": \"mfg-jdbc-connection-pool\"}" http://localhost:8500/v1/kv/config/imbp-admin/db/mysql
+
+
+/* all keys */
+curl -X PUT -d "imbp-gateway/url/etl-aoi, imbp-gateway/url/etl-aoi-large, imbp-gateway/logging/level-root, imbp-gateway/url/metadata-generate, imbp-gateway/server/port, imbp-gateway/filter/imageSize, imbp-gateway/filter/largeImagePath, imbp-gateway/filter/imageHeader, etl-service/sec/secLogName, etl-service/sec/indexName, etl-service/sec/secLogName, etl-service/server/port, etl-service/db/cassandra, etl-service/logging/level-root, /etl-service/image/breakImageSize, etl-service/request/timeout, etl-service/metadata/data, imbp-admin/server/port, imbp-admin/url/metadata-push, imbp-admin/db/target, imbp-admin/db/mysql" http://localhost:8500/v1/kv/config/imbp-admin/imbp/keys
