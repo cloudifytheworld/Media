@@ -14,7 +14,6 @@ Vagrant.configure("2") do |config|
     master.vm.synced_folder "/vagrant/ubuntu", "/project/apps"
     master.vm.provider "virtualbox" do |vb|
      vb.name = 'master'	
-     vb.customize ["modifyvm", :id, "--memory", 2048]
     end
     master.vm.provision "shell", inline: <<-SHELL
      wget -qO- https://get.docker.com/ | sh
@@ -30,10 +29,6 @@ Vagrant.configure("2") do |config|
     worker1.vm.network "private_network", ip: "192.168.33.11"
 
     worker1.vm.synced_folder "/vagrant/ubuntu", "/project/apps"
-    worker1.vm.provider "virtualbox" do |vb|
-     vb.name = 'worker1'	
-     vb.customize ["modifyvm", :id, "--memory", 2048]
-    end
     worker1.vm.provision "shell", inline: <<-SHELL
      wget -qO- https://get.docker.com/ | sh
     SHELL
@@ -48,10 +43,6 @@ Vagrant.configure("2") do |config|
     worker2.vm.network "private_network", ip: "192.168.33.12"
 
     worker2.vm.synced_folder "/vagrant/ubuntu", "/project/apps"
-    worker2.vm.provider "virtualbox" do |vb|
-     vb.name = 'worker2'	
-     vb.customize ["modifyvm", :id, "--memory", 2048]
-    end
     worker2.vm.provision "shell", inline: <<-SHELL
      wget -qO- https://get.docker.com/ | sh
     SHELL
@@ -66,13 +57,8 @@ Vagrant.configure("2") do |config|
     worker3.vm.network "private_network", ip: "192.168.33.13"
 
     worker3.vm.synced_folder "/vagrant/ubuntu", "/project/apps"
-    worker3.vm.provider "virtualbox" do |vb|
-     vb.name = 'worker3'	
-     vb.customize ["modifyvm", :id, "--memory", 2048]
-    end
     worker3.vm.provision "shell", inline: <<-SHELL
      wget -qO- https://get.docker.com/ | sh
     SHELL
    end
 end
-
