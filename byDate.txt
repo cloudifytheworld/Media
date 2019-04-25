@@ -1,0 +1,214 @@
+PS D:\apache-cassandra-3.11.4\bin> ./nodetool tablestats images.aoi_single_component_image;
+Total number of tables: 37
+----------------
+Keyspace : images
+        Read Count: 0
+        Read Latency: NaN ms
+        Write Count: 2560672
+        Write Latency: 0.016943289495882332 ms
+        Pending Flushes: 0
+                Table: aoi_single_component_image
+                SSTable count: 6
+                Space used (live): 19908523562
+                Space used (total): 19908523562
+                Space used by snapshots (total): 0
+                Off heap memory used (total): 3378020
+                SSTable Compression Ratio: 0.7193667649713318
+                Number of partitions (estimate): 1595
+                Memtable cell count: 15050
+                Memtable data size: 68615558
+                Memtable off heap memory used: 0
+                Memtable switch count: 304
+                Local read count: 0
+                Local read latency: NaN ms
+                Local write count: 2560672
+                Local write latency: NaN ms
+                Pending flushes: 0
+                Percent repaired: 0.0
+                Bloom filter false positives: 0
+                Bloom filter false ratio: 0.00000
+                Bloom filter space used: 2096
+                Bloom filter off heap memory used: 2048
+                Index summary off heap memory used: 572
+                Compression metadata off heap memory used: 3375400
+                Compacted partition minimum bytes: 1110
+                Compacted partition maximum bytes: 386857368
+                Compacted partition mean bytes: 18899729
+                Average live cells per slice (last five minutes): NaN
+                Maximum live cells per slice (last five minutes): 0
+                Average tombstones per slice (last five minutes): NaN
+                Maximum tombstones per slice (last five minutes): 0
+                Dropped Mutations: 0
+
+ ./nodetool tablehistograms images.aoi_single_component_image;
+images/aoi_single_component_image histograms
+Percentile  SSTables     Write Latency      Read Latency    Partition Size        Cell Count
+                              (micros)          (micros)           (bytes)
+50%             0.00              0.00              0.00           4866323               446
+75%             0.00              0.00              0.00          17436917              3311
+95%             0.00              0.00              0.00          89970660             51012
+98%             0.00              0.00              0.00         155469300            126934
+99%             0.00              0.00              0.00         223875792            182785
+Min             0.00              0.00              0.00              1110                 6
+Max             0.00              0.00              0.00         386857368            379022
+
+
+ByDate and ByHour
+----------------------------
+PS D:\apache-cassandra-3.11.4\bin> ./nodetool tablestats images.aoi_single_component_image;
+Total number of tables: 37
+----------------
+Keyspace : images
+        Read Count: 11
+        Read Latency: 23.69381818181818 ms
+        Write Count: 3042835
+        Write Latency: 0.016825209056685622 ms
+        Pending Flushes: 0
+                Table: aoi_single_component_image
+                SSTable count: 11
+                Space used (live): 23872482311
+                Space used (total): 23872482311
+                Space used by snapshots (total): 0
+                Off heap memory used (total): 4065584
+                SSTable Compression Ratio: 0.718878245048806
+                Number of partitions (estimate): 9406
+                Memtable cell count: 15375
+                Memtable data size: 70104777
+                Memtable off heap memory used: 0
+                Memtable switch count: 365
+                Local read count: 11
+                Local read latency: NaN ms
+                Local write count: 3042835
+                Local write latency: NaN ms
+                Pending flushes: 0
+                Percent repaired: 0.0
+                Bloom filter false positives: 0
+                Bloom filter false ratio: 0.00000
+                Bloom filter space used: 12104
+                Bloom filter off heap memory used: 12016
+                Index summary off heap memory used: 3384
+                Compression metadata off heap memory used: 4050184
+                Compacted partition minimum bytes: 1110
+                Compacted partition maximum bytes: 107964792
+                Compacted partition mean bytes: 3796210
+                Average live cells per slice (last five minutes): NaN
+                Maximum live cells per slice (last five minutes): 0
+                Average tombstones per slice (last five minutes): NaN
+                Maximum tombstones per slice (last five minutes): 0
+                Dropped Mutations: 0
+
+
+PS D:\apache-cassandra-3.11.4\bin> ./nodetool tablehistograms images.aoi_single_component_image;
+images/aoi_single_component_image histograms
+Percentile  SSTables     Write Latency      Read Latency    Partition Size        Cell Count
+                              (micros)          (micros)           (bytes)
+50%             0.00              0.00              0.00           1131752               149
+75%             0.00              0.00              0.00           3379391               770
+95%             0.00              0.00              0.00          17436917             11864
+98%             0.00              0.00              0.00          30130992             24601
+99%             0.00              0.00              0.00          43388628             35425
+Min             0.00              0.00              0.00              1110                 6
+Max             0.00              0.00              0.00         107964792             88148
+
+
+ByHourAndMinutes
+-------------------------
+root@cassandra1:/home/vagrant# nodetool tablestats images.aoi_single_component_image;
+Total number of tables: 37
+----------------
+Keyspace : images
+        Read Count: 0
+        Read Latency: NaN ms
+        Write Count: 1871289
+        Write Latency: 0.039595472960082596 ms
+        Pending Flushes: 0
+                Table: aoi_single_component_image
+                SSTable count: 94
+                SSTables in each level: [1, 10, 83, 0, 0, 0, 0, 0, 0]
+                Space used (live): 14796164940
+                Space used (total): 14796164940
+                Space used by snapshots (total): 0
+                Off heap memory used (total): 2578873
+                SSTable Compression Ratio: 0.7193584825518878
+                Number of partitions (estimate): 17846
+                Memtable cell count: 6203
+                Memtable data size: 28302853
+                Memtable off heap memory used: 0
+                Memtable switch count: 265
+                Local read count: 0
+                Local read latency: NaN ms
+                Local write count: 1871289
+                Local write latency: NaN ms
+                Pending flushes: 0
+                Percent repaired: 0.0
+                Bloom filter false positives: 0
+                Bloom filter false ratio: 0.00000
+                Bloom filter space used: 60976
+                Bloom filter off heap memory used: 60224
+                Index summary off heap memory used: 9137
+                Compression metadata off heap memory used: 2509512
+                Compacted partition minimum bytes: 1110
+                Compacted partition maximum bytes: 30130992
+                Compacted partition mean bytes: 1255716
+                Average live cells per slice (last five minutes): NaN
+                Maximum live cells per slice (last five minutes): 0
+                Average tombstones per slice (last five minutes): NaN
+                Maximum tombstones per slice (last five minutes): 0
+                Dropped Mutations: 0
+
+----------------
+
+
+root@cassandra1:/home/vagrant# nodetool tablehistograms images.aoi_single_component_image;
+images/aoi_single_component_image histograms
+Percentile  SSTables     Write Latency      Read Latency    Partition Size        Cell Count
+                              (micros)          (micros)           (bytes)
+50%             0.00              0.00              0.00            454826                60
+75%             0.00              0.00              0.00           1358102               310
+95%             0.00              0.00              0.00           5839588              3311
+98%             0.00              0.00              0.00           8409007              6866
+99%             0.00              0.00              0.00          10090808              9887
+Min             0.00              0.00              0.00              1110                 6
+Max             0.00              0.00              0.00          30130992             29521
+
+Keyspace : images
+        Read Count: 64339
+        Read Latency: 7.669821492407404 ms
+        Write Count: 0
+        Write Latency: NaN ms
+        Pending Flushes: 0
+                Table: aoi_single_component_image
+                SSTable count: 94
+                SSTables in each level: [1, 10, 83, 0, 0, 0, 0, 0, 0]
+                Space used (live): 14813779868
+                Space used (total): 14813779868
+                Space used by snapshots (total): 0
+                Off heap memory used (total): 2582261
+                SSTable Compression Ratio: 0.7192440797856513
+                Number of partitions (estimate): 17838
+                Memtable cell count: 0
+                Memtable data size: 0
+                Memtable off heap memory used: 0
+                Memtable switch count: 0
+                Local read count: 64339
+                Local read latency: NaN ms
+                Local write count: 0
+                Local write latency: NaN ms
+                Pending flushes: 0
+                Percent repaired: 0.0
+                Bloom filter false positives: 368
+                Bloom filter false ratio: 0.01781
+                Bloom filter space used: 60984
+                Bloom filter off heap memory used: 60232
+                Index summary off heap memory used: 9133
+                Compression metadata off heap memory used: 2512896
+                Compacted partition minimum bytes: 1110
+                Compacted partition maximum bytes: 30130992
+                Compacted partition mean bytes: 1257353
+                Average live cells per slice (last five minutes): NaN
+                Maximum live cells per slice (last five minutes): 0
+                Average tombstones per slice (last five minutes): NaN
+                Maximum tombstones per slice (last five minutes): 0
+                Dropped Mutations: 0
+
+----------------

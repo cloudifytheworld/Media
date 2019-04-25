@@ -1899,5 +1899,5 @@
 "2019-04-23 18:01:09.450 [reactor-http-nio-6] INFO  c.h.i.i.service.CassandraService [CassandraService.java:283] - created_day-20181101:device_type-SOP20-25-155:hour-12 size: 1
 "2019-04-23 18:01:09.452 [reactor-http-nio-6] INFO  c.h.i.i.service.CassandraService [CassandraService.java:283] - created_day-20181101:device_type-SOP20-25-155:hour-12 size: 1
 "2019-04-23 18:01:09.453 [reactor-http-nio-6] INFO  c.h.i.i.service.CassandraService [CassandraService.java:283] - created_day-20181101:device_type-SOP20-25-155:hour-12 size: 2
-"2019-04-23 18:01:09.457 [reactor-http-nio-6] INFO  c.h.i.i.service.CassandraService [CassandraService.java:302] - it takes 75 seconds to async to file for total 221187 size(M) 3553.974595999754 row size(M) 40.052337000041796
+"2019-04-23 18:01:09.457 [reactor-http-nio-6] INFO  c.h.i.i.service.CassandraService [CassandraService.java:302] - it takes 75 seconds to async to file for total 221187 size(M) 3553.974595999754
 it takes 223 seconds to save data to file
