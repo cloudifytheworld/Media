@@ -17,6 +17,7 @@ public class Aoi implements Serializable {
     private String device_type;
     private String label;
     private int hour;
+    private int minus;
     private long created_time;
     private String board_id;
     private String board_loc;
@@ -105,6 +106,14 @@ public class Aoi implements Serializable {
         this.hour = hour;
     }
 
+    public int getMinus() {
+        return minus;
+    }
+
+    public void setMinus(int minus) {
+        this.minus = minus;
+    }
+
     public long getCreated_time() {
         return created_time;
     }
@@ -120,7 +129,8 @@ public class Aoi implements Serializable {
                 "created_day='" + created_day + '\'' +
                 ", device_type='" + device_type + '\'' +
                 ", label='" + label + '\'' +
-                ", hour=" + hour +
+                ", hour=" + hour + '\'' +
+                ", minus=" + minus + '\'' +
                 ", created_time=" + created_time +
                 ", board_id='" + board_id + '\'' +
                 ", board_loc='" + board_loc + '\'' +

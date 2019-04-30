@@ -52,6 +52,46 @@ public class WriteToFile {
         };
     }
 
+    public static void writeToFile(List<Row> rows, String key){
+
+        rows.forEach( r -> {
+            try {
+                Aoi aoi = EntityMappingUtil.mappingAoi(r);
+                byte[] bytes = aoi.toString().getBytes();
+                long size = bytes.length;
+                StatisticManager.total += (double)size/1000000;
+                StatisticManager.putBytes(key, size);
+                String minuKey = key+":minus-"+aoi.getMinus();
+                StatisticManager.putMinus(minuKey, size);
+                //Files.write(filePath, bytes, StandardOpenOption.APPEND);
+            }catch (Exception e){
+                log.error(Throwables.getStackTraceAsString(e));
+            }
+        });
+    }
+
+    public static void writeToFile(List<Row> rows, String key, String hour, int which){
+
+        rows.forEach( r -> {
+            try {
+                Aoi aoi = EntityMappingUtil.mappingAoi(r);
+                byte[] bytes = aoi.toString().getBytes();
+                long size = bytes.length;
+
+                StatisticManager.putDevice(key, size);
+                StatisticManager.putEachHour(key+hour+"-"+which, size);
+                StatisticManager.total += (double)size/1000000;
+                StatisticManager.putBytes(key+hour+"-"+which, size);
+                String minuKey = key+hour+"-"+which+":minus-"+aoi.getMinus();
+                StatisticManager.putEachMinus(minuKey, size);
+                StatisticManager.putMinus(minuKey, size);
+                //Files.write(filePath, bytes, StandardOpenOption.APPEND);
+            }catch (Exception e){
+                log.error(Throwables.getStackTraceAsString(e));
+            }
+        });
+    }
+
     public static void writeToFile(List<Row> rows){
 
         rows.forEach( r -> {

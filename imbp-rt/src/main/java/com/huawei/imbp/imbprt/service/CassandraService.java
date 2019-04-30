@@ -9,16 +9,16 @@ import com.google.common.base.Throwables;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
+import com.google.gson.Gson;
 import com.huawei.imbp.imbprt.Entity.Aoi;
-import com.huawei.imbp.imbprt.util.EntityMappingUtil;
-import com.huawei.imbp.imbprt.util.ObjectConversion;
-import com.huawei.imbp.imbprt.util.OffHeapMemoryAllocation;
-import com.huawei.imbp.imbprt.util.WriteToFile;
+import com.huawei.imbp.imbprt.util.*;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 
 import java.nio.ByteBuffer;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.Semaphore;
 import java.util.stream.Collectors;
 
@@ -279,9 +279,12 @@ public class CassandraService extends DataRepository{
                                 List<Row> rows = rs.all();
                                 int size = rows.size();
                                 if (size > 0) {
-                                    log.info("size: " + size);
-                                    //WriteToFile.writeToFile(rows);
-                                    fileAction.tell(rows, ActorRef.noSender());
+                                    String key = "created_day-"+v[0]+":device_type-"+v[1]+":hour-"+i;
+                                    log.info(key+" size: "+size);
+                                    StatisticManager.put(key, size);
+                                    //WriteToFile.writeToFile(rows, key);
+                                    WriteToFile.writeToFile(rows, "created_day-"+v[0]+":device_type-"+v[1], ":hour", i);
+                                    //fileAction.tell(rows, ActorRef.noSender());
                                     counter += size;
                                 }
                                 semaphore.release();
@@ -290,14 +293,20 @@ public class CassandraService extends DataRepository{
                             }
                         }
                     }
-                    }catch(Exception e){
-                        log.error(Throwables.getStackTraceAsString(e));
-                        semaphore.release();
-                    }
+                }catch(Exception e){
+                    log.error(Throwables.getStackTraceAsString(e));
+                    semaphore.release();
                 }
+            }
 
             long finalEnd = System.currentTimeMillis() - start;
-            log.info("it takes "+finalEnd/1000+" seconds to save data to file for total "+counter);
+            log.info("it takes "+finalEnd/1000+" seconds to save data to file for total "+counter+" size(M) "+String.format("%.2f", StatisticManager.total));
+            Gson gson = new Gson();
+            String map = gson.toJson(StatisticManager.statistics);
+            String deviceStats = gson.toJson(StatisticManager.deviceSize);
+            String eachHourStats = gson.toJson(StatisticManager.eachHourSize);
+            String eachMinusStats = gson.toJson(StatisticManager.eachMinusSize);
+            log.info(map);
         }catch (Exception ex){
             log.error(Throwables.getStackTraceAsString(ex));
         }

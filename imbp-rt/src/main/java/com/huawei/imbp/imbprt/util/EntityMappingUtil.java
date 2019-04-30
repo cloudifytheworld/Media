@@ -39,10 +39,14 @@ public class EntityMappingUtil {
         Integer hour = row.getInt("hour");
         aoi.setHour(hour);
 
+        Integer minus = row.getInt("mins");
+        aoi.setMinus(minus);
+
         Long created_time = row.getTimestamp("created_time").getTime();
         if(created_time != null) {
             aoi.setCreated_time(created_time);
         }
+
 
         String board_id = row.getString("board_id");
         if(board_id != null) {

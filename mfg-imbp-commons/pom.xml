@@ -1,0 +1,264 @@
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>huawei.mfg</groupId>
+    <artifactId>mfg-imbp-commons-parent</artifactId>
+    <version>0.1</version>
+    <packaging>pom</packaging>
+
+    <name>Huawei MFG Big Data Platform Commons Parent</name>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <sqoop.version>1.99.5</sqoop.version>
+        <redis.version>2.9.0</redis.version>
+        <mariadb.version>2.2.6</mariadb.version>
+        <ojdbc.version>12.1.0.2</ojdbc.version>
+        <hikaricp.version>3.2.0</hikaricp.version>
+
+        <bval.version>2.0.0</bval.version>
+        <javax.validation>2.0.0.Final</javax.validation>
+
+        <jackson.version>2.9.5</jackson.version>
+        <jersey.version>2.27</jersey.version>
+        <netty.version>3.9.4.Final</netty.version>
+        <guava.version>25.0-jre</guava.version>
+        <commons-io.version>2.6</commons-io.version>
+        <commons-lang3-version>3.4</commons-lang3-version>
+        <commons-collections-version>4.2</commons-collections-version>
+        <avro.version>1.8.2</avro.version>
+        <kryo.version>4.0.0</kryo.version>
+
+        <mfg.commons.version>0.1</mfg.commons.version>
+
+        <log4j-log4j.version>1.7.25</log4j-log4j.version>
+        <slf4j.version>1.7.25</slf4j.version>
+        <log4j.version>1.2.17</log4j.version>
+        <testng.version>6.14.3</testng.version>
+        <!--<nexus.host>localhost</nexus.host>-->
+        <!--<nexus.port>8081</nexus.port>-->
+        <nexus.host>10.208.136.40</nexus.host>
+        <nexus.port>8082</nexus.port>
+    </properties>
+
+    <modules>
+        <module>mfg-imbp-commons</module>
+        <module>mfg-imbp-metadata</module>
+        <!--<module>mfg-imbp-metadata-gen</module>-->
+        <module>mfg-imbp-rest-client</module>
+    </modules>
+
+    <!--<repositories>-->
+        <!--<repository>-->
+            <!--<id>ojdbc7</id>-->
+            <!--<name>ojdbc7</name>-->
+            <!--<url>http://nexus.saas.hand-china.com/content/repositories/rdc/</url>-->
+        <!--</repository>-->
+    <!--</repositories>-->
+
+    <distributionManagement>
+        <repository>
+            <id>nexus</id>
+            <name>maven-releases</name>
+            <url>http://${nexus.host}:${nexus.port}/repository/maven-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>nexus</id>
+            <name>maven-snapshots</name>
+            <url>http://${nexus.host}:${nexus.port}/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>huawei.mfg</groupId>
+                <artifactId>mfg-imbp-commons</artifactId>
+                <version>0.1</version>
+            </dependency>
+            <dependency>
+                <groupId>huawei.mfg</groupId>
+                <artifactId>mfg-imbp-metadata</artifactId>
+                <version>${mfg.commons.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>huawei.mfg</groupId>
+                <artifactId>mfg-imbp-rest-client</artifactId>
+                <version>${mfg.commons.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.zaxxer</groupId>
+                <artifactId>HikariCP</artifactId>
+                <version>${hikaricp.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mariadb.jdbc</groupId>
+                <artifactId>mariadb-java-client</artifactId>
+                <version>${mariadb.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.oracle</groupId>
+                <artifactId>ojdbc7</artifactId>
+                <version>${ojdbc.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.sqoop</groupId>
+                <artifactId>sqoop-common</artifactId>
+                <version>${sqoop.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.sqoop</groupId>
+                <artifactId>connector-sdk</artifactId>
+                <version>${sqoop.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.avro</groupId>
+                <artifactId>avro</artifactId>
+                <version>${avro.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.avro</groupId>
+                <artifactId>avro-compiler</artifactId>
+                <version>${avro.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.esotericsoftware</groupId>
+                <artifactId>kryo</artifactId>
+                <version>${kryo.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish.jersey.core</groupId>
+                <artifactId>jersey-client</artifactId>
+                <version>${jersey.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish.jersey.inject</groupId>
+                <artifactId>jersey-hk2</artifactId>
+                <version>${jersey.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish.jersey.media</groupId>
+                <artifactId>jersey-media-json-jackson</artifactId>
+                <version>${jersey.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>redis.clients</groupId>
+                <artifactId>jedis</artifactId>
+                <version>${redis.version}</version>
+                <scope>compile</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>io.prometheus</groupId>
+                <artifactId>simpleclient_spring_boot</artifactId>
+                <version>${prometheus.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.bval</groupId>
+                <artifactId>bval-extras</artifactId>
+                <version>${bval.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.bval</groupId>
+                <artifactId>bval-jsr</artifactId>
+                <version>${bval.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.validation</groupId>
+                <artifactId>validation-api</artifactId>
+                <version>${javax.validation}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty</artifactId>
+                <version>${netty.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons-io.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-collections4</artifactId>
+                <version>${commons-collections-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>${log4j.version}</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+                <version>${log4j-log4j.version}</version>
+                <scope>compile</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.testng</groupId>
+                <artifactId>testng</artifactId>
+                <version>${testng.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
