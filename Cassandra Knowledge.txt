@@ -1,0 +1,11 @@
+How is Flush triggered? 
+• memtable reaches threshold 
+• commitlog reaches threshold 
+• memtable_flush_period_in_ms 
+• manual flush 
+• repair triggering flush 
+• snapshot/backup 
+• nodetool drain 
+• drop table
+• when you change compaction strategy 
+• When the node is requested to transfer ranges (streaming-in)

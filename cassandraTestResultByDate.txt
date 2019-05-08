@@ -1,0 +1,320 @@
+"2019-05-06 17:51:48.698 [ImbpRtActionSystem-akka.actor.default-dispatcher-6] INFO  c.h.imbp.imbprt.Action.ReadAction [ReadAction.java:36] - 20181103 takes 161
+"2019-05-06 17:51:48.698 [ImbpRtActionSystem-akka.actor.default-dispatcher-6] INFO  c.h.imbp.imbprt.Action.ReadAction [ReadAction.java:37] - {20181101=141, 20181102=146, 20181103=161, 20181105=160}
+
+"2019-05-07 10:31:05.247 [ImbpRtActionSystem-akka.actor.default-dispatcher-8] INFO  c.h.imbp.imbprt.Action.ReadAction [ReadAction.java:36] - 20181103 takes 159
+"2019-05-07 10:31:05.247 [ImbpRtActionSystem-akka.actor.default-dispatcher-8] INFO  c.h.imbp.imbprt.Action.ReadAction [ReadAction.java:37] - {20181101=139, 20181102=148, 20181103=159, 20181105=159}
+
+
+"2019-05-06 17:06:13.716 [ImbpRtActionSystem-akka.actor.default-dispatcher-6] INFO  c.h.imbp.imbprt.Action.ReadAction [ReadAction.java:36] - 20181103 takes 251
+"2019-05-06 17:06:13.716 [ImbpRtActionSystem-akka.actor.default-dispatcher-6] INFO  c.h.imbp.imbprt.Action.ReadAction [ReadAction.java:37] - {20181101=216, 20181102=228, 20181103=251, 20181105=245, 20181106=245, 20181107=141, 20181108=126, 20181109=141, 20181110=119, 20181111=0}
+
+"2019-05-06 17:58:06.948 [ImbpRtActionSystem-akka.actor.default-dispatcher-10] INFO  c.h.imbp.imbprt.Action.ReadAction [ReadAction.java:36] - 20181103 takes 244
+"2019-05-06 17:58:06.948 [ImbpRtActionSystem-akka.actor.default-dispatcher-10] INFO  c.h.imbp.imbprt.Action.ReadAction [ReadAction.java:37] - {20181101=220, 20181102=224, 20181103=244, 20181105=238, 20181106=238, 20181107=135, 20181108=119, 20181109=135, 20181110=109}
+
+
+"2019-05-06 17:15:57.321 [ImbpRtActionSystem-akka.actor.default-dispatcher-13] INFO  c.h.imbp.imbprt.Action.ReadAction [ReadAction.java:36] - 20181103 takes 301
+"2019-05-06 17:15:57.321 [ImbpRtActionSystem-akka.actor.default-dispatcher-13] INFO  c.h.imbp.imbprt.Action.ReadAction [ReadAction.java:37] - {20181101=271, 20181102=286, 20181103=301, 20181105=298, 20181106=295, 20181107=192, 20181108=162, 20181109=189, 20181110=163, 20181112=148, 20181113=153, 20181114=226, 20181115=194, 20181116=185, 20181117=210, 20181118=0}
+
+"2019-05-06 18:22:22.091 [ImbpRtActionSystem-akka.actor.default-dispatcher-3] INFO  c.h.imbp.imbprt.Action.ReadAction [ReadAction.java:36] - 20181103 takes 321
+"2019-05-06 18:22:22.091 [ImbpRtActionSystem-akka.actor.default-dispatcher-3] INFO  c.h.imbp.imbprt.Action.ReadAction [ReadAction.java:37] - {20181101=290, 20181102=304, 20181103=321, 20181105=314, 20181106=314, 20181107=210, 20181108=193, 20181109=210, 20181110=169, 20181112=160, 20181113=160, 20181114=249, 20181115=207, 20181116=197, 20181117=222}
+"
+"2019-05-07 10:42:34.576 [ImbpRtActionSystem-akka.actor.default-dispatcher-13] INFO  c.h.imbp.imbprt.Action.ReadAction [ReadAction.java:36] - 20181103 takes 316
+"2019-05-07 10:42:34.576 [ImbpRtActionSystem-akka.actor.default-dispatcher-13] INFO  c.h.imbp.imbprt.Action.ReadAction [ReadAction.java:37] - {20181101=285, 20181102=293, 20181103=316, 20181105=314, 20181106=314, 20181107=194, 20181108=170, 20181109=203, 20181110=174, 20181112=155, 20181113=166, 20181114=247, 20181115=207, 20181116=200, 20181117=230}
+"
+
+"2019-05-06 17:36:54.057 [ImbpRtActionSystem-akka.actor.default-dispatcher-37] INFO  c.h.imbp.imbprt.Action.ReadAction [ReadAction.java:36] - 20181103 takes 558 servers died
+"2019-05-06 17:36:54.057 [ImbpRtActionSystem-akka.actor.default-dispatcher-37] INFO  c.h.imbp.imbprt.Action.ReadAction [ReadAction.java:37] - {20181101=500, 20181102=516, 20181103=558, 20181105=557, 20181106=545, 20181107=321, 20181108=289, 20181109=342, 20181110=285, 20181112=224, 20181113=237, 20181114=420, 20181115=324, 20181116=316, 20181117=379, 20181119=276, 20181120=418, 20181121=292, 20181122=401}
+
+FIRST TIME 3 cassandra servers didn't die
+"2019-05-08 10:50:58.257 [ImbpRtActionSystem-akka.actor.default-dispatcher-5] INFO  c.h.imbp.imbprt.Action.ReadAction [ReadAction.java:37] - {20181101=1097, 20181102=1108, 20181103=1131, 20181105=1100, 20181106=1130, 20181107=951, 20181108=851, 20181109=945, 20181110=808, 20181112=843, 20181113=891, 20181114=1010, 20181115=939, 20181116=951, 20181117=959, 20181119=880, 20181120=1004, 20181121=881, 20181122=974, 20181123=1000, 20181124=1008, 20181125=744}
+"2019-05-08 10:50:58.258 [ImbpRtActionSystem-akka.actor.default-dispatcher-5] INFO  c.h.imbp.imbprt.Action.ReadAction [ReadAction.java:38] - 20181103 takes 1131 # of cells 3048550 size(M) 33046.11
+
+With 12 threads
+"2019-05-08 11:53:02.405 [ImbpRtActionSystem-akka.actor.default-dispatcher-18] INFO  c.h.imbp.imbprt.Action.ReadAction [ReadAction.java:37] - {20181103=79}
+"2019-05-08 11:53:02.405 [ImbpRtActionSystem-akka.actor.default-dispatcher-18] INFO  c.h.imbp.imbprt.Action.ReadAction [ReadAction.java:38] - 20181103 takes 79 # of cells 368123 size(M) 0.00
+
+------------------------------
+Change sstable_size_in_mb from 160 to 1600
+"2019-05-07 10:24:43.379 [ImbpRtActionSystem-akka.actor.default-dispatcher-2] INFO  c.h.imbp.imbprt.Action.ReadAction [ReadAction.java:36] - 20181103 takes 72
+"2019-05-07 10:24:43.380 [ImbpRtActionSystem-akka.actor.default-dispatcher-2] INFO  c.h.imbp.imbprt.Action.ReadAction [ReadAction.java:37] - {20181103=72}
+Keyspace : images
+        Read Count: 4052
+        Read Latency: 15.284778874629811 ms
+        Write Count: 3048554
+        Write Latency: 0.04971904319228067 ms
+        Pending Flushes: 0
+                Table: aoi_single_component_image
+                SSTable count: 15
+                SSTables in each level: [1, 10, 4, 0, 0, 0, 0, 0, 0]
+                Space used (live): 23963917449
+                Space used (total): 23963917449
+                Space used by snapshots (total): 0
+                Off heap memory used (total): 4119336
+                SSTable Compression Ratio: 0.7187156785426758
+                Number of partitions (estimate): 28763
+                Memtable cell count: 5449
+                Memtable data size: 24886831
+                Memtable off heap memory used: 0
+                Memtable switch count: 335
+                Local read count: 4052
+                Local read latency: 15.429 ms
+                Local write count: 3048554
+                Local write latency: NaN ms
+                Pending flushes: 0
+                Percent repaired: 0.0
+                Bloom filter false positives: 2
+                Bloom filter false ratio: 0.00400
+                Bloom filter space used: 41560
+                Bloom filter off heap memory used: 41440
+                Index summary off heap memory used: 11320
+                Compression metadata off heap memory used: 4066576
+                Compacted partition minimum bytes: 1110
+                Compacted partition maximum bytes: 30130992
+                Compacted partition mean bytes: 1267029
+                Average live cells per slice (last five minutes): 46.74381625441696
+                Maximum live cells per slice (last five minutes): 3311
+                Average tombstones per slice (last five minutes): 1.0
+                Maximum tombstones per slice (last five minutes): 1
+                Dropped Mutations: 0
+
+----------------
+"2019-05-07 10:31:05.247 [ImbpRtActionSystem-akka.actor.default-dispatcher-8] INFO  c.h.imbp.imbprt.Action.ReadAction [ReadAction.java:36] - 20181103 takes 159
+"2019-05-07 10:31:05.247 [ImbpRtActionSystem-akka.actor.default-dispatcher-8] INFO  c.h.imbp.imbprt.Action.ReadAction [ReadAction.java:37] - {20181101=139, 20181102=148, 20181103=159, 20181105=159}
+Keyspace : images
+        Read Count: 16458
+        Read Latency: 25.92094744197351 ms
+        Write Count: 3048554
+        Write Latency: 0.04971904319228067 ms
+        Pending Flushes: 0
+                Table: aoi_single_component_image
+                SSTable count: 15
+                SSTables in each level: [1, 10, 4, 0, 0, 0, 0, 0, 0]
+                Space used (live): 23963917449
+                Space used (total): 23963917449
+                Space used by snapshots (total): 0
+                Off heap memory used (total): 4119336
+                SSTable Compression Ratio: 0.7187156785426758
+                Number of partitions (estimate): 28763
+                Memtable cell count: 5449
+                Memtable data size: 24886831
+                Memtable off heap memory used: 0
+                Memtable switch count: 335
+                Local read count: 16458
+                Local read latency: 28.670 ms
+                Local write count: 3048554
+                Local write latency: NaN ms
+                Pending flushes: 0
+                Percent repaired: 0.0
+                Bloom filter false positives: 4
+                Bloom filter false ratio: 0.00055
+                Bloom filter space used: 41560
+                Bloom filter off heap memory used: 41440
+                Index summary off heap memory used: 11320
+                Compression metadata off heap memory used: 4066576
+                Compacted partition minimum bytes: 1110
+                Compacted partition maximum bytes: 30130992
+                Compacted partition mean bytes: 1267029
+                Average live cells per slice (last five minutes): 47.46378504672897
+                Maximum live cells per slice (last five minutes): 3973
+                Average tombstones per slice (last five minutes): 1.0
+                Maximum tombstones per slice (last five minutes): 1
+                Dropped Mutations: 0
+
+----------------
+"2019-05-07 10:42:34.576 [ImbpRtActionSystem-akka.actor.default-dispatcher-13] INFO  c.h.imbp.imbprt.Action.ReadAction [ReadAction.java:36] - 20181103 takes 316
+"2019-05-07 10:42:34.576 [ImbpRtActionSystem-akka.actor.default-dispatcher-13] INFO  c.h.imbp.imbprt.Action.ReadAction [ReadAction.java:37] - {20181101=285, 20181102=293, 20181103=316, 20181105=314, 20181106=314, 20181107=194, 20181108=170, 20181109=203, 20181110=174, 20181112=155, 20181113=166, 20181114=247, 20181115=207, 20181116=200, 20181117=230}
+"
+
+Keyspace : images
+        Read Count: 57812
+        Read Latency: 33.065605687400534 ms
+        Write Count: 3048554
+        Write Latency: 0.04971904319228067 ms
+        Pending Flushes: 0
+                Table: aoi_single_component_image
+                SSTable count: 15
+                SSTables in each level: [1, 10, 4, 0, 0, 0, 0, 0, 0]
+                Space used (live): 23963917449
+                Space used (total): 23963917449
+                Space used by snapshots (total): 0
+                Off heap memory used (total): 4119336
+                SSTable Compression Ratio: 0.7187156785426758
+                Number of partitions (estimate): 28763
+                Memtable cell count: 5449
+                Memtable data size: 24886831
+                Memtable off heap memory used: 0
+                Memtable switch count: 335
+                Local read count: 57812
+                Local read latency: 25.093 ms
+                Local write count: 3048554
+                Local write latency: NaN ms
+                Pending flushes: 0
+                Percent repaired: 0.0
+                Bloom filter false positives: 14
+                Bloom filter false ratio: 0.00119
+                Bloom filter space used: 41560
+                Bloom filter off heap memory used: 41440
+                Index summary off heap memory used: 11320
+                Compression metadata off heap memory used: 4066576
+                Compacted partition minimum bytes: 1110
+                Compacted partition maximum bytes: 30130992
+                Compacted partition mean bytes: 1267029
+                Average live cells per slice (last five minutes): 26.78490566037736
+                Maximum live cells per slice (last five minutes): 1109
+                Average tombstones per slice (last five minutes): 1.0
+                Maximum tombstones per slice (last five minutes): 1
+                Dropped Mutations: 0
+
+----------------
+
+From 20181101-20181119 First time cassandra servers did not die because of memory pressure
+"2019-05-08 10:19:17.744 [ImbpRtActionSystem-akka.actor.default-dispatcher-8] INFO  c.h.imbp.imbprt.Action.ReadAction [ReadAction.java:38] - 20181105 takes 845 # of cells 2724997 size(M) 26280.50
+
+root@cassandra2:/var/log/cassandra# nodetool tablestats images.aoi_single_component_image;
+Total number of tables: 37
+----------------
+Keyspace : images
+        Read Count: 504332
+        Read Latency: 5.3304928261542 ms
+        Write Count: 3048550
+        Write Latency: 0.049873610076921815 ms
+        Pending Flushes: 0
+                Table: aoi_single_component_image
+                SSTable count: 151
+                SSTables in each level: [0, 10, 103/100, 38, 0, 0, 0, 0, 0]
+                Space used (live): 23969868511
+                Space used (total): 23969868511
+                Space used by snapshots (total): 0
+                Off heap memory used (total): 35200744
+                SSTable Compression Ratio: 0.7188610148888241
+                Number of partitions (estimate): 95649
+                Memtable cell count: 6952
+                Memtable data size: 31725904
+                Memtable off heap memory used: 30926578
+                Memtable switch count: 313
+                Local read count: 504332
+                Local read latency: 4.206 ms
+                Local write count: 3048550
+                Local write latency: NaN ms
+                Pending flushes: 0
+                Percent repaired: 0.0
+                Bloom filter false positives: 348
+                Bloom filter false ratio: 0.00809
+                Bloom filter space used: 167032
+                Bloom filter off heap memory used: 165824
+                Index summary off heap memory used: 40542
+                Compression metadata off heap memory used: 4067800
+                Compacted partition minimum bytes: 1110
+                Compacted partition maximum bytes: 7007506
+                Compacted partition mean bytes: 380375
+                Average live cells per slice (last five minutes): 3.304772234273319
+                Maximum live cells per slice (last five minutes): 215
+                Average tombstones per slice (last five minutes): 1.0
+                Maximum tombstones per slice (last five minutes): 1
+                Dropped Mutations: 0
+
+----------------
+"2019-05-08 10:50:58.257 [ImbpRtActionSystem-akka.actor.default-dispatcher-5] INFO  c.h.imbp.imbprt.Action.ReadAction [ReadAction.java:37] - {20181101=1097, 20181102=1108, 20181103=1131, 20181105=1100, 20181106=1130, 20181107=951, 20181108=851, 20181109=945, 20181110=808, 20181112=843, 20181113=891, 20181114=1010, 20181115=939, 20181116=951, 20181117=959, 20181119=880, 20181120=1004, 20181121=881, 20181122=974, 20181123=1000, 20181124=1008, 20181125=744}
+"2019-05-08 10:50:58.258 [ImbpRtActionSystem-akka.actor.default-dispatcher-5] INFO  c.h.imbp.imbprt.Action.ReadAction [ReadAction.java:38] - 20181103 takes 1131 # of cells 3048550 size(M) 33046.11
+
+With 12 threads in single server
+"2019-05-08 13:38:59.773 [ImbpRtActionSystem-akka.actor.default-dispatcher-2] INFO  c.h.imbp.imbprt.Action.ReadAction [ReadAction.java:40] - 20181125 takes 720 # of cells 3046961 size(M) 0.00
+
+----------------
+Keyspace : images
+        Read Count: 593368
+        Read Latency: 7.632735568820698 ms
+        Write Count: 0
+        Write Latency: NaN ms
+        Pending Flushes: 0
+                Table: aoi_single_component_image
+                SSTable count: 152
+                SSTables in each level: [1, 10, 103/100, 38, 0, 0, 0, 0, 0]
+                Space used (live): 23989727494
+                Space used (total): 23989727494
+                Space used by snapshots (total): 0
+                Off heap memory used (total): 4278056
+                SSTable Compression Ratio: 0.7187856671867675
+                Number of partitions (estimate): 95641
+                Memtable cell count: 0
+                Memtable data size: 0
+                Memtable off heap memory used: 0
+                Memtable switch count: 0
+                Local read count: 593368
+                Local read latency: 5.998 ms
+                Local write count: 0
+                Local write latency: NaN ms
+                Pending flushes: 0
+                Percent repaired: 0.0
+                Bloom filter false positives: 4277
+                Bloom filter false ratio: 0.09719
+                Bloom filter space used: 167080
+                Bloom filter off heap memory used: 165864
+                Index summary off heap memory used: 40592
+                Compression metadata off heap memory used: 4071600
+                Compacted partition minimum bytes: 1110
+                Compacted partition maximum bytes: 7007506
+                Compacted partition mean bytes: 380631
+                Average live cells per slice (last five minutes): 3.3875978183542803
+                Maximum live cells per slice (last five minutes): 372
+                Average tombstones per slice (last five minutes): 1.0
+                Maximum tombstones per slice (last five minutes): 1
+                Dropped Mutations: 0
+
+----------------
+root@cassandra2:/var/log/cassandra# nodetool getstreamthroughput
+Current stream throughput: 200 Mb/s
+
+-----------------------------
+root@cassandra2:/var/log/cassandra# nodetool tpstats
+Pool Name                         Active   Pending      Completed   Blocked  All time blocked
+ReadStage                              0         0         558698         0                 0
+MiscStage                              0         0              0         0                 0
+CompactionExecutor                     0         0           1020         0                 0
+MutationStage                          0         0             26         0                 0
+MemtableReclaimMemory                  0         0             10         0                 0
+PendingRangeCalculator                 0         0              3         0                 0
+GossipStage                            0         0           6914         0                 0
+SecondaryIndexManagement               0         0              0         0                 0
+HintsDispatcher                        0         0              0         0                 0
+RequestResponseStage                   0         0          97980         0                 0
+Native-Transport-Requests              0         0        1026823         0              5233
+ReadRepairStage                        0         0          51891         0                 0
+CounterMutationStage                   0         0              0         0                 0
+MigrationStage                         0         0              0         0                 0
+MemtablePostFlush                      0         0             11         0                 0
+PerDiskMemtableFlushWriter_0           0         0             10         0                 0
+ValidationExecutor                     0         0              0         0                 0
+Sampler                                0         0              0         0                 0
+MemtableFlushWriter                    0         0             10         0                 0
+InternalResponseStage                  0         0              0         0                 0
+ViewMutationStage                      0         0              0         0                 0
+AntiEntropyStage                       0         0              0         0                 0
+CacheCleanupExecutor                   0         0              0         0                 0
+
+Message type           Dropped
+READ                         0
+RANGE_SLICE                  0
+_TRACE                       0
+HINT                         0
+MUTATION                     0
+COUNTER_MUTATION             0
+BATCH_STORE                  0
+BATCH_REMOVE                 0
+REQUEST_RESPONSE             0
+PAGED_RANGE                  0
+READ_REPAIR                  0
+root@cassandra2:/var/log/cassandra#
+
+------------
+root@cassandra2:/var/log/cassandra# nodetool netstats
+Mode: NORMAL
+Not sending any streams.
+Read Repair Statistics:
+Attempted: 45644
+Mismatch (Blocking): 0
+Mismatch (Background): 0
+Pool Name                    Active   Pending      Completed   Dropped
+Large messages                  n/a         0           3976         0
+Small messages                  n/a         0         189556         0
+Gossip messages                 n/a         0           7278         0

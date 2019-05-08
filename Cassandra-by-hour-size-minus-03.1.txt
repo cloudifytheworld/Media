@@ -1,0 +1,2238 @@
+One hour One minutes partition
+"2019-05-08 09:55:11.227 [ImbpRtActionSystem-akka.actor.default-dispatcher-3] INFO  c.h.i.i.service.CassandraRtService [CassandraRtService.java:64] - created_day-20181103:device_type-SPL0707C:hour-10 size: 4
+"2019-05-08 09:55:11.382 [ImbpRtActionSystem-akka.actor.default-dispatcher-3] INFO  c.h.imbp.imbprt.Action.ReadAction [ReadAction.java:38] - 20181103 takes 241 # of cells 368123 size(M) 4361.02
+
+{
+  "created_day-20181103:device_type-DO-214AA-DI:hour-10": {
+    "size": 654.0
+  },
+  "created_day-20181103:device_type-DO-214AA-DI:hour-11": {
+    "size": 512.0
+  },
+  "created_day-20181103:device_type-DO-214AA-DI:hour-12": {
+    "size": 84.0
+  },
+  "created_day-20181103:device_type-DO-214AA-DI:hour-2": {
+    "size": 128.0
+  },
+  "created_day-20181103:device_type-DO-214AA-DI:hour-3": {
+    "size": 258.0
+  },
+  "created_day-20181103:device_type-DO-214AA-DI:hour-4": {
+    "size": 88.0
+  },
+  "created_day-20181103:device_type-DO-214AA-DI:hour-5": {
+    "size": 168.0
+  },
+  "created_day-20181103:device_type-DO-214AA-DI:hour-8": {
+    "size": 114.0
+  },
+  "created_day-20181103:device_type-DO-214AA-DI:hour-9": {
+    "size": 188.0
+  },
+  "created_day-20181103:device_type-DO-214AB-DI:hour-10": {
+    "size": 66.0
+  },
+  "created_day-20181103:device_type-DO-214AB-DI:hour-11": {
+    "size": 66.0
+  },
+  "created_day-20181103:device_type-DO-214AB-DI:hour-12": {
+    "size": 28.0
+  },
+  "created_day-20181103:device_type-DO-214AB-DI:hour-2": {
+    "size": 36.0
+  },
+  "created_day-20181103:device_type-DO-214AB-DI:hour-3": {
+    "size": 12.0
+  },
+  "created_day-20181103:device_type-DO-214AB-DI:hour-4": {
+    "size": 10.0
+  },
+  "created_day-20181103:device_type-DO-214AB-DI:hour-5": {
+    "size": 6.0
+  },
+  "created_day-20181103:device_type-DO-214AB-DI:hour-8": {
+    "size": 12.0
+  },
+  "created_day-20181103:device_type-DO-214AB-DI:hour-9": {
+    "size": 4.0
+  },
+  "created_day-20181103:device_type-HSC0402:hour-10": {
+    "size": 197.0
+  },
+  "created_day-20181103:device_type-HSC0402:hour-11": {
+    "size": 120.0
+  },
+  "created_day-20181103:device_type-HSC0402:hour-12": {
+    "size": 48.0
+  },
+  "created_day-20181103:device_type-HSC0402:hour-2": {
+    "size": 1748.0
+  },
+  "created_day-20181103:device_type-HSC0402:hour-3": {
+    "size": 414.0
+  },
+  "created_day-20181103:device_type-HSC0402:hour-4": {
+    "size": 70.0
+  },
+  "created_day-20181103:device_type-HSC0402:hour-5": {
+    "size": 294.0
+  },
+  "created_day-20181103:device_type-HSC0402:hour-7": {
+    "size": 21.0
+  },
+  "created_day-20181103:device_type-HSC0402:hour-8": {
+    "size": 206.0
+  },
+  "created_day-20181103:device_type-HSC0402:hour-9": {
+    "size": 1670.0
+  },
+  "created_day-20181103:device_type-HSC0603:hour-10": {
+    "size": 36.0
+  },
+  "created_day-20181103:device_type-HSC0603:hour-2": {
+    "size": 271.0
+  },
+  "created_day-20181103:device_type-HSC0603:hour-3": {
+    "size": 130.0
+  },
+  "created_day-20181103:device_type-HSC0603:hour-4": {
+    "size": 8.0
+  },
+  "created_day-20181103:device_type-HSC0603:hour-5": {
+    "size": 58.0
+  },
+  "created_day-20181103:device_type-HSC0603:hour-7": {
+    "size": 9.0
+  },
+  "created_day-20181103:device_type-HSC0603:hour-8": {
+    "size": 72.0
+  },
+  "created_day-20181103:device_type-HSC0603:hour-9": {
+    "size": 454.0
+  },
+  "created_day-20181103:device_type-HSC0805:hour-10": {
+    "size": 59.0
+  },
+  "created_day-20181103:device_type-HSC0805:hour-2": {
+    "size": 296.0
+  },
+  "created_day-20181103:device_type-HSC0805:hour-3": {
+    "size": 444.0
+  },
+  "created_day-20181103:device_type-HSC0805:hour-4": {
+    "size": 28.0
+  },
+  "created_day-20181103:device_type-HSC0805:hour-5": {
+    "size": 347.0
+  },
+  "created_day-20181103:device_type-HSC0805:hour-7": {
+    "size": 73.0
+  },
+  "created_day-20181103:device_type-HSC0805:hour-8": {
+    "size": 164.0
+  },
+  "created_day-20181103:device_type-HSC0805:hour-9": {
+    "size": 945.0
+  },
+  "created_day-20181103:device_type-HSOD123A:hour-10": {
+    "size": 756.0
+  },
+  "created_day-20181103:device_type-HSOD123A:hour-11": {
+    "size": 777.0
+  },
+  "created_day-20181103:device_type-HSOD123A:hour-12": {
+    "size": 316.0
+  },
+  "created_day-20181103:device_type-HSOD123A:hour-2": {
+    "size": 297.0
+  },
+  "created_day-20181103:device_type-HSOD123A:hour-3": {
+    "size": 188.0
+  },
+  "created_day-20181103:device_type-HSOD123A:hour-4": {
+    "size": 171.0
+  },
+  "created_day-20181103:device_type-HSOD123A:hour-5": {
+    "size": 143.0
+  },
+  "created_day-20181103:device_type-HSOD123A:hour-7": {
+    "size": 8.0
+  },
+  "created_day-20181103:device_type-HSOD123A:hour-8": {
+    "size": 151.0
+  },
+  "created_day-20181103:device_type-HSOD123A:hour-9": {
+    "size": 219.0
+  },
+  "created_day-20181103:device_type-HSOT23:hour-10": {
+    "size": 34.0
+  },
+  "created_day-20181103:device_type-HSOT23:hour-11": {
+    "size": 36.0
+  },
+  "created_day-20181103:device_type-HSOT23:hour-12": {
+    "size": 13.0
+  },
+  "created_day-20181103:device_type-HSOT23:hour-2": {
+    "size": 10.0
+  },
+  "created_day-20181103:device_type-HSOT23:hour-3": {
+    "size": 3.0
+  },
+  "created_day-20181103:device_type-HSOT23:hour-4": {
+    "size": 6.0
+  },
+  "created_day-20181103:device_type-HSOT23:hour-5": {
+    "size": 9.0
+  },
+  "created_day-20181103:device_type-HSOT23:hour-7": {
+    "size": 1.0
+  },
+  "created_day-20181103:device_type-HSOT23:hour-8": {
+    "size": 10.0
+  },
+  "created_day-20181103:device_type-HSOT23:hour-9": {
+    "size": 6.0
+  },
+  "created_day-20181103:device_type-HSOT353:hour-10": {
+    "size": 3.0
+  },
+  "created_day-20181103:device_type-HSOT353:hour-2": {
+    "size": 4.0
+  },
+  "created_day-20181103:device_type-HSOT353:hour-3": {
+    "size": 2.0
+  },
+  "created_day-20181103:device_type-HSOT353:hour-4": {
+    "size": 3.0
+  },
+  "created_day-20181103:device_type-HSOT353:hour-9": {
+    "size": 6.0
+  },
+  "created_day-20181103:device_type-HSR0402:hour-10": {
+    "size": 488.0
+  },
+  "created_day-20181103:device_type-HSR0402:hour-2": {
+    "size": 2114.0
+  },
+  "created_day-20181103:device_type-HSR0402:hour-3": {
+    "size": 900.0
+  },
+  "created_day-20181103:device_type-HSR0402:hour-4": {
+    "size": 154.0
+  },
+  "created_day-20181103:device_type-HSR0402:hour-5": {
+    "size": 630.0
+  },
+  "created_day-20181103:device_type-HSR0402:hour-7": {
+    "size": 267.0
+  },
+  "created_day-20181103:device_type-HSR0402:hour-8": {
+    "size": 401.0
+  },
+  "created_day-20181103:device_type-HSR0402:hour-9": {
+    "size": 1594.0
+  },
+  "created_day-20181103:device_type-HSX4-0302:hour-10": {
+    "size": 2.0
+  },
+  "created_day-20181103:device_type-HSX4-0302:hour-2": {
+    "size": 1.0
+  },
+  "created_day-20181103:device_type-HSX4-0302:hour-9": {
+    "size": 2.0
+  },
+  "created_day-20181103:device_type-HSX4-0503:hour-10": {
+    "size": 76.0
+  },
+  "created_day-20181103:device_type-HSX4-0503:hour-11": {
+    "size": 66.0
+  },
+  "created_day-20181103:device_type-HSX4-0503:hour-12": {
+    "size": 28.0
+  },
+  "created_day-20181103:device_type-HSX4-0503:hour-2": {
+    "size": 59.0
+  },
+  "created_day-20181103:device_type-HSX4-0503:hour-3": {
+    "size": 26.0
+  },
+  "created_day-20181103:device_type-HSX4-0503:hour-4": {
+    "size": 16.0
+  },
+  "created_day-20181103:device_type-HSX4-0503:hour-5": {
+    "size": 33.0
+  },
+  "created_day-20181103:device_type-HSX4-0503:hour-7": {
+    "size": 4.0
+  },
+  "created_day-20181103:device_type-HSX4-0503:hour-8": {
+    "size": 26.0
+  },
+  "created_day-20181103:device_type-HSX4-0503:hour-9": {
+    "size": 31.0
+  },
+  "created_day-20181103:device_type-LLP8-080-0404L:hour-10": {
+    "size": 2.0
+  },
+  "created_day-20181103:device_type-LLP8-080-0404L:hour-2": {
+    "size": 1.0
+  },
+  "created_day-20181103:device_type-LLP8-080-0404L:hour-3": {
+    "size": 13.0
+  },
+  "created_day-20181103:device_type-LLP8-080-0404L:hour-4": {
+    "size": 1.0
+  },
+  "created_day-20181103:device_type-LLP8-080-0404L:hour-5": {
+    "size": 7.0
+  },
+  "created_day-20181103:device_type-LLP8-080-0404L:hour-7": {
+    "size": 1.0
+  },
+  "created_day-20181103:device_type-LLP8-080-0404L:hour-8": {
+    "size": 2.0
+  },
+  "created_day-20181103:device_type-LLP8-080-0404L:hour-9": {
+    "size": 12.0
+  },
+  "created_day-20181103:device_type-MLF14A-050-0404L:hour-10": {
+    "size": 64.0
+  },
+  "created_day-20181103:device_type-MLF14A-050-0404L:hour-11": {
+    "size": 72.0
+  },
+  "created_day-20181103:device_type-MLF14A-050-0404L:hour-12": {
+    "size": 26.0
+  },
+  "created_day-20181103:device_type-MLF14A-050-0404L:hour-2": {
+    "size": 25.0
+  },
+  "created_day-20181103:device_type-MLF14A-050-0404L:hour-3": {
+    "size": 11.0
+  },
+  "created_day-20181103:device_type-MLF14A-050-0404L:hour-4": {
+    "size": 12.0
+  },
+  "created_day-20181103:device_type-MLF14A-050-0404L:hour-5": {
+    "size": 5.0
+  },
+  "created_day-20181103:device_type-MLF14A-050-0404L:hour-8": {
+    "size": 11.0
+  },
+  "created_day-20181103:device_type-MLF14A-050-0404L:hour-9": {
+    "size": 4.0
+  },
+  "created_day-20181103:device_type-MLF16D-065-0404L:hour-2": {
+    "size": 20.0
+  },
+  "created_day-20181103:device_type-MLF16D-065-0404L:hour-3": {
+    "size": 10.0
+  },
+  "created_day-20181103:device_type-MLF16D-065-0404L:hour-5": {
+    "size": 5.0
+  },
+  "created_day-20181103:device_type-MLF16D-065-0404L:hour-8": {
+    "size": 15.0
+  },
+  "created_day-20181103:device_type-MLF20-050-0503:hour-2": {
+    "size": 12.0
+  },
+  "created_day-20181103:device_type-MLF20-050-0503:hour-3": {
+    "size": 6.0
+  },
+  "created_day-20181103:device_type-MLF20-050-0503:hour-5": {
+    "size": 3.0
+  },
+  "created_day-20181103:device_type-MLF20-050-0503:hour-8": {
+    "size": 9.0
+  },
+  "created_day-20181103:device_type-MLF24-050-0504L:hour-2": {
+    "size": 4.0
+  },
+  "created_day-20181103:device_type-MLF24-050-0504L:hour-3": {
+    "size": 2.0
+  },
+  "created_day-20181103:device_type-MLF24-050-0504L:hour-5": {
+    "size": 1.0
+  },
+  "created_day-20181103:device_type-MLF24-050-0504L:hour-8": {
+    "size": 3.0
+  },
+  "created_day-20181103:device_type-MLF32-050-0505LA:hour-10": {
+    "size": 12.0
+  },
+  "created_day-20181103:device_type-MLF32-050-0505LA:hour-2": {
+    "size": 6.0
+  },
+  "created_day-20181103:device_type-MLF32-050-0505LA:hour-3": {
+    "size": 48.0
+  },
+  "created_day-20181103:device_type-MLF32-050-0505LA:hour-4": {
+    "size": 4.0
+  },
+  "created_day-20181103:device_type-MLF32-050-0505LA:hour-5": {
+    "size": 16.0
+  },
+  "created_day-20181103:device_type-MLF32-050-0505LA:hour-8": {
+    "size": 12.0
+  },
+  "created_day-20181103:device_type-MLF32-050-0505LA:hour-9": {
+    "size": 49.0
+  },
+  "created_day-20181103:device_type-MLF40A-040-0505L:hour-2": {
+    "size": 8.0
+  },
+  "created_day-20181103:device_type-MLF40A-040-0505L:hour-3": {
+    "size": 4.0
+  },
+  "created_day-20181103:device_type-MLF40A-040-0505L:hour-5": {
+    "size": 2.0
+  },
+  "created_day-20181103:device_type-MLF40A-040-0505L:hour-8": {
+    "size": 6.0
+  },
+  "created_day-20181103:device_type-MLF8-065-0303L:hour-10": {
+    "size": 172.0
+  },
+  "created_day-20181103:device_type-MLF8-065-0303L:hour-11": {
+    "size": 198.0
+  },
+  "created_day-20181103:device_type-MLF8-065-0303L:hour-12": {
+    "size": 84.0
+  },
+  "created_day-20181103:device_type-MLF8-065-0303L:hour-2": {
+    "size": 40.0
+  },
+  "created_day-20181103:device_type-MLF8-065-0303L:hour-3": {
+    "size": 12.0
+  },
+  "created_day-20181103:device_type-MLF8-065-0303L:hour-4": {
+    "size": 30.0
+  },
+  "created_day-20181103:device_type-MLF8-065-0303L:hour-5": {
+    "size": 21.0
+  },
+  "created_day-20181103:device_type-MLF8-065-0303L:hour-8": {
+    "size": 27.0
+  },
+  "created_day-20181103:device_type-MLF8-065-0303L:hour-9": {
+    "size": 12.0
+  },
+  "created_day-20181103:device_type-RF8-NXP-PSMN1R0:hour-10": {
+    "size": 28.0
+  },
+  "created_day-20181103:device_type-RF8-NXP-PSMN1R0:hour-11": {
+    "size": 33.0
+  },
+  "created_day-20181103:device_type-RF8-NXP-PSMN1R0:hour-12": {
+    "size": 14.0
+  },
+  "created_day-20181103:device_type-RF8-NXP-PSMN1R0:hour-2": {
+    "size": 63.0
+  },
+  "created_day-20181103:device_type-RF8-NXP-PSMN1R0:hour-3": {
+    "size": 30.0
+  },
+  "created_day-20181103:device_type-RF8-NXP-PSMN1R0:hour-4": {
+    "size": 5.0
+  },
+  "created_day-20181103:device_type-RF8-NXP-PSMN1R0:hour-5": {
+    "size": 18.0
+  },
+  "created_day-20181103:device_type-RF8-NXP-PSMN1R0:hour-8": {
+    "size": 48.0
+  },
+  "created_day-20181103:device_type-RF8-NXP-PSMN1R0:hour-9": {
+    "size": 2.0
+  },
+  "created_day-20181103:device_type-SC0402-BGA:hour-10": {
+    "size": 10207.0
+  },
+  "created_day-20181103:device_type-SC0402-BGA:hour-11": {
+    "size": 8035.0
+  },
+  "created_day-20181103:device_type-SC0402-BGA:hour-12": {
+    "size": 2726.0
+  },
+  "created_day-20181103:device_type-SC0402-BGA:hour-2": {
+    "size": 11253.0
+  },
+  "created_day-20181103:device_type-SC0402-BGA:hour-3": {
+    "size": 6288.0
+  },
+  "created_day-20181103:device_type-SC0402-BGA:hour-4": {
+    "size": 1947.0
+  },
+  "created_day-20181103:device_type-SC0402-BGA:hour-5": {
+    "size": 6943.0
+  },
+  "created_day-20181103:device_type-SC0402-BGA:hour-7": {
+    "size": 967.0
+  },
+  "created_day-20181103:device_type-SC0402-BGA:hour-8": {
+    "size": 7788.0
+  },
+  "created_day-20181103:device_type-SC0402-BGA:hour-9": {
+    "size": 5820.0
+  },
+  "created_day-20181103:device_type-SC0402:hour-10": {
+    "size": 10861.0
+  },
+  "created_day-20181103:device_type-SC0402:hour-11": {
+    "size": 8896.0
+  },
+  "created_day-20181103:device_type-SC0402:hour-12": {
+    "size": 3387.0
+  },
+  "created_day-20181103:device_type-SC0402:hour-2": {
+    "size": 7837.0
+  },
+  "created_day-20181103:device_type-SC0402:hour-3": {
+    "size": 8896.0
+  },
+  "created_day-20181103:device_type-SC0402:hour-4": {
+    "size": 2664.0
+  },
+  "created_day-20181103:device_type-SC0402:hour-5": {
+    "size": 6104.0
+  },
+  "created_day-20181103:device_type-SC0402:hour-7": {
+    "size": 441.0
+  },
+  "created_day-20181103:device_type-SC0402:hour-8": {
+    "size": 6102.0
+  },
+  "created_day-20181103:device_type-SC0402:hour-9": {
+    "size": 9447.0
+  },
+  "created_day-20181103:device_type-SC0603:hour-10": {
+    "size": 3366.0
+  },
+  "created_day-20181103:device_type-SC0603:hour-11": {
+    "size": 2683.0
+  },
+  "created_day-20181103:device_type-SC0603:hour-12": {
+    "size": 989.0
+  },
+  "created_day-20181103:device_type-SC0603:hour-2": {
+    "size": 3476.0
+  },
+  "created_day-20181103:device_type-SC0603:hour-3": {
+    "size": 1866.0
+  },
+  "created_day-20181103:device_type-SC0603:hour-4": {
+    "size": 640.0
+  },
+  "created_day-20181103:device_type-SC0603:hour-5": {
+    "size": 2059.0
+  },
+  "created_day-20181103:device_type-SC0603:hour-7": {
+    "size": 204.0
+  },
+  "created_day-20181103:device_type-SC0603:hour-8": {
+    "size": 2364.0
+  },
+  "created_day-20181103:device_type-SC0603:hour-9": {
+    "size": 2033.0
+  },
+  "created_day-20181103:device_type-SC0805:hour-10": {
+    "size": 2943.0
+  },
+  "created_day-20181103:device_type-SC0805:hour-11": {
+    "size": 2728.0
+  },
+  "created_day-20181103:device_type-SC0805:hour-12": {
+    "size": 1046.0
+  },
+  "created_day-20181103:device_type-SC0805:hour-2": {
+    "size": 1952.0
+  },
+  "created_day-20181103:device_type-SC0805:hour-3": {
+    "size": 1310.0
+  },
+  "created_day-20181103:device_type-SC0805:hour-4": {
+    "size": 614.0
+  },
+  "created_day-20181103:device_type-SC0805:hour-5": {
+    "size": 2111.0
+  },
+  "created_day-20181103:device_type-SC0805:hour-7": {
+    "size": 200.0
+  },
+  "created_day-20181103:device_type-SC0805:hour-8": {
+    "size": 1973.0
+  },
+  "created_day-20181103:device_type-SC0805:hour-9": {
+    "size": 1411.0
+  },
+  "created_day-20181103:device_type-SC1206:hour-10": {
+    "size": 2220.0
+  },
+  "created_day-20181103:device_type-SC1206:hour-11": {
+    "size": 1990.0
+  },
+  "created_day-20181103:device_type-SC1206:hour-12": {
+    "size": 784.0
+  },
+  "created_day-20181103:device_type-SC1206:hour-2": {
+    "size": 1535.0
+  },
+  "created_day-20181103:device_type-SC1206:hour-3": {
+    "size": 1023.0
+  },
+  "created_day-20181103:device_type-SC1206:hour-4": {
+    "size": 481.0
+  },
+  "created_day-20181103:device_type-SC1206:hour-5": {
+    "size": 1018.0
+  },
+  "created_day-20181103:device_type-SC1206:hour-7": {
+    "size": 82.0
+  },
+  "created_day-20181103:device_type-SC1206:hour-8": {
+    "size": 1230.0
+  },
+  "created_day-20181103:device_type-SC1206:hour-9": {
+    "size": 1317.0
+  },
+  "created_day-20181103:device_type-SC1210:hour-10": {
+    "size": 6.0
+  },
+  "created_day-20181103:device_type-SC1210:hour-2": {
+    "size": 55.0
+  },
+  "created_day-20181103:device_type-SC1210:hour-3": {
+    "size": 32.0
+  },
+  "created_day-20181103:device_type-SC1210:hour-4": {
+    "size": 2.0
+  },
+  "created_day-20181103:device_type-SC1210:hour-5": {
+    "size": 12.0
+  },
+  "created_day-20181103:device_type-SC1210:hour-7": {
+    "size": 8.0
+  },
+  "created_day-20181103:device_type-SC1210:hour-8": {
+    "size": 11.0
+  },
+  "created_day-20181103:device_type-SC1210:hour-9": {
+    "size": 57.0
+  },
+  "created_day-20181103:device_type-SCAPC2-0808A:hour-10": {
+    "size": 32.0
+  },
+  "created_day-20181103:device_type-SCAPC2-0808A:hour-11": {
+    "size": 33.0
+  },
+  "created_day-20181103:device_type-SCAPC2-0808A:hour-12": {
+    "size": 14.0
+  },
+  "created_day-20181103:device_type-SCAPC2-0808A:hour-2": {
+    "size": 13.0
+  },
+  "created_day-20181103:device_type-SCAPC2-0808A:hour-3": {
+    "size": 6.0
+  },
+  "created_day-20181103:device_type-SCAPC2-0808A:hour-4": {
+    "size": 5.0
+  },
+  "created_day-20181103:device_type-SCAPC2-0808A:hour-5": {
+    "size": 3.0
+  },
+  "created_day-20181103:device_type-SCAPC2-0808A:hour-8": {
+    "size": 3.0
+  },
+  "created_day-20181103:device_type-SCAPC2-0808A:hour-9": {
+    "size": 2.0
+  },
+  "created_day-20181103:device_type-SCAPC2-280-327:hour-10": {
+    "size": 11.0
+  },
+  "created_day-20181103:device_type-SCAPC2-280-327:hour-2": {
+    "size": 39.0
+  },
+  "created_day-20181103:device_type-SCAPC2-280-327:hour-3": {
+    "size": 32.0
+  },
+  "created_day-20181103:device_type-SCAPC2-280-327:hour-4": {
+    "size": 1.0
+  },
+  "created_day-20181103:device_type-SCAPC2-280-327:hour-5": {
+    "size": 25.0
+  },
+  "created_day-20181103:device_type-SCAPC2-280-327:hour-7": {
+    "size": 5.0
+  },
+  "created_day-20181103:device_type-SCAPC2-280-327:hour-8": {
+    "size": 11.0
+  },
+  "created_day-20181103:device_type-SCAPC2-280-327:hour-9": {
+    "size": 13.0
+  },
+  "created_day-20181103:device_type-SCN8-0805:hour-10": {
+    "size": 676.0
+  },
+  "created_day-20181103:device_type-SCN8-0805:hour-11": {
+    "size": 673.0
+  },
+  "created_day-20181103:device_type-SCN8-0805:hour-12": {
+    "size": 210.0
+  },
+  "created_day-20181103:device_type-SCN8-0805:hour-2": {
+    "size": 324.0
+  },
+  "created_day-20181103:device_type-SCN8-0805:hour-3": {
+    "size": 514.0
+  },
+  "created_day-20181103:device_type-SCN8-0805:hour-4": {
+    "size": 141.0
+  },
+  "created_day-20181103:device_type-SCN8-0805:hour-5": {
+    "size": 706.0
+  },
+  "created_day-20181103:device_type-SCN8-0805:hour-7": {
+    "size": 61.0
+  },
+  "created_day-20181103:device_type-SCN8-0805:hour-8": {
+    "size": 271.0
+  },
+  "created_day-20181103:device_type-SCN8-0805:hour-9": {
+    "size": 461.0
+  },
+  "created_day-20181103:device_type-SD0805-LED:hour-10": {
+    "size": 86.0
+  },
+  "created_day-20181103:device_type-SD0805-LED:hour-2": {
+    "size": 181.0
+  },
+  "created_day-20181103:device_type-SD0805-LED:hour-3": {
+    "size": 148.0
+  },
+  "created_day-20181103:device_type-SD0805-LED:hour-4": {
+    "size": 30.0
+  },
+  "created_day-20181103:device_type-SD0805-LED:hour-5": {
+    "size": 242.0
+  },
+  "created_day-20181103:device_type-SD0805-LED:hour-7": {
+    "size": 25.0
+  },
+  "created_day-20181103:device_type-SD0805-LED:hour-8": {
+    "size": 105.0
+  },
+  "created_day-20181103:device_type-SD0805-LED:hour-9": {
+    "size": 178.0
+  },
+  "created_day-20181103:device_type-SD1714A:hour-10": {
+    "size": 16.0
+  },
+  "created_day-20181103:device_type-SD1714A:hour-2": {
+    "size": 49.0
+  },
+  "created_day-20181103:device_type-SD1714A:hour-3": {
+    "size": 39.0
+  },
+  "created_day-20181103:device_type-SD1714A:hour-4": {
+    "size": 2.0
+  },
+  "created_day-20181103:device_type-SD1714A:hour-5": {
+    "size": 16.0
+  },
+  "created_day-20181103:device_type-SD1714A:hour-7": {
+    "size": 1.0
+  },
+  "created_day-20181103:device_type-SD1714A:hour-8": {
+    "size": 21.0
+  },
+  "created_day-20181103:device_type-SD1714A:hour-9": {
+    "size": 47.0
+  },
+  "created_day-20181103:device_type-SD2723:hour-10": {
+    "size": 37.0
+  },
+  "created_day-20181103:device_type-SD2723:hour-11": {
+    "size": 33.0
+  },
+  "created_day-20181103:device_type-SD2723:hour-12": {
+    "size": 14.0
+  },
+  "created_day-20181103:device_type-SD2723:hour-2": {
+    "size": 26.0
+  },
+  "created_day-20181103:device_type-SD2723:hour-3": {
+    "size": 21.0
+  },
+  "created_day-20181103:device_type-SD2723:hour-4": {
+    "size": 9.0
+  },
+  "created_day-20181103:device_type-SD2723:hour-5": {
+    "size": 23.0
+  },
+  "created_day-20181103:device_type-SD2723:hour-7": {
+    "size": 2.0
+  },
+  "created_day-20181103:device_type-SD2723:hour-8": {
+    "size": 22.0
+  },
+  "created_day-20181103:device_type-SD2723:hour-9": {
+    "size": 29.0
+  },
+  "created_day-20181103:device_type-SF6127:hour-10": {
+    "size": 79.0
+  },
+  "created_day-20181103:device_type-SF6127:hour-11": {
+    "size": 66.0
+  },
+  "created_day-20181103:device_type-SF6127:hour-12": {
+    "size": 28.0
+  },
+  "created_day-20181103:device_type-SF6127:hour-2": {
+    "size": 69.0
+  },
+  "created_day-20181103:device_type-SF6127:hour-3": {
+    "size": 52.0
+  },
+  "created_day-20181103:device_type-SF6127:hour-4": {
+    "size": 18.0
+  },
+  "created_day-20181103:device_type-SF6127:hour-5": {
+    "size": 52.0
+  },
+  "created_day-20181103:device_type-SF6127:hour-7": {
+    "size": 5.0
+  },
+  "created_day-20181103:device_type-SF6127:hour-8": {
+    "size": 43.0
+  },
+  "created_day-20181103:device_type-SF6127:hour-9": {
+    "size": 60.0
+  },
+  "created_day-20181103:device_type-SL0402:hour-10": {
+    "size": 1.0
+  },
+  "created_day-20181103:device_type-SL0402:hour-4": {
+    "size": 1.0
+  },
+  "created_day-20181103:device_type-SL0402:hour-9": {
+    "size": 2.0
+  },
+  "created_day-20181103:device_type-SL0805:hour-10": {
+    "size": 1599.0
+  },
+  "created_day-20181103:device_type-SL0805:hour-11": {
+    "size": 1407.0
+  },
+  "created_day-20181103:device_type-SL0805:hour-12": {
+    "size": 551.0
+  },
+  "created_day-20181103:device_type-SL0805:hour-2": {
+    "size": 792.0
+  },
+  "created_day-20181103:device_type-SL0805:hour-3": {
+    "size": 782.0
+  },
+  "created_day-20181103:device_type-SL0805:hour-4": {
+    "size": 325.0
+  },
+  "created_day-20181103:device_type-SL0805:hour-5": {
+    "size": 598.0
+  },
+  "created_day-20181103:device_type-SL0805:hour-7": {
+    "size": 40.0
+  },
+  "created_day-20181103:device_type-SL0805:hour-8": {
+    "size": 519.0
+  },
+  "created_day-20181103:device_type-SL0805:hour-9": {
+    "size": 934.0
+  },
+  "created_day-20181103:device_type-SL1008:hour-10": {
+    "size": 161.0
+  },
+  "created_day-20181103:device_type-SL1008:hour-11": {
+    "size": 94.0
+  },
+  "created_day-20181103:device_type-SL1008:hour-12": {
+    "size": 56.0
+  },
+  "created_day-20181103:device_type-SL1008:hour-2": {
+    "size": 268.0
+  },
+  "created_day-20181103:device_type-SL1008:hour-3": {
+    "size": 159.0
+  },
+  "created_day-20181103:device_type-SL1008:hour-4": {
+    "size": 54.0
+  },
+  "created_day-20181103:device_type-SL1008:hour-5": {
+    "size": 118.0
+  },
+  "created_day-20181103:device_type-SL1008:hour-7": {
+    "size": 15.0
+  },
+  "created_day-20181103:device_type-SL1008:hour-8": {
+    "size": 196.0
+  },
+  "created_day-20181103:device_type-SL1008:hour-9": {
+    "size": 159.0
+  },
+  "created_day-20181103:device_type-SL1008A:hour-10": {
+    "size": 61.0
+  },
+  "created_day-20181103:device_type-SL1008A:hour-11": {
+    "size": 66.0
+  },
+  "created_day-20181103:device_type-SL1008A:hour-12": {
+    "size": 28.0
+  },
+  "created_day-20181103:device_type-SL1008A:hour-2": {
+    "size": 16.0
+  },
+  "created_day-20181103:device_type-SL1008A:hour-3": {
+    "size": 18.0
+  },
+  "created_day-20181103:device_type-SL1008A:hour-4": {
+    "size": 10.0
+  },
+  "created_day-20181103:device_type-SL1008A:hour-5": {
+    "size": 10.0
+  },
+  "created_day-20181103:device_type-SL1008A:hour-8": {
+    "size": 9.0
+  },
+  "created_day-20181103:device_type-SL1008A:hour-9": {
+    "size": 16.0
+  },
+  "created_day-20181103:device_type-SL1206:hour-10": {
+    "size": 16.0
+  },
+  "created_day-20181103:device_type-SL1206:hour-2": {
+    "size": 54.0
+  },
+  "created_day-20181103:device_type-SL1206:hour-3": {
+    "size": 17.0
+  },
+  "created_day-20181103:device_type-SL1206:hour-5": {
+    "size": 26.0
+  },
+  "created_day-20181103:device_type-SL1206:hour-7": {
+    "size": 4.0
+  },
+  "created_day-20181103:device_type-SL1206:hour-8": {
+    "size": 48.0
+  },
+  "created_day-20181103:device_type-SL1206:hour-9": {
+    "size": 8.0
+  },
+  "created_day-20181103:device_type-SL1210:hour-10": {
+    "size": 18.0
+  },
+  "created_day-20181103:device_type-SL1210:hour-2": {
+    "size": 93.0
+  },
+  "created_day-20181103:device_type-SL1210:hour-3": {
+    "size": 77.0
+  },
+  "created_day-20181103:device_type-SL1210:hour-4": {
+    "size": 15.0
+  },
+  "created_day-20181103:device_type-SL1210:hour-5": {
+    "size": 26.0
+  },
+  "created_day-20181103:device_type-SL1210:hour-7": {
+    "size": 1.0
+  },
+  "created_day-20181103:device_type-SL1210:hour-8": {
+    "size": 13.0
+  },
+  "created_day-20181103:device_type-SL1210:hour-9": {
+    "size": 223.0
+  },
+  "created_day-20181103:device_type-SOP10-20-124A:hour-2": {
+    "size": 4.0
+  },
+  "created_day-20181103:device_type-SOP10-20-124A:hour-3": {
+    "size": 2.0
+  },
+  "created_day-20181103:device_type-SOP10-20-124A:hour-5": {
+    "size": 1.0
+  },
+  "created_day-20181103:device_type-SOP10-20-124A:hour-8": {
+    "size": 3.0
+  },
+  "created_day-20181103:device_type-SOP14-26-173:hour-10": {
+    "size": 69.0
+  },
+  "created_day-20181103:device_type-SOP14-26-173:hour-11": {
+    "size": 36.0
+  },
+  "created_day-20181103:device_type-SOP14-26-173:hour-12": {
+    "size": 13.0
+  },
+  "created_day-20181103:device_type-SOP14-26-173:hour-2": {
+    "size": 80.0
+  },
+  "created_day-20181103:device_type-SOP14-26-173:hour-3": {
+    "size": 91.0
+  },
+  "created_day-20181103:device_type-SOP14-26-173:hour-4": {
+    "size": 10.0
+  },
+  "created_day-20181103:device_type-SOP14-26-173:hour-5": {
+    "size": 40.0
+  },
+  "created_day-20181103:device_type-SOP14-26-173:hour-7": {
+    "size": 2.0
+  },
+  "created_day-20181103:device_type-SOP14-26-173:hour-8": {
+    "size": 40.0
+  },
+  "created_day-20181103:device_type-SOP14-26-173:hour-9": {
+    "size": 77.0
+  },
+  "created_day-20181103:device_type-SOP14-50-150:hour-10": {
+    "size": 52.0
+  },
+  "created_day-20181103:device_type-SOP14-50-150:hour-11": {
+    "size": 36.0
+  },
+  "created_day-20181103:device_type-SOP14-50-150:hour-12": {
+    "size": 13.0
+  },
+  "created_day-20181103:device_type-SOP14-50-150:hour-2": {
+    "size": 45.0
+  },
+  "created_day-20181103:device_type-SOP14-50-150:hour-3": {
+    "size": 21.0
+  },
+  "created_day-20181103:device_type-SOP14-50-150:hour-4": {
+    "size": 6.0
+  },
+  "created_day-20181103:device_type-SOP14-50-150:hour-5": {
+    "size": 2.0
+  },
+  "created_day-20181103:device_type-SOP14-50-150:hour-8": {
+    "size": 10.0
+  },
+  "created_day-20181103:device_type-SOP14-50-150:hour-9": {
+    "size": 20.0
+  },
+  "created_day-20181103:device_type-SOP16-26-173:hour-10": {
+    "size": 8.0
+  },
+  "created_day-20181103:device_type-SOP16-26-173:hour-2": {
+    "size": 8.0
+  },
+  "created_day-20181103:device_type-SOP16-26-173:hour-3": {
+    "size": 18.0
+  },
+  "created_day-20181103:device_type-SOP16-26-173:hour-4": {
+    "size": 1.0
+  },
+  "created_day-20181103:device_type-SOP16-26-173:hour-5": {
+    "size": 8.0
+  },
+  "created_day-20181103:device_type-SOP16-26-173:hour-7": {
+    "size": 1.0
+  },
+  "created_day-20181103:device_type-SOP16-26-173:hour-8": {
+    "size": 4.0
+  },
+  "created_day-20181103:device_type-SOP16-26-173:hour-9": {
+    "size": 18.0
+  },
+  "created_day-20181103:device_type-SOP16-26-208-255:hour-10": {
+    "size": 5.0
+  },
+  "created_day-20181103:device_type-SOP16-26-208-255:hour-3": {
+    "size": 24.0
+  },
+  "created_day-20181103:device_type-SOP16-26-208-255:hour-4": {
+    "size": 3.0
+  },
+  "created_day-20181103:device_type-SOP16-26-208-255:hour-5": {
+    "size": 8.0
+  },
+  "created_day-20181103:device_type-SOP16-26-208-255:hour-8": {
+    "size": 4.0
+  },
+  "created_day-20181103:device_type-SOP16-26-208-255:hour-9": {
+    "size": 26.0
+  },
+  "created_day-20181103:device_type-SOP16-50-150:hour-10": {
+    "size": 4.0
+  },
+  "created_day-20181103:device_type-SOP16-50-150:hour-2": {
+    "size": 7.0
+  },
+  "created_day-20181103:device_type-SOP16-50-150:hour-3": {
+    "size": 4.0
+  },
+  "created_day-20181103:device_type-SOP16-50-150:hour-7": {
+    "size": 1.0
+  },
+  "created_day-20181103:device_type-SOP16-50-150:hour-9": {
+    "size": 2.0
+  },
+  "created_day-20181103:device_type-SOP16H-26-173A:hour-10": {
+    "size": 6.0
+  },
+  "created_day-20181103:device_type-SOP16H-26-173A:hour-3": {
+    "size": 40.0
+  },
+  "created_day-20181103:device_type-SOP16H-26-173A:hour-4": {
+    "size": 3.0
+  },
+  "created_day-20181103:device_type-SOP16H-26-173A:hour-5": {
+    "size": 28.0
+  },
+  "created_day-20181103:device_type-SOP16H-26-173A:hour-8": {
+    "size": 6.0
+  },
+  "created_day-20181103:device_type-SOP16H-26-173A:hour-9": {
+    "size": 51.0
+  },
+  "created_day-20181103:device_type-SOP16H-26-173B:hour-10": {
+    "size": 2.0
+  },
+  "created_day-20181103:device_type-SOP16H-26-173B:hour-3": {
+    "size": 12.0
+  },
+  "created_day-20181103:device_type-SOP16H-26-173B:hour-4": {
+    "size": 1.0
+  },
+  "created_day-20181103:device_type-SOP16H-26-173B:hour-5": {
+    "size": 4.0
+  },
+  "created_day-20181103:device_type-SOP16H-26-173B:hour-8": {
+    "size": 2.0
+  },
+  "created_day-20181103:device_type-SOP16H-26-173B:hour-9": {
+    "size": 12.0
+  },
+  "created_day-20181103:device_type-SOP20-25-155:hour-10": {
+    "size": 4.0
+  },
+  "created_day-20181103:device_type-SOP20-25-155:hour-2": {
+    "size": 5.0
+  },
+  "created_day-20181103:device_type-SOP20-25-155:hour-3": {
+    "size": 15.0
+  },
+  "created_day-20181103:device_type-SOP20-25-155:hour-4": {
+    "size": 1.0
+  },
+  "created_day-20181103:device_type-SOP20-25-155:hour-5": {
+    "size": 4.0
+  },
+  "created_day-20181103:device_type-SOP20-25-155:hour-8": {
+    "size": 2.0
+  },
+  "created_day-20181103:device_type-SOP20-25-155:hour-9": {
+    "size": 12.0
+  },
+  "created_day-20181103:device_type-SOP24-26-173:hour-10": {
+    "size": 3.0
+  },
+  "created_day-20181103:device_type-SOP24-26-173:hour-3": {
+    "size": 12.0
+  },
+  "created_day-20181103:device_type-SOP24-26-173:hour-4": {
+    "size": 1.0
+  },
+  "created_day-20181103:device_type-SOP24-26-173:hour-5": {
+    "size": 6.0
+  },
+  "created_day-20181103:device_type-SOP24-26-173:hour-8": {
+    "size": 4.0
+  },
+  "created_day-20181103:device_type-SOP24-26-173:hour-9": {
+    "size": 21.0
+  },
+  "created_day-20181103:device_type-SOP48-20-250:hour-10": {
+    "size": 1.0
+  },
+  "created_day-20181103:device_type-SOP48-20-250:hour-2": {
+    "size": 4.0
+  },
+  "created_day-20181103:device_type-SOP48-20-250:hour-3": {
+    "size": 16.0
+  },
+  "created_day-20181103:device_type-SOP48-20-250:hour-4": {
+    "size": 1.0
+  },
+  "created_day-20181103:device_type-SOP48-20-250:hour-5": {
+    "size": 4.0
+  },
+  "created_day-20181103:device_type-SOP48-20-250:hour-7": {
+    "size": 4.0
+  },
+  "created_day-20181103:device_type-SOP48-20-250:hour-8": {
+    "size": 2.0
+  },
+  "created_day-20181103:device_type-SOP48-20-250:hour-9": {
+    "size": 10.0
+  },
+  "created_day-20181103:device_type-SOP8-26-118:hour-10": {
+    "size": 104.0
+  },
+  "created_day-20181103:device_type-SOP8-26-118:hour-11": {
+    "size": 105.0
+  },
+  "created_day-20181103:device_type-SOP8-26-118:hour-12": {
+    "size": 40.0
+  },
+  "created_day-20181103:device_type-SOP8-26-118:hour-2": {
+    "size": 36.0
+  },
+  "created_day-20181103:device_type-SOP8-26-118:hour-3": {
+    "size": 65.0
+  },
+  "created_day-20181103:device_type-SOP8-26-118:hour-4": {
+    "size": 33.0
+  },
+  "created_day-20181103:device_type-SOP8-26-118:hour-5": {
+    "size": 25.0
+  },
+  "created_day-20181103:device_type-SOP8-26-118:hour-8": {
+    "size": 21.0
+  },
+  "created_day-20181103:device_type-SOP8-26-118:hour-9": {
+    "size": 72.0
+  },
+  "created_day-20181103:device_type-SOP8-26-118A:hour-10": {
+    "size": 1.0
+  },
+  "created_day-20181103:device_type-SOP8-26-118A:hour-2": {
+    "size": 5.0
+  },
+  "created_day-20181103:device_type-SOP8-26-118A:hour-3": {
+    "size": 2.0
+  },
+  "created_day-20181103:device_type-SOP8-26-118A:hour-5": {
+    "size": 6.0
+  },
+  "created_day-20181103:device_type-SOP8-26-118A:hour-7": {
+    "size": 1.0
+  },
+  "created_day-20181103:device_type-SOP8-26-118A:hour-8": {
+    "size": 7.0
+  },
+  "created_day-20181103:device_type-SOP8-26-173A:hour-10": {
+    "size": 87.0
+  },
+  "created_day-20181103:device_type-SOP8-26-173A:hour-11": {
+    "size": 66.0
+  },
+  "created_day-20181103:device_type-SOP8-26-173A:hour-12": {
+    "size": 28.0
+  },
+  "created_day-20181103:device_type-SOP8-26-173A:hour-2": {
+    "size": 85.0
+  },
+  "created_day-20181103:device_type-SOP8-26-173A:hour-3": {
+    "size": 80.0
+  },
+  "created_day-20181103:device_type-SOP8-26-173A:hour-4": {
+    "size": 17.0
+  },
+  "created_day-20181103:device_type-SOP8-26-173A:hour-5": {
+    "size": 38.0
+  },
+  "created_day-20181103:device_type-SOP8-26-173A:hour-7": {
+    "size": 9.0
+  },
+  "created_day-20181103:device_type-SOP8-26-173A:hour-8": {
+    "size": 39.0
+  },
+  "created_day-20181103:device_type-SOP8-26-173A:hour-9": {
+    "size": 84.0
+  },
+  "created_day-20181103:device_type-SOP8-50-150:hour-10": {
+    "size": 583.0
+  },
+  "created_day-20181103:device_type-SOP8-50-150:hour-11": {
+    "size": 469.0
+  },
+  "created_day-20181103:device_type-SOP8-50-150:hour-12": {
+    "size": 175.0
+  },
+  "created_day-20181103:device_type-SOP8-50-150:hour-2": {
+    "size": 357.0
+  },
+  "created_day-20181103:device_type-SOP8-50-150:hour-3": {
+    "size": 635.0
+  },
+  "created_day-20181103:device_type-SOP8-50-150:hour-4": {
+    "size": 161.0
+  },
+  "created_day-20181103:device_type-SOP8-50-150:hour-5": {
+    "size": 390.0
+  },
+  "created_day-20181103:device_type-SOP8-50-150:hour-7": {
+    "size": 29.0
+  },
+  "created_day-20181103:device_type-SOP8-50-150:hour-8": {
+    "size": 291.0
+  },
+  "created_day-20181103:device_type-SOP8-50-150:hour-9": {
+    "size": 761.0
+  },
+  "created_day-20181103:device_type-SOP8-50-150A:hour-10": {
+    "size": 3.0
+  },
+  "created_day-20181103:device_type-SOP8-50-150A:hour-2": {
+    "size": 10.0
+  },
+  "created_day-20181103:device_type-SOP8-50-150A:hour-3": {
+    "size": 3.0
+  },
+  "created_day-20181103:device_type-SOP8-50-150A:hour-8": {
+    "size": 3.0
+  },
+  "created_day-20181103:device_type-SOP8-50-173:hour-10": {
+    "size": 65.0
+  },
+  "created_day-20181103:device_type-SOP8-50-173:hour-11": {
+    "size": 69.0
+  },
+  "created_day-20181103:device_type-SOP8-50-173:hour-12": {
+    "size": 27.0
+  },
+  "created_day-20181103:device_type-SOP8-50-173:hour-2": {
+    "size": 24.0
+  },
+  "created_day-20181103:device_type-SOP8-50-173:hour-3": {
+    "size": 8.0
+  },
+  "created_day-20181103:device_type-SOP8-50-173:hour-4": {
+    "size": 11.0
+  },
+  "created_day-20181103:device_type-SOP8-50-173:hour-5": {
+    "size": 19.0
+  },
+  "created_day-20181103:device_type-SOP8-50-173:hour-7": {
+    "size": 3.0
+  },
+  "created_day-20181103:device_type-SOP8-50-173:hour-8": {
+    "size": 25.0
+  },
+  "created_day-20181103:device_type-SOP8-50-173:hour-9": {
+    "size": 13.0
+  },
+  "created_day-20181103:device_type-SOP8H-50-155A:hour-10": {
+    "size": 49.0
+  },
+  "created_day-20181103:device_type-SOP8H-50-155A:hour-11": {
+    "size": 33.0
+  },
+  "created_day-20181103:device_type-SOP8H-50-155A:hour-12": {
+    "size": 14.0
+  },
+  "created_day-20181103:device_type-SOP8H-50-155A:hour-2": {
+    "size": 57.0
+  },
+  "created_day-20181103:device_type-SOP8H-50-155A:hour-3": {
+    "size": 58.0
+  },
+  "created_day-20181103:device_type-SOP8H-50-155A:hour-4": {
+    "size": 14.0
+  },
+  "created_day-20181103:device_type-SOP8H-50-155A:hour-5": {
+    "size": 34.0
+  },
+  "created_day-20181103:device_type-SOP8H-50-155A:hour-8": {
+    "size": 26.0
+  },
+  "created_day-20181103:device_type-SOP8H-50-155A:hour-9": {
+    "size": 71.0
+  },
+  "created_day-20181103:device_type-SOT-DPAK:hour-10": {
+    "size": 34.0
+  },
+  "created_day-20181103:device_type-SOT-DPAK:hour-11": {
+    "size": 34.0
+  },
+  "created_day-20181103:device_type-SOT-DPAK:hour-12": {
+    "size": 14.0
+  },
+  "created_day-20181103:device_type-SOT-DPAK:hour-2": {
+    "size": 12.0
+  },
+  "created_day-20181103:device_type-SOT-DPAK:hour-3": {
+    "size": 17.0
+  },
+  "created_day-20181103:device_type-SOT-DPAK:hour-4": {
+    "size": 9.0
+  },
+  "created_day-20181103:device_type-SOT-DPAK:hour-5": {
+    "size": 7.0
+  },
+  "created_day-20181103:device_type-SOT-DPAK:hour-8": {
+    "size": 6.0
+  },
+  "created_day-20181103:device_type-SOT-DPAK:hour-9": {
+    "size": 21.0
+  },
+  "created_day-20181103:device_type-SOT-PAK:hour-10": {
+    "size": 10.0
+  },
+  "created_day-20181103:device_type-SOT-PAK:hour-11": {
+    "size": 14.0
+  },
+  "created_day-20181103:device_type-SOT-PAK:hour-12": {
+    "size": 14.0
+  },
+  "created_day-20181103:device_type-SOT-PAK:hour-2": {
+    "size": 17.0
+  },
+  "created_day-20181103:device_type-SOT-PAK:hour-3": {
+    "size": 20.0
+  },
+  "created_day-20181103:device_type-SOT-PAK:hour-4": {
+    "size": 7.0
+  },
+  "created_day-20181103:device_type-SOT-PAK:hour-5": {
+    "size": 15.0
+  },
+  "created_day-20181103:device_type-SOT-PAK:hour-7": {
+    "size": 1.0
+  },
+  "created_day-20181103:device_type-SOT-PAK:hour-8": {
+    "size": 5.0
+  },
+  "created_day-20181103:device_type-SOT-PAK:hour-9": {
+    "size": 30.0
+  },
+  "created_day-20181103:device_type-SOT-SC70:hour-10": {
+    "size": 2.0
+  },
+  "created_day-20181103:device_type-SOT-SC70:hour-2": {
+    "size": 1.0
+  },
+  "created_day-20181103:device_type-SOT-SC70:hour-3": {
+    "size": 13.0
+  },
+  "created_day-20181103:device_type-SOT-SC70:hour-4": {
+    "size": 1.0
+  },
+  "created_day-20181103:device_type-SOT-SC70:hour-5": {
+    "size": 8.0
+  },
+  "created_day-20181103:device_type-SOT-SC70:hour-7": {
+    "size": 1.0
+  },
+  "created_day-20181103:device_type-SOT-SC70:hour-8": {
+    "size": 2.0
+  },
+  "created_day-20181103:device_type-SOT-SC70:hour-9": {
+    "size": 13.0
+  },
+  "created_day-20181103:device_type-SOT223-6:hour-10": {
+    "size": 10.0
+  },
+  "created_day-20181103:device_type-SOT223-6:hour-2": {
+    "size": 32.0
+  },
+  "created_day-20181103:device_type-SOT223-6:hour-3": {
+    "size": 18.0
+  },
+  "created_day-20181103:device_type-SOT223-6:hour-4": {
+    "size": 12.0
+  },
+  "created_day-20181103:device_type-SOT223-6:hour-5": {
+    "size": 8.0
+  },
+  "created_day-20181103:device_type-SOT223-6:hour-8": {
+    "size": 9.0
+  },
+  "created_day-20181103:device_type-SOT223-6:hour-9": {
+    "size": 29.0
+  },
+  "created_day-20181103:device_type-SOT23-5A:hour-10": {
+    "size": 2.0
+  },
+  "created_day-20181103:device_type-SOT23-5A:hour-2": {
+    "size": 1.0
+  },
+  "created_day-20181103:device_type-SOT23-5A:hour-3": {
+    "size": 13.0
+  },
+  "created_day-20181103:device_type-SOT23-5A:hour-4": {
+    "size": 1.0
+  },
+  "created_day-20181103:device_type-SOT23-5A:hour-5": {
+    "size": 8.0
+  },
+  "created_day-20181103:device_type-SOT23-5A:hour-7": {
+    "size": 1.0
+  },
+  "created_day-20181103:device_type-SOT23-5A:hour-8": {
+    "size": 2.0
+  },
+  "created_day-20181103:device_type-SOT23-5A:hour-9": {
+    "size": 13.0
+  },
+  "created_day-20181103:device_type-SOT23-5B:hour-10": {
+    "size": 125.0
+  },
+  "created_day-20181103:device_type-SOT23-5B:hour-11": {
+    "size": 78.0
+  },
+  "created_day-20181103:device_type-SOT23-5B:hour-2": {
+    "size": 20.0
+  },
+  "created_day-20181103:device_type-SOT23-5B:hour-3": {
+    "size": 107.0
+  },
+  "created_day-20181103:device_type-SOT23-5B:hour-4": {
+    "size": 17.0
+  },
+  "created_day-20181103:device_type-SOT23-5B:hour-5": {
+    "size": 76.0
+  },
+  "created_day-20181103:device_type-SOT23-5B:hour-8": {
+    "size": 36.0
+  },
+  "created_day-20181103:device_type-SOT23-5B:hour-9": {
+    "size": 103.0
+  },
+  "created_day-20181103:device_type-SOT23-6A:hour-10": {
+    "size": 39.0
+  },
+  "created_day-20181103:device_type-SOT23-6A:hour-11": {
+    "size": 36.0
+  },
+  "created_day-20181103:device_type-SOT23-6A:hour-12": {
+    "size": 13.0
+  },
+  "created_day-20181103:device_type-SOT23-6A:hour-2": {
+    "size": 20.0
+  },
+  "created_day-20181103:device_type-SOT23-6A:hour-3": {
+    "size": 25.0
+  },
+  "created_day-20181103:device_type-SOT23-6A:hour-4": {
+    "size": 13.0
+  },
+  "created_day-20181103:device_type-SOT23-6A:hour-5": {
+    "size": 6.0
+  },
+  "created_day-20181103:device_type-SOT23-6A:hour-8": {
+    "size": 8.0
+  },
+  "created_day-20181103:device_type-SOT23-6A:hour-9": {
+    "size": 27.0
+  },
+  "created_day-20181103:device_type-SOT23-8:hour-10": {
+    "size": 31.0
+  },
+  "created_day-20181103:device_type-SOT23-8:hour-11": {
+    "size": 34.0
+  },
+  "created_day-20181103:device_type-SOT23-8:hour-12": {
+    "size": 14.0
+  },
+  "created_day-20181103:device_type-SOT23-8:hour-2": {
+    "size": 8.0
+  },
+  "created_day-20181103:device_type-SOT23-8:hour-3": {
+    "size": 15.0
+  },
+  "created_day-20181103:device_type-SOT23-8:hour-4": {
+    "size": 6.0
+  },
+  "created_day-20181103:device_type-SOT23-8:hour-5": {
+    "size": 7.0
+  },
+  "created_day-20181103:device_type-SOT23-8:hour-8": {
+    "size": 5.0
+  },
+  "created_day-20181103:device_type-SOT23-8:hour-9": {
+    "size": 14.0
+  },
+  "created_day-20181103:device_type-SOT23:hour-10": {
+    "size": 1521.0
+  },
+  "created_day-20181103:device_type-SOT23:hour-11": {
+    "size": 1093.0
+  },
+  "created_day-20181103:device_type-SOT23:hour-12": {
+    "size": 346.0
+  },
+  "created_day-20181103:device_type-SOT23:hour-2": {
+    "size": 1568.0
+  },
+  "created_day-20181103:device_type-SOT23:hour-3": {
+    "size": 1116.0
+  },
+  "created_day-20181103:device_type-SOT23:hour-4": {
+    "size": 333.0
+  },
+  "created_day-20181103:device_type-SOT23:hour-5": {
+    "size": 680.0
+  },
+  "created_day-20181103:device_type-SOT23:hour-7": {
+    "size": 43.0
+  },
+  "created_day-20181103:device_type-SOT23:hour-8": {
+    "size": 865.0
+  },
+  "created_day-20181103:device_type-SOT23:hour-9": {
+    "size": 1365.0
+  },
+  "created_day-20181103:device_type-SOT23A:hour-5": {
+    "size": 2.0
+  },
+  "created_day-20181103:device_type-SOT23A:hour-8": {
+    "size": 2.0
+  },
+  "created_day-20181103:device_type-SOT23A:hour-9": {
+    "size": 2.0
+  },
+  "created_day-20181103:device_type-SOT89:hour-10": {
+    "size": 28.0
+  },
+  "created_day-20181103:device_type-SOT89:hour-2": {
+    "size": 73.0
+  },
+  "created_day-20181103:device_type-SOT89:hour-3": {
+    "size": 60.0
+  },
+  "created_day-20181103:device_type-SOT89:hour-4": {
+    "size": 16.0
+  },
+  "created_day-20181103:device_type-SOT89:hour-5": {
+    "size": 44.0
+  },
+  "created_day-20181103:device_type-SOT89:hour-7": {
+    "size": 4.0
+  },
+  "created_day-20181103:device_type-SOT89:hour-8": {
+    "size": 48.0
+  },
+  "created_day-20181103:device_type-SOT89:hour-9": {
+    "size": 75.0
+  },
+  "created_day-20181103:device_type-SPL0705A:hour-10": {
+    "size": 2.0
+  },
+  "created_day-20181103:device_type-SPL0705A:hour-2": {
+    "size": 1.0
+  },
+  "created_day-20181103:device_type-SPL0705A:hour-3": {
+    "size": 13.0
+  },
+  "created_day-20181103:device_type-SPL0705A:hour-4": {
+    "size": 1.0
+  },
+  "created_day-20181103:device_type-SPL0705A:hour-5": {
+    "size": 4.0
+  },
+  "created_day-20181103:device_type-SPL0705A:hour-7": {
+    "size": 1.0
+  },
+  "created_day-20181103:device_type-SPL0705A:hour-8": {
+    "size": 3.0
+  },
+  "created_day-20181103:device_type-SPL0705A:hour-9": {
+    "size": 12.0
+  },
+  "created_day-20181103:device_type-SPL0707C:hour-10": {
+    "size": 8.0
+  },
+  "created_day-20181103:device_type-SPL0707C:hour-2": {
+    "size": 16.0
+  },
+  "created_day-20181103:device_type-SPL0707C:hour-3": {
+    "size": 52.0
+  },
+  "created_day-20181103:device_type-SPL0707C:hour-4": {
+    "size": 4.0
+  },
+  "created_day-20181103:device_type-SPL0707C:hour-5": {
+    "size": 21.0
+  },
+  "created_day-20181103:device_type-SPL0707C:hour-7": {
+    "size": 4.0
+  },
+  "created_day-20181103:device_type-SPL0707C:hour-8": {
+    "size": 8.0
+  },
+  "created_day-20181103:device_type-SPL0707C:hour-9": {
+    "size": 55.0
+  },
+  "created_day-20181103:device_type-SPL0707K:hour-10": {
+    "size": 2.0
+  },
+  "created_day-20181103:device_type-SPL0707K:hour-2": {
+    "size": 1.0
+  },
+  "created_day-20181103:device_type-SPL0707K:hour-9": {
+    "size": 2.0
+  },
+  "created_day-20181103:device_type-SPL0805:hour-10": {
+    "size": 3.0
+  },
+  "created_day-20181103:device_type-SPL0805:hour-2": {
+    "size": 7.0
+  },
+  "created_day-20181103:device_type-SPL0805:hour-3": {
+    "size": 16.0
+  },
+  "created_day-20181103:device_type-SPL0805:hour-4": {
+    "size": 4.0
+  },
+  "created_day-20181103:device_type-SPL0805:hour-5": {
+    "size": 12.0
+  },
+  "created_day-20181103:device_type-SPL0805:hour-8": {
+    "size": 3.0
+  },
+  "created_day-20181103:device_type-SPL0805:hour-9": {
+    "size": 23.0
+  },
+  "created_day-20181103:device_type-SPL0807D:hour-10": {
+    "size": 247.0
+  },
+  "created_day-20181103:device_type-SPL0807D:hour-11": {
+    "size": 264.0
+  },
+  "created_day-20181103:device_type-SPL0807D:hour-12": {
+    "size": 112.0
+  },
+  "created_day-20181103:device_type-SPL0807D:hour-2": {
+    "size": 79.0
+  },
+  "created_day-20181103:device_type-SPL0807D:hour-3": {
+    "size": 36.0
+  },
+  "created_day-20181103:device_type-SPL0807D:hour-4": {
+    "size": 43.0
+  },
+  "created_day-20181103:device_type-SPL0807D:hour-5": {
+    "size": 60.0
+  },
+  "created_day-20181103:device_type-SPL0807D:hour-7": {
+    "size": 2.0
+  },
+  "created_day-20181103:device_type-SPL0807D:hour-8": {
+    "size": 48.0
+  },
+  "created_day-20181103:device_type-SPL0807D:hour-9": {
+    "size": 34.0
+  },
+  "created_day-20181103:device_type-SPL1209:hour-10": {
+    "size": 3.0
+  },
+  "created_day-20181103:device_type-SPL1209:hour-2": {
+    "size": 3.0
+  },
+  "created_day-20181103:device_type-SPL1209:hour-3": {
+    "size": 16.0
+  },
+  "created_day-20181103:device_type-SPL1209:hour-4": {
+    "size": 4.0
+  },
+  "created_day-20181103:device_type-SPL1209:hour-5": {
+    "size": 14.0
+  },
+  "created_day-20181103:device_type-SPL1209:hour-8": {
+    "size": 3.0
+  },
+  "created_day-20181103:device_type-SPL1209:hour-9": {
+    "size": 18.0
+  },
+  "created_day-20181103:device_type-SPL1413A:hour-10": {
+    "size": 12.0
+  },
+  "created_day-20181103:device_type-SPL1413A:hour-2": {
+    "size": 19.0
+  },
+  "created_day-20181103:device_type-SPL1413A:hour-3": {
+    "size": 11.0
+  },
+  "created_day-20181103:device_type-SPL1413A:hour-4": {
+    "size": 15.0
+  },
+  "created_day-20181103:device_type-SPL1413A:hour-5": {
+    "size": 12.0
+  },
+  "created_day-20181103:device_type-SPL1413A:hour-7": {
+    "size": 1.0
+  },
+  "created_day-20181103:device_type-SPL1413A:hour-8": {
+    "size": 3.0
+  },
+  "created_day-20181103:device_type-SPL1413A:hour-9": {
+    "size": 32.0
+  },
+  "created_day-20181103:device_type-SPSW6-T:hour-10": {
+    "size": 4.0
+  },
+  "created_day-20181103:device_type-SPSW6-T:hour-2": {
+    "size": 3.0
+  },
+  "created_day-20181103:device_type-SPSW6-T:hour-5": {
+    "size": 16.0
+  },
+  "created_day-20181103:device_type-SPSW6-T:hour-7": {
+    "size": 2.0
+  },
+  "created_day-20181103:device_type-SPSW6-T:hour-8": {
+    "size": 8.0
+  },
+  "created_day-20181103:device_type-SPSW6-T:hour-9": {
+    "size": 2.0
+  },
+  "created_day-20181103:device_type-SR0402-BGA:hour-10": {
+    "size": 1837.0
+  },
+  "created_day-20181103:device_type-SR0402-BGA:hour-11": {
+    "size": 1773.0
+  },
+  "created_day-20181103:device_type-SR0402-BGA:hour-12": {
+    "size": 591.0
+  },
+  "created_day-20181103:device_type-SR0402-BGA:hour-2": {
+    "size": 1077.0
+  },
+  "created_day-20181103:device_type-SR0402-BGA:hour-3": {
+    "size": 488.0
+  },
+  "created_day-20181103:device_type-SR0402-BGA:hour-4": {
+    "size": 328.0
+  },
+  "created_day-20181103:device_type-SR0402-BGA:hour-5": {
+    "size": 892.0
+  },
+  "created_day-20181103:device_type-SR0402-BGA:hour-7": {
+    "size": 133.0
+  },
+  "created_day-20181103:device_type-SR0402-BGA:hour-8": {
+    "size": 1138.0
+  },
+  "created_day-20181103:device_type-SR0402-BGA:hour-9": {
+    "size": 281.0
+  },
+  "created_day-20181103:device_type-SR0402:hour-10": {
+    "size": 10640.0
+  },
+  "created_day-20181103:device_type-SR0402:hour-11": {
+    "size": 8990.0
+  },
+  "created_day-20181103:device_type-SR0402:hour-12": {
+    "size": 3402.0
+  },
+  "created_day-20181103:device_type-SR0402:hour-2": {
+    "size": 9529.0
+  },
+  "created_day-20181103:device_type-SR0402:hour-3": {
+    "size": 5105.0
+  },
+  "created_day-20181103:device_type-SR0402:hour-4": {
+    "size": 2285.0
+  },
+  "created_day-20181103:device_type-SR0402:hour-5": {
+    "size": 5813.0
+  },
+  "created_day-20181103:device_type-SR0402:hour-7": {
+    "size": 634.0
+  },
+  "created_day-20181103:device_type-SR0402:hour-8": {
+    "size": 6381.0
+  },
+  "created_day-20181103:device_type-SR0402:hour-9": {
+    "size": 4500.0
+  },
+  "created_day-20181103:device_type-SR0603:hour-10": {
+    "size": 2752.0
+  },
+  "created_day-20181103:device_type-SR0603:hour-11": {
+    "size": 1644.0
+  },
+  "created_day-20181103:device_type-SR0603:hour-12": {
+    "size": 592.0
+  },
+  "created_day-20181103:device_type-SR0603:hour-2": {
+    "size": 1975.0
+  },
+  "created_day-20181103:device_type-SR0603:hour-3": {
+    "size": 4673.0
+  },
+  "created_day-20181103:device_type-SR0603:hour-4": {
+    "size": 684.0
+  },
+  "created_day-20181103:device_type-SR0603:hour-5": {
+    "size": 3101.0
+  },
+  "created_day-20181103:device_type-SR0603:hour-7": {
+    "size": 100.0
+  },
+  "created_day-20181103:device_type-SR0603:hour-8": {
+    "size": 2549.0
+  },
+  "created_day-20181103:device_type-SR0603:hour-9": {
+    "size": 6893.0
+  },
+  "created_day-20181103:device_type-SR0805:hour-10": {
+    "size": 71.0
+  },
+  "created_day-20181103:device_type-SR0805:hour-2": {
+    "size": 297.0
+  },
+  "created_day-20181103:device_type-SR0805:hour-3": {
+    "size": 196.0
+  },
+  "created_day-20181103:device_type-SR0805:hour-4": {
+    "size": 28.0
+  },
+  "created_day-20181103:device_type-SR0805:hour-5": {
+    "size": 142.0
+  },
+  "created_day-20181103:device_type-SR0805:hour-7": {
+    "size": 35.0
+  },
+  "created_day-20181103:device_type-SR0805:hour-8": {
+    "size": 92.0
+  },
+  "created_day-20181103:device_type-SR0805:hour-9": {
+    "size": 426.0
+  },
+  "created_day-20181103:device_type-SR1206:hour-10": {
+    "size": 266.0
+  },
+  "created_day-20181103:device_type-SR1206:hour-11": {
+    "size": 222.0
+  },
+  "created_day-20181103:device_type-SR1206:hour-12": {
+    "size": 40.0
+  },
+  "created_day-20181103:device_type-SR1206:hour-2": {
+    "size": 64.0
+  },
+  "created_day-20181103:device_type-SR1206:hour-3": {
+    "size": 106.0
+  },
+  "created_day-20181103:device_type-SR1206:hour-4": {
+    "size": 43.0
+  },
+  "created_day-20181103:device_type-SR1206:hour-5": {
+    "size": 66.0
+  },
+  "created_day-20181103:device_type-SR1206:hour-7": {
+    "size": 1.0
+  },
+  "created_day-20181103:device_type-SR1206:hour-8": {
+    "size": 75.0
+  },
+  "created_day-20181103:device_type-SR1206:hour-9": {
+    "size": 135.0
+  },
+  "created_day-20181103:device_type-SR2512B:hour-10": {
+    "size": 2.0
+  },
+  "created_day-20181103:device_type-SR2512B:hour-2": {
+    "size": 18.0
+  },
+  "created_day-20181103:device_type-SR2512B:hour-3": {
+    "size": 4.0
+  },
+  "created_day-20181103:device_type-SR2512B:hour-5": {
+    "size": 12.0
+  },
+  "created_day-20181103:device_type-SR2512B:hour-7": {
+    "size": 2.0
+  },
+  "created_day-20181103:device_type-SR2512B:hour-8": {
+    "size": 14.0
+  },
+  "created_day-20181103:device_type-SR2512B:hour-9": {
+    "size": 12.0
+  },
+  "created_day-20181103:device_type-SR2512C:hour-10": {
+    "size": 12.0
+  },
+  "created_day-20181103:device_type-SR2512C:hour-2": {
+    "size": 40.0
+  },
+  "created_day-20181103:device_type-SR2512C:hour-3": {
+    "size": 12.0
+  },
+  "created_day-20181103:device_type-SR2512C:hour-8": {
+    "size": 12.0
+  },
+  "created_day-20181103:device_type-SRN8-0804:hour-10": {
+    "size": 6062.0
+  },
+  "created_day-20181103:device_type-SRN8-0804:hour-11": {
+    "size": 5274.0
+  },
+  "created_day-20181103:device_type-SRN8-0804:hour-12": {
+    "size": 1964.0
+  },
+  "created_day-20181103:device_type-SRN8-0804:hour-2": {
+    "size": 5042.0
+  },
+  "created_day-20181103:device_type-SRN8-0804:hour-3": {
+    "size": 3099.0
+  },
+  "created_day-20181103:device_type-SRN8-0804:hour-4": {
+    "size": 1295.0
+  },
+  "created_day-20181103:device_type-SRN8-0804:hour-5": {
+    "size": 3190.0
+  },
+  "created_day-20181103:device_type-SRN8-0804:hour-7": {
+    "size": 445.0
+  },
+  "created_day-20181103:device_type-SRN8-0804:hour-8": {
+    "size": 3233.0
+  },
+  "created_day-20181103:device_type-SRN8-0804:hour-9": {
+    "size": 4031.0
+  },
+  "created_day-20181103:device_type-SRN8-1608:hour-10": {
+    "size": 317.0
+  },
+  "created_day-20181103:device_type-SRN8-1608:hour-11": {
+    "size": 130.0
+  },
+  "created_day-20181103:device_type-SRN8-1608:hour-12": {
+    "size": 52.0
+  },
+  "created_day-20181103:device_type-SRN8-1608:hour-2": {
+    "size": 349.0
+  },
+  "created_day-20181103:device_type-SRN8-1608:hour-3": {
+    "size": 634.0
+  },
+  "created_day-20181103:device_type-SRN8-1608:hour-4": {
+    "size": 135.0
+  },
+  "created_day-20181103:device_type-SRN8-1608:hour-5": {
+    "size": 330.0
+  },
+  "created_day-20181103:device_type-SRN8-1608:hour-8": {
+    "size": 310.0
+  },
+  "created_day-20181103:device_type-SRN8-1608:hour-9": {
+    "size": 1067.0
+  },
+  "created_day-20181103:device_type-SSW-PUSH:hour-10": {
+    "size": 10.0
+  },
+  "created_day-20181103:device_type-SSW-PUSH:hour-2": {
+    "size": 27.0
+  },
+  "created_day-20181103:device_type-SSW-PUSH:hour-3": {
+    "size": 27.0
+  },
+  "created_day-20181103:device_type-SSW-PUSH:hour-4": {
+    "size": 1.0
+  },
+  "created_day-20181103:device_type-SSW-PUSH:hour-5": {
+    "size": 16.0
+  },
+  "created_day-20181103:device_type-SSW-PUSH:hour-7": {
+    "size": 2.0
+  },
+  "created_day-20181103:device_type-SSW-PUSH:hour-8": {
+    "size": 12.0
+  },
+  "created_day-20181103:device_type-SSW-PUSH:hour-9": {
+    "size": 28.0
+  },
+  "created_day-20181103:device_type-STC1010:hour-10": {
+    "size": 34.0
+  },
+  "created_day-20181103:device_type-STC1010:hour-11": {
+    "size": 33.0
+  },
+  "created_day-20181103:device_type-STC1010:hour-12": {
+    "size": 14.0
+  },
+  "created_day-20181103:device_type-STC1010:hour-2": {
+    "size": 28.0
+  },
+  "created_day-20181103:device_type-STC1010:hour-3": {
+    "size": 11.0
+  },
+  "created_day-20181103:device_type-STC1010:hour-4": {
+    "size": 5.0
+  },
+  "created_day-20181103:device_type-STC1010:hour-5": {
+    "size": 27.0
+  },
+  "created_day-20181103:device_type-STC1010:hour-7": {
+    "size": 4.0
+  },
+  "created_day-20181103:device_type-STC1010:hour-8": {
+    "size": 31.0
+  },
+  "created_day-20181103:device_type-STC1010:hour-9": {
+    "size": 2.0
+  },
+  "created_day-20181103:device_type-STC3216:hour-5": {
+    "size": 3.0
+  },
+  "created_day-20181103:device_type-STC3528:hour-10": {
+    "size": 55.0
+  },
+  "created_day-20181103:device_type-STC3528:hour-2": {
+    "size": 80.0
+  },
+  "created_day-20181103:device_type-STC3528:hour-3": {
+    "size": 399.0
+  },
+  "created_day-20181103:device_type-STC3528:hour-4": {
+    "size": 24.0
+  },
+  "created_day-20181103:device_type-STC3528:hour-5": {
+    "size": 380.0
+  },
+  "created_day-20181103:device_type-STC3528:hour-7": {
+    "size": 44.0
+  },
+  "created_day-20181103:device_type-STC3528:hour-8": {
+    "size": 154.0
+  },
+  "created_day-20181103:device_type-STC3528:hour-9": {
+    "size": 386.0
+  },
+  "created_day-20181103:device_type-STC7343:hour-10": {
+    "size": 647.0
+  },
+  "created_day-20181103:device_type-STC7343:hour-11": {
+    "size": 654.0
+  },
+  "created_day-20181103:device_type-STC7343:hour-12": {
+    "size": 257.0
+  },
+  "created_day-20181103:device_type-STC7343:hour-2": {
+    "size": 418.0
+  },
+  "created_day-20181103:device_type-STC7343:hour-3": {
+    "size": 176.0
+  },
+  "created_day-20181103:device_type-STC7343:hour-4": {
+    "size": 113.0
+  },
+  "created_day-20181103:device_type-STC7343:hour-5": {
+    "size": 245.0
+  },
+  "created_day-20181103:device_type-STC7343:hour-7": {
+    "size": 27.0
+  },
+  "created_day-20181103:device_type-STC7343:hour-8": {
+    "size": 316.0
+  },
+  "created_day-20181103:device_type-STC7343:hour-9": {
+    "size": 214.0
+  },
+  "created_day-20181103:device_type-STHC0805:hour-10": {
+    "size": 68.0
+  },
+  "created_day-20181103:device_type-STHC0805:hour-2": {
+    "size": 278.0
+  },
+  "created_day-20181103:device_type-STHC0805:hour-3": {
+    "size": 78.0
+  },
+  "created_day-20181103:device_type-STHC0805:hour-5": {
+    "size": 104.0
+  },
+  "created_day-20181103:device_type-STHC0805:hour-7": {
+    "size": 16.0
+  },
+  "created_day-20181103:device_type-STHC0805:hour-8": {
+    "size": 163.0
+  },
+  "created_day-20181103:device_type-STHC0805:hour-9": {
+    "size": 80.0
+  },
+  "created_day-20181103:device_type-SX4-0705:hour-10": {
+    "size": 11.0
+  },
+  "created_day-20181103:device_type-SX4-0705:hour-2": {
+    "size": 12.0
+  },
+  "created_day-20181103:device_type-SX4-0705:hour-3": {
+    "size": 54.0
+  },
+  "created_day-20181103:device_type-SX4-0705:hour-4": {
+    "size": 7.0
+  },
+  "created_day-20181103:device_type-SX4-0705:hour-5": {
+    "size": 37.0
+  },
+  "created_day-20181103:device_type-SX4-0705:hour-7": {
+    "size": 4.0
+  },
+  "created_day-20181103:device_type-SX4-0705:hour-8": {
+    "size": 8.0
+  },
+  "created_day-20181103:device_type-SX4-0705:hour-9": {
+    "size": 68.0
+  },
+  "created_day-20181103:device_type-SX6-0705:hour-10": {
+    "size": 42.0
+  },
+  "created_day-20181103:device_type-SX6-0705:hour-11": {
+    "size": 47.0
+  },
+  "created_day-20181103:device_type-SX6-0705:hour-12": {
+    "size": 28.0
+  },
+  "created_day-20181103:device_type-SX6-0705:hour-2": {
+    "size": 25.0
+  },
+  "created_day-20181103:device_type-SX6-0705:hour-3": {
+    "size": 10.0
+  },
+  "created_day-20181103:device_type-SX6-0705:hour-4": {
+    "size": 8.0
+  },
+  "created_day-20181103:device_type-SX6-0705:hour-5": {
+    "size": 11.0
+  },
+  "created_day-20181103:device_type-SX6-0705:hour-7": {
+    "size": 3.0
+  },
+  "created_day-20181103:device_type-SX6-0705:hour-8": {
+    "size": 6.0
+  },
+  "created_day-20181103:device_type-SX6-0705:hour-9": {
+    "size": 8.0
+  },
+  "created_day-20181103:device_type-VIS-SI7356:hour-10": {
+    "size": 90.0
+  },
+  "created_day-20181103:device_type-VIS-SI7356:hour-11": {
+    "size": 33.0
+  },
+  "created_day-20181103:device_type-VIS-SI7356:hour-12": {
+    "size": 14.0
+  },
+  "created_day-20181103:device_type-VIS-SI7356:hour-2": {
+    "size": 211.0
+  },
+  "created_day-20181103:device_type-VIS-SI7356:hour-3": {
+    "size": 110.0
+  },
+  "created_day-20181103:device_type-VIS-SI7356:hour-4": {
+    "size": 37.0
+  },
+  "created_day-20181103:device_type-VIS-SI7356:hour-5": {
+    "size": 68.0
+  },
+  "created_day-20181103:device_type-VIS-SI7356:hour-8": {
+    "size": 80.0
+  },
+  "created_day-20181103:device_type-VIS-SI7356:hour-9": {
+    "size": 114.0
+  }
+}

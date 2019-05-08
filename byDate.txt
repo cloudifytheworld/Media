@@ -212,3 +212,116 @@ Keyspace : images
                 Dropped Mutations: 0
 
 ----------------
+"2019-05-07 08:39:57 [main] INFO  c.h.i.admin.service.FileLoadService [FileLoadService.java:68] - final insert takes 830 sec
+"2019-05-07 08:39:57 [main] INFO  c.h.i.admin.service.FileLoadService [FileLoadService.java:69] - number of error data 406
+change from 160 -> 'sstable_size_in_mb': '1600'
+root@cassandra3:/var/lib/cassandra# nodetool tablestats images.aoi_single_component_image;
+Total number of tables: 37
+----------------
+Keyspace : images
+        Read Count: 0
+        Read Latency: NaN ms
+        Write Count: 3048554
+        Write Latency: 0.04971904319228067 ms
+        Pending Flushes: 0
+                Table: aoi_single_component_image
+                SSTable count: 15
+                SSTables in each level: [1, 10, 4, 0, 0, 0, 0, 0, 0]
+                Space used (live): 23963917449
+                Space used (total): 23963917449
+                Space used by snapshots (total): 0
+                Off heap memory used (total): 4119336
+                SSTable Compression Ratio: 0.7187156785426758
+                Number of partitions (estimate): 28763
+                Memtable cell count: 5449
+                Memtable data size: 24886831
+                Memtable off heap memory used: 0
+                Memtable switch count: 335
+                Local read count: 0
+                Local read latency: NaN ms
+                Local write count: 3048554
+                Local write latency: NaN ms
+                Pending flushes: 0
+                Percent repaired: 0.0
+                Bloom filter false positives: 0
+                Bloom filter false ratio: 0.00000
+                Bloom filter space used: 41560
+                Bloom filter off heap memory used: 41440
+                Index summary off heap memory used: 11320
+                Compression metadata off heap memory used: 4066576
+                Compacted partition minimum bytes: 1110
+                Compacted partition maximum bytes: 30130992
+                Compacted partition mean bytes: 1267029
+                Average live cells per slice (last five minutes): NaN
+                Maximum live cells per slice (last five minutes): 0
+                Average tombstones per slice (last five minutes): NaN
+                Maximum tombstones per slice (last five minutes): 0
+                Dropped Mutations: 0
+
+
+Percentile  SSTables     Write Latency      Read Latency    Partition Size        Cell Count
+                              (micros)          (micros)           (bytes)
+50%             0.00              0.00              0.00            454826                60
+75%             0.00              0.00              0.00           1358102               372
+95%             0.00              0.00              0.00           5839588              3973
+98%             0.00              0.00              0.00           8409007              6866
+99%             0.00              0.00              0.00          10090808              9887
+Min             0.00              0.00              0.00              1110                 6
+Max             0.00              0.00              0.00          30130992             29521
+
+-----------------------------------------
+Partition with one Hour one Minutes 
+
+root@cassandra2:/var/log/cassandra# nodetool tablestats images.aoi_single_component_image;
+Total number of tables: 37
+----------------
+Keyspace : images
+        Read Count: 0
+        Read Latency: NaN ms
+        Write Count: 3048550
+        Write Latency: 0.049873610076921815 ms
+        Pending Flushes: 0
+                Table: aoi_single_component_image
+                SSTable count: 151
+                SSTables in each level: [0, 10, 103/100, 38, 0, 0, 0, 0, 0]
+                Space used (live): 23969868511
+                Space used (total): 23969868511
+                Space used by snapshots (total): 0
+                Off heap memory used (total): 35200744
+                SSTable Compression Ratio: 0.7188610148888241
+                Number of partitions (estimate): 95649
+                Memtable cell count: 6952
+                Memtable data size: 31725904
+                Memtable off heap memory used: 30926578
+                Memtable switch count: 313
+                Local read count: 0
+                Local read latency: NaN ms
+                Local write count: 3048550
+                Local write latency: NaN ms
+                Pending flushes: 0
+                Percent repaired: 0.0
+                Bloom filter false positives: 0
+                Bloom filter false ratio: 0.00000
+                Bloom filter space used: 167032
+                Bloom filter off heap memory used: 165824
+                Index summary off heap memory used: 40542
+                Compression metadata off heap memory used: 4067800
+                Compacted partition minimum bytes: 1110
+                Compacted partition maximum bytes: 7007506
+                Compacted partition mean bytes: 380375
+                Average live cells per slice (last five minutes): NaN
+                Maximum live cells per slice (last five minutes): 0
+                Average tombstones per slice (last five minutes): NaN
+                Maximum tombstones per slice (last five minutes): 0
+                Dropped Mutations: 0
+
+------------------------------------
+Percentile   SSTables     Write Latency      Read Latency    Partition Size        Cell Count
+                              (micros)          (micros)           (bytes)
+50%             0.00              0.00              0.00            182785                35
+75%             0.00              0.00              0.00            454826               149
+95%             0.00              0.00              0.00           1358102              1109
+98%             0.00              0.00              0.00           1955666              1916
+99%             0.00              0.00              0.00           2346799              2759
+Min             0.00              0.00              0.00              1110                 6
+Max             0.00              0.00              0.00           7007506              9887
