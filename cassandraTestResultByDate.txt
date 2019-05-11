@@ -318,3 +318,386 @@ Pool Name                    Active   Pending      Completed   Dropped
 Large messages                  n/a         0           3976         0
 Small messages                  n/a         0         189556         0
 Gossip messages                 n/a         0           7278         0
+
+=========================================================================
+SizeTiredCompaction
+
+"2019-05-09 09:57:46.937 [ImbpRtActionSystem-akka.actor.default-dispatcher-5] INFO  c.h.imbp.imbprt.Action.ReadAction [ReadAction.java:39] - {20181103=89, 20181103-2=89}
+"2019-05-09 09:57:46.937 [ImbpRtActionSystem-akka.actor.default-dispatcher-5] INFO  c.h.imbp.imbprt.Action.ReadAction [ReadAction.java:40] - 20181103 takes 89 # of cells 368123
+
+----------------
+Keyspace : images
+        Read Count: 35350
+        Read Latency: 22.426391287128713 ms
+        Write Count: 3048550
+        Write Latency: 0.05337625723704712 ms
+        Pending Flushes: 0
+                Table: aoi_single_component_image
+                SSTable count: 7
+                Space used (live): 23970405320
+                Space used (total): 23970405320
+                Space used by snapshots (total): 0
+                Off heap memory used (total): 4220984
+                SSTable Compression Ratio: 0.7188430446685501
+                Number of partitions (estimate): 95645
+                Memtable cell count: 6134
+                Memtable data size: 28008338
+                Memtable off heap memory used: 0
+                Memtable switch count: 334
+                Local read count: 35350
+                Local read latency: 21.911 ms
+                Local write count: 3048550
+                Local write latency: NaN ms
+                Pending flushes: 0
+                Percent repaired: 0.0
+                Bloom filter false positives: 148
+                Bloom filter false ratio: 0.02606
+                Bloom filter space used: 118520
+                Bloom filter off heap memory used: 118464
+                Index summary off heap memory used: 36160
+                Compression metadata off heap memory used: 4066360
+                Compacted partition minimum bytes: 1110
+                Compacted partition maximum bytes: 7007506
+                Compacted partition mean bytes: 379890
+                Average live cells per slice (last five minutes): 6.566671272626779
+                Maximum live cells per slice (last five minutes): 770
+                Average tombstones per slice (last five minutes): 1.0
+                Maximum tombstones per slice (last five minutes): 1
+                Dropped Mutations: 0
+
+----------------
+"2019-05-09 10:02:39.277 [ImbpRtActionSystem-akka.actor.default-dispatcher-21] INFO  c.h.imbp.imbprt.Action.ReadAction [ReadAction.java:39] - {20181103=68, 20181103-9=68}
+"2019-05-09 10:02:39.278 [ImbpRtActionSystem-akka.actor.default-dispatcher-21] INFO  c.h.imbp.imbprt.Action.ReadAction [ReadAction.java:40] - 20181103 takes 68 # of cells 736215
+----------------
+Keyspace : images
+        Read Count: 66248
+        Read Latency: 15.635986701485328 ms
+        Write Count: 3048550
+        Write Latency: 0.05337625723704712 ms
+        Pending Flushes: 0
+                Table: aoi_single_component_image
+                SSTable count: 7
+                Space used (live): 23970405320
+                Space used (total): 23970405320
+                Space used by snapshots (total): 0
+                Off heap memory used (total): 4220984
+                SSTable Compression Ratio: 0.7188430446685501
+                Number of partitions (estimate): 95645
+                Memtable cell count: 6134
+                Memtable data size: 28008338
+                Memtable off heap memory used: 0
+                Memtable switch count: 334
+                Local read count: 66248
+                Local read latency: 9.403 ms
+                Local write count: 3048550
+                Local write latency: NaN ms
+                Pending flushes: 0
+                Percent repaired: 0.0
+                Bloom filter false positives: 291
+                Bloom filter false ratio: 0.02860
+                Bloom filter space used: 118520
+                Bloom filter off heap memory used: 118464
+                Index summary off heap memory used: 36160
+                Compression metadata off heap memory used: 4066360
+                Compacted partition minimum bytes: 1110
+                Compacted partition maximum bytes: 7007506
+                Compacted partition mean bytes: 379890
+                Average live cells per slice (last five minutes): 6.393139448173005
+                Maximum live cells per slice (last five minutes): 770
+                Average tombstones per slice (last five minutes): 1.0
+                Maximum tombstones per slice (last five minutes): 1
+                Dropped Mutations: 0
+
+----------------
+"2019-05-09 10:23:06.386 [ImbpRtActionSystem-akka.actor.default-dispatcher-44] INFO  c.h.imbp.imbprt.Action.ReadAction [ReadAction.java:39] - {20181121=23, 20181121-10=23}
+"2019-05-09 10:23:06.386 [ImbpRtActionSystem-akka.actor.default-dispatcher-44] INFO  c.h.imbp.imbprt.Action.ReadAction [ReadAction.java:40] - 20181121 takes 780 # of cells 4115560
+----------------
+Keyspace : images
+        Read Count: 677719
+        Read Latency: 6.500515886377688 ms
+        Write Count: 3048550
+        Write Latency: 0.05337625723704712 ms
+        Pending Flushes: 0
+                Table: aoi_single_component_image
+                SSTable count: 7
+                Space used (live): 23970405320
+                Space used (total): 23970405320
+                Space used by snapshots (total): 0
+                Off heap memory used (total): 4220984
+                SSTable Compression Ratio: 0.7188430446685501
+                Number of partitions (estimate): 95645
+                Memtable cell count: 6134
+                Memtable data size: 28008338
+                Memtable off heap memory used: 0
+                Memtable switch count: 334
+                Local read count: 677719
+                Local read latency: NaN ms
+                Local write count: 3048550
+                Local write latency: NaN ms
+                Pending flushes: 0
+                Percent repaired: 0.0
+                Bloom filter false positives: 3015
+                Bloom filter false ratio: 0.05788
+                Bloom filter space used: 118520
+                Bloom filter off heap memory used: 118464
+                Index summary off heap memory used: 36160
+                Compression metadata off heap memory used: 4066360
+                Compacted partition minimum bytes: 1110
+                Compacted partition maximum bytes: 7007506
+                Compacted partition mean bytes: 379890
+                Average live cells per slice (last five minutes): NaN
+                Maximum live cells per slice (last five minutes): 0
+                Average tombstones per slice (last five minutes): NaN
+                Maximum tombstones per slice (last five minutes): 0
+                Dropped Mutations: 0
+
+----------------
+
+Disable compaction
+
+"2019-05-09 11:05:08.442 [ImbpRtActionSystem-akka.actor.default-dispatcher-38] INFO  c.h.imbp.imbprt.Action.ReadAction [ReadAction.java:39] - {20181125=12, 20181125-12=12}
+"2019-05-09 11:05:08.442 [ImbpRtActionSystem-akka.actor.default-dispatcher-38] INFO  c.h.imbp.imbprt.Action.ReadAction [ReadAction.java:40] - 20181125 takes 1080 # of cells 7163666 
+----------------
+Keyspace : images
+        Read Count: 1270135
+        Read Latency: 6.231565366673622 ms
+        Write Count: 3048550
+        Write Latency: 0.05337625723704712 ms
+        Pending Flushes: 0
+                Table: aoi_single_component_image
+                SSTable count: 7
+                Space used (live): 23970405320
+                Space used (total): 23970405320
+                Space used by snapshots (total): 0
+                Off heap memory used (total): 4220984
+                SSTable Compression Ratio: 0.7188430446685501
+                Number of partitions (estimate): 95645
+                Memtable cell count: 6134
+                Memtable data size: 28008338
+                Memtable off heap memory used: 0
+                Memtable switch count: 334
+                Local read count: 1270135
+                Local read latency: 3.819 ms
+                Local write count: 3048550
+                Local write latency: NaN ms
+                Pending flushes: 0
+                Percent repaired: 0.0
+                Bloom filter false positives: 5597
+                Bloom filter false ratio: 0.06105
+                Bloom filter space used: 118520
+                Bloom filter off heap memory used: 118464
+                Index summary off heap memory used: 36160
+                Compression metadata off heap memory used: 4066360
+                Compacted partition minimum bytes: 1110
+                Compacted partition maximum bytes: 7007506
+                Compacted partition mean bytes: 379890
+                Average live cells per slice (last five minutes): 2.9083160029782538
+                Maximum live cells per slice (last five minutes): 770
+                Average tombstones per slice (last five minutes): 1.0
+                Maximum tombstones per slice (last five minutes): 1
+                Dropped Mutations: 0
+
+----------------
+sstable_size_in_mb 160 to 1600
+"2019-05-10 10:04:09.783 [ImbpRtActionSystem-akka.actor.default-dispatcher-8] INFO  c.h.imbp.imbprt.Action.ReadAction [ReadAction.java:39] - {20181103=80, 20181103-10=80}
+"2019-05-10 10:04:09.783 [ImbpRtActionSystem-akka.actor.default-dispatcher-8] INFO  c.h.imbp.imbprt.Action.ReadAction [ReadAction.java:40] - 20181103 takes 80 # of cells 368118 size(M) 0.00
+
+Keyspace : images
+        Read Count: 32925
+        Read Latency: 30.399068033409264 ms
+        Write Count: 0
+        Write Latency: NaN ms
+        Pending Flushes: 0
+                Table: aoi_single_component_image
+                SSTable count: 15
+                SSTables in each level: [1, 10, 4, 0, 0, 0, 0, 0, 0]
+                Space used (live): 23988848467
+                Space used (total): 23988848467
+                Space used by snapshots (total): 0
+                Off heap memory used (total): 4242412
+                SSTable Compression Ratio: 0.7187855008523649
+                Number of partitions (estimate): 95641
+                Memtable cell count: 0
+                Memtable data size: 0
+                Memtable off heap memory used: 0
+                Memtable switch count: 0
+                Local read count: 32925
+                Local read latency: 32.252 ms
+                Local write count: 0
+                Local write latency: NaN ms
+                Pending flushes: 0
+                Percent repaired: 0.0
+                Bloom filter false positives: 0
+                Bloom filter false ratio: 0.00000
+                Bloom filter space used: 136208
+                Bloom filter off heap memory used: 136088
+                Index summary off heap memory used: 36420
+                Compression metadata off heap memory used: 4069904
+                Compacted partition minimum bytes: 1110
+                Compacted partition maximum bytes: 7007506
+                Compacted partition mean bytes: 380709
+                Average live cells per slice (last five minutes): 6.508916920400174
+                Maximum live cells per slice (last five minutes): 770
+                Average tombstones per slice (last five minutes): 1.0
+                Maximum tombstones per slice (last five minutes): 1
+                Dropped Mutations: 0
+
+----------------
+disable autocompaction
+"2019-05-10 10:11:53.674 [ImbpRtActionSystem-akka.actor.default-dispatcher-12] INFO  c.h.imbp.imbprt.Action.ReadAction [ReadAction.java:39] - {20181103=78, 20181103-10=78}
+"2019-05-10 10:11:53.674 [ImbpRtActionSystem-akka.actor.default-dispatcher-12] INFO  c.h.imbp.imbprt.Action.ReadAction [ReadAction.java:40] - 20181103 takes 78 # of cells 368123 size(M) 0.00
+
+----------------
+Keyspace : images
+        Read Count: 33421
+        Read Latency: 26.14396020466174 ms
+        Write Count: 0
+        Write Latency: NaN ms
+        Pending Flushes: 0
+                Table: aoi_single_component_image
+                SSTable count: 15
+                SSTables in each level: [1, 10, 4, 0, 0, 0, 0, 0, 0]
+                Space used (live): 23988848467
+                Space used (total): 23988848467
+                Space used by snapshots (total): 0
+                Off heap memory used (total): 4242412
+                SSTable Compression Ratio: 0.7187855011223178
+                Number of partitions (estimate): 95641
+                Memtable cell count: 0
+                Memtable data size: 0
+                Memtable off heap memory used: 0
+                Memtable switch count: 0
+                Local read count: 33421
+                Local read latency: 27.273 ms
+                Local write count: 0
+                Local write latency: NaN ms
+                Pending flushes: 0
+                Percent repaired: 0.0
+                Bloom filter false positives: 1
+                Bloom filter false ratio: 0.00021
+                Bloom filter space used: 136208
+                Bloom filter off heap memory used: 136088
+                Index summary off heap memory used: 36420
+                Compression metadata off heap memory used: 4069904
+                Compacted partition minimum bytes: 1110
+                Compacted partition maximum bytes: 7007506
+                Compacted partition mean bytes: 380709
+                Average live cells per slice (last five minutes): 6.552476349471341
+                Maximum live cells per slice (last five minutes): 770
+                Average tombstones per slice (last five minutes): 1.0
+                Maximum tombstones per slice (last five minutes): 1
+                Dropped Mutations: 0
+
+----------------
+second run
+"2019-05-10 10:14:24.190 [ImbpRtActionSystem-akka.actor.default-dispatcher-9] INFO  c.h.imbp.imbprt.Action.ReadAction [ReadAction.java:39] - {20181103=70, 20181103-2=70}
+"2019-05-10 10:14:24.190 [ImbpRtActionSystem-akka.actor.default-dispatcher-9] INFO  c.h.imbp.imbprt.Action.ReadAction [ReadAction.java:40] - 20181103 takes 70 # of cells 736246 size(M) 0.00
+third run
+"2019-05-10 10:46:04.671 [ImbpRtActionSystem-akka.actor.default-dispatcher-40] INFO  c.h.imbp.imbprt.Action.ReadAction [ReadAction.java:39] - {20181103=77, 20181103-9=77}
+"2019-05-10 10:46:04.671 [ImbpRtActionSystem-akka.actor.default-dispatcher-40] INFO  c.h.imbp.imbprt.Action.ReadAction [ReadAction.java:40] - 20181103 takes 77 # of cells 1840405 size(M) 0.00
+
+Keyspace : images
+        Read Count: 66498
+        Read Latency: 23.821263827483534 ms
+        Write Count: 0
+        Write Latency: NaN ms
+        Pending Flushes: 0
+                Table: aoi_single_component_image
+                SSTable count: 15
+                SSTables in each level: [1, 10, 4, 0, 0, 0, 0, 0, 0]
+                Space used (live): 23988848467
+                Space used (total): 23988848467
+                Space used by snapshots (total): 0
+                Off heap memory used (total): 4242412
+                SSTable Compression Ratio: 0.7187855011223178
+                Number of partitions (estimate): 95641
+                Memtable cell count: 0
+                Memtable data size: 0
+                Memtable off heap memory used: 0
+                Memtable switch count: 0
+                Local read count: 66498
+                Local read latency: 23.631 ms
+                Local write count: 0
+                Local write latency: NaN ms
+                Pending flushes: 0
+                Percent repaired: 0.0
+                Bloom filter false positives: 3
+                Bloom filter false ratio: 0.00041
+                Bloom filter space used: 136208
+                Bloom filter off heap memory used: 136088
+                Index summary off heap memory used: 36420
+                Compression metadata off heap memory used: 4069904
+                Compacted partition minimum bytes: 1110
+                Compacted partition maximum bytes: 7007506
+                Compacted partition mean bytes: 380709
+                Average live cells per slice (last five minutes): 6.164032144118686
+                Maximum live cells per slice (last five minutes): 924
+                Average tombstones per slice (last five minutes): 1.0
+                Maximum tombstones per slice (last five minutes): 1
+                Dropped Mutations: 0
+
+----------------
+whole month data
+"2019-05-10 11:00:59.013 [ImbpRtActionSystem-akka.actor.default-dispatcher-43] INFO  c.h.imbp.imbprt.Action.ReadAction [ReadAction.java:39] - {20181109=27, 20181109-10=27}
+"2019-05-10 11:00:59.013 [ImbpRtActionSystem-akka.actor.default-dispatcher-43] INFO  c.h.imbp.imbprt.Action.ReadAction [ReadAction.java:40] - 20181109 takes 10 mins # of cells 4888506 size(M) 0.00
+second run
+"2019-05-10 11:17:12.353 [ImbpRtActionSystem-akka.actor.default-dispatcher-61] INFO  c.h.imbp.imbprt.Action.ReadAction [ReadAction.java:39] - {20181125=23, 20181125-12=23}
+"2019-05-10 11:17:12.353 [ImbpRtActionSystem-akka.actor.default-dispatcher-61] INFO  c.h.imbp.imbprt.Action.ReadAction [ReadAction.java:40] - 20181125 takes 12 mins # of cells 7936646 size(M) 0.00
+Third run
+"2019-05-10 11:34:11.475 [ImbpRtActionSystem-akka.actor.default-dispatcher-74] INFO  c.h.imbp.imbprt.Action.ReadAction [ReadAction.java:39] - {20181125=15, 20181125-12=15}
+"2019-05-10 11:34:11.475 [ImbpRtActionSystem-akka.actor.default-dispatcher-74] INFO  c.h.imbp.imbprt.Action.ReadAction [ReadAction.java:40] - 20181125 takes 13 mins # of cells 1098462
+It ran out of java heap memory 
+Total number of tables: 37
+----------------
+Keyspace : images
+        Read Count: 810762
+        Read Latency: 14.801573363083124 ms
+        Write Count: 0
+        Write Latency: NaN ms
+        Pending Flushes: 0
+                Table: aoi_single_component_image
+                SSTable count: 15
+                SSTables in each level: [1, 10, 4, 0, 0, 0, 0, 0, 0]
+                Space used (live): 23988848467
+                Space used (total): 23988848467
+                Space used by snapshots (total): 0
+                Off heap memory used (total): 4242412
+                SSTable Compression Ratio: 0.7187855011223178
+                Number of partitions (estimate): 95641
+                Memtable cell count: 0
+                Memtable data size: 0
+                Memtable off heap memory used: 0
+                Memtable switch count: 0
+                Local read count: 810762
+                Local read latency: 12.021 ms
+                Local write count: 0
+                Local write latency: NaN ms
+                Pending flushes: 0
+                Percent repaired: 0.0
+                Bloom filter false positives: 59
+                Bloom filter false ratio: 0.00122
+                Bloom filter space used: 136208
+                Bloom filter off heap memory used: 136088
+                Index summary off heap memory used: 36420
+                Compression metadata off heap memory used: 4069904
+                Compacted partition minimum bytes: 1110
+                Compacted partition maximum bytes: 7007506
+                Compacted partition mean bytes: 380709
+                Average live cells per slice (last five minutes): 3.2321132508608597
+                Maximum live cells per slice (last five minutes): 642
+                Average tombstones per slice (last five minutes): 1.0
+                Maximum tombstones per slice (last five minutes): 1
+                Dropped Mutations: 0
+
+----------------
+Percentile  SSTables     Write Latency      Read Latency    Partition Size        Cell Count
+                              (micros)          (micros)           (bytes)
+50%             0.00              0.00             20.50            182785                35
+75%             0.00              0.00             51.01            454826               149
+95%             1.00              0.00           8409.01           1358102              1109
+98%             1.00              0.00         129557.75           1955666              1916
+99%             1.00              0.00         268650.95           2346799              2759
+Min             0.00              0.00              6.87              1110                 6
+Max             2.00              0.00        2395318.86           7007506              9887
+
+root@cassandra1:/var/lib/cassandra/data#
