@@ -40,8 +40,8 @@ public class ImbpEtlApplication {
     @Autowired
     private ImbpEtlActionExtension imbpEtlActionExtension;
 
-    @Value("#{${db.cassandra}}")
-    public Map<String, String> cassandraConfig;
+//    @Value("#{${db.cassandra}}")
+//    public Map<String, String> cassandraConfig;
 
     @Value("${logging.level-root}")
     public Level logLevel;
@@ -61,27 +61,27 @@ public class ImbpEtlApplication {
         return actorSystem;
     }
 
-    @Bean
-    @RefreshScope
-    public ListenableFuture<Session> session(){
-
-        PoolingOptions poolingOptions = new PoolingOptions();
-        poolingOptions.setHeartbeatIntervalSeconds(Integer.parseInt(cassandraConfig.get("heart-beat")));
-        poolingOptions.setCoreConnectionsPerHost(HostDistance.LOCAL, 100)
-                .setMaxConnectionsPerHost(HostDistance.LOCAL, 300)
-                .setNewConnectionThreshold(HostDistance.LOCAL, 200)
-                .setConnectionsPerHost(HostDistance.LOCAL, 1, 250);
-
-        Cluster cluster = Cluster.builder()
-                .addContactPoints(cassandraConfig.get("contact-points").split(","))
-                .withPoolingOptions(poolingOptions)
-                .withLoadBalancingPolicy(new RoundRobinPolicy())
-                .withoutMetrics()
-                .withoutJMXReporting()
-                .build();
-
-        return cluster.connectAsync();
-    }
+//    @Bean
+//    @RefreshScope
+//    public ListenableFuture<Session> session(){
+//
+//        PoolingOptions poolingOptions = new PoolingOptions();
+//        poolingOptions.setHeartbeatIntervalSeconds(Integer.parseInt(cassandraConfig.get("heart-beat")));
+//        poolingOptions.setCoreConnectionsPerHost(HostDistance.LOCAL, 100)
+//                .setMaxConnectionsPerHost(HostDistance.LOCAL, 300)
+//                .setNewConnectionThreshold(HostDistance.LOCAL, 200)
+//                .setConnectionsPerHost(HostDistance.LOCAL, 1, 250);
+//
+//        Cluster cluster = Cluster.builder()
+//                .addContactPoints(cassandraConfig.get("contact-points").split(","))
+//                .withPoolingOptions(poolingOptions)
+//                .withLoadBalancingPolicy(new RoundRobinPolicy())
+//                .withoutMetrics()
+//                .withoutJMXReporting()
+//                .build();
+//
+//        return cluster.connectAsync();
+//    }
 
     public static void main(String[] args) {
         SpringApplication.run(ImbpEtlApplication.class, args);

@@ -18,3 +18,4 @@ management:
     export:
       prometheus:
         enabled: true
+

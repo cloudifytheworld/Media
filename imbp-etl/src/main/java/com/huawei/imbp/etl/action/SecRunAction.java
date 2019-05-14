@@ -1,7 +1,6 @@
 package com.huawei.imbp.etl.action;
 
 import akka.actor.UntypedAbstractActor;
-import com.huawei.imbp.etl.service.CassandraRepository;
 import com.huawei.imbp.etl.service.CassandraService;
 import com.huawei.imbp.etl.service.LoggingService;
 import lombok.extern.log4j.Log4j2;
@@ -23,7 +22,7 @@ import java.util.Map;
 public class SecRunAction extends UntypedAbstractActor {
 
     @Autowired
-    CassandraRepository service;
+    CassandraService service;
 
     @Autowired
     LoggingService loggingService;
@@ -35,7 +34,7 @@ public class SecRunAction extends UntypedAbstractActor {
             List<Map<String, Object>> data = List.class.cast(message);
             data.stream().forEach(d ->{
                 try{
-                    service.onInsert(d);
+                    service.onProcess(d);
                 }catch (Exception e){
                     log.error(e.getMessage());
                     loggingService.onFailure(e, d);

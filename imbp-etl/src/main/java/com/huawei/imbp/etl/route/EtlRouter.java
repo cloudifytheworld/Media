@@ -21,7 +21,7 @@ public class EtlRouter {
     @Bean
     public RouterFunction<ServerResponse> aoiEtlRouting(EtlServiceHandler etlServiceHandler) {
 
-        return RouterFunctions.route(RequestPredicates.POST("/api/{aoi}/etl").
+        return RouterFunctions.route(RequestPredicates.POST("/api/aoi/etl").
                         and(RequestPredicates.accept(MediaType.APPLICATION_JSON)),
                 etlServiceHandler::handleEtlService);
     }
@@ -36,14 +36,4 @@ public class EtlRouter {
     }
 
 
-    @Bean
-    public RouterFunction<ServerResponse> etlLargeRouting(EtlServiceHandler etlServiceHandler) {
-
-        return RouterFunctions.route()
-                .path("/api", r -> r
-                        .nest(accept(MediaType.APPLICATION_JSON), m -> m
-                                .POST("/etl/large", etlServiceHandler::handleEtlLargeService)
-                                .POST("/{aoi}/etl/large", etlServiceHandler::handleEtlLargeService)
-                        )).build();
-    }
 }

@@ -55,30 +55,6 @@ public class EtlServiceHandler {
         );
     }
 
-    public Mono<ServerResponse> handleEtlLargeService(ServerRequest serverRequest){
-
-        log.debug("handle etl large service");
-
-        return serverRequest.bodyToMono(Map.class).flatMap(s -> {
-
-                String destination = (String)s.get("destination");
-                try {
-                    if (isDestinationEmpty(destination, s)) {
-                        return ServerResponse.badRequest().syncBody("destination empty");
-                    }
-                    switch (destination.toLowerCase()) {
-                        case CASSANDRA:
-                            return cassandraService.onLargeProcess(s);
-                        default:
-                            return ServerResponse.badRequest().syncBody(destination + "not supported");
-                    }
-                }catch (Exception e){
-                    return ServerResponse.badRequest().syncBody(e.getMessage());
-                }
-            }
-        );
-    }
-
 
     private boolean isDestinationEmpty(String destination, Map<String, Object> input) {
 
