@@ -33,7 +33,7 @@ public class CassandraService {
 
         try {
             AoiEntity entity = ConversionData.convert(payload);
-            aoiRepository.insert(entity).subscribe();
+            aoiRepository.insert(entity).subscribe(s -> { log.debug("insertion is successful");});
             return Mono.empty();
         }catch (Exception e){
             loggingService.onFailure(e, payload);
