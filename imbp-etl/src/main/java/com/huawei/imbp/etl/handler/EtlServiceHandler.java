@@ -3,16 +3,21 @@ package com.huawei.imbp.etl.handler;
 import com.huawei.imbp.etl.service.CassandraService;
 import com.huawei.imbp.etl.service.LoggingService;
 import com.huawei.imbp.etl.util.Logging;
+import com.netflix.hystrix.HystrixCommandProperties;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.cloud.netflix.hystrix.HystrixCommands;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 
-import static com.huawei.imbp.etl.common.ImbpCommon.CASSANDRA;
+import static com.huawei.imbp.etl.common.ImbpCommon.AOI;
 
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @author Charles(Li) Cai
@@ -20,6 +25,7 @@ import java.util.Map;
  */
 
 @Component
+@RefreshScope
 public class EtlServiceHandler {
 
     @Autowired
@@ -31,36 +37,53 @@ public class EtlServiceHandler {
     @Autowired
     public Logging log;
 
+    @Value("${request.timeout}")
+    public int timeout;
+
     public Mono<ServerResponse> handleEtlService(ServerRequest serverRequest){
 
         log.debug("handle etl service");
 
-        return serverRequest.bodyToMono(Map.class).flatMap(s -> {
+        Mono<ServerResponse> response = serverRequest.bodyToMono(Map.class).flatMap(s -> {
 
-                String destination = (String)s.get("destination");
+                String system = (String)s.get("sender");
                 try {
-                    if (isDestinationEmpty(destination, s)) {
-                        return ServerResponse.badRequest().syncBody("destination empty");
+                    if (isSystemEmpty(system, s)) {
+                        return ServerResponse.badRequest().syncBody("system is empty");
                     }
-                    switch (destination.toLowerCase()) {
-                        case CASSANDRA:
-                            return cassandraService.onProcess(s);
+                    switch (system.toLowerCase()) {
+                        case AOI:
+                            return cassandraService.onAoiProcess(s);
                         default:
-                            return ServerResponse.badRequest().syncBody(destination + "not supported");
+                            return ServerResponse.badRequest().syncBody(system + "is not supported");
                     }
                 }catch (Exception e){
                     return ServerResponse.badRequest().syncBody(e.getMessage());
                 }
             }
         );
+
+        Mono<ServerResponse> hystrixResponse = HystrixCommands
+                .from(response)
+                .commandName("ETL-process")
+                .groupName("ETLGroup")
+                .eager()
+                .commandProperties(HystrixCommandProperties.Setter()
+                        .withExecutionIsolationStrategy(HystrixCommandProperties.ExecutionIsolationStrategy.SEMAPHORE)
+                        .withExecutionTimeoutInMilliseconds(timeout)
+                )
+                .fallback(loggingService.onFallback("short circuit triggered ", serverRequest))
+                .toMono();
+
+        return hystrixResponse;
     }
 
 
-    private boolean isDestinationEmpty(String destination, Map<String, Object> input) {
+    private boolean isSystemEmpty(String system, Map<String, Object> input) {
 
 
-        if(StringUtils.isEmpty(destination)){
-            loggingService.onFailure("destination empty", input);
+        if(StringUtils.isEmpty(system)){
+            loggingService.onFailure("system empty", input);
             return true;
         }
 

@@ -7,6 +7,9 @@ import com.huawei.imbp.etl.config.ImbpEtlActionExtension;
 import com.huawei.imbp.etl.util.DataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.server.ServerRequest;
+import org.springframework.web.reactive.function.server.ServerResponse;
+import reactor.core.publisher.Mono;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
@@ -30,8 +33,9 @@ public class LoggingService {
     private ActorRef secLogAction;
     private ActorRef secRunAction;
 
-    public void onFailure(String msg, Map<String, Object> input){
+    public Mono<String> onFailure(String msg, Map<String, Object> input){
         send(msg, input);
+        return Mono.empty();
     }
 
     public void onFailure(Throwable ex, Map<String, Object> input){
@@ -42,6 +46,15 @@ public class LoggingService {
         secRunAction.tell(data, ActorRef.noSender());
     }
 
+    public Mono<ServerResponse> onFallback(String msg, ServerRequest request){
+
+        request.bodyToMono(Map.class).flatMap(s -> {
+            send(msg, s);
+            return ServerResponse.badRequest().syncBody("Save to SEC log");
+        });
+
+        return ServerResponse.badRequest().syncBody(msg+"request is slower than defined timeout");
+    }
     @PostConstruct
     public void init(){
         logAction = actorSystem.actorOf(imbpEtlActionExtension.props("logAction"));

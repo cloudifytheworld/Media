@@ -34,7 +34,7 @@ public class SecRunAction extends UntypedAbstractActor {
             List<Map<String, Object>> data = List.class.cast(message);
             data.stream().forEach(d ->{
                 try{
-                    service.onProcess(d);
+                    service.onAoiProcess(d);
                 }catch (Exception e){
                     log.error(e.getMessage());
                     loggingService.onFailure(e, d);
