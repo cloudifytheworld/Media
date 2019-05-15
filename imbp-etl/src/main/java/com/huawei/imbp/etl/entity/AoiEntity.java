@@ -16,7 +16,7 @@ import java.sql.Timestamp;
  * @date 5/13/2019
  */
 
-@Table("aoi_single_component_image_1")
+@Table("aoi_single_component_image")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
