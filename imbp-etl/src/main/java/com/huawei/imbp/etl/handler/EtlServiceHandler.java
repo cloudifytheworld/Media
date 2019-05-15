@@ -7,6 +7,7 @@ import com.netflix.hystrix.HystrixCommandProperties;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.netflix.hystrix.HystrixCommands;
 import org.springframework.stereotype.Component;
@@ -26,6 +27,7 @@ import java.util.Set;
 
 @Component
 @RefreshScope
+@EnableCircuitBreaker
 public class EtlServiceHandler {
 
     @Autowired
@@ -70,6 +72,8 @@ public class EtlServiceHandler {
                 .eager()
                 .commandProperties(HystrixCommandProperties.Setter()
                         .withExecutionIsolationStrategy(HystrixCommandProperties.ExecutionIsolationStrategy.SEMAPHORE)
+                        .withExecutionIsolationSemaphoreMaxConcurrentRequests(20)
+                        .withFallbackIsolationSemaphoreMaxConcurrentRequests(20)
                         .withExecutionTimeoutInMilliseconds(timeout)
                 )
                 .fallback(loggingService.onFallback("short circuit triggered ", serverRequest))
