@@ -1,0 +1,11 @@
+-- add repository
+git remote add origin  https://github.com/cloudifytheworld/Media
+got remote -v
+
+-- add new branch
+git checkout -b iBDP
+git add *
+git commit -m "first"
+git push --set-upstream origin iBDP
+
+

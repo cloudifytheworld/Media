@@ -1,4 +1,4 @@
-package com.huawei.imbp.etl.entity;
+package com.huawei.imbp.rt.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,14 +9,13 @@ import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
 
 import java.nio.ByteBuffer;
-import java.sql.Timestamp;
 
 /**
  * @author Charles(Li) Cai
  * @date 5/13/2019
  */
 
-@Table("aoi_single_component_image_1")
+@Table("aoi_single_component_image")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,7 +23,7 @@ import java.sql.Timestamp;
 public class AoiEntity {
 
     @PrimaryKey
-    private AoiKey keys;
+    private AoiKey key;
 
     @Column(value="board_id")
     private String boardId;

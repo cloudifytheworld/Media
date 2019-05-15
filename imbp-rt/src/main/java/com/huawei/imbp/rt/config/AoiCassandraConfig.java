@@ -1,4 +1,4 @@
-package com.huawei.imbp.etl.config;
+package com.huawei.imbp.rt.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.cassandra.repository.config.EnableReactiveCassandraRepositories;

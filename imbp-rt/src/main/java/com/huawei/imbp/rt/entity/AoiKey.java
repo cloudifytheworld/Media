@@ -1,9 +1,10 @@
-package com.huawei.imbp.etl.entity;
+package com.huawei.imbp.rt.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.data.cassandra.core.cql.PrimaryKeyType;
-import org.springframework.data.cassandra.core.mapping.Column;
-import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.PrimaryKeyClass;
 import org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn;
 
@@ -17,6 +18,9 @@ import java.sql.Timestamp;
 
 @PrimaryKeyClass
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class AoiKey implements Serializable {
 
     @PrimaryKeyColumn(name="created_day", type= PrimaryKeyType.PARTITIONED)

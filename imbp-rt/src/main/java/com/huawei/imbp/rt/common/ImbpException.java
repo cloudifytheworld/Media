@@ -1,4 +1,4 @@
-package com.huawei.imbp.etl.common;
+package com.huawei.imbp.rt.common;
 
 /**
  * @author Charles(Li) Cai
