@@ -2,37 +2,24 @@ package com.huawei.imbp.rt.service;
 
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
-import com.datastax.driver.core.*;
-import com.google.common.util.concurrent.Futures;
-import com.google.common.util.concurrent.ListenableFuture;
 import com.google.gson.Gson;
-import com.google.gson.stream.JsonWriter;
 import com.huawei.imbp.rt.common.InputParameter;
 import com.huawei.imbp.rt.config.ImbpEtlActionExtension;
-import com.huawei.imbp.rt.entity.Aoi;
 import com.huawei.imbp.rt.entity.AoiEntity;
-import com.huawei.imbp.rt.entity.AoiKey;
 import com.huawei.imbp.rt.entity.DateDevice;
 import com.huawei.imbp.rt.repository.AoiRepository;
-import com.huawei.imbp.rt.util.*;
-import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.data.cassandra.core.query.CassandraPageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
+
+
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.BodyInserters;
-import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.nio.ByteBuffer;
 import java.util.*;
-import java.util.concurrent.Semaphore;
 
 /**
  * @author Charles(Li) Cai
@@ -82,21 +69,28 @@ public class CassandraService{
     }
 
 
-    public Mono<ServerResponse> getAoiPageData(InputParameter input, Pageable pageable){
+    public Mono<ServerResponse> getAoiPageData(InputParameter input){
+        Flux<AoiEntity> results = null;
 
+        if(input.getCreatedTime() == null) {
+            results = aoiRepository.findTop2ByKeyCreatedDayAndKeyDeviceType(input.getFrom()[0], input.getDeviceType());
+        }else{
+            results = aoiRepository.findTop2ByKeyCreatedDayAndKeyDeviceTypeAndKeyHourAndKeyMinuteAndKeyLabelAndKeyCreatedTimeLessThan(
+                    input.getFrom()[0], input.getDeviceType(), input.getHour(), input.getMinute(), input.getLabel(), input.getCreatedTime()
+            );
+        }
 
-        Flux<AoiEntity> results = aoiRepository.findAllByKeyCreatedDayAndKeyDeviceType(input.getFrom()[0], input.getDeviceType());
-//        results.subscribe(s -> {
-//            CassandraPageRequest next = (CassandraPageRequest)s.getPageable();
-//            log.info(next.getPagingState().toString());
-//            log.info(s.hasNext());
-//            System.out.println(s.getContent());
-//        });
         return results.collectList().flatMap(l -> {
-            //List<AoiEntity> entities = l.getContent();
-            Gson gson = new Gson();
-            String json = gson.toJson(l);
-           return ServerResponse.ok().body(Mono.just(json), String.class);
+            Map<String, Object> result = new HashMap<>();
+            if(l.size() == 0){
+                result.put("status", "no data");
+                return ServerResponse.ok().syncBody(result);
+            }
+            result.put("status", "success");
+            result.put("input", l);
+            result.put("previous", l.get(0).getKey());
+            result.put("next", l.get(l.size()-1).getKey());
+            return ServerResponse.ok().body(BodyInserters.fromObject(result));
 
         });
 

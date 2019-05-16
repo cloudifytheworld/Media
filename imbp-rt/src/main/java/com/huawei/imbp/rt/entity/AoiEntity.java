@@ -16,7 +16,7 @@ import java.nio.ByteBuffer;
  * @date 5/13/2019
  */
 
-@Table("aoi_single_component_image")
+@Table("aoi_single_component_image_1")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

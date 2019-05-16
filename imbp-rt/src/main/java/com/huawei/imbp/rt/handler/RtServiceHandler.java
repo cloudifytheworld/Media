@@ -75,27 +75,14 @@ public class RtServiceHandler {
 
     public Mono<ServerResponse> retrieveDataByPagination(ServerRequest serverRequest){
 
-        log.debug("retrieve data by pagination");
-        CassandraPageRequest pageable = null;
         try{
             InputParameter input = ServiceUtil.getInputParam(serverRequest);
-            Optional<String> pageState = serverRequest.queryParam("pageState");
-
-            //Pageable pageable = PageRequest.of(input.getPage(), input.getSize());
-            if(pageState.isPresent()){
-                PagingState pagingState = PagingState.fromString(pageState.get());
-                pageable = CassandraPageRequest.of(PageRequest.of(input.getPage(), input.getSize()),pagingState);
-            }else {
-                pageable = CassandraPageRequest.of(input.getPage(), input.getSize());
-            }
-            return cassandraService.getAoiPageData(input, pageable);
+            return cassandraService.getAoiPageData(input);
         }catch (Exception e){
             log.error(Throwables.getStackTraceAsString(e));
             return ServerResponse.badRequest().syncBody(e.getMessage());
         }
-
     }
-
 
 
 }

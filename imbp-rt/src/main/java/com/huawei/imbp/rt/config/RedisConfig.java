@@ -15,12 +15,13 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @Configuration
 public class RedisConfig {
 
+    //Todo server in consul
     @Bean
     public JedisConnectionFactory jedisConnectionFactory(){
         return new JedisConnectionFactory(new RedisStandaloneConfiguration("192.168.30.19", 6379));
     }
 
-    @Bean
+    //@Bean
     public RedisTemplate<String, Object> redisTemplate() {
         final RedisTemplate<String, Object> template = new RedisTemplate<String, Object>();
         template.setConnectionFactory(jedisConnectionFactory());

@@ -9,7 +9,9 @@ import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
 import javax.xml.crypto.Data;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Optional;
 
 import static com.huawei.imbp.rt.common.Constant.IMAGE_PAGE_SIZE;
@@ -19,7 +21,7 @@ import static com.huawei.imbp.rt.common.Constant.IMAGE_PAGE_SIZE;
  * @date 5/14/2019
  */
 public class ServiceUtil {
-    
+
     static final ImbpException imbp = new ImbpException();
 
     public static AoiKey getAoiKey(ServerRequest request){
@@ -41,6 +43,7 @@ public class ServiceUtil {
 
     public static InputParameter getInputParam(ServerRequest request) throws Exception{
 
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
         InputParameter input = new InputParameter();
 
         Optional<String> system = request.queryParam("system");
@@ -76,13 +79,15 @@ public class ServiceUtil {
             input.setMinute(DataUtil.checkValidInteger(minute.get()));
         }
 
-        Optional<String> page = request.queryParam("page");
-        Optional<String> size = request.queryParam("size");
+        Optional<String> label = request.queryParam("label");
+        if(label.isPresent()){
+            input.setLabel(label.get());
+        }
 
-        if(page.isPresent()){
-            Integer pageN = DataUtil.checkValidInteger(page.get());
-            input.setPage(pageN == null?0:pageN);
-            input.setSize(size.isPresent()?DataUtil.checkValidInteger(size.get()): IMAGE_PAGE_SIZE);
+        Optional<String> createdTime = request.queryParam("createdTime");
+        if(createdTime.isPresent()){
+            Date dateTime = dateFormat.parse(createdTime.get());
+            input.setCreatedTime(dateTime);
         }
 
         return input;

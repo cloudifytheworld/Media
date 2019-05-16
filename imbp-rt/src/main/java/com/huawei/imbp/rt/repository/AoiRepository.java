@@ -9,6 +9,7 @@ import org.springframework.data.domain.Slice;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -19,9 +20,16 @@ import java.util.List;
 
 
 public interface AoiRepository extends ReactiveCassandraRepository<AoiEntity, AoiKey> {
+    @AllowFiltering
+    Flux<AoiEntity> findTop2ByKeyCreatedDayAndKeyDeviceType(String createdDay, String deviceType);
+
 
     @AllowFiltering
     Flux<AoiEntity> findAllByKeyCreatedDayAndKeyDeviceType(String createdDay, String deviceType);
+
+    @AllowFiltering
+    Flux<AoiEntity> findTop2ByKeyCreatedDayAndKeyDeviceTypeAndKeyHourAndKeyMinuteAndKeyLabelAndKeyCreatedTimeLessThan(
+            String createdDay, String deviceType, Integer hour, Integer minute, String label, Date createdTime);
 
     Flux<AoiEntity> findByKeyCreatedDayAndKeyDeviceTypeAndKeyHourAndKeyMinute(String createdDay, String deviceType, int hour, int minute);
 
