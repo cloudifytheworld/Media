@@ -10,6 +10,7 @@ import org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * @author Charles(Li) Cai
@@ -36,7 +37,7 @@ public class AoiKey implements Serializable {
     private int minute;
 
     @PrimaryKeyColumn(name="created_time", type = PrimaryKeyType.CLUSTERED)
-    private Timestamp createdTime;
+    private Date createdTime;
 
     @PrimaryKeyColumn(type = PrimaryKeyType.CLUSTERED)
     private String label;

@@ -2,6 +2,7 @@ package com.huawei.imbp.rt.repository;
 
 import com.huawei.imbp.rt.entity.AoiEntity;
 import com.huawei.imbp.rt.entity.AoiKey;
+import org.springframework.data.cassandra.repository.AllowFiltering;
 import org.springframework.data.cassandra.repository.ReactiveCassandraRepository;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -19,7 +20,11 @@ import java.util.List;
 
 public interface AoiRepository extends ReactiveCassandraRepository<AoiEntity, AoiKey> {
 
-    Flux<Slice<AoiEntity>> findByKey(AoiKey aoiKey, Pageable pageable);
+    @AllowFiltering
+    Flux<AoiEntity> findAllByKeyCreatedDayAndKeyDeviceType(String createdDay, String deviceType);
 
     Flux<AoiEntity> findByKeyCreatedDayAndKeyDeviceTypeAndKeyHourAndKeyMinute(String createdDay, String deviceType, int hour, int minute);
+
+    @AllowFiltering
+    Mono<AoiEntity> findByKeyCreatedDayAndKeyDeviceType(String createdDay, String deviceType);
 }

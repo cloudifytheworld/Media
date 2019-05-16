@@ -1,6 +1,9 @@
 package com.huawei.imbp.rt.handler;
 
 
+import com.datastax.driver.core.PagingState;
+import com.google.common.base.Throwables;
+import com.huawei.imbp.rt.common.InputParameter;
 import com.huawei.imbp.rt.entity.AoiEntity;
 import com.huawei.imbp.rt.entity.AoiKey;
 import com.huawei.imbp.rt.entity.AoiKey;
@@ -9,7 +12,9 @@ import com.huawei.imbp.rt.service.CassandraService;
 import com.huawei.imbp.rt.util.DataUtil;
 import com.huawei.imbp.rt.util.Logging;
 import com.huawei.imbp.rt.util.ServiceUtil;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.cassandra.core.query.CassandraPageRequest;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -29,16 +34,27 @@ import java.util.Optional;
  */
 
 @Component
+@Log4j2
 public class RtServiceHandler {
 
 
     @Autowired
     public CassandraService cassandraService;
 
-    @Autowired
-    public Logging log;
 
+    public Mono<ServerResponse> retrieveDataSingle(ServerRequest serverRequest) {
 
+        log.debug("retrieve single data");
+
+        try {
+            InputParameter input = ServiceUtil.getInputParam(serverRequest);
+            return cassandraService.getOneData(input);
+        }catch (Exception e){
+            log.error(Throwables.getStackTraceAsString(e));
+            return ServerResponse.badRequest().syncBody(e.getMessage());
+        }
+
+    }
 
     public Mono<ServerResponse> retrieveDataByDate(ServerRequest serverRequest) {
 
@@ -60,31 +76,24 @@ public class RtServiceHandler {
     public Mono<ServerResponse> retrieveDataByPagination(ServerRequest serverRequest){
 
         log.debug("retrieve data by pagination");
-        Optional<String> pageStr = serverRequest.queryParam("page");
-        Optional<String> sizeStr = serverRequest.queryParam("size");
+        CassandraPageRequest pageable = null;
+        try{
+            InputParameter input = ServiceUtil.getInputParam(serverRequest);
+            Optional<String> pageState = serverRequest.queryParam("pageState");
 
-        Integer page = DataUtil.checkValidInteger(pageStr.get());
-        if(page == null){
-            return ServerResponse.badRequest().syncBody("page either is missing or not number");
-        }
-        Integer size = DataUtil.checkValidInteger(sizeStr.get());
-        Pageable pageable = PageRequest.of(page, size !=null ?size: IMAGE_PAGE_SIZE);
-
-        Optional<String> system = serverRequest.queryParam("system");
-        if(!system.isPresent()){
-            return ServerResponse.badRequest().syncBody("must specify which system to retrieve");
-        }
-
-        switch (system.get()){
-            case AOI:
-                AoiKey aoiKey = ServiceUtil.getAoiKey(serverRequest);
-                cassandraService.getAoiPageData(aoiKey, pageable);
-                break;
-            default:
-                return ServerResponse.badRequest().syncBody(system.get()+ " system is not supported yet");
+            //Pageable pageable = PageRequest.of(input.getPage(), input.getSize());
+            if(pageState.isPresent()){
+                PagingState pagingState = PagingState.fromString(pageState.get());
+                pageable = CassandraPageRequest.of(PageRequest.of(input.getPage(), input.getSize()),pagingState);
+            }else {
+                pageable = CassandraPageRequest.of(input.getPage(), input.getSize());
+            }
+            return cassandraService.getAoiPageData(input, pageable);
+        }catch (Exception e){
+            log.error(Throwables.getStackTraceAsString(e));
+            return ServerResponse.badRequest().syncBody(e.getMessage());
         }
 
-        return Mono.empty();
     }
 
 

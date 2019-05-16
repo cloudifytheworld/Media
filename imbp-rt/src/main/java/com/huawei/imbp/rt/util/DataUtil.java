@@ -89,6 +89,9 @@ public class DataUtil {
         }
     }
 
-
+    public static String[] convertStringToArray(String line){
+        String[] data = Arrays.stream(line.split(",")).map(String::trim).toArray(String[]::new);
+        return data;
+    }
 
 }

@@ -72,7 +72,7 @@ public class EtlServiceHandler {
                 .eager()
                 .commandProperties(HystrixCommandProperties.Setter()
                         .withExecutionIsolationStrategy(HystrixCommandProperties.ExecutionIsolationStrategy.SEMAPHORE)
-                        .withExecutionIsolationSemaphoreMaxConcurrentRequests(20)
+                        .withExecutionIsolationSemaphoreMaxConcurrentRequests(1000)
                         .withFallbackIsolationSemaphoreMaxConcurrentRequests(20)
                         .withExecutionTimeoutInMilliseconds(timeout)
                 )

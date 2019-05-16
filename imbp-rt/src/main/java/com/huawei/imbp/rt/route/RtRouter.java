@@ -50,4 +50,11 @@ public class RtRouter {
         return RouterFunctions.route(RequestPredicates.GET("/api/{system}/rt/location"),
                 rtServiceHandler::retrieveDataByDate);
     }
+
+    @Bean
+    public RouterFunction<ServerResponse> rtDataSingleRouting(RtServiceHandler rtServiceHandler) {
+
+        return RouterFunctions.route(RequestPredicates.GET("/api/{system}/rt/single"),
+                rtServiceHandler::retrieveDataSingle);
+    }
 }

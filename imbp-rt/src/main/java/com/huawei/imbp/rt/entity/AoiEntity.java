@@ -1,5 +1,6 @@
 package com.huawei.imbp.rt.entity;
 
+import com.datastax.driver.core.PagingState;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -38,5 +39,6 @@ public class AoiEntity {
     private String extension;
     @Column
     private ByteBuffer image;
+
 
 }
