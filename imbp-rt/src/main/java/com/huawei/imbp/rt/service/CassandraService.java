@@ -2,12 +2,15 @@ package com.huawei.imbp.rt.service;
 
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
+import com.google.common.base.Throwables;
 import com.google.gson.Gson;
 import com.huawei.imbp.rt.common.InputParameter;
 import com.huawei.imbp.rt.config.ImbpEtlActionExtension;
 import com.huawei.imbp.rt.entity.AoiEntity;
 import com.huawei.imbp.rt.entity.DateDevice;
 import com.huawei.imbp.rt.repository.AoiRepository;
+import com.huawei.imbp.rt.util.DataUtil;
+import com.huawei.imbp.rt.util.WriteToFile;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -20,6 +23,8 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.*;
+import java.util.concurrent.Semaphore;
+import java.util.stream.Stream;
 
 /**
  * @author Charles(Li) Cai
@@ -42,22 +47,24 @@ public class CassandraService{
     @Autowired
     private AoiRepository aoiRepository;
 
-
-    public Mono<ServerResponse> getOneData(InputParameter input){
+    /*
+     *  /api/{system}/rt/single
+     */
+    public Mono<ServerResponse> getDataByOne(InputParameter input){
 
        Mono<AoiEntity> data = aoiRepository.findByKeyCreatedDayAndKeyDeviceType(input.getFrom()[0], input.getDeviceType());
        return ServerResponse.ok().body(BodyInserters.fromPublisher(data, AoiEntity.class));
     }
 
-    public void getDataByDate(String system, String from){
+    public void getDataByDate(InputParameter input){
 
-        String[] dates = from.split(",");
+        String[] dates = input.getFrom();
 
         for(int i=0; i<dates.length; i++) {
             String date = dates[i].trim();
             log.info(date);
-            Set<String> deviceTypes = redisTemplate.boundSetOps(system + ":" + date).members();
-            for(int y=0; y<13; y++) {
+            Set<String> deviceTypes = redisTemplate.boundSetOps(input.getSystem() + ":" + date).members();
+            for(int y=1; y<13; y++) {
                 DateDevice dateDevice = new DateDevice();
                 dateDevice.setDate(date);
                 dateDevice.setDeviceTypes(deviceTypes);
@@ -68,8 +75,10 @@ public class CassandraService{
         }
     }
 
-
-    public Mono<ServerResponse> getAoiPageData(InputParameter input){
+    /*
+     * /api/{system}/rt/page
+     */
+    public Mono<ServerResponse> getDataByPage(InputParameter input){
         Flux<AoiEntity> results = null;
 
         if(input.getCreatedTime() == null) {
@@ -96,5 +105,71 @@ public class CassandraService{
 
     }
 
+    /*
+     * /api/{system}/rt/feeding
+     */
+    public Flux<AoiEntity> getDataByFeeding(String system, String from){
 
+        Semaphore semaphore = new Semaphore(60);
+        String[] dates = DataUtil.convertStringToArray(from);
+
+        for(int i=0; i<dates.length; i++) {
+            String date = dates[i].trim();
+            log.info(date);
+            Set<String> deviceTypes = redisTemplate.boundSetOps(system + ":" + date).members();
+            Iterator<String> itr = deviceTypes.iterator();
+            while (itr.hasNext()) {
+                String deviceType = itr.next();
+                for (int y = 1; y < 13; y++) {
+                    try {
+                        for (int x = 0; x < 60; x++) {
+                            semaphore.acquire();
+                            Flux<AoiEntity> aoiEntityFlux = aoiRepository.findByKeyCreatedDayAndKeyDeviceTypeAndKeyHourAndKeyMinute(date, deviceType, y, x);
+                            semaphore.release();
+                            aoiEntityFlux.flatMap( s -> Flux.fromStream(Stream.generate(() -> s)));
+                        }
+                    }catch (Exception e){
+                        log.error(Throwables.getStackTraceAsString(e));
+                        semaphore.release();
+                    }
+                }
+            }
+        }
+        return Flux.empty();
+    }
+
+    public void getData(DateDevice dateDevice){
+
+        Semaphore semaphore = new Semaphore(60);
+
+        String date = dateDevice.getDate();
+        Set<String> deviceTypes = dateDevice.getDeviceTypes();
+        int i = dateDevice.getHour();
+
+        Iterator<String> itr = deviceTypes.iterator();
+
+        while (itr.hasNext()) {
+
+            try {
+                String deviceType = itr.next();
+                for (int x = 0; x < 60; x++) {
+                    semaphore.acquire();
+                    Flux<AoiEntity> aoiEntityFlux = aoiRepository.findByKeyCreatedDayAndKeyDeviceTypeAndKeyHourAndKeyMinute(date, deviceType, i, x);
+                    aoiEntityFlux.collectList().subscribe(s -> {
+                        semaphore.release();
+                        int size = s.size();
+                        if(size > 0) {
+                            WriteToFile.writeToFile(s);
+                            String key = "created_day-" + date + ":device_type-" + deviceType + ":hour-" + i;
+                            log.info(key + " size: " + size);
+                        }
+                    });
+                }
+            }catch (Exception e){
+                log.error(Throwables.getStackTraceAsString(e));
+                semaphore.release();
+            }
+        }
+
+    }
 }

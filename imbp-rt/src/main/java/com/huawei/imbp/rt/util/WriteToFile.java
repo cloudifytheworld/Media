@@ -74,6 +74,8 @@ public class WriteToFile {
 
     public static void writeToFile(List<AoiEntity> aoiEntities){
 
+        StatisticManager.counter += aoiEntities.size();
+
         aoiEntities.forEach( aoiEntity -> {
             try {
                 byte[] bytes = aoiEntity.toString().getBytes();

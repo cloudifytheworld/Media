@@ -30,13 +30,21 @@ public class RtRouter {
                 rtServiceHandler::retrieveDataByDate);
     }
 
-    @Bean
-    public RouterFunction<ServerResponse> rtDataFeedingRouting(RtServiceHandler rtServiceHandler) {
+//    @Bean
+//    public RouterFunction<ServerResponse> rtDataFeedingRouting(RtServiceHandler rtServiceHandler) {
+//
+//        return RouterFunctions.route(RequestPredicates.GET("/api/{system}/rt/feeding"),
+//            rtServiceHandler::retrieveDataByDate);
+//    }
 
-        return RouterFunctions.route(RequestPredicates.GET("/api/{system}/rt/feeding"),
-            rtServiceHandler::retrieveDataByDate);
-    }
-
+    /*
+     * Require params: system, from, deviceType
+     * Optional: hour, minutes, label and created_day for first run, subsequently access to
+     *           next page requires these parameters.
+     * ToDo:  1. support from (start day) to begin only
+     *        2. support from and to (end day) to begin
+     *        3. support deviceType including 1 and 2 above.
+     */
     @Bean
     public RouterFunction<ServerResponse> rtDataPaginationRouting(RtServiceHandler rtServiceHandler) {
 
@@ -51,6 +59,10 @@ public class RtRouter {
                 rtServiceHandler::retrieveDataByDate);
     }
 
+    /*
+     * Require params: system, from(start day) and deviceType
+     * Todo: support label and created_time
+     */
     @Bean
     public RouterFunction<ServerResponse> rtDataSingleRouting(RtServiceHandler rtServiceHandler) {
 

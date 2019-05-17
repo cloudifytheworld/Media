@@ -1,9 +1,6 @@
 package com.huawei.imbp.rt.config;
 
-import com.datastax.driver.core.ConsistencyLevel;
-import com.datastax.driver.core.HostDistance;
-import com.datastax.driver.core.PoolingOptions;
-import com.datastax.driver.core.QueryOptions;
+import com.datastax.driver.core.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.data.cassandra.config.AbstractReactiveCassandraConfiguration;
@@ -52,5 +49,15 @@ public abstract class CassandraConfig extends AbstractReactiveCassandraConfigura
         QueryOptions queryOptions = new QueryOptions();
         queryOptions.setConsistencyLevel(ConsistencyLevel.ONE);
         return queryOptions;
+    }
+
+    @Override
+    public SocketOptions getSocketOptions(){
+
+        SocketOptions options = new SocketOptions();
+        options.setConnectTimeoutMillis(500000);
+        options.setReadTimeoutMillis(500000);
+        options.setTcpNoDelay(true);
+        return options;
     }
 }

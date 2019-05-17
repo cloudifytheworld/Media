@@ -20,6 +20,7 @@ public class StatisticManager {
     public static SortedMap<String, Long> eachDay = new TreeMap<>();
 
     public static volatile double total = 0;
+    public static volatile long counter = 0;
 
 
     public static void init(){
