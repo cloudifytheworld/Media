@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Feeding data</title>
+</head>
+<body>
+    <div id="update"></div>
+<script>
+    window.addEventListener('load', function (ev) {
+        var update = document.getElementById('update');
+        var date = window.prompt('date');
+        var ws = new WebSocket('ws://localhost:8084/ws/api/rt/feeding');
+        ws.addEventListener('open', function () {
+            ws.send(date);
+        })
+        ws.addEventListener('message', function (evt) {
+            update.innerHTML = '<h1>' + evt.data + '</h1>'
+        })
+    })
+
+</script>
+</body>
+</html>

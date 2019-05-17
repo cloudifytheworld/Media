@@ -14,6 +14,7 @@ import reactor.core.publisher.Flux;
 import java.awt.*;
 import java.time.Duration;
 import java.util.Date;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.stream.Stream;
 
 /**
@@ -28,8 +29,16 @@ public class DataFeedingController {
     private CassandraService cassandraService;
 
     @GetMapping(value = "/api/{system}/rt/feeding", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    Publisher<AoiEntity> retrieveDataByFeeding(@RequestParam String system, @RequestParam String from){
-        return cassandraService.getDataByFeeding(system, from);
-        //return Flux.fromStream(Stream.generate(() -> DateTime.now().toDate())).delayElements(Duration.ofSeconds(1));
+    public Publisher<String> retrieveDataByFeeding(@RequestParam String from){
+        ConcurrentLinkedQueue<String> queue = new ConcurrentLinkedQueue<>();
+        for(int i=0; i<10; i++) {
+            try {
+                Thread.sleep(1000);
+            }catch (Exception e){}
+            queue.add(new DateTime().toDate().toString());
+        }
+
+        //return cassandraService.getDataByFeeding(system, from);
+        return Flux.fromStream(Stream.generate(() -> queue.poll())).delayElements(Duration.ofSeconds(1));
     }
 }
