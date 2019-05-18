@@ -1,5 +1,7 @@
 package com.huawei.imbp.rt.entity;
 
+import lombok.Data;
+
 import java.util.Set;
 
 /**
@@ -7,33 +9,12 @@ import java.util.Set;
  * @date 5/3/2019
  */
 
+@Data
 public class DateDevice {
 
+    Set<String> indexes;
     Set<String> deviceTypes;
     String date;
     int hour;
 
-    public Set<String> getDeviceTypes() {
-        return deviceTypes;
-    }
-
-    public int getHour() {
-        return hour;
-    }
-
-    public void setHour(int hour) {
-        this.hour = hour;
-    }
-
-    public void setDeviceTypes(Set<String> deviceTypes) {
-        this.deviceTypes = deviceTypes;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
 }

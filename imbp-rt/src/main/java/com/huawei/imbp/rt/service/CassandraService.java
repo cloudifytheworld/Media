@@ -20,6 +20,7 @@ import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import scala.Int;
 
 import java.nio.ByteBuffer;
 import java.util.*;
@@ -71,6 +72,22 @@ public class CassandraService{
                 ActorRef readAction = actorSystem.actorOf(imbpRtActionExtension.props("readAction"));
                 readAction.tell(dateDevice, ActorRef.noSender());
             }
+        }
+    }
+
+    public void getDataByDates(InputParameter input){
+
+        String[] dates = input.getFrom();
+
+        for(int i=0; i<dates.length; i++) {
+            String date = dates[i].trim();
+            log.info(date);
+            Set<String> indexes = redisTemplate.boundSetOps(input.getSystem() + ":" + date).members();
+            DateDevice dateDevice = new DateDevice();
+            dateDevice.setDate(date);
+            dateDevice.setIndexes(indexes);
+            ActorRef readByDatesAction = actorSystem.actorOf(imbpRtActionExtension.props("readByDatesAction"));
+            readByDatesAction.tell(dateDevice, ActorRef.noSender());
         }
     }
 
@@ -144,6 +161,7 @@ public class CassandraService{
         }
     }
 
+    //ReadAction
     public void getData(DateDevice dateDevice){
 
         Semaphore semaphore = new Semaphore(60);
@@ -178,4 +196,34 @@ public class CassandraService{
         }
 
     }
+
+    //ReadByDatesAction
+    public void getDates(DateDevice dateDevice){
+
+        Semaphore semaphore = new Semaphore(60);
+
+        String date = dateDevice.getDate();
+        Set<String> indexes = dateDevice.getDeviceTypes();
+
+        indexes.stream().forEach( next -> {
+            try {
+                String[] index = next.split("#");
+                semaphore.acquire();
+
+                Flux<AoiEntity> aoiEntityFlux = aoiRepository.findByKeyCreatedDayAndKeyDeviceTypeAndKeyHourAndKeyMinute
+                        (date, index[0], Integer.parseInt(index[1]), Integer.parseInt(index[2]));
+                aoiEntityFlux.collectList().subscribe(s -> {
+                    semaphore.release();
+                    int size = s.size();
+                    WriteToFile.writeToFile(s);
+                    String key = "createdDay-"+date+":deviceType-"+index[0]+":hour-"+index[1]+":minute-"+index[2];
+                    log.info(key + " size: " + size);
+                });
+            }catch (Exception e){
+                log.error(Throwables.getStackTraceAsString(e));
+                semaphore.release();
+            }
+        });
+    }
+
 }
