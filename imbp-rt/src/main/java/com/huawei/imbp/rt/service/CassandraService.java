@@ -3,9 +3,8 @@ package com.huawei.imbp.rt.service;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import com.google.common.base.Throwables;
-import com.google.gson.Gson;
 import com.huawei.imbp.rt.common.InputParameter;
-import com.huawei.imbp.rt.config.ImbpEtlActionExtension;
+import com.huawei.imbp.rt.config.ImbpRtActionExtension;
 import com.huawei.imbp.rt.entity.AoiEntity;
 import com.huawei.imbp.rt.entity.DateDevice;
 import com.huawei.imbp.rt.repository.AoiRepository;
@@ -22,9 +21,9 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.nio.ByteBuffer;
 import java.util.*;
 import java.util.concurrent.Semaphore;
-import java.util.stream.Stream;
 
 /**
  * @author Charles(Li) Cai
@@ -39,7 +38,7 @@ public class CassandraService{
     public ActorSystem actorSystem;
 
     @Autowired
-    public ImbpEtlActionExtension imbpEtlActionExtension;
+    public ImbpRtActionExtension imbpRtActionExtension;
 
     @Autowired
     public RedisTemplate<String, String> redisTemplate;
@@ -69,7 +68,7 @@ public class CassandraService{
                 dateDevice.setDate(date);
                 dateDevice.setDeviceTypes(deviceTypes);
                 dateDevice.setHour(y);
-                ActorRef readAction = actorSystem.actorOf(imbpEtlActionExtension.props("readAction"));
+                ActorRef readAction = actorSystem.actorOf(imbpRtActionExtension.props("readAction"));
                 readAction.tell(dateDevice, ActorRef.noSender());
             }
         }
@@ -108,7 +107,7 @@ public class CassandraService{
     /*
      * /api/{system}/rt/feeding
      */
-    public Flux<AoiEntity> getDataByFeeding(String system, String from){
+    public void getDataByFeeding(String system, String from, QueueService<String> queueService){
 
         Semaphore semaphore = new Semaphore(60);
         String[] dates = DataUtil.convertStringToArray(from);
@@ -125,8 +124,16 @@ public class CassandraService{
                         for (int x = 0; x < 60; x++) {
                             semaphore.acquire();
                             Flux<AoiEntity> aoiEntityFlux = aoiRepository.findByKeyCreatedDayAndKeyDeviceTypeAndKeyHourAndKeyMinute(date, deviceType, y, x);
-                            semaphore.release();
-                            aoiEntityFlux.flatMap( s -> Flux.fromStream(Stream.generate(() -> s)));
+                            aoiEntityFlux.collectList().subscribe(s -> {
+                                semaphore.release();
+                                int size = s.size();
+                                if(size > 0) {
+//                                    ByteBuffer byteBuffer = s.get(0).getImage();
+//
+//                                    queueService.add();
+                                }
+                            });
+
                         }
                     }catch (Exception e){
                         log.error(Throwables.getStackTraceAsString(e));
@@ -135,7 +142,6 @@ public class CassandraService{
                 }
             }
         }
-        return Flux.empty();
     }
 
     public void getData(DateDevice dateDevice){

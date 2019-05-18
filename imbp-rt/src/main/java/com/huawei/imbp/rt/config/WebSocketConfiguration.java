@@ -1,5 +1,6 @@
 package com.huawei.imbp.rt.config;
 
+import com.huawei.imbp.rt.entity.AoiEntity;
 import com.huawei.imbp.rt.route.DataFeedingController;
 import com.huawei.imbp.rt.service.CassandraService;
 import org.springframework.context.annotation.Bean;
@@ -48,7 +49,7 @@ public class WebSocketConfiguration {
 
                 Flux<String> ask =  webSocketSession.receive().map(WebSocketMessage::getPayloadAsText);
                 Flux<String> response =  ask.flatMap(queue::retrieveDataByFeeding);
-                Flux<WebSocketMessage> rep = response.map(date -> webSocketSession.textMessage(date));
+                Flux<WebSocketMessage> rep = response.map(data -> webSocketSession.textMessage(data));
                 return webSocketSession.send(rep);
             }
         };

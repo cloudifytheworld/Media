@@ -23,7 +23,7 @@ public class ConversionData {
 
         AoiEntity aoiEntity = new AoiEntity();
         AoiKey aoiKey = new AoiKey();
-        aoiEntity.setKeys(aoiKey);
+        aoiEntity.setKey(aoiKey);
 
         //primary keys
         aoiKey.setCreatedDay((String)payload.get("created_day"));

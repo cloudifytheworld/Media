@@ -9,12 +9,12 @@ import org.springframework.context.ApplicationContext;
  * @date 3/13/2019
  */
 
-public class ImbpEtlActionProducer implements IndirectActorProducer {
+public class ImbpRtActionProducer implements IndirectActorProducer {
 
     private final ApplicationContext applicationContext;
     private final String actionBeanName;
 
-    public ImbpEtlActionProducer(ApplicationContext applicationContext, String actionBeanName) {
+    public ImbpRtActionProducer(ApplicationContext applicationContext, String actionBeanName) {
         this.applicationContext = applicationContext;
         this.actionBeanName = actionBeanName;
     }

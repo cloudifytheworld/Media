@@ -19,13 +19,13 @@ public class AkkaConfig {
     private ApplicationContext applicationContext;
 
     @Autowired
-    private ImbpEtlActionExtension imbpEtlActionExtension;
+    private ImbpRtActionExtension imbpRtActionExtension;
 
 
     @Bean
     public ActorSystem actorSystem() {
         ActorSystem actorSystem = ActorSystem.create("ImbpRtActionSystem", ConfigFactory.load());
-        imbpEtlActionExtension.initialize(applicationContext);
+        imbpRtActionExtension.initialize(applicationContext);
         return actorSystem;
     }
 }

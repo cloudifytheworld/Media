@@ -1,0 +1,17 @@
+package com.huawei.imbp.rt.entity;
+
+import com.huawei.imbp.rt.service.QueueService;
+import lombok.Data;
+
+/**
+ * @author Charles(Li) Cai
+ * @date 5/17/2019
+ */
+@Data
+public class FeedingEntity<T> {
+
+    private QueueService<T>  queue;
+    private String system;
+    private String date;
+    private String deviceType;
+}

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-public class ImbpEtlActionExtension implements Extension {
+public class ImbpRtActionExtension implements Extension {
 
     private ApplicationContext applicationContext;
 
@@ -21,7 +21,7 @@ public class ImbpEtlActionExtension implements Extension {
     }
 
     public Props props(String actionBeanName) {
-        return Props.create(ImbpEtlActionProducer.class,
+        return Props.create(ImbpRtActionProducer.class,
                 applicationContext, actionBeanName);
     }
 }

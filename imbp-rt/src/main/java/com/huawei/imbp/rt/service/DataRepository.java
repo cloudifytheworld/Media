@@ -3,7 +3,7 @@ package com.huawei.imbp.rt.service;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import com.datastax.driver.core.Session;
-import com.huawei.imbp.rt.config.ImbpEtlActionExtension;
+import com.huawei.imbp.rt.config.ImbpRtActionExtension;
 import com.huawei.imbp.rt.util.OffHeapMemoryAllocation;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ import javax.annotation.PostConstruct;
 public class DataRepository {
 
     @Autowired
-    public ImbpEtlActionExtension imbpEtlActionExtension;
+    public ImbpRtActionExtension imbpRtActionExtension;
 
     @Autowired
     public Session session;
@@ -38,7 +38,7 @@ public class DataRepository {
     @PostConstruct
     public void init(){
 //        fileAction = actorSystem.actorOf(imbpEtlActionExtension.props("fileAction"));
-        readAction = actorSystem.actorOf(imbpEtlActionExtension.props("readAction"));
+        readAction = actorSystem.actorOf(imbpRtActionExtension.props("readAction"));
 
     }
 }
