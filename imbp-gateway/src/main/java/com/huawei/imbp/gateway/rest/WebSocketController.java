@@ -15,6 +15,7 @@ import org.springframework.web.reactive.socket.client.ReactorNettyWebSocketClien
 import org.springframework.web.reactive.socket.client.WebSocketClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
 
 import java.net.URI;
 import java.time.Duration;
@@ -40,8 +41,12 @@ public class WebSocketController {
         long start = System.currentTimeMillis()/1000;
         return webClient.baseUrl(rtUrl).build().get()
                 .uri("/api/ws/rt/feeding?from="+data).accept(MediaType.TEXT_EVENT_STREAM)
-                .retrieve().bodyToFlux(String.class).parallel().doOnTerminate(() -> {
-                    log.info("completed on seconds "+(System.currentTimeMillis()/1000-start));
+                .retrieve().bodyToFlux(String.class).parallel().runOn(Schedulers.parallel())
+                .sequential().doOnTerminate(() -> {
+                    log.info(data+" completed on seconds "+(System.currentTimeMillis()/1000-start));
+                }).doOnError(t -> {
+                    log.error("----------GateWay------------");
+                    log.error(data+"fail to execute or complete "+t.getMessage());
                 });
 
     }

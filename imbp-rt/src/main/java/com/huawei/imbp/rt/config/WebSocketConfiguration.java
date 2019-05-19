@@ -1,6 +1,6 @@
 package com.huawei.imbp.rt.config;
 
-import com.huawei.imbp.rt.route.DataFeedingController;
+import com.huawei.imbp.rt.route.DataFeedController;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.handler.SimpleUrlHandlerMapping;
@@ -40,7 +40,7 @@ public class WebSocketConfiguration {
     }
 
     @Bean
-    WebSocketHandler webSocketHandler(DataFeedingController queue){
+    WebSocketHandler webSocketHandler(DataFeedController queue){
         return new WebSocketHandler() {
             @Override
             public Mono<Void> handle(WebSocketSession webSocketSession) {

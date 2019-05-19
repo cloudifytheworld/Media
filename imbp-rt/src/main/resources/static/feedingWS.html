@@ -8,10 +8,10 @@
     <div id="update"></div>
     <table style="width:100%">
         <tr>
-            <th style="width:25%">image</th>
-            <th style="width:25%">name</th>
-            <th style="width:25%">name</th>
-            <th style="width:25%">name</th>
+            <th style="width:25%; text-align: left">image</th>
+            <th style="width:25%; text-align: left">name</th>
+            <th style="width:25%; text-align: left">name</th>
+            <th style="width:25%; text-align: left">name</th>
         </tr>
 
         <tr>
@@ -27,39 +27,43 @@
         var image2 = document.getElementById('image2');
         var image3 = document.getElementById('image3');
         var image4 = document.getElementById('image4');
-
-        var date = window.prompt('date');
+        window.onbeforeunload = function() {
+            websocket.onclose = function () {}; // disable onclose handler first
+            websocket.close();
+        };
+        // var date = window.prompt('date');
+        // var dateArray = date.split('/');
         var ws = new WebSocket('ws://localhost:8085/ws/api/rt/feeding');
 
-        ws.addEventListener('open', function () {
-            ws.send(2);
-        })
-        ws.addEventListener('open', function () {
-            ws.send(1888);
-        })
+        ws.onopen = function() {
 
-        // ws.send(2);
-        ws.addEventListener('message', function (evt) {
-            image1.innerHTML = '<h1>' + evt.data + '</h1>'
-        })
+            for(var i=0; i<10; i++) {
+                ws.send(i);
+            }
+        };
 
-        ws.addEventListener('message', function (evt) {
-            image2.innerHTML = '<h1>' + evt.data + '</h1>'
-        })
+        ws.onmessage = function (evt) {
+            image1.innerHTML = evt.data;
+            image2.innerHTML = evt.data;
+            image3.innerHTML = evt.data;
+            image4.innerHTML = evt.data;
+        };
 
-        // ws.addEventListener('message', function (evt) {
         //     image3.innerHTML = '<img width="50"   src="data:image/jpg;base64,"'+ + evt.data + '>'
-        // })
 
-        ws.addEventListener('message', function (evt) {
-            image3.innerHTML = '<h1>' + evt.data + '</h1>'
-        })
+        ws.onclose = function() {
+            alert("DONE");
 
-        ws.addEventListener('message', function (evt) {
-            image4.innerHTML = '<h1>' + evt.data + '</h1>'
-        })
+        };
+
+        ws.onerror = function (ev1) {
+            alert(ev1.data);
+        }
     })
-
+    function sleep(delay) {
+        var start = new Date().getTime();
+        while (new Date().getTime() < start + delay);
+    }
 </script>
 </body>
 </html>

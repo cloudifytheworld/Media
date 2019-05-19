@@ -8,7 +8,7 @@ import lombok.Data;
  * @date 5/17/2019
  */
 @Data
-public class FeedingEntity<T> {
+public class FeedEntity<T> {
 
     private QueueService<T>  queue;
     private String system;
