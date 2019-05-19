@@ -30,13 +30,6 @@ public class RtRouter {
                 rtServiceHandler::retrieveDataByDate);
     }
 
-//    @Bean
-//    public RouterFunction<ServerResponse> rtDataFeedingRouting(RtServiceHandler rtServiceHandler) {
-//
-//        return RouterFunctions.route(RequestPredicates.GET("/api/{system}/rt/feeding"),
-//            rtServiceHandler::retrieveDataByDate);
-//    }
-
     /*
      * Require params: system, from, deviceType
      * Optional: hour, minutes, label and created_day for first run, subsequently access to

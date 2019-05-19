@@ -6,16 +6,57 @@
 </head>
 <body>
     <div id="update"></div>
+    <table style="width:100%">
+        <tr>
+            <th style="width:25%">image</th>
+            <th style="width:25%">name</th>
+            <th style="width:25%">name</th>
+            <th style="width:25%">name</th>
+        </tr>
+
+        <tr>
+            <td id="image1"></td>
+            <td id="image2"></td>
+            <td id="image3"></td>
+            <td id="image4"></td>
+        </tr>
+    </table>
 <script>
     window.addEventListener('load', function (ev) {
-        var update = document.getElementById('update');
+        var image1 = document.getElementById('image1');
+        var image2 = document.getElementById('image2');
+        var image3 = document.getElementById('image3');
+        var image4 = document.getElementById('image4');
+
         var date = window.prompt('date');
-        var ws = new WebSocket('ws://localhost:8084/ws/api/rt/feeding');
+        var ws = new WebSocket('ws://localhost:8085/ws/api/rt/feeding');
+
         ws.addEventListener('open', function () {
-            ws.send(date);
+            ws.send(2);
         })
+        ws.addEventListener('open', function () {
+            ws.send(1888);
+        })
+
+        // ws.send(2);
         ws.addEventListener('message', function (evt) {
-            update.innerHTML = '<h1>' + evt.data + '</h1>'
+            image1.innerHTML = '<h1>' + evt.data + '</h1>'
+        })
+
+        ws.addEventListener('message', function (evt) {
+            image2.innerHTML = '<h1>' + evt.data + '</h1>'
+        })
+
+        // ws.addEventListener('message', function (evt) {
+        //     image3.innerHTML = '<img width="50"   src="data:image/jpg;base64,"'+ + evt.data + '>'
+        // })
+
+        ws.addEventListener('message', function (evt) {
+            image3.innerHTML = '<h1>' + evt.data + '</h1>'
+        })
+
+        ws.addEventListener('message', function (evt) {
+            image4.innerHTML = '<h1>' + evt.data + '</h1>'
         })
     })
 

@@ -11,7 +11,7 @@
 	<modules>
 		<module>imbp-etl</module>
 		<module>imbp-rt</module>
-		<!-- <module>imbp-admin</module> -->
+		 <module>imbp-gateway</module>
 	</modules>
 
 </project>

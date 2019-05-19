@@ -1,5 +1,7 @@
 package com.huawei.imbp.rt.config;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
@@ -7,18 +9,23 @@ import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
+import java.util.Map;
+
 /**
  * @author Charles(Li) Cai
  * @date 5/3/2019
  */
 
 @Configuration
+@RefreshScope
 public class RedisConfig {
 
-    //Todo server in consul
+    @Value("#{${db.redis}}")
+    public Map<String, Object> redisConfig;
+
     @Bean
     public JedisConnectionFactory jedisConnectionFactory(){
-        return new JedisConnectionFactory(new RedisStandaloneConfiguration("192.168.30.19", 6379));
+        return new JedisConnectionFactory(new RedisStandaloneConfiguration((String)redisConfig.get("redisServer"), Integer.parseInt((String)redisConfig.get("redisPort"))));
     }
 
     //@Bean
