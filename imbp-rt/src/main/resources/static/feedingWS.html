@@ -27,13 +27,15 @@
         var image2 = document.getElementById('image2');
         var image3 = document.getElementById('image3');
         var image4 = document.getElementById('image4');
+
+        var ws = new WebSocket('ws://localhost:8085/ws/api/rt/feeding');
+
         window.onbeforeunload = function() {
-            websocket.onclose = function () {}; // disable onclose handler first
-            websocket.close();
+            ws.onclose = function () {}; // disable onclose handler first
+            ws.close();
         };
         // var date = window.prompt('date');
         // var dateArray = date.split('/');
-        var ws = new WebSocket('ws://localhost:8085/ws/api/rt/feeding');
 
         ws.onopen = function() {
 

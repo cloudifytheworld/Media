@@ -1,30 +1,34 @@
-package com.huawei.imbp.gateway.config;
+package com.huawei.imbp.rt.config;
 
-import com.huawei.imbp.gateway.rest.WebSocketController;
+import com.huawei.imbp.rt.route.DataFeedController;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.handler.SimpleUrlHandlerMapping;
 import org.springframework.web.reactive.socket.WebSocketHandler;
 import org.springframework.web.reactive.socket.WebSocketMessage;
+import org.springframework.web.reactive.socket.WebSocketSession;
 import org.springframework.web.reactive.socket.server.support.WebSocketHandlerAdapter;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * @author Charles(Li) Cai
- * @date 5/17/2019
+ * @date 5/16/2019
  */
 
 @Configuration
-public class WebSocketConfiguration {
+@Log4j2
+public class WebSocketConfig {
 
     @Bean
     SimpleUrlHandlerMapping simpleUrlHandlerMapping(WebSocketHandler webSocketHandler){
         return new SimpleUrlHandlerMapping(){
             {
-                setOrder(10);
+                setOrder(1);
                 Map<String, WebSocketHandler> map = new HashMap<>();
                 map.put("/ws/api/rt/feeding", webSocketHandler);
                 setUrlMap(map);
@@ -38,12 +42,18 @@ public class WebSocketConfiguration {
     }
 
     @Bean
-    WebSocketHandler webSocketHandler(WebSocketController controller) {
-        return session -> {
-            Flux<String> ask = session.receive().map(WebSocketMessage::getPayloadAsText);
-            Flux<String> response = ask.flatMap(controller::feeding);
-            Flux<WebSocketMessage> rep = response.map(data -> session.textMessage(data));
-            return session.send(rep);
+    WebSocketHandler webSocketHandler(DataFeedController queue){
+        return webSocketSession ->  {
+            log.info("Start webSocket session "+webSocketSession.getId());
+            Flux<String> ask =  webSocketSession.receive()
+                    .map(WebSocketMessage::getPayloadAsText)
+                    .doFinally( s -> {
+                        log.info("Terminate webSocket session");
+                        webSocketSession.close();
+                    });
+            Flux<String> response =  ask.flatMap(queue::retrieveDataByFeeding);
+            Flux<WebSocketMessage> rep = response.map(data -> webSocketSession.textMessage(data));
+            return webSocketSession.send(rep);
         };
     }
 }
