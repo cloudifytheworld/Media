@@ -111,6 +111,7 @@ public class CassandraThreadedService {
         int indexSize = indexes.size();
         AtomicInteger count = new AtomicInteger();
         AtomicInteger countSize = new AtomicInteger();
+        AtomicDouble image = new AtomicDouble();
 
         indexes.stream().forEach( index -> {
 
@@ -126,15 +127,23 @@ public class CassandraThreadedService {
                         ResultSet rs = future.get();
                         List<Row> rows = rs.all();
                         countSize.addAndGet(rows.size());
-                        rows.stream().forEach(d -> queueService.add(date+"@"+d.getString("file_name")));
+                        rows.stream().forEach(d -> {
+                            long imageSize = d.getBytes("image").array().length;
+                            image.addAndGet((double)imageSize/1000000);
+                            queueService.add(date+"@"+d.getString("file_name"));
+                        });
                     } catch (Exception e) {
                         log.error(Throwables.getStackTraceAsString(e));
                     }
                 }
             }
         });
+        if(countSize.get() == 0) {
+            queueService.add("Done");
+        }
+
         Long end = (System.currentTimeMillis()-start)/1000;
-        log.info(date+" takes seconds "+end+", and process data "+countSize.get());
+        log.info(date+" takes seconds "+end+", and process cells "+countSize.get()+", data in size(M) "+image.get());
     }
 
     public void feedDataByHour(String system, String date, int hour, QueueService<String> queueService){
@@ -161,12 +170,11 @@ public class CassandraThreadedService {
                     try {
                         ResultSet rs = future.get();
                         List<Row> rows = rs.all();
-                        WriteToFile.writeToFile(rows, null, null, 0);
                         countSize.addAndGet(rows.size());
                         rows.stream().forEach(d -> {
                             long imageSize = d.getBytes("image").array().length;
                             image.addAndGet((double)imageSize/1000000);
-                            queueService.add(d.getString("file_name"));
+                            queueService.add(hour+"#"+d.getString("file_name"));
                         });
                     } catch (Exception e) {
                         log.error(Throwables.getStackTraceAsString(e));
