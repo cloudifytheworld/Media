@@ -9,7 +9,7 @@
 <script>
     window.addEventListener('load', function (ev) {
         var update = document.getElementById('update');
-        var es = new EventSource("http://localhost:8084/api/aoi/rt/feeding?system=aoi&from=20181103");
+        var es = new EventSource("http://localhost:8085/api/aoi/rt/feeding?from=20181103");
         es.addEventListener('message', function (evt) {
             update.innerHTML = '<h1>' + evt.data + '</h1>'
         })

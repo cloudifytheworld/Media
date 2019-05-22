@@ -14,4 +14,5 @@ public class FeedEntity<T> {
     private String system;
     private String date;
     private String deviceType;
+    private String hour;
 }

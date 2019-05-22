@@ -81,11 +81,11 @@ public class WriteToFile {
                 byte[] bytes = aoiEntity.toString().getBytes();
                 long size = bytes.length;
                 StatisticManager.total += (double) size / 1000000;
-                StatisticManager.putDay(aoiEntity.getKey().getCreatedDay(), size);
-                String minuKey = aoiEntity.getKey().getCreatedDay()
-                        + ":deviceType-" + aoiEntity.getKey().getDeviceType();
-                StatisticManager.putMinus(minuKey, size);
-                //Files.write(filePath, bytes, StandardOpenOption.APPEND);
+//                StatisticManager.putDay(aoiEntity.getKey().getCreatedDay(), size);
+//                String minuKey = aoiEntity.getKey().getCreatedDay()
+//                        + ":deviceType-" + aoiEntity.getKey().getDeviceType();
+//                StatisticManager.putMinus(minuKey, size);
+                Files.write(filePath, bytes, StandardOpenOption.APPEND);
             } catch (Exception e) {
                 log.error(Throwables.getStackTraceAsString(e));
             }
@@ -94,24 +94,27 @@ public class WriteToFile {
 
     public static void writeToFile(List<Row> rows, String key, String hour, int which){
 
+        StatisticManager.counter += rows.size();
+
         rows.forEach( r -> {
             try {
-                Aoi aoi = EntityMappingUtil.mappingAoi(r);
-                String image = aoi.getImage();
 
-                byte[] bytes = image.getBytes();
-                if(Base64.isBase64(image)) {
-                    bytes = Base64.decodeBase64(image);
-                }
-                long size = bytes.length;
-
-                StatisticManager.putDevice(key, size);
-                StatisticManager.putEachHour(key+hour+"-"+which, size);
+//                Aoi aoi = EntityMappingUtil.mappingAoi(r);
+//                String image = aoi.getImage();
+//
+//                byte[] bytes = image.getBytes();
+//                if(Base64.isBase64(image)) {
+//                    bytes = Base64.decodeBase64(image);
+//                }
+//                long size = bytes.length;
+                long size = r.getBytes("image").array().length;
+//                StatisticManager.putDevice(key, size);
+//                StatisticManager.putEachHour(key+hour+"-"+which, size);
                 StatisticManager.total += (double)size/1000000;
-                StatisticManager.putBytes(key+hour+"-"+which, size);
-                String minuKey = key+hour+"-"+which+":minus-"+aoi.getMinus();
-                StatisticManager.putEachMinus(minuKey, size);
-                StatisticManager.putMinus(minuKey, size);
+//                StatisticManager.putBytes(key+hour+"-"+which, size);
+//                String minuKey = key+hour+"-"+which+":minus-"+aoi.getMinus();
+//                StatisticManager.putEachMinus(minuKey, size);
+//                StatisticManager.putMinus(minuKey, size);
 //                Files.write(filePath, bytes, StandardOpenOption.APPEND);
             }catch (Exception e){
                 log.error(Throwables.getStackTraceAsString(e));

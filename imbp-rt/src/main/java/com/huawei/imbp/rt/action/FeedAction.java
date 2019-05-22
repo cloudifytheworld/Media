@@ -2,9 +2,11 @@ package com.huawei.imbp.rt.action;
 
 import akka.actor.UntypedAbstractActor;
 import com.huawei.imbp.rt.entity.FeedEntity;
-import com.huawei.imbp.rt.service.CassandraService;
+import com.huawei.imbp.rt.service.CassandraAsyncService;
+import com.huawei.imbp.rt.service.CassandraThreadedService;
 import com.huawei.imbp.rt.service.QueueService;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -21,7 +23,11 @@ import org.springframework.stereotype.Component;
 public class FeedAction extends UntypedAbstractActor {
 
     @Autowired
-    private CassandraService service;
+    private CassandraAsyncService asyncService;
+
+    @Autowired
+    private CassandraThreadedService threadedService;
+
 
     @Override
     public void onReceive(Object msg) {
@@ -30,8 +36,12 @@ public class FeedAction extends UntypedAbstractActor {
         QueueService<String> queueService = feedEntity.getQueue();
         String system = feedEntity.getSystem();
         String date = feedEntity.getDate();
-
-        service.getDataByFeeding(system, date, queueService);
+        String hour = feedEntity.getHour();
+        if(!StringUtils.isEmpty(hour)){
+            threadedService.feedDataByHour(system, date, Integer.parseInt(hour), queueService);
+        }else {
+            threadedService.feedDataByDates(system, date, queueService);
+        }
     }
 
 }

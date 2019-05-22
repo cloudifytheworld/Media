@@ -20,6 +20,11 @@ public class QueueService<T> {
 
     private final ConcurrentLinkedQueue<T> queue = new ConcurrentLinkedQueue<>();
     private AtomicInteger counter = new AtomicInteger();
+    private int sleepLimit = 2000;
+
+    public void setSleepLimit(int sleepLimit) {
+        this.sleepLimit = sleepLimit;
+    }
 
     public void add(T t){
         queue.add(t);
@@ -47,10 +52,14 @@ public class QueueService<T> {
 
         while (hasNext()){
             try{
-                Thread.sleep(200);
+                Thread.sleep(sleepLimit);
             }catch (Exception e){
-                log.error(Throwables.getStackTraceAsString(e));
+                log.error(e.getMessage());
+                break;
             }
+        }
+        if(queue.peek().equals("Done")){
+            queue.poll();
         }
     }
     public Stream<String> asStream(){

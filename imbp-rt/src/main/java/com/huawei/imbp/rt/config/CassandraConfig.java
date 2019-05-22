@@ -33,11 +33,11 @@ public abstract class CassandraConfig extends AbstractReactiveCassandraConfigura
     public PoolingOptions getPoolingOptions(){
 
         PoolingOptions poolingOptions = new PoolingOptions();
-        poolingOptions.setHeartbeatIntervalSeconds(Integer.parseInt(cassandraConfig.get("heart-beat")));
-        poolingOptions.setConnectionsPerHost(HostDistance.LOCAL, 1, 1300)
-                .setMaxRequestsPerConnection(HostDistance.LOCAL, 1350)
-                .setNewConnectionThreshold(HostDistance.LOCAL, 1200)
-                .setCoreConnectionsPerHost(HostDistance.LOCAL, 1300);
+//        poolingOptions.setHeartbeatIntervalSeconds(Integer.parseInt(cassandraConfig.get("heart-beat")));
+//        poolingOptions.setConnectionsPerHost(HostDistance.LOCAL, 1, 1300)
+//                .setMaxRequestsPerConnection(HostDistance.LOCAL, 1350)
+//                .setNewConnectionThreshold(HostDistance.LOCAL, 1200)
+//                .setCoreConnectionsPerHost(HostDistance.LOCAL, 1300);
 
         return poolingOptions;
     }

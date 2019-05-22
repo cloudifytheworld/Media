@@ -1,11 +1,15 @@
 package com.huawei.imbp.rt.route;
 
+import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import com.huawei.imbp.rt.config.ImbpRtActionExtension;
+import com.huawei.imbp.rt.entity.FeedEntity;
 import com.huawei.imbp.rt.service.QueueService;
 import lombok.extern.log4j.Log4j2;
 import org.reactivestreams.Publisher;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,6 +26,7 @@ import java.util.stream.IntStream;
 
 @RestController
 @Log4j2
+@RefreshScope
 public class DataFeedController {
 
     @Autowired
@@ -30,34 +35,36 @@ public class DataFeedController {
     @Autowired
     public ImbpRtActionExtension imbpRtActionExtension;
 
+    @Value("${data.rateLimit}")
+    public int rateLimit;
+
+    @Value("${data.sleepLimit}")
+    public int sleepLimit;
+
     @GetMapping(value = "/api/{system}/rt/feeding", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Publisher<String> retrieveDataByFeeding(@RequestParam String from){
 
-//        ActorRef feedingAction = actorSystem.actorOf(imbpRtActionExtension.props("feedAction"));
+        long start = System.currentTimeMillis();
+        ActorRef feedingAction = actorSystem.actorOf(imbpRtActionExtension.props("feedAction"));
         QueueService<String> queueService = new QueueService<>();
-//
-//        FeedEntity<String> feedingEntity = new FeedEntity<>();
-//        feedingEntity.setQueue(queueService);
-//        feedingEntity.setDate(from);
-//        feedingEntity.setSystem("aoi");
-//
-//        feedingAction.tell(feedEntity, ActorRef.noSender());
-        IntStream.range(0, 2000).boxed().map(n -> String.valueOf(n)).forEach( s-> queueService.add(s));
-        //queueService.waitForValue();
+        String[] dateParam = from.split(",");
+        FeedEntity<String> feedEntity = new FeedEntity<>();
+        feedEntity.setQueue(queueService);
+        feedEntity.setDate(dateParam[0]);
+        if(dateParam.length>1){
+            feedEntity.setHour(dateParam[1]);
+        }else{
+            queueService.setSleepLimit(sleepLimit);
+        }
+        feedEntity.setSystem("aoi");
 
-        long start = System.currentTimeMillis()/1000;
+        feedingAction.tell(feedEntity, ActorRef.noSender());
+        queueService.waitForValue();
 
-//        return Flux.fromStream(Stream.generate(() ->  queueService.poll())).delayElements(Duration.ofMillis(50))
-//                .onTerminateDetach().log("done in seconds "+(System.currentTimeMillis()/1000-start));
         return Flux.fromStream(queueService.asStream())
-
-       // return Flux.fromStream(Stream.generate(() -> from+"@"+ ((int)Math.random()*2000000)).limit(2000))
-                .delayElements(Duration.ofMillis(1))
-//                .parallel()
-//                .runOn(Schedulers.parallel()).sequential()
+                .delayElements(Duration.ofMillis(10))
                 .doOnTerminate(() ->{
-                    log.info(queueService.getCount()+" items sent");
-                    log.info(from+" done in seconds "+(System.currentTimeMillis()/1000-start));
+                    log.info(from+" is done in seconds "+(System.currentTimeMillis()-start)/1000);
                 }).doOnError(throwable -> {
                     log.error("+++++++++++RT++++++++++");
                     log.error(throwable);

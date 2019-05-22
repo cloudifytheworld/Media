@@ -4,7 +4,8 @@ package com.huawei.imbp.rt.handler;
 import com.google.common.base.Throwables;
 import com.huawei.imbp.rt.common.InputParameter;
 
-import com.huawei.imbp.rt.service.CassandraService;
+import com.huawei.imbp.rt.service.CassandraAsyncService;
+import com.huawei.imbp.rt.service.CassandraThreadedService;
 import com.huawei.imbp.rt.util.ServiceUtil;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,10 @@ public class RtServiceHandler {
 
 
     @Autowired
-    public CassandraService cassandraService;
+    public CassandraThreadedService cassandraThreadedService;
+
+    @Autowired
+    public CassandraAsyncService cassandraAsyncService;
 
     /*
      * Require params: system, from(start day) and deviceType
@@ -38,7 +42,7 @@ public class RtServiceHandler {
 
         try {
             InputParameter input = ServiceUtil.getInputParam(serverRequest);
-            return cassandraService.getDataByOne(input);
+            return cassandraAsyncService.getDataByOne(input);
         }catch (Exception e){
             log.error(Throwables.getStackTraceAsString(e));
             return ServerResponse.badRequest().syncBody(e.getMessage());
@@ -56,7 +60,8 @@ public class RtServiceHandler {
 
         try {
             InputParameter input = ServiceUtil.getInputParam(serverRequest);
-            cassandraService.getDataByDate(input);
+            //cassandraService.getDataByDates(input);
+            cassandraThreadedService.getDataByDates(input);
         }catch (Exception e){
             log.error(Throwables.getStackTraceAsString(e));
             return ServerResponse.badRequest().syncBody(e.getMessage());
@@ -77,7 +82,7 @@ public class RtServiceHandler {
 
         try{
             InputParameter input = ServiceUtil.getInputParam(serverRequest);
-            return cassandraService.getDataByPage(input);
+            return cassandraAsyncService.getDataByPage(input);
         }catch (Exception e){
             log.error(Throwables.getStackTraceAsString(e));
             return ServerResponse.badRequest().syncBody(e.getMessage());

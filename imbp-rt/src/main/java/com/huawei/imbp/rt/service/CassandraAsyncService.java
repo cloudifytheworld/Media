@@ -11,6 +11,7 @@ import com.huawei.imbp.rt.repository.AoiRepository;
 import com.huawei.imbp.rt.util.DataUtil;
 import com.huawei.imbp.rt.util.WriteToFile;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
@@ -23,6 +24,7 @@ import reactor.core.publisher.Mono;
 import scala.Int;
 
 import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.concurrent.Semaphore;
 
@@ -33,7 +35,7 @@ import java.util.concurrent.Semaphore;
 
 @Component
 @Log4j2
-public class CassandraService{
+public class CassandraAsyncService {
 
     @Autowired
     public ActorSystem actorSystem;
@@ -132,32 +134,25 @@ public class CassandraService{
         for(int i=0; i<dates.length; i++) {
             String date = dates[i].trim();
             log.info(date);
-            Set<String> deviceTypes = redisTemplate.boundSetOps(system + ":" + date).members();
-            Iterator<String> itr = deviceTypes.iterator();
-            while (itr.hasNext()) {
-                String deviceType = itr.next();
-                for (int y = 1; y < 13; y++) {
-                    try {
-                        for (int x = 0; x < 60; x++) {
-                            semaphore.acquire();
-                            Flux<AoiEntity> aoiEntityFlux = aoiRepository.findByKeyCreatedDayAndKeyDeviceTypeAndKeyHourAndKeyMinute(date, deviceType, y, x);
-                            aoiEntityFlux.collectList().subscribe(s -> {
-                                semaphore.release();
-                                int size = s.size();
-                                if(size > 0) {
-//                                    ByteBuffer byteBuffer = s.get(0).getImage();
-//
-//                                    queueService.add();
-                                }
-                            });
+            Set<String> indexes = redisTemplate.boundSetOps(system + ":" + date).members();
+            indexes.stream().forEach( index -> {
+                String[] keys = index.split("#");
+                try {
+                        semaphore.acquire();
+                        Flux<AoiEntity> aoiEntityFlux = aoiRepository.findByKeyCreatedDayAndKeyDeviceTypeAndKeyHourAndKeyMinute(
+                                date, keys[0], Integer.parseInt(keys[1]), Integer.parseInt(keys[2]));
+                        aoiEntityFlux.collectList().subscribe(s -> {
+                            s.stream().forEach(entity ->
+//                            queueService.add(new String(Base64.encodeBase64(entity.getImage().array()))));
+                            queueService.add(date+"@"+entity.getFileName()));
+                            semaphore.release();
+                        });
 
-                        }
-                    }catch (Exception e){
-                        log.error(Throwables.getStackTraceAsString(e));
-                        semaphore.release();
-                    }
+                }catch (Exception e){
+                    log.error(Throwables.getStackTraceAsString(e));
+                    semaphore.release();
                 }
-            }
+            });
         }
     }
 
@@ -203,7 +198,7 @@ public class CassandraService{
         Semaphore semaphore = new Semaphore(60);
 
         String date = dateDevice.getDate();
-        Set<String> indexes = dateDevice.getDeviceTypes();
+        Set<String> indexes = dateDevice.getIndexes();
 
         indexes.stream().forEach( next -> {
             try {
@@ -213,12 +208,13 @@ public class CassandraService{
                 Flux<AoiEntity> aoiEntityFlux = aoiRepository.findByKeyCreatedDayAndKeyDeviceTypeAndKeyHourAndKeyMinute
                         (date, index[0], Integer.parseInt(index[1]), Integer.parseInt(index[2]));
                 aoiEntityFlux.collectList().subscribe(s -> {
-                    semaphore.release();
                     int size = s.size();
                     WriteToFile.writeToFile(s);
                     String key = "createdDay-"+date+":deviceType-"+index[0]+":hour-"+index[1]+":minute-"+index[2];
                     log.info(key + " size: " + size);
                 });
+
+                semaphore.release();
             }catch (Exception e){
                 log.error(Throwables.getStackTraceAsString(e));
                 semaphore.release();
