@@ -40,7 +40,7 @@ public class CassandraDataConfig {
 
         Cluster cluster = Cluster.builder()
                 .addContactPoints(cassandraConfig.get("contact-points").split(","))
-                .withQueryOptions(new QueryOptions().setConsistencyLevel(ConsistencyLevel.ONE))
+                .withQueryOptions(new QueryOptions().setConsistencyLevel(ConsistencyLevel.QUORUM))
                 .withPoolingOptions(poolingOptions)
                 .withSocketOptions(options)
                 .withLoadBalancingPolicy(new RoundRobinPolicy())

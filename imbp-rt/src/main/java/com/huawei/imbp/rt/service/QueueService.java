@@ -55,7 +55,6 @@ public class QueueService<T> {
                 Thread.sleep(sleepLimit);
             }catch (Exception e){
                 log.error(e.getMessage());
-                break;
             }
         }
         if(queue.peek().equals("Done")){

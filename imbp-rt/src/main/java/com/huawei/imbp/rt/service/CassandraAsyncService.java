@@ -2,7 +2,13 @@ package com.huawei.imbp.rt.service;
 
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
+import com.datastax.driver.core.ResultSet;
+import com.datastax.driver.core.ResultSetFuture;
+import com.datastax.driver.core.Row;
 import com.google.common.base.Throwables;
+import com.google.common.util.concurrent.AtomicDouble;
+import com.google.common.util.concurrent.Futures;
+import com.google.common.util.concurrent.ListenableFuture;
 import com.huawei.imbp.rt.common.InputParameter;
 import com.huawei.imbp.rt.config.ImbpRtActionExtension;
 import com.huawei.imbp.rt.entity.AoiEntity;
@@ -27,6 +33,7 @@ import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.concurrent.Semaphore;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author Charles(Li) Cai
@@ -143,7 +150,6 @@ public class CassandraAsyncService {
                                 date, keys[0], Integer.parseInt(keys[1]), Integer.parseInt(keys[2]));
                         aoiEntityFlux.collectList().subscribe(s -> {
                             s.stream().forEach(entity ->
-//                            queueService.add(new String(Base64.encodeBase64(entity.getImage().array()))));
                             queueService.add(date+"@"+entity.getFileName()));
                             semaphore.release();
                         });
@@ -154,6 +160,84 @@ public class CassandraAsyncService {
                 }
             });
         }
+    }
+
+    public void getDataByHourFeed(String system, String date, int hour, QueueService<String> queueService){
+
+        Semaphore semaphore = new Semaphore(30);
+        long start = System.currentTimeMillis();
+        AtomicInteger countSize = new AtomicInteger();
+        AtomicDouble image = new AtomicDouble();
+
+        Set<String> indexes = redisTemplate.boundSetOps("hour"+":"+system + ":" + date+":"+hour).members();
+        log.info(date+":"+hour+"async-index size: "+indexes.size());
+
+        indexes.stream().forEach( index -> {
+            String[] keys = index.split("#");
+            try {
+                semaphore.acquire();
+                Flux<AoiEntity> aoiEntityFlux = aoiRepository.findByKeyCreatedDayAndKeyDeviceTypeAndKeyHourAndKeyMinute(
+                        date, keys[0], hour, Integer.parseInt(keys[1]));
+                aoiEntityFlux.collectList().subscribe(s -> {
+                    countSize.addAndGet(s.size());
+                    s.stream().forEach(entity -> {
+                        long imageSize = entity.getImage().array().length;
+                        image.addAndGet((double)imageSize/1000000);
+                        queueService.add(date+"@"+entity.getFileName());
+                    });
+                    semaphore.release();
+                });
+            }catch (Exception e){
+                log.error(Throwables.getStackTraceAsString(e));
+                semaphore.release();
+            }
+        });
+
+        if(indexes.size() == 0) {
+            queueService.add("Done");
+        }
+
+        Long end = (System.currentTimeMillis()-start)/1000;
+        log.info(date+":"+hour+" takes seconds "+end+", and process cells "+countSize.get()+", data in size(M) "+String.format("%.2f", image.get()));
+
+    }
+
+    public void getDataByDateFeed(String system, String date, QueueService<String> queueService){
+
+        Semaphore semaphore = new Semaphore(120);
+        long start = System.currentTimeMillis();
+        AtomicInteger countSize = new AtomicInteger();
+        AtomicDouble image = new AtomicDouble();
+
+        Set<String> indexes = redisTemplate.boundSetOps("date"+":"+system + ":" + date).members();
+        log.info(date+" async-index size "+indexes.size());
+        indexes.stream().forEach( index -> {
+            String[] keys = index.split("#");
+            try {
+                semaphore.acquire();
+                Flux<AoiEntity> aoiEntityFlux = aoiRepository.findByKeyCreatedDayAndKeyDeviceTypeAndKeyHourAndKeyMinute(
+                        date, keys[0], Integer.parseInt(keys[1]), Integer.parseInt(keys[2]));
+                aoiEntityFlux.collectList().subscribe(s -> {
+                    countSize.addAndGet(s.size());
+                    s.stream().forEach(entity -> {
+                        long imageSize = entity.getImage().array().length;
+                        image.addAndGet((double)imageSize/1000000);
+                        queueService.add(date+"@"+entity.getFileName());
+                    });
+                    semaphore.release();
+                });
+            }catch (Exception e){
+                log.error(Throwables.getStackTraceAsString(e));
+                semaphore.release();
+            }
+        });
+
+        if(indexes.size() == 0) {
+            queueService.add("Done");
+        }
+
+        Long end = (System.currentTimeMillis()-start)/1000;
+        log.info(date+" takes seconds "+end+", and process cells "+countSize.get()+", data in size(M) "+String.format("%.2f", image.get()));
     }
 
     //ReadAction

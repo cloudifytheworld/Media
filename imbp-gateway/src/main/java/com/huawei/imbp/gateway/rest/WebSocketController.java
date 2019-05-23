@@ -19,6 +19,8 @@ import reactor.core.scheduler.Schedulers;
 
 import java.net.URI;
 import java.time.Duration;
+import java.time.temporal.TemporalUnit;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
 /**
@@ -38,17 +40,17 @@ public class WebSocketController {
 
     public Publisher<String> feeding(@RequestParam String data){
 
-        long start = System.currentTimeMillis()/1000;
+        long start = System.currentTimeMillis();
         return webClient.baseUrl(rtUrl).build().get()
                 .uri("/api/ws/rt/feeding?from="+data).accept(MediaType.TEXT_EVENT_STREAM)
-                .retrieve().bodyToFlux(String.class).parallel().runOn(Schedulers.parallel())
-                .sequential().doOnTerminate(() -> {
-                    log.info(data+" completed on seconds "+(System.currentTimeMillis()/1000-start));
+                .retrieve().bodyToFlux(String.class)
+                .parallel().runOn(Schedulers.parallel())
+                .doOnTerminate(() -> {
+                    log.info(data+" completed on Gateway seconds "+(System.currentTimeMillis()-start)/1000);
                 }).doOnError(t -> {
                     log.error("----------GateWay------------");
-                    log.error(data+"fail to execute or complete "+t.getMessage());
+                    log.error(data+" fail to execute or complete "+t.getMessage());
                 });
 
     }
-
 }

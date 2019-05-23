@@ -43,6 +43,7 @@ curl -X PUT -d INFO http://localhost:8500/v1/kv/config/imbp-rt/logging/level-roo
 curl -X PUT -d "{\"redisServer\": \"192.168.30.19\", \"redisPort\" : \"6379\"}" http://localhost:8500/v1/kv/config/imbp-rt/db/redis
 curl -X PUT -d 10 http://localhost:8500/v1/kv/config/imbp-rt/data/rateLimit
 curl -X PUT -d 5000 http://localhost:8500/v1/kv/config/imbp-rt/data/sleepLimit
+curl -X PUT -d false http://localhost:8500/v1/kv/config/imbp-rt/data/useAsync
 
 
 

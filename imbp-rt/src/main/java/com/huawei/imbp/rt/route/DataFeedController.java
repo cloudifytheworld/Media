@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
+import reactor.core.scheduler.Scheduler;
+import reactor.core.scheduler.Schedulers;
 
 import java.time.Duration;
 import java.util.stream.IntStream;
@@ -62,9 +64,10 @@ public class DataFeedController {
         queueService.waitForValue();
 
         return Flux.fromStream(queueService.asStream())
-                .delayElements(Duration.ofMillis(10))
+                .delayElements(Duration.ofMillis(rateLimit))
+                .parallel().runOn(Schedulers.parallel())
                 .doOnTerminate(() ->{
-                    log.info(from+" is done in seconds "+(System.currentTimeMillis()-start)/1000);
+                    log.info(from+" is done on RT in mins "+ String.format("%.2f", (float)(System.currentTimeMillis()-start)/60000));
                 }).doOnError(throwable -> {
                     log.error("+++++++++++RT++++++++++");
                     log.error(throwable);

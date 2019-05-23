@@ -31,6 +31,7 @@ public class WebSocketConfig {
                 setOrder(10);
                 Map<String, WebSocketHandler> map = new HashMap<>();
                 map.put("/ws/api/rt/feeding", webSocketHandler);
+                map.put("/ws/api/rt/feed", webSocketHandler);
                 setUrlMap(map);
             }
         };

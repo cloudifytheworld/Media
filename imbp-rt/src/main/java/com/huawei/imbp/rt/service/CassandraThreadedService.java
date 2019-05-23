@@ -102,6 +102,7 @@ public class CassandraThreadedService {
         log.info(dates[0]+" takes "+last+" seconds, total "+StatisticManager.counter+" cells, total size(M) "+String.format("%.2f", StatisticManager.total));
     }
 
+    //Todo: anytime the queue is empty, stream will treat the it as done, try spring websocket as message
     public void feedDataByDates(String system, String date, QueueService<String> queueService){
 
         List<ResultSetFuture> futuresData = new ArrayList<>();
@@ -138,12 +139,12 @@ public class CassandraThreadedService {
                 }
             }
         });
-        if(countSize.get() == 0) {
+        if(indexes.size() == 0) {
             queueService.add("Done");
         }
 
         Long end = (System.currentTimeMillis()-start)/1000;
-        log.info(date+" takes seconds "+end+", and process cells "+countSize.get()+", data in size(M) "+image.get());
+        log.info(date+" takes seconds "+end+", and process cells "+countSize.get()+", data in size(M) "+String.format("%.2f", image.get()));
     }
 
     public void feedDataByHour(String system, String date, int hour, QueueService<String> queueService){
@@ -164,7 +165,7 @@ public class CassandraThreadedService {
                     ,hour, Integer.parseInt(keys[1])));
             futuresData.add(results);
 
-            if(count.incrementAndGet()%120 == 0 || count.get() == indexSize){
+            if(count.incrementAndGet()%60 == 0 || count.get() == indexSize){
                 List<ListenableFuture<ResultSet>> futureLists = Futures.inCompletionOrder(futuresData);
                 for (ListenableFuture<ResultSet> future : futureLists) {
                     try {
@@ -182,11 +183,12 @@ public class CassandraThreadedService {
                 }
             }
         });
-        if(countSize.get() == 0) {
+        if(indexes.size() == 0) {
             queueService.add("Done");
         }
         Long end = (System.currentTimeMillis()-start)/1000;
-        log.info(date+":"+hour+" seconds "+end+", and process cells "+countSize.get()+", data in size(M) "+image.get());
+        log.info(date+":"+hour+" seconds "+end+", and process cells "+countSize.get()+", data in size(M) "+String.format("%.2f", image.get()));
+
     }
 
 
