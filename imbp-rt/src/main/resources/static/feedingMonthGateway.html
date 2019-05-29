@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Feeding data</title>
+</head>
+<body>
+    <div id="update"></div>
+    <table style="width:100%">
+        <tr>
+            <th style="width:25%; text-align: left">name</th>
+            <th style="width:25%; text-align: left">name</th>
+            <th style="width:25%; text-align: left">name</th>
+            <th style="width:25%; text-align: left">name</th>
+        </tr>
+
+        <tr>
+            <td id="image1"></td>
+            <td id="image2"></td>
+            <td id="image3"></td>
+            <td id="image5"></td>
+        </tr>
+        <p></p>
+        <tr>
+            <td id="image6"></td>
+            <td id="image7"></td>
+            <td id="image8"></td>
+            <td id="image9"></td>
+        </tr>
+        <tr>
+            <td id="image10"></td>
+            <td id="image12"></td>
+            <td id="image13"></td>
+            <td id="image14"></td>
+        </tr>
+        <tr>
+            <td id="image15"></td>
+            <td id="image16"></td>
+            <td id="image17"></td>
+            <td id="image19"></td>
+        </tr>
+        <tr>
+            <td id="image20"></td>
+            <td id="image21"></td>
+            <td id="image22"></td>
+            <td id="image23"></td>
+        </tr>
+        <tr>
+            <td id="image24"></td>
+            <td id="image25"></td>
+        </tr>
+    </table>
+<script>
+    window.addEventListener('load', function (ev) {
+        var image1 = document.getElementById('image1');
+        var image2 = document.getElementById('image2');
+        var image3 = document.getElementById('image3');
+        var image5 = document.getElementById('image5');
+        var image6 = document.getElementById('image6');
+        var image7 = document.getElementById('image7');
+        var image8 = document.getElementById('image8');
+        var image9 = document.getElementById('image9');
+        var image10 = document.getElementById('image10');
+        var image12 = document.getElementById('image12');
+        var image13 = document.getElementById('image13');
+        var image14 = document.getElementById('image14');
+        var image15 = document.getElementById('image15');
+        var image16 = document.getElementById('image16');
+        var image17 = document.getElementById('image17');
+        var image19 = document.getElementById('image19');
+        var image20 = document.getElementById('image20');
+        var image21 = document.getElementById('image21');
+        var image22 = document.getElementById('image22');
+        var image23 = document.getElementById('image23');
+        var image24 = document.getElementById('image24');
+        var image25 = document.getElementById('image25');
+
+
+        var ws1 = new WebSocket('ws://localhost:8084/ws/api/rt/feeding');
+        var ws2 = new WebSocket('ws://localhost:8084/ws/api/rt/feeding');
+        var ws3 = new WebSocket('ws://localhost:8084/ws/api/rt/feeding');
+        var ws5 = new WebSocket('ws://localhost:8084/ws/api/rt/feeding');
+        var ws6 = new WebSocket('ws://localhost:8084/ws/api/rt/feeding');
+        var ws7 = new WebSocket('ws://localhost:8084/ws/api/rt/feeding');
+        var ws8 = new WebSocket('ws://localhost:8084/ws/api/rt/feeding');
+        var ws9 = new WebSocket('ws://localhost:8084/ws/api/rt/feeding');
+        var ws10 = new WebSocket('ws://localhost:8084/ws/api/rt/feeding');
+        var ws12 = new WebSocket('ws://localhost:8084/ws/api/rt/feeding');
+        var ws13 = new WebSocket('ws://localhost:8084/ws/api/rt/feeding');
+        var ws14 = new WebSocket('ws://localhost:8084/ws/api/rt/feeding');
+        var ws15 = new WebSocket('ws://localhost:8084/ws/api/rt/feeding');
+        var ws16 = new WebSocket('ws://localhost:8084/ws/api/rt/feeding');
+        var ws17 = new WebSocket('ws://localhost:8084/ws/api/rt/feeding');
+        var ws19= new WebSocket('ws://localhost:8084/ws/api/rt/feeding');
+        var ws20 = new WebSocket('ws://localhost:8084/ws/api/rt/feeding');
+        var ws21 = new WebSocket('ws://localhost:8084/ws/api/rt/feeding');
+        var ws22 = new WebSocket('ws://localhost:8084/ws/api/rt/feeding');
+        var ws23 = new WebSocket('ws://localhost:8084/ws/api/rt/feeding');
+        var ws24 = new WebSocket('ws://localhost:8084/ws/api/rt/feeding');
+        var ws25 = new WebSocket('ws://localhost:8084/ws/api/rt/feeding');
+
+
+        //var date = window.prompt('date');
+        // var dateArray = date.split('/');
+
+        ws1.onopen = function() {
+            ws1.send('20181101');
+        };
+        ws2.onopen = function() {
+            ws2.send('20181102');
+        };
+        ws3.onopen = function() {
+            ws3.send('20181103');
+        };
+        ws5.onopen = function() {
+            ws5.send('20181105');
+        };
+        ws6.onopen = function() {
+            ws6.send('20181106');
+        };
+
+        ws7.onopen = function() {
+            ws7.send('20181107');
+        };
+        ws8.onopen = function() {
+            ws8.send('20181108');
+        };
+        ws9.onopen = function() {
+            ws9.send('20181109');
+        };
+        ws10.onopen = function() {
+            ws10.send('20181110');
+        };
+        ws12.onopen = function() {
+            ws12.send('20181112');
+        };
+        ws13.onopen = function() {
+            ws13.send('20181113');
+        };
+        ws14.onopen = function() {
+            ws14.send('20181114');
+        };
+        ws15.onopen = function() {
+            ws15.send('20181115');
+        };
+        ws16.onopen = function() {
+            ws16.send('20181116');
+        };
+        ws17.onopen = function() {
+            ws17.send('20181117');
+        };
+        ws19.onopen = function() {
+            ws19.send('20181119');
+        };
+        ws20.onopen = function() {
+            ws20.send('20181120');
+        };
+        ws21.onopen = function() {
+            ws21.send('20181121');
+        };
+        ws22.onopen = function() {
+            ws22.send('20181122');
+        };
+        ws23.onopen = function() {
+            ws23.send('20181123');
+        };
+        ws24.onopen = function() {
+            ws24.send('20181124');
+        };
+        ws25.onopen = function() {
+            ws25.send('20181125');
+        };
+
+
+        ws1.onmessage = function (evt) {
+            image1.innerHTML = evt.data;
+        };
+        ws2.onmessage = function (evt) {
+            image2.innerHTML = evt.data;
+        };
+        ws3.onmessage = function (evt) {
+            image3.innerHTML = evt.data;
+        };
+        ws5.onmessage = function (evt) {
+            image5.innerHTML = evt.data;
+        };
+        ws6.onmessage = function (evt) {
+            image6.innerHTML = evt.data;
+        };
+        ws7.onmessage = function (evt) {
+            image7.innerHTML = evt.data;
+        };
+        ws8.onmessage = function (evt) {
+            image8.innerHTML = evt.data;
+        };
+        ws9.onmessage = function (evt) {
+            image9.innerHTML = evt.data;
+        };
+        ws10.onmessage = function (evt) {
+            image10.innerHTML = evt.data;
+        };
+        ws12.onmessage = function (evt) {
+            image12.innerHTML = evt.data;
+        };
+        ws13.onmessage = function (evt) {
+            image13.innerHTML = evt.data;
+        };
+        ws14.onmessage = function (evt) {
+            image14.innerHTML = evt.data;
+        };
+        ws15.onmessage = function (evt) {
+            image15.innerHTML = evt.data;
+        };
+        ws16.onmessage = function (evt) {
+            image16.innerHTML = evt.data;
+        };
+        ws17.onmessage = function (evt) {
+            image17.innerHTML = evt.data;
+        };
+        ws19.onmessage = function (evt) {
+            image19.innerHTML = evt.data;
+        };
+        ws20.onmessage = function (evt) {
+            image20.innerHTML = evt.data;
+        };
+        ws21.onmessage = function (evt) {
+            image21.innerHTML = evt.data;
+        };
+        ws22.onmessage = function (evt) {
+            image22.innerHTML = evt.data;
+        };
+        ws23.onmessage = function (evt) {
+            image23.innerHTML = evt.data;
+        };
+        ws24.onmessage = function (evt) {
+            image24.innerHTML = evt.data;
+        };
+        ws25.onmessage = function (evt) {
+            image25.innerHTML = evt.data;
+        };
+
+        // ws.onmessage = function (evt) {
+        //     image1.innerHTML = '<img width="150" src="data:image/jpg;base64,'+evt.data+'">'
+        //     image2.innerHTML = '<img width="150" src="data:image/jpg;base64,'+evt.data+'">'
+        //     image3.innerHTML = '<img width="150" src="data:image/jpg;base64,'+evt.data+'">'
+        //     image4.innerHTML = '<img width="150" src="data:image/jpg;base64,'+evt.data+'">'
+        //
+        // };
+
+
+        ws5.onclose = function() {
+            alert("DONE");
+        };
+
+        ws5.onerror = function (ev1) {
+            alert(ev1.data);
+        }
+    })
+    function sleep(delay) {
+        var start = new Date().getTime();
+        while (new Date().getTime() < start + delay);
+    }
+</script>
+</body>
+</html>
