@@ -6,6 +6,7 @@ import com.huawei.imbp.rt.common.InputParameter;
 
 import com.huawei.imbp.rt.service.CassandraAsyncService;
 import com.huawei.imbp.rt.service.CassandraThreadedService;
+import com.huawei.imbp.rt.service.DataTransferService;
 import com.huawei.imbp.rt.util.ServiceUtil;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,8 @@ import reactor.core.publisher.Mono;
 @Log4j2
 public class RtServiceHandler {
 
+    @Autowired
+    public DataTransferService transferService;
 
     @Autowired
     public CassandraThreadedService cassandraThreadedService;
@@ -105,5 +108,17 @@ public class RtServiceHandler {
 //            return ServerResponse.badRequest().syncBody(e.getMessage());
 //        }
 //    }
+
+    public Mono<ServerResponse> retrieveDataByFile(ServerRequest serverRequest){
+
+
+        return ServerResponse.ok().syncBody("generating file");
+    }
+
+    public Mono<ServerResponse> processClient(ServerRequest serverRequest){
+
+
+        return ServerResponse.ok().syncBody("working one the request");
+    }
 }
 

@@ -9,7 +9,8 @@ package com.huawei.imbp.rt.common;
 public class Constant {
 
     public static final int IMAGE_PAGE_SIZE = 10;
-
+    public static final String END_MARKER = "done&bye";
     public final static String AOI = "aoi";
+
 
 }

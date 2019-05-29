@@ -62,4 +62,18 @@ public class RtRouter {
         return RouterFunctions.route(RequestPredicates.GET("/api/{system}/rt/single"),
                 rtServiceHandler::retrieveDataSingle);
     }
+
+    @Bean
+    public RouterFunction<ServerResponse> rtDataFileRouting(RtServiceHandler rtServiceHandler) {
+
+        return RouterFunctions.route(RequestPredicates.GET("/api/{system}/rt/file"),
+                rtServiceHandler::retrieveDataByFile);
+    }
+
+    @Bean
+    public RouterFunction<ServerResponse> rtDataClientRouting(RtServiceHandler rtServiceHandler) {
+
+        return RouterFunctions.route(RequestPredicates.GET("/api/{system}/rt/client"),
+                rtServiceHandler::processClient);
+    }
 }
