@@ -7,7 +7,6 @@ import lombok.extern.log4j.Log4j2;
 import java.nio.ByteBuffer;
 import java.nio.channels.AsynchronousSocketChannel;
 import java.nio.channels.CompletionHandler;
-import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * @author Charles(Li) Cai

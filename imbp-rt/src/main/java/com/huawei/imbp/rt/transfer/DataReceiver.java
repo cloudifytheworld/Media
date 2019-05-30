@@ -3,6 +3,7 @@ package com.huawei.imbp.rt.transfer;
 import com.google.common.base.Throwables;
 import lombok.extern.log4j.Log4j2;
 
+import java.io.File;
 import java.net.InetSocketAddress;
 import java.nio.channels.AsynchronousChannelGroup;
 import java.nio.channels.AsynchronousServerSocketChannel;
@@ -21,7 +22,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Log4j2
 public class DataReceiver {
 
-    private final String filePath;
     private OnComplete onComplete;
     private final AsynchronousServerSocketChannel server;
     private final AsynchronousChannelGroup serverGroup;
@@ -36,13 +36,12 @@ public class DataReceiver {
 
     public DataReceiver(InetSocketAddress inetAddress, int poolSize, String filePath){
 
-        this.filePath = filePath;
         jobs = new CountDownLatch(poolSize);
+        groupId = UUID.randomUUID().toString();
 
         try {
-            DataWriter dataWriter = new DataWriter(filePath);
+            DataWriter dataWriter = new DataWriter(filePath, groupId);
             this.dataReader = new DataReader(dataWriter);
-            groupId = UUID.randomUUID().toString();
             this.serverGroup = AsynchronousChannelGroup.withThreadPool(Executors.newFixedThreadPool(poolSize));
             this.server = AsynchronousServerSocketChannel.open(this.serverGroup).bind(inetAddress);
         } catch (Exception e) {

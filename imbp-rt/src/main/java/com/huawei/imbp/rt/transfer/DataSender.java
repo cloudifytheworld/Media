@@ -38,18 +38,18 @@ public class DataSender {
         }
     }
 
-    public void write(Row data){
+    public void write(ByteBuffer data){
 
-        Aoi aoi = EntityMappingUtil.mappingAoi(data);
-        ByteBuffer buffer = ByteBuffer.wrap(aoi.toString().getBytes());
-        sockChannel.write(buffer);
-        buffer.clear();
+
+        sockChannel.write(data);
+        data.clear();
     }
 
-    public void close(){
+    public void close(String status){
 
         try {
-            ByteBuffer buffer = ByteBuffer.wrap(Constant.END_MARKER.getBytes());
+            String end = Constant.END_MARKER+":"+status;
+            ByteBuffer buffer = ByteBuffer.wrap(end.getBytes());
             sockChannel.write(buffer);
             sockChannel.close();
         }catch (Exception e){

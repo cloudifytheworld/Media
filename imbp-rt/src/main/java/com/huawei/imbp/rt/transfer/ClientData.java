@@ -4,6 +4,7 @@ import com.huawei.imbp.rt.common.JobStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.joda.time.DateTime;
 
 /**
  * @author Charles(Li) Cai
@@ -15,6 +16,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ClientData {
 
-    private String ip;
+    private String serverIp;
+    private String clientIp;
+    private String clientId;
+    private String groupId;
+    private String system;
+    private DateTime startDate;
+    private DateTime endDate;
     private JobStatus status;
 }

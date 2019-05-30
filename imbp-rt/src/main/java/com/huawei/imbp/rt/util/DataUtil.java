@@ -6,6 +6,7 @@ import com.google.common.net.InetAddresses;
 import com.huawei.imbp.rt.common.ImbpException;
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
+import org.joda.time.Days;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -35,8 +36,6 @@ public class DataUtil {
         return true;
 
     }
-
-
 
     public static Long checkValidLong(Object value){
 
@@ -92,6 +91,19 @@ public class DataUtil {
     public static String[] convertStringToArray(String line){
         String[] data = Arrays.stream(line.split(",")).map(String::trim).toArray(String[]::new);
         return data;
+    }
+
+    public static int daysGap(String start, String end) throws Exception{
+
+        DateTimeFormatter dtf = DateTimeFormat.forPattern("yyyyMMdd");
+        try{
+            DateTime startDate = dtf.parseDateTime(start);
+            DateTime endDate = dtf.parseDateTime(end);
+            int gap = Days.daysBetween(startDate, endDate).getDays();
+            return gap;
+        }catch (Exception e){
+            throw imbpException.setMessage("can't convert date");
+        }
     }
 
 }

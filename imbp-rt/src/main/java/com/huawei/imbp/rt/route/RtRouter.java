@@ -73,7 +73,7 @@ public class RtRouter {
     @Bean
     public RouterFunction<ServerResponse> rtDataClientRouting(RtServiceHandler rtServiceHandler) {
 
-        return RouterFunctions.route(RequestPredicates.GET("/api/{system}/rt/client"),
+        return RouterFunctions.route(RequestPredicates.POST("/api/{system}/rt/client"),
                 rtServiceHandler::processClient);
     }
 }

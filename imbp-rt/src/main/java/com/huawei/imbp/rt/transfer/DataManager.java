@@ -1,40 +1,41 @@
 package com.huawei.imbp.rt.transfer;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.huawei.imbp.rt.common.JobStatus;
+import lombok.extern.log4j.Log4j2;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeComparator;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.lang.reflect.Type;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
+import java.util.*;
 
 /**
  * @author Charles(Li) Cai
  * @date 5/25/2019
  */
 
-
+@Log4j2
 public class DataManager {
 
-    @Autowired
-    private WebClient.Builder webClient;
 
     @Autowired
     JobStorage storage;
 
-    private Map<String, Boolean> clientServers = new HashMap<>();
+    private RestTemplate restTemplate = new RestTemplate();
+    JsonParser parser = new JsonParser();
+    private List<String> clientServers = new ArrayList<>();
     private final String serverUrl = "http://localhost:8500/v1/catalog/service/imbp-rt";
-    private final String serverStatusUrl = "http://localhost:8500/v1/health/service/id/";
+    private final String serverStatusUrl = "http://localhost:8500/v1/agent/health/service/id/";
     private final String clientUri = "/api/system/rt/client/";
-    Type type = new TypeToken<List<Map<String, String>>>() {}.getType();
 
     public void clear(String uuid){
         storage.remove(uuid);
@@ -47,57 +48,89 @@ public class DataManager {
 
     public void processClient(){
 
-        webClient.baseUrl(serverUrl)
-                .build()
-                .get()
-                .retrieve().bodyToMono(String.class)
-                .subscribe(s -> {
-                    Gson gson = new Gson();
-                    List<Map> data = gson.fromJson(s, type);
-                    data.stream().forEach( d -> {
-                        String address = (String)d.get("Address");
-                        String serviceId = (String)d.get("ServiceID");
-                        getServerStatus(serviceId).subscribe(status -> {
-                            Map<String, String> dataStatus = gson.fromJson(status, Map.class);
-                            String st = dataStatus.get("AggregatedStatus");
-                            String port = dataStatus.get("port");
-                            if(st.equals("passing")){
-                                clientServers.put(address+":"+port, true);
-                            }
-                        });
-                    });
-                });
+        String rs = restTemplate.getForObject(serverUrl, String.class);
 
+        JsonArray data = (JsonArray)parser.parse(rs);
+        data.forEach( d -> {
+            String address = d.getAsJsonObject().get("Address").getAsString();
+            String serviceId = d.getAsJsonObject().get("ServiceID").getAsString();
+            String port = d.getAsJsonObject().get("ServicePort").getAsString();
+            getServerStatus(serviceId, address + ":" + port);
+        });
     }
 
-    private Mono<String> getServerStatus(String serviceId){
+    private void getServerStatus(final String serviceId, final String address){
 
-        return webClient.baseUrl(serverStatusUrl+serviceId)
-                .build()
-                .get()
-                .retrieve()
-                .bodyToMono(String.class);
+        try {
+            String url = serverStatusUrl + serviceId;
+            String status = restTemplate.getForObject(url, String.class);
+            if (status.equals("passing")) {
+                clientServers.add(address);
+            }
+        }catch (Exception e){
+            log.info(serviceId+" "+e.getMessage());
+        }
     }
 
-    public void call(final String ip, final String groupId, String start){
+    public void call(final ClientData clientData, String serverIp){
 
-        clientServers.forEach((k,v) -> {
-            String clientId = UUID.randomUUID().toString();
-            ClientData clientData = new ClientData();
-            clientData.setIp(k);
-            clientData.setStatus(JobStatus.Starting);
-            storage.put(groupId, clientId, clientData);
-            String url = "http://"+k+clientUri+"?ip="+ip+"&groupId="+groupId+"&start="+start+"&clientId="+clientId;
+            String url = "http://"+serverIp+clientUri;
 
-            webClient.baseUrl(url)
+            WebClient.builder().baseUrl(url)
                     .build()
-                    .get()
-                    .retrieve().bodyToMono(String.class)
+                    .post().syncBody(clientData)
+                    .retrieve().bodyToMono(ClientData.class)
                     .subscribe(s ->{
-                        JobStatus jobStatus = JobStatus.valueOf(s);
+                        String groupId = s.getGroupId();
+                        String clientId = s.getClientId();
+                        JobStatus jobStatus = s.getStatus();
                         storage.setClientStatus(groupId, clientId, jobStatus);
                     });
+    }
 
-        });
+    public void execute(final String system, String start, String end, String serverIp, String groupId){
+
+        DateTimeFormatter dtf = DateTimeFormat.forPattern("yyyyMMdd");
+        DateTime startDate = dtf.parseDateTime(start);
+        DateTime endDate = dtf.parseDateTime(end);
+//        int gap = Days.daysBetween(startDate, endDate).getDays();
+        int serverSize = clientServers.size();
+        DateTime nextDate = startDate;
+        int y = 0;
+//        for(int i=0, y=0; i<=gap+1; i++, y++){
+//
+//            y= y == serverSize-1?0:y;
+//            String clientIp = clientServers.get(y);
+//            String clientId = UUID.randomUUID().toString();
+//            ClientData clientData = new ClientData();
+//            clientData.setClientId(clientId);
+//            clientData.setClientIp(clientIp);
+//            clientData.setServerIp(serverIp);
+//            clientData.setGroupId(groupId);
+//            clientData.setSystem(system);
+//            clientData.setStartDate(startDate.plusDays(i));
+//            storage.put(groupId, clientId, clientData);
+//            call(clientData, serverIp);
+//        }
+        while(DateTimeComparator.getDateOnlyInstance().compare(nextDate, endDate) <= 0){
+
+            y= y == serverSize-1?0:y;
+            String clientIp = clientServers.get(y);
+            String clientId = UUID.randomUUID().toString();
+            ClientData clientData = new ClientData();
+            clientData.setClientId(clientId);
+            clientData.setClientIp(clientIp);
+            clientData.setServerIp(serverIp);
+            clientData.setGroupId(groupId);
+            clientData.setSystem(system);
+            clientData.setStartDate(nextDate);
+            storage.put(groupId, clientId, clientData);
+            call(clientData, serverIp);
+
+            y++;
+            nextDate.plus(1);
+        }
+
+
     }
 }

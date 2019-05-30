@@ -4,9 +4,11 @@ package com.huawei.imbp.rt.handler;
 import com.google.common.base.Throwables;
 import com.huawei.imbp.rt.common.InputParameter;
 
+import com.huawei.imbp.rt.common.JobStatus;
 import com.huawei.imbp.rt.service.CassandraAsyncService;
 import com.huawei.imbp.rt.service.CassandraThreadedService;
 import com.huawei.imbp.rt.service.DataTransferService;
+import com.huawei.imbp.rt.transfer.ClientData;
 import com.huawei.imbp.rt.util.ServiceUtil;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 
+import java.util.Optional;
 
 
 /**
@@ -111,14 +114,23 @@ public class RtServiceHandler {
 
     public Mono<ServerResponse> retrieveDataByFile(ServerRequest serverRequest){
 
+        String system = serverRequest.pathVariable("system");
+        Optional<String> start = serverRequest.queryParam("start");
+        Optional<String> end = serverRequest.queryParam("end");
 
-        return ServerResponse.ok().syncBody("generating file");
+        Mono<String> groupId = transferService.processServer(system, start.get(), end.get());
+
+        return ServerResponse.ok().body(groupId, String.class);
     }
 
     public Mono<ServerResponse> processClient(ServerRequest serverRequest){
 
-
-        return ServerResponse.ok().syncBody("working one the request");
+        serverRequest.bodyToMono(ClientData.class).flatMap( s -> {
+            transferService.processClient(s);
+            s.setStatus(JobStatus.Starting);
+            return ServerResponse.ok().syncBody(s);
+        });
+        return ServerResponse.badRequest().syncBody("fail");
     }
 }
 
