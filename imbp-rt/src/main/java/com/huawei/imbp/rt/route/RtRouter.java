@@ -3,6 +3,7 @@ package com.huawei.imbp.rt.route;
 import com.huawei.imbp.rt.handler.RtServiceHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.server.RequestPredicates;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
@@ -66,14 +67,15 @@ public class RtRouter {
     @Bean
     public RouterFunction<ServerResponse> rtDataFileRouting(RtServiceHandler rtServiceHandler) {
 
-        return RouterFunctions.route(RequestPredicates.GET("/api/{system}/rt/file"),
+        return RouterFunctions.route(RequestPredicates.GET("/api/{system}/rt/file/async"),
                 rtServiceHandler::retrieveDataByFile);
     }
 
     @Bean
     public RouterFunction<ServerResponse> rtDataClientRouting(RtServiceHandler rtServiceHandler) {
 
-        return RouterFunctions.route(RequestPredicates.POST("/api/{system}/rt/client"),
+        return RouterFunctions.route(RequestPredicates.POST("/api/{system}/rt/client").
+                        and(RequestPredicates.accept(MediaType.APPLICATION_JSON)),
                 rtServiceHandler::processClient);
     }
 }

@@ -12,6 +12,7 @@ import java.nio.channels.CompletionHandler;
 import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -26,17 +27,14 @@ public class DataReceiver {
     private final AsynchronousServerSocketChannel server;
     private final AsynchronousChannelGroup serverGroup;
     private final String groupId;
-    private CountDownLatch jobs;
     private final AtomicInteger jobNumber = new AtomicInteger();
     private final DataReader dataReader;
-
     public String getGroupId() {
         return groupId;
     }
 
     public DataReceiver(InetSocketAddress inetAddress, int poolSize, String filePath){
 
-        jobs = new CountDownLatch(poolSize);
         groupId = UUID.randomUUID().toString();
 
         try {
@@ -49,15 +47,13 @@ public class DataReceiver {
         }
     }
 
-    public void run(DataManager dataManager) throws Exception{
-        start(() -> {
-            jobs.countDown();
-        });
+    public void run(CountDownLatch jobs){//, CountDownLatch ready){
 
         this.server.accept(server, new CompletionHandler<AsynchronousSocketChannel, AsynchronousServerSocketChannel>() {
             @Override
             public void completed(AsynchronousSocketChannel channel, AsynchronousServerSocketChannel server) {
-                server.accept(server, this);
+                //server.accept(server, this);
+                server.accept();
                 log.info("process connection #"+jobNumber.getAndIncrement());
                 dataReader.read(channel, onComplete);
             }
@@ -67,13 +63,25 @@ public class DataReceiver {
                 log.error(Throwables.getStackTraceAsString(exc));
             }
         });
-        jobs.wait();
-        server.close();
-        serverGroup.shutdownNow();
-        dataManager.clear(getGroupId());
+
+//        ready.countDown();
+        start(() -> {
+            jobs.countDown();
+        });
+
     }
 
     private void start(OnComplete onComplete){
         this.onComplete = onComplete;
+    }
+
+    public void close(){
+        try {
+            this.server.close();
+            this.serverGroup.shutdown();
+            this.serverGroup.awaitTermination(10000, TimeUnit.MILLISECONDS);
+        }catch (Exception e){
+            log.error("unable to shut down "+e.getMessage());
+        }
     }
 }

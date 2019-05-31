@@ -6,5 +6,5 @@ package com.huawei.imbp.rt.common;
  */
 public enum JobStatus {
 
-    Starting, processing, complete, fail
+    starting, processing, complete, fail
 }

@@ -27,7 +27,6 @@ import java.util.*;
 public class DataManager {
 
 
-    @Autowired
     JobStorage storage;
 
     private RestTemplate restTemplate = new RestTemplate();
@@ -37,6 +36,9 @@ public class DataManager {
     private final String serverStatusUrl = "http://localhost:8500/v1/agent/health/service/id/";
     private final String clientUri = "/api/system/rt/client/";
 
+    public DataManager(JobStorage storage){
+        this.storage = storage;
+    }
     public void clear(String uuid){
         storage.remove(uuid);
     }
@@ -72,20 +74,22 @@ public class DataManager {
         }
     }
 
-    public void call(final ClientData clientData, String serverIp){
+    public void call(final ClientData clientData, String clientIp){
 
-            String url = "http://"+serverIp+clientUri;
+            String url = "http://"+clientIp+clientUri;
 
-            WebClient.builder().baseUrl(url)
-                    .build()
-                    .post().syncBody(clientData)
-                    .retrieve().bodyToMono(ClientData.class)
-                    .subscribe(s ->{
-                        String groupId = s.getGroupId();
-                        String clientId = s.getClientId();
-                        JobStatus jobStatus = s.getStatus();
-                        storage.setClientStatus(groupId, clientId, jobStatus);
-                    });
+//            WebClient.builder().baseUrl(url)
+//                    .build()
+//                    .post().syncBody(clientData)
+//                    .retrieve().bodyToMono(ClientData.class)
+//                    .subscribe(s ->{
+//                        String groupId = s.getGroupId();
+//                        String clientId = s.getClientId();
+//                        JobStatus jobStatus = s.getStatus();
+//                        storage.setClientStatus(groupId, clientId, jobStatus);
+//                    });
+        String status = restTemplate.postForObject(url, clientData, String.class);
+        log.info(status);
     }
 
     public void execute(final String system, String start, String end, String serverIp, String groupId){
@@ -93,28 +97,12 @@ public class DataManager {
         DateTimeFormatter dtf = DateTimeFormat.forPattern("yyyyMMdd");
         DateTime startDate = dtf.parseDateTime(start);
         DateTime endDate = dtf.parseDateTime(end);
-//        int gap = Days.daysBetween(startDate, endDate).getDays();
         int serverSize = clientServers.size();
         DateTime nextDate = startDate;
         int y = 0;
-//        for(int i=0, y=0; i<=gap+1; i++, y++){
-//
-//            y= y == serverSize-1?0:y;
-//            String clientIp = clientServers.get(y);
-//            String clientId = UUID.randomUUID().toString();
-//            ClientData clientData = new ClientData();
-//            clientData.setClientId(clientId);
-//            clientData.setClientIp(clientIp);
-//            clientData.setServerIp(serverIp);
-//            clientData.setGroupId(groupId);
-//            clientData.setSystem(system);
-//            clientData.setStartDate(startDate.plusDays(i));
-//            storage.put(groupId, clientId, clientData);
-//            call(clientData, serverIp);
-//        }
         while(DateTimeComparator.getDateOnlyInstance().compare(nextDate, endDate) <= 0){
 
-            y= y == serverSize-1?0:y;
+            y= y<serverSize?y:serverSize%y;
             String clientIp = clientServers.get(y);
             String clientId = UUID.randomUUID().toString();
             ClientData clientData = new ClientData();
@@ -125,10 +113,10 @@ public class DataManager {
             clientData.setSystem(system);
             clientData.setStartDate(nextDate);
             storage.put(groupId, clientId, clientData);
-            call(clientData, serverIp);
+            call(clientData, clientIp);
 
-            y++;
-            nextDate.plus(1);
+            ++y;
+            nextDate = nextDate.plusDays(1);
         }
 
 

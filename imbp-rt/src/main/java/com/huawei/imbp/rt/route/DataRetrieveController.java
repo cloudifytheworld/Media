@@ -4,6 +4,7 @@ import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import com.huawei.imbp.rt.config.ImbpRtActionExtension;
 import com.huawei.imbp.rt.entity.FeedEntity;
+import com.huawei.imbp.rt.service.DataTransferService;
 import com.huawei.imbp.rt.service.QueueService;
 import lombok.extern.log4j.Log4j2;
 import org.reactivestreams.Publisher;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
@@ -29,13 +31,16 @@ import java.util.stream.IntStream;
 @RestController
 @Log4j2
 @RefreshScope
-public class DataFeedController {
+public class DataRetrieveController {
 
     @Autowired
     public ActorSystem actorSystem;
 
     @Autowired
     public ImbpRtActionExtension imbpRtActionExtension;
+
+    @Autowired
+    public DataTransferService transferService;
 
     @Value("${data.rateLimit}")
     public int rateLimit;
@@ -72,7 +77,12 @@ public class DataFeedController {
                     log.error("+++++++++++RT++++++++++");
                     log.error(throwable);
                 });
+    }
 
+    @GetMapping(value = "/api/{system}/rt/file")
+    public String retrieveDataByFile(@PathVariable String system, @RequestParam String start, @RequestParam String end){
 
+        String groupId = transferService.generateFile(system, start, end);
+        return groupId;
     }
 }

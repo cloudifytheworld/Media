@@ -1,16 +1,14 @@
 package com.huawei.imbp.rt.config;
 
-import com.huawei.imbp.rt.route.DataFeedController;
+import com.huawei.imbp.rt.route.DataRetrieveController;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.handler.SimpleUrlHandlerMapping;
 import org.springframework.web.reactive.socket.WebSocketHandler;
 import org.springframework.web.reactive.socket.WebSocketMessage;
-import org.springframework.web.reactive.socket.WebSocketSession;
 import org.springframework.web.reactive.socket.server.support.WebSocketHandlerAdapter;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -42,7 +40,7 @@ public class WebSocketConfig {
     }
 
     @Bean
-    WebSocketHandler webSocketHandler(DataFeedController queue){
+    WebSocketHandler webSocketHandler(DataRetrieveController queue){
         return webSocketSession ->  {
             log.info("Start webSocket session "+webSocketSession.getId());
             Flux<String> ask =  webSocketSession.receive()

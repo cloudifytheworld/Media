@@ -16,14 +16,14 @@ import java.util.concurrent.ConcurrentMap;
 
 @Component
 @Log4j2
-public final class JobStorage {
+public class JobStorage {
 
     private final ConcurrentMap<String, Map<String, ClientData>> jobStore = new ConcurrentHashMap<>();
 
     public void put(String groupId, String clientId, ClientData clientData){
 
         Map<String, ClientData> clientDataMap = jobStore.get(groupId);
-        if(clientData == null){
+        if(clientDataMap == null){
             clientDataMap = new HashMap<>();
         }
 

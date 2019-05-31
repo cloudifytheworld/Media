@@ -4,16 +4,18 @@ import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import com.google.common.base.Throwables;
 import com.huawei.imbp.rt.config.ImbpRtActionExtension;
-import com.huawei.imbp.rt.transfer.ClientData;
-import com.huawei.imbp.rt.transfer.DataManager;
-import com.huawei.imbp.rt.transfer.DataReceiver;
+import com.huawei.imbp.rt.transfer.*;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 
+import java.net.InetAddress;
 import java.net.InetSocketAddress;
+import java.util.Map;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * @author Charles(Li) Cai
@@ -28,6 +30,9 @@ public class DataTransferService {
     public String filePath;
 
     @Autowired
+    JobStorage storage;
+
+    @Autowired
     public ActorSystem actorSystem;
 
     @Autowired
@@ -35,24 +40,71 @@ public class DataTransferService {
 
     public Mono<String> processServer(String system, String from, String end){
 
-        DataManager dataManager = new DataManager();
+        DataManager dataManager = new DataManager(storage);
         int servers = dataManager.getClients();
-        InetSocketAddress inetAddress = new InetSocketAddress(0);
-        int port = inetAddress.getPort();
-        log.info("server socket port "+port);
-        DataReceiver dataReceiver = new DataReceiver(inetAddress, servers, filePath);
+        CountDownLatch jobs = new CountDownLatch(servers);
+        CountDownLatch ready = new CountDownLatch(1);
+
         try {
-            dataReceiver.run(dataManager);
-            String serverIp = inetAddress.getAddress().getHostAddress()+":"+port;
+            InetAddress inetAddress = InetAddress.getLocalHost();
+            InetSocketAddress inetSocketAddress = new InetSocketAddress(inetAddress,9500);
+            int port = inetSocketAddress.getPort();
+            log.info("server socket port "+ port);
+            DataReceiver dataReceiver = new DataReceiver(inetSocketAddress, servers, filePath);
+
+            ActorRef serverAction = actorSystem.actorOf(imbpRtActionExtension.props("serverAction"));
+            serverAction.tell(new ServerData(jobs, ready, dataReceiver, dataManager), ActorRef.noSender());
+
+            try {
+                ready.wait();
+            }catch (Exception e){
+                log.error(e.getMessage());
+            }
+            String serverIp = inetAddress.getHostAddress()+":"+port;
             dataManager.execute(system, from, end, serverIp, dataReceiver.getGroupId());
+
+            dataManager.clear(dataReceiver.getGroupId());
+            dataReceiver.close();
+            return Mono.just(dataReceiver.getGroupId());
+
         }catch (Exception e){
             log.error(Throwables.getStackTraceAsString(e));
+            return Mono.just("fail: "+e.getMessage());
         }
-        return Mono.just(dataReceiver.getGroupId());
     }
 
+    public String generateFile(String system, String from, String end){
 
-    public void processClient(ClientData clientData){
+        DataManager dataManager = new DataManager(storage);
+        int servers = dataManager.getClients();
+        final CountDownLatch jobs = new CountDownLatch(servers);
+        final CountDownLatch ready = new CountDownLatch(1);
+
+        try {
+            InetAddress inetAddress = InetAddress.getLocalHost();
+            InetSocketAddress inetSocketAddress = new InetSocketAddress(inetAddress,9500);
+            int port = inetSocketAddress.getPort();
+            log.info("server socket port "+ port);
+            DataReceiver dataReceiver = new DataReceiver(inetSocketAddress, servers, filePath);
+
+            ActorRef serverAction = actorSystem.actorOf(imbpRtActionExtension.props("serverAction"));
+            serverAction.tell(new ServerData(jobs, ready, dataReceiver, dataManager), ActorRef.noSender());
+
+            ready.wait();
+            String serverIp = inetAddress.getHostAddress()+":"+port;
+            dataManager.execute(system, from, end, serverIp, dataReceiver.getGroupId());
+
+            dataManager.clear(dataReceiver.getGroupId());
+            dataReceiver.close();
+            return dataReceiver.getGroupId();
+
+        }catch (Exception e){
+            log.error(Throwables.getStackTraceAsString(e));
+            return "fail: "+e.getMessage();
+        }
+    }
+
+    public void processClient(Map clientData){
 
         ActorRef fileAction = actorSystem.actorOf(imbpRtActionExtension.props("fileAction"));
         fileAction.tell(clientData, ActorRef.noSender());

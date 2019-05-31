@@ -17,6 +17,7 @@ import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -125,12 +126,12 @@ public class RtServiceHandler {
 
     public Mono<ServerResponse> processClient(ServerRequest serverRequest){
 
-        serverRequest.bodyToMono(ClientData.class).flatMap( s -> {
+        Mono<ServerResponse> response = serverRequest.bodyToMono(Map.class).flatMap(s -> {
             transferService.processClient(s);
-            s.setStatus(JobStatus.Starting);
+            s.put("status", JobStatus.starting);
             return ServerResponse.ok().syncBody(s);
         });
-        return ServerResponse.badRequest().syncBody("fail");
+        return response;
     }
 }
 
