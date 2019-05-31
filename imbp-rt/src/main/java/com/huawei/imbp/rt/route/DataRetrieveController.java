@@ -2,6 +2,7 @@ package com.huawei.imbp.rt.route;
 
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
+import com.google.common.base.Throwables;
 import com.huawei.imbp.rt.config.ImbpRtActionExtension;
 import com.huawei.imbp.rt.entity.FeedEntity;
 import com.huawei.imbp.rt.service.DataTransferService;
@@ -21,6 +22,7 @@ import reactor.core.scheduler.Scheduler;
 import reactor.core.scheduler.Schedulers;
 
 import java.time.Duration;
+import java.util.concurrent.CountDownLatch;
 import java.util.stream.IntStream;
 
 /**
@@ -53,20 +55,28 @@ public class DataRetrieveController {
 
         long start = System.currentTimeMillis();
         ActorRef feedingAction = actorSystem.actorOf(imbpRtActionExtension.props("feedAction"));
+        CountDownLatch valueLatch = new CountDownLatch(1);
         QueueService<String> queueService = new QueueService<>();
         String[] dateParam = from.split(",");
+
         FeedEntity<String> feedEntity = new FeedEntity<>();
         feedEntity.setQueue(queueService);
         feedEntity.setDate(dateParam[0]);
-        if(dateParam.length>1){
-            feedEntity.setHour(dateParam[1]);
-        }else{
-            queueService.setSleepLimit(sleepLimit);
-        }
+        feedEntity.setValueLatch(valueLatch);
         feedEntity.setSystem("aoi");
 
-        feedingAction.tell(feedEntity, ActorRef.noSender());
-        queueService.waitForValue();
+        if(dateParam.length>1){
+            feedEntity.setHour(dateParam[1]);
+        }
+
+        try {
+            feedingAction.tell(feedEntity, ActorRef.noSender());
+            valueLatch.await();
+            long ready = (System.currentTimeMillis() - start)/1000;
+            log.info(" it takes "+ready+" seconds to be ready to start feeding data of "+from);
+        }catch (Exception e){
+            log.error(Throwables.getStackTraceAsString(e));
+        }
 
         return Flux.fromStream(queueService.asStream())
                 .delayElements(Duration.ofMillis(rateLimit))

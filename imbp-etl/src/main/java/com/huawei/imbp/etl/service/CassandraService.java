@@ -51,19 +51,35 @@ public class CassandraService {
     }
 
 
+//    private void createIndex(AoiEntity entity, String system ){
+//
+//        try {
+//            String dateKey = entity.getKey().getDeviceType()
+//                    + "#" + entity.getKey().getHour() + "#" + entity.getKey().getMinute();
+//            String hourKey = entity.getKey().getDeviceType() +"#" + entity.getKey().getMinute();
+//            String primaryKey = entity.getKey().getDeviceType() +"#" + entity.getKey().getMinute()
+//                    + "#" + entity.getKey().getLabel() + "#" + entity.getKey().getCreatedTime();
+//
+//            redisTemplate.opsForSet().add("date"+":"+system+":"+entity.getKey().getCreatedDay(), dateKey).subscribe();
+//            redisTemplate.opsForSet().add("hour"+":"+system+":"+entity.getKey().getCreatedDay()+":"+entity.getKey().getHour(), hourKey).subscribe();
+//            redisTemplate.opsForSet().add("primary"+":"+system+":"+entity.getKey().getCreatedDay()+":"+entity.getKey().getHour(), primaryKey).subscribe();
+//            redisTemplate.opsForSet().add("device"+":"+system+":"+entity.getKey().getCreatedDay(), entity.getKey().getDeviceType()).subscribe();
+//        }catch (Exception e){
+//            log.error(Throwables.getStackTraceAsString(e));
+//        }
+//    }
     private void createIndex(AoiEntity entity, String system ){
 
         try {
             String dateKey = entity.getKey().getDeviceType()
-                    + "#" + entity.getKey().getHour() + "#" + entity.getKey().getMinute();
-            String hourKey = entity.getKey().getDeviceType() +"#" + entity.getKey().getMinute();
-            String primaryKey = entity.getKey().getDeviceType() +"#" + entity.getKey().getMinute()
-                    + "#" + entity.getKey().getLabel() + "#" + entity.getKey().getCreatedTime();
+                +"#"+entity.getKey().getHour()+"#"+entity.getKey().getMinute()+"#"+entity.getKey().getSecond();
+            String hourKey = entity.getKey().getDeviceType() +"#" + entity.getKey().getMinute()+"#"+entity.getKey().getSecond();;
+            String primaryKey = entity.getKey().getDeviceType() +"#" + entity.getKey().getMinute()+"#"+entity.getKey().getSecond()
+                + "#" + entity.getKey().getLabel() + "#" + entity.getKey().getCreatedTime();
 
-            redisTemplate.opsForSet().add("date"+":"+system+":"+entity.getKey().getCreatedDay(), dateKey).subscribe();
-            redisTemplate.opsForSet().add("hour"+":"+system+":"+entity.getKey().getCreatedDay()+":"+entity.getKey().getHour(), hourKey).subscribe();
-            redisTemplate.opsForSet().add("primary"+":"+system+":"+entity.getKey().getCreatedDay()+":"+entity.getKey().getHour(), primaryKey).subscribe();
-            redisTemplate.opsForSet().add("device"+":"+system+":"+entity.getKey().getCreatedDay(), entity.getKey().getDeviceType()).subscribe();
+            redisTemplate.opsForSet().add("secDate"+":"+system+":"+entity.getKey().getCreatedDay(), dateKey).subscribe();
+            redisTemplate.opsForSet().add("secHour"+":"+system+":"+entity.getKey().getCreatedDay()+":"+entity.getKey().getHour(), hourKey).subscribe();
+            redisTemplate.opsForSet().add("secPrimary"+":"+system+":"+entity.getKey().getCreatedDay()+":"+entity.getKey().getHour(), primaryKey).subscribe();
         }catch (Exception e){
             log.error(Throwables.getStackTraceAsString(e));
         }

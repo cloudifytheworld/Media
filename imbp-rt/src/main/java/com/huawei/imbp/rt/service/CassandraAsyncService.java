@@ -32,6 +32,7 @@ import scala.Int;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -162,7 +163,7 @@ public class CassandraAsyncService {
         }
     }
 
-    public void getDataByHourFeed(String system, String date, int hour, QueueService<String> queueService){
+    public void getDataByHourFeed(String system, String date, int hour, QueueService<String> queueService, CountDownLatch valueLatch){
 
         Semaphore semaphore = new Semaphore(30);
         long start = System.currentTimeMillis();
@@ -186,6 +187,7 @@ public class CassandraAsyncService {
                         queueService.add(date+"@"+entity.getFileName());
                     });
                     semaphore.release();
+                    if(queueService.size() > 5000 ) valueLatch.countDown();
                 });
             }catch (Exception e){
                 log.error(Throwables.getStackTraceAsString(e));
@@ -194,7 +196,7 @@ public class CassandraAsyncService {
         });
 
         if(indexes.size() == 0) {
-            queueService.add("Done");
+            valueLatch.countDown();
         }
 
         Long end = (System.currentTimeMillis()-start)/1000;
@@ -202,7 +204,7 @@ public class CassandraAsyncService {
 
     }
 
-    public void getDataByDateFeed(String system, String date, QueueService<String> queueService){
+    public void getDataByDateFeed(String system, String date, QueueService<String> queueService, CountDownLatch valueLatch){
 
         Semaphore semaphore = new Semaphore(120);
         long start = System.currentTimeMillis();
@@ -225,6 +227,7 @@ public class CassandraAsyncService {
                         queueService.add(date+"@"+entity.getFileName());
                     });
                     semaphore.release();
+                    if(queueService.size() > 5000 ) valueLatch.countDown();
                 });
             }catch (Exception e){
                 log.error(Throwables.getStackTraceAsString(e));
@@ -233,7 +236,7 @@ public class CassandraAsyncService {
         });
 
         if(indexes.size() == 0) {
-            queueService.add("Done");
+            valueLatch.countDown();
         }
 
         Long end = (System.currentTimeMillis()-start)/1000;

@@ -35,6 +35,7 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -174,7 +175,7 @@ public class CassandraThreadedService {
 
 
     //Todo: anytime the queue is empty, stream will treat the it as done, try spring websocket as message
-    public void feedDataByDates(String system, String date, QueueService<String> queueService){
+    public void feedDataByDates(String system, String date, QueueService<String> queueService, CountDownLatch valueLatch){
 
         List<ResultSetFuture> futuresData = new ArrayList<>();
         long start = System.currentTimeMillis();
@@ -192,7 +193,7 @@ public class CassandraThreadedService {
                     , Integer.parseInt(keys[1]), Integer.parseInt(keys[2])));
             futuresData.add(results);
 
-            if(count.incrementAndGet()%60 == 0 || count.get() == indexSize){
+            if(count.incrementAndGet()%240 == 0 || count.get() == indexSize){
                 List<ListenableFuture<ResultSet>> futureLists = Futures.inCompletionOrder(futuresData);
                 for (ListenableFuture<ResultSet> future : futureLists) {
                     try {
@@ -207,18 +208,19 @@ public class CassandraThreadedService {
                     } catch (Exception e) {
                         log.error(Throwables.getStackTraceAsString(e));
                     }
+                    if(queueService.size() > 5000 ) valueLatch.countDown();
                 }
             }
         });
         if(indexes.size() == 0) {
-            queueService.add("Done");
+            valueLatch.countDown();
         }
 
         Long end = (System.currentTimeMillis()-start)/1000;
         log.info(date+" takes seconds "+end+", and process cells "+countSize.get()+", data in size(M) "+String.format("%.2f", image.get()));
     }
 
-    public void feedDataByHour(String system, String date, int hour, QueueService<String> queueService){
+    public void feedDataByHour(String system, String date, int hour, QueueService<String> queueService, CountDownLatch valueLatch){
 
         List<ResultSetFuture> futuresData = new ArrayList<>();
         long start = System.currentTimeMillis();
@@ -236,7 +238,7 @@ public class CassandraThreadedService {
                     ,hour, Integer.parseInt(keys[1])));
             futuresData.add(results);
 
-            if(count.incrementAndGet()%60 == 0 || count.get() == indexSize){
+            if(count.incrementAndGet()%240 == 0 || count.get() == indexSize){
                 List<ListenableFuture<ResultSet>> futureLists = Futures.inCompletionOrder(futuresData);
                 for (ListenableFuture<ResultSet> future : futureLists) {
                     try {
@@ -251,12 +253,14 @@ public class CassandraThreadedService {
                     } catch (Exception e) {
                         log.error(Throwables.getStackTraceAsString(e));
                     }
+                    if(queueService.size() > 500 ) valueLatch.countDown();
                 }
             }
         });
         if(indexes.size() == 0) {
-            queueService.add("Done");
+            valueLatch.countDown();
         }
+
         Long end = (System.currentTimeMillis()-start)/1000;
         log.info(date+":"+hour+" seconds "+end+", and process cells "+countSize.get()+", data in size(M) "+String.format("%.2f", image.get()));
 

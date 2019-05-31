@@ -3,6 +3,8 @@ package com.huawei.imbp.rt.entity;
 import com.huawei.imbp.rt.service.QueueService;
 import lombok.Data;
 
+import java.util.concurrent.CountDownLatch;
+
 /**
  * @author Charles(Li) Cai
  * @date 5/17/2019
@@ -15,4 +17,5 @@ public class FeedEntity<T> {
     private String date;
     private String deviceType;
     private String hour;
+    private CountDownLatch valueLatch;
 }

@@ -47,7 +47,7 @@ public abstract class CassandraConfig extends AbstractReactiveCassandraConfigura
     public QueryOptions getQueryOptions(){
 
         QueryOptions queryOptions = new QueryOptions();
-        queryOptions.setConsistencyLevel(ConsistencyLevel.ONE);
+        queryOptions.setConsistencyLevel(ConsistencyLevel.QUORUM);
         return queryOptions;
     }
 

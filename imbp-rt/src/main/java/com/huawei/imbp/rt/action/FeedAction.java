@@ -13,6 +13,8 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import java.util.concurrent.CountDownLatch;
+
 
 /**
  * @author Charles(Li) Cai
@@ -42,17 +44,19 @@ public class FeedAction extends UntypedAbstractActor {
         String system = feedEntity.getSystem();
         String date = feedEntity.getDate();
         String hour = feedEntity.getHour();
+        CountDownLatch valueLatch = feedEntity.getValueLatch();
+
         if(useAsync){
             if (!StringUtils.isEmpty(hour)) {
-                asyncService.getDataByHourFeed(system, date, Integer.parseInt(hour), queueService);
+                asyncService.getDataByHourFeed(system, date, Integer.parseInt(hour), queueService, valueLatch);
             } else {
-                asyncService.getDataByDateFeed(system, date, queueService);
+                asyncService.getDataByDateFeed(system, date, queueService, valueLatch);
             }
         }else {
             if (!StringUtils.isEmpty(hour)) {
-                threadedService.feedDataByHour(system, date, Integer.parseInt(hour), queueService);
+                threadedService.feedDataByHour(system, date, Integer.parseInt(hour), queueService, valueLatch);
             } else {
-                threadedService.feedDataByDates(system, date, queueService);
+                threadedService.feedDataByDates(system, date, queueService, valueLatch);
             }
         }
     }

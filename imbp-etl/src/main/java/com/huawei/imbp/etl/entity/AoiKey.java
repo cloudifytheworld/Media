@@ -26,11 +26,14 @@ public class AoiKey implements Serializable {
     @PrimaryKeyColumn(name="device_type", type= PrimaryKeyType.PARTITIONED)
     private String deviceType;
 
-    @PrimaryKeyColumn(type = PrimaryKeyType.PARTITIONED)
+    @PrimaryKeyColumn(name="hour", type = PrimaryKeyType.PARTITIONED)
     private int hour;
 
     @PrimaryKeyColumn(name="mins", type = PrimaryKeyType.PARTITIONED)
     private int minute;
+
+    @PrimaryKeyColumn(name="sec", type = PrimaryKeyType.PARTITIONED)
+    private int second;
 
     @PrimaryKeyColumn(name="created_time", type = PrimaryKeyType.CLUSTERED)
     private Timestamp createdTime;

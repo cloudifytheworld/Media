@@ -30,11 +30,14 @@ public class ConversionData {
         aoiKey.setDeviceType((String)payload.get("device_type"));
 
         String createdTime = (String)payload.get("created_time");
+
         Long time = (Long)DataTypeValidation.checkDataType(DataType.TIMESTAMP, createdTime);
         Timestamp timestamp = new Timestamp(time);
         DateTime dateTime = new DateTime(timestamp.getTime());
         aoiKey.setHour(dateTime.getHourOfDay());
         aoiKey.setMinute(dateTime.getMinuteOfHour());
+        aoiKey.setSecond(dateTime.getSecondOfMinute());
+
         aoiKey.setLabel((String)payload.get("label"));
         aoiKey.setCreatedTime(timestamp);
 
