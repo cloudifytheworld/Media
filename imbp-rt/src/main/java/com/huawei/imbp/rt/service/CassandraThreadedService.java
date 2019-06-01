@@ -127,7 +127,7 @@ public class CassandraThreadedService {
         storage.put(input.getGroupId(), input.getClientId(), input);
         DateTimeFormatter dft = DateTimeFormat.forPattern("yyyyMMdd");
         String[] server = input.getServerIp().split(":");
-        String date = input.getStartDate().toString(dft);
+        String date = input.getStartDate();
         log.info(date);
 
         InetSocketAddress serverAddress = new InetSocketAddress(server[0], Integer.parseInt(server[1]));
@@ -136,7 +136,7 @@ public class CassandraThreadedService {
         List<ResultSetFuture> futuresData = new ArrayList<>();
         long start = System.currentTimeMillis();
 
-        Set<String> indexes = redisTemplate.boundSetOps(input.getSystem() + ":" + date).members();
+        Set<String> indexes = redisTemplate.boundSetOps("date:"+input.getSystem() + ":" + date).members();
         int indexSize = indexes.size();
         AtomicInteger count = new AtomicInteger();
 
@@ -159,6 +159,7 @@ public class CassandraThreadedService {
                             StatisticManager.total += data.length;
                             ByteBuffer buffer = ByteBuffer.wrap(data);
                             send.write(buffer);
+                            //WriteToFile.writeToFile(aoi);
                         });
 
                     } catch (Exception e) {

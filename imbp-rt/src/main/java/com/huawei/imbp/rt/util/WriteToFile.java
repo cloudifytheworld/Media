@@ -14,6 +14,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Charles(Li) Cai
@@ -27,7 +28,7 @@ public class WriteToFile {
 
     static{
         try {
-            File file = new File("D://test//20181103.txt");
+            File file = new File("D://project//data//test"+ Math.random()+1+".txt");
             filePath = Paths.get(file.getPath());
             file.createNewFile();
         }catch (Exception e){
@@ -133,4 +134,14 @@ public class WriteToFile {
 //            }
 //        });
 //    }
+
+    public static void writeToFile(Aoi aoi){
+
+        try{
+            Files.write(filePath, aoi.toString().getBytes(), StandardOpenOption.APPEND);
+        }catch (Exception e){
+            log.error(Throwables.getStackTraceAsString(e));
+        }
+    }
+
 }

@@ -3,7 +3,10 @@ package com.huawei.imbp.rt.util;
 import com.google.common.hash.HashFunction;
 import com.google.common.hash.Hashing;
 import com.google.common.net.InetAddresses;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.huawei.imbp.rt.common.ImbpException;
+import com.huawei.imbp.rt.transfer.ClientData;
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
@@ -91,6 +94,14 @@ public class DataUtil {
     public static String[] convertStringToArray(String line){
         String[] data = Arrays.stream(line.split(",")).map(String::trim).toArray(String[]::new);
         return data;
+    }
+
+    public static ClientData convertMapToObject(Map map, Class<ClientData> clazz){
+
+        Gson gson = new Gson();
+        JsonElement jsonElement = gson.toJsonTree(map);
+        ClientData clientData = gson.fromJson(jsonElement, clazz);
+        return clientData;
     }
 
     public static int daysGap(String start, String end) throws Exception{

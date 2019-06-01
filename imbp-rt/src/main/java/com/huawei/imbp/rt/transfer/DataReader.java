@@ -2,6 +2,7 @@ package com.huawei.imbp.rt.transfer;
 
 import com.google.common.base.Throwables;
 import com.huawei.imbp.rt.common.Constant;
+import com.huawei.imbp.rt.common.ImbpException;
 import lombok.extern.log4j.Log4j2;
 
 import java.nio.ByteBuffer;
@@ -28,24 +29,24 @@ public class DataReader {
         channel.read(buf, channel, new CompletionHandler<Integer, AsynchronousSocketChannel>() {
             @Override
             public void completed(Integer result, AsynchronousSocketChannel channel) {
-                buf.flip();
+
                 try {
-                    if(result > 0) {
-                        String data = new String(buf.array().toString());
-                        if(data.contains(Constant.END_MARKER)){
-                            onComplete.onComplete();
-                            channel.close();
-                            dataWriter.close();
-                        }
-                        dataWriter.write(buf);
-                    }else{
-                        buf.clear();
-                        channel.read(buf, channel, this);
+                    String data = new String(buf.array().toString());
+                    if (result < 0 || data.contains(Constant.END_MARKER)) {
+                        onComplete.onComplete();
+                        dataWriter.close();
+                        //channel.close();
+                        throw new ImbpException().setMessage("Done read");
                     }
+                    dataWriter.write(buf);
+                    buf.flip();
+                    read(channel, onComplete);
+
+                }catch (ImbpException imbp){
+                    log.info(imbp.getMessage());
                 }catch (Exception e){
                     log.error(Throwables.getStackTraceAsString(e));
                 }
-
             }
 
             @Override

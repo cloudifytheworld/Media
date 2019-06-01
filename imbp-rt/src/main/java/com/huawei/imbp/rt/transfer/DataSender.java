@@ -1,6 +1,7 @@
 package com.huawei.imbp.rt.transfer;
 
 import com.datastax.driver.core.Row;
+import com.google.common.base.Throwables;
 import com.huawei.imbp.rt.common.Constant;
 import com.huawei.imbp.rt.entity.Aoi;
 import com.huawei.imbp.rt.util.EntityMappingUtil;
@@ -40,17 +41,20 @@ public class DataSender {
 
     public void write(ByteBuffer data){
 
-
-        sockChannel.write(data);
-        data.clear();
+        try {
+            Future<Integer> writeValue = sockChannel.write(data);
+            writeValue.get();
+        }catch (Exception e){
+            log.error(Throwables.getStackTraceAsString(e));
+        }
     }
 
     public void close(String status){
 
         try {
-            String end = Constant.END_MARKER+":"+status;
-            ByteBuffer buffer = ByteBuffer.wrap(end.getBytes());
-            sockChannel.write(buffer);
+//            String end = Constant.END_MARKER+":"+status;
+//            ByteBuffer buffer = ByteBuffer.wrap(end.getBytes());
+//            sockChannel.write(buffer);
             sockChannel.close();
         }catch (Exception e){
             log.error(ipAddress+" fail to close client channel "+e.getMessage());

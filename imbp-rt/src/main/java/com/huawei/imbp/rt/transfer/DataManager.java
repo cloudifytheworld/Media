@@ -76,18 +76,7 @@ public class DataManager {
 
     public void call(final ClientData clientData, String clientIp){
 
-            String url = "http://"+clientIp+clientUri;
-
-//            WebClient.builder().baseUrl(url)
-//                    .build()
-//                    .post().syncBody(clientData)
-//                    .retrieve().bodyToMono(ClientData.class)
-//                    .subscribe(s ->{
-//                        String groupId = s.getGroupId();
-//                        String clientId = s.getClientId();
-//                        JobStatus jobStatus = s.getStatus();
-//                        storage.setClientStatus(groupId, clientId, jobStatus);
-//                    });
+        String url = "http://"+clientIp+clientUri;
         String status = restTemplate.postForObject(url, clientData, String.class);
         log.info(status);
     }
@@ -111,7 +100,7 @@ public class DataManager {
             clientData.setServerIp(serverIp);
             clientData.setGroupId(groupId);
             clientData.setSystem(system);
-            clientData.setStartDate(nextDate);
+            clientData.setStartDate(nextDate.toString(dtf));
             storage.put(groupId, clientId, clientData);
             call(clientData, clientIp);
 

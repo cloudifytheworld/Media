@@ -47,13 +47,14 @@ public class DataReceiver {
         }
     }
 
-    public void run(CountDownLatch jobs){//, CountDownLatch ready){
+    public DataReceiver run(CountDownLatch ready){
 
         this.server.accept(server, new CompletionHandler<AsynchronousSocketChannel, AsynchronousServerSocketChannel>() {
             @Override
             public void completed(AsynchronousSocketChannel channel, AsynchronousServerSocketChannel server) {
-                //server.accept(server, this);
-                server.accept();
+
+                server.accept(server, this);
+                //server.accept();
                 log.info("process connection #"+jobNumber.getAndIncrement());
                 dataReader.read(channel, onComplete);
             }
@@ -64,14 +65,11 @@ public class DataReceiver {
             }
         });
 
-//        ready.countDown();
-        start(() -> {
-            jobs.countDown();
-        });
-
+        ready.countDown();
+        return this;
     }
 
-    private void start(OnComplete onComplete){
+    public void start(OnComplete onComplete){
         this.onComplete = onComplete;
     }
 

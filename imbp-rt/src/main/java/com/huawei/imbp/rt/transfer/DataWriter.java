@@ -5,6 +5,7 @@ import lombok.extern.log4j.Log4j2;
 import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.nio.channels.AsynchronousSocketChannel;
 import java.nio.channels.FileChannel;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -34,13 +35,15 @@ public class DataWriter {
     }
 
     public void write(final ByteBuffer buffer) throws IOException {
-        assert !Objects.isNull(buffer);
 
-        int bytesWritten = 0;
+        assert !Objects.isNull(buffer);
+        buffer.flip();
         while(buffer.hasRemaining()) {
-            bytesWritten += this.channel.write(buffer, bytesWritten);
+            this.channel.write(buffer);
         }
+        this.channel.force(true);
     }
+
 
     public void close() throws Exception{
         this.channel.close();

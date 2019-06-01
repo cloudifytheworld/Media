@@ -4,21 +4,24 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.net.InetAddress;
 import java.util.concurrent.CountDownLatch;
 
 /**
  * @author Charles(Li) Cai
- * @date 5/30/2019
+ * @date 5/31/2019
  */
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ServerData {
+public class ClientActionData {
 
+    private String system;
+    private String start;
+    private String end;
+    private String groupId;
+    private String serverIp;
     private CountDownLatch jobs;
-    private CountDownLatch ready;
-    private DataReceiver dataReceiver;
     private DataManager dataManager;
+    private DataReceiver dataReceiver;
 }

@@ -92,7 +92,12 @@ public class DataRetrieveController {
     @GetMapping(value = "/api/{system}/rt/file")
     public String retrieveDataByFile(@PathVariable String system, @RequestParam String start, @RequestParam String end){
 
-        String groupId = transferService.generateFile(system, start, end);
-        return groupId;
+
+        try {
+            String groupId = transferService.generateFile(system, start, end);
+            return groupId;
+        }catch (Exception e){
+            return e.getMessage();
+        }
     }
 }

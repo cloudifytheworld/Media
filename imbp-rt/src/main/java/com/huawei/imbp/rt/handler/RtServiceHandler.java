@@ -9,6 +9,7 @@ import com.huawei.imbp.rt.service.CassandraAsyncService;
 import com.huawei.imbp.rt.service.CassandraThreadedService;
 import com.huawei.imbp.rt.service.DataTransferService;
 import com.huawei.imbp.rt.transfer.ClientData;
+import com.huawei.imbp.rt.util.DataUtil;
 import com.huawei.imbp.rt.util.ServiceUtil;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
+import redis.clients.jedis.Client;
 
 import java.util.Map;
 import java.util.Optional;
@@ -97,39 +99,32 @@ public class RtServiceHandler {
     }
 
     /*
-     * Require params: system, from
-     * Todo:  feeding with specific deviceType
+     * Require param: system, start, end date
+     * ToDo: add project to all pathVariable other than system
+     *
      */
-
-//    public Mono<ServerResponse> retrieveDataByFeeding(ServerRequest serverRequest){
-//
-//
-//        try{
-//            InputParameter input = ServiceUtil.getInputParam(serverRequest);
-//            return cassandraService.getDataByFeeding(input);
-//        }catch (Exception e){
-//            log.error(Throwables.getStackTraceAsString(e));
-//            return ServerResponse.badRequest().syncBody(e.getMessage());
-//        }
-//    }
-
     public Mono<ServerResponse> retrieveDataByFile(ServerRequest serverRequest){
 
         String system = serverRequest.pathVariable("system");
         Optional<String> start = serverRequest.queryParam("start");
         Optional<String> end = serverRequest.queryParam("end");
 
-        Mono<String> groupId = transferService.processServer(system, start.get(), end.get());
-
-        return ServerResponse.ok().body(groupId, String.class);
+        try {
+            Mono<String> groupId = transferService.processServer(system, start.get(), end.get());
+            return ServerResponse.ok().body(groupId, String.class);
+        }catch (Exception e){
+            return ServerResponse.badRequest().syncBody(e.getMessage());
+        }
     }
 
     public Mono<ServerResponse> processClient(ServerRequest serverRequest){
 
         Mono<ServerResponse> response = serverRequest.bodyToMono(Map.class).flatMap(s -> {
-            transferService.processClient(s);
-            s.put("status", JobStatus.starting);
-            return ServerResponse.ok().syncBody(s);
+
+            ClientData clientData = DataUtil.convertMapToObject(s, ClientData.class);
+            transferService.processClient(clientData);
+            clientData.setStatus(JobStatus.starting);
+            return ServerResponse.ok().syncBody(clientData);
         });
         return response;
     }
