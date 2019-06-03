@@ -52,9 +52,11 @@ public class DataSender {
     public void close(String status){
 
         try {
-//            String end = Constant.END_MARKER+":"+status;
-//            ByteBuffer buffer = ByteBuffer.wrap(end.getBytes());
-//            sockChannel.write(buffer);
+            String end = Constant.END_MARKER+":"+status;
+            ByteBuffer buffer = ByteBuffer.wrap(end.getBytes());
+            write(buffer);
+            sockChannel.shutdownInput();
+            sockChannel.shutdownOutput();
             sockChannel.close();
         }catch (Exception e){
             log.error(ipAddress+" fail to close client channel "+e.getMessage());

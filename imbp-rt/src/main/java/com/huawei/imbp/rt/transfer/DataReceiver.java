@@ -3,15 +3,15 @@ package com.huawei.imbp.rt.transfer;
 import com.google.common.base.Throwables;
 import lombok.extern.log4j.Log4j2;
 
-import java.io.File;
+import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.channels.AsynchronousChannelGroup;
 import java.nio.channels.AsynchronousServerSocketChannel;
 import java.nio.channels.AsynchronousSocketChannel;
 import java.nio.channels.CompletionHandler;
-import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -26,16 +26,11 @@ public class DataReceiver {
     private OnComplete onComplete;
     private final AsynchronousServerSocketChannel server;
     private final AsynchronousChannelGroup serverGroup;
-    private final String groupId;
     private final AtomicInteger jobNumber = new AtomicInteger();
     private final DataReader dataReader;
-    public String getGroupId() {
-        return groupId;
-    }
 
-    public DataReceiver(InetSocketAddress inetAddress, int poolSize, String filePath){
 
-        groupId = UUID.randomUUID().toString();
+    public DataReceiver(InetSocketAddress inetAddress, int poolSize, String filePath, String groupId){
 
         try {
             DataWriter dataWriter = new DataWriter(filePath, groupId);
@@ -53,15 +48,15 @@ public class DataReceiver {
             @Override
             public void completed(AsynchronousSocketChannel channel, AsynchronousServerSocketChannel server) {
 
-                server.accept(server, this);
-                //server.accept();
+                //server.accept(server, this);
+                server.accept();
                 log.info("process connection #"+jobNumber.getAndIncrement());
                 dataReader.read(channel, onComplete);
             }
 
             @Override
             public void failed(Throwable exc, AsynchronousServerSocketChannel attachment) {
-                log.error(Throwables.getStackTraceAsString(exc));
+                log.error(this.getClass()+"--"+Throwables.getStackTraceAsString(exc));
             }
         });
 
@@ -75,11 +70,15 @@ public class DataReceiver {
 
     public void close(){
         try {
-            this.server.close();
             this.serverGroup.shutdown();
-            this.serverGroup.awaitTermination(10000, TimeUnit.MILLISECONDS);
+            this.serverGroup.awaitTermination(1000, TimeUnit.MILLISECONDS);
+            this.server.close();
         }catch (Exception e){
             log.error("unable to shut down "+e.getMessage());
         }
+    }
+
+    public AsynchronousServerSocketChannel getChannel(){
+        return this.server;
     }
 }

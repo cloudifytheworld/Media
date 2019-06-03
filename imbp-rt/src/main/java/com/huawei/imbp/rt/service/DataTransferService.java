@@ -43,30 +43,23 @@ public class DataTransferService {
     public Mono<String> processServer(String system, String start, String end) throws Exception{
 
         DataManager dataManager = new DataManager(storage);
-        int servers = dataManager.getClients();
-        if(servers == 0){
+        NetworkManageService netService = new NetworkManageService();
+        dataManager.prepareClient().prepareCalls(system, start, end,
+                netService.getServerIp(), netService.getSocketPort());
+        Integer participateClients = storage.groupSize(dataManager.getGroupId());
+        if(participateClients == 0){
             throw imbp.setMessage("servers is not ready yet");
         }
-        CountDownLatch jobs = new CountDownLatch(servers);
-        CountDownLatch ready = new CountDownLatch(1);
+        final CountDownLatch jobs = new CountDownLatch(participateClients);
+        final CountDownLatch ready = new CountDownLatch(1);
 
         try {
-            InetAddress inetAddress = InetAddress.getLocalHost();
-            InetSocketAddress inetSocketAddress = new InetSocketAddress(inetAddress,9500);
-            int port = inetSocketAddress.getPort();
-            log.info("server socket port "+ port);
-            DataReceiver dataReceiver = new DataReceiver(inetSocketAddress, servers, filePath);
-
+            //DataReceiver dataReceiver = new DataReceiver(netService.getSocketAddress(), participateClients, filePath);
             ActorRef serverAction = actorSystem.actorOf(imbpRtActionExtension.props("serverAction"));
-            serverAction.tell(new ServerActionData(jobs, ready, dataReceiver, dataManager), ActorRef.noSender());
-            ready.await();
+            serverAction.tell(new ServerActionData(jobs, ready, dataManager,
+                    netService.getSocketAddress(), participateClients, filePath), ActorRef.noSender());
 
-            String serverIp = inetAddress.getHostAddress()+":"+port;
-            ActorRef clientAction = actorSystem.actorOf(imbpRtActionExtension.props("clientAction"));
-            clientAction.tell(new ClientActionData(system, start, end, dataReceiver.getGroupId(),
-                    serverIp, jobs, dataManager, dataReceiver), ActorRef.noSender());
-
-            return Mono.just(dataReceiver.getGroupId());
+            return Mono.just(dataManager.getGroupId())  ;
 
         }catch (Exception e){
             log.error(Throwables.getStackTraceAsString(e));
@@ -77,31 +70,22 @@ public class DataTransferService {
     public String generateFile(String system, String start, String end) throws Exception{
 
         DataManager dataManager = new DataManager(storage);
-        int servers = dataManager.getClients();
-        if(servers == 0){
+        NetworkManageService netService = new NetworkManageService();
+        dataManager.prepareClient().prepareCalls(system, start, end,
+                netService.getServerIp(), netService.getSocketPort());
+        Integer participateClients = storage.groupSize(dataManager.getGroupId());
+        if(participateClients == 0){
             throw imbp.setMessage("servers is not ready yet");
         }
-        final CountDownLatch jobs = new CountDownLatch(servers);
+        final CountDownLatch jobs = new CountDownLatch(participateClients);
         final CountDownLatch ready = new CountDownLatch(1);
 
         try {
-            InetAddress inetAddress = InetAddress.getLocalHost();
-            InetSocketAddress inetSocketAddress = new InetSocketAddress(inetAddress,9500);
-            int port = inetSocketAddress.getPort();
-            log.info("server socket port "+ port);
-            DataReceiver dataReceiver = new DataReceiver(inetSocketAddress, servers, filePath);
-
             ActorRef serverAction = actorSystem.actorOf(imbpRtActionExtension.props("serverAction"));
-            serverAction.tell(new ServerActionData(jobs, ready, dataReceiver, dataManager), ActorRef.noSender());
+            serverAction.tell(new ServerActionData(jobs, ready, dataManager,
+                    netService.getSocketAddress(), participateClients, filePath), ActorRef.noSender());
 
-            ready.await();
-
-            String serverIp = inetAddress.getHostAddress()+":"+port;
-            ActorRef clientAction = actorSystem.actorOf(imbpRtActionExtension.props("clientAction"));
-            clientAction.tell(new ClientActionData(system, start, end, dataReceiver.getGroupId(),
-                    serverIp, jobs, dataManager, dataReceiver), ActorRef.noSender());
-
-            return dataReceiver.getGroupId();
+            return dataManager.getGroupId();
 
         }catch (Exception e){
             log.error(Throwables.getStackTraceAsString(e));

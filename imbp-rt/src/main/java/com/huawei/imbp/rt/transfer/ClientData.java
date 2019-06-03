@@ -17,6 +17,7 @@ import org.joda.time.DateTime;
 public class ClientData {
 
     private String serverIp;
+    private int serverPort;
     private String clientIp;
     private String clientId;
     private String groupId;

@@ -28,6 +28,7 @@ public class JobStorage {
         }
 
         clientDataMap.put(clientId, clientData);
+        jobStore.put(groupId, clientDataMap);
 
     }
 
@@ -40,5 +41,16 @@ public class JobStorage {
 
     public void remove(String uuid){
         jobStore.remove(uuid);
+    }
+
+    public int groupSize(String groupId){
+
+        Map<String, ClientData> client = jobStore.get(groupId);
+        return client.size();
+    }
+
+    public Map<String, ClientData> get(String groupId){
+
+        return jobStore.get(groupId);
     }
 }

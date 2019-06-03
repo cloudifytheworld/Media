@@ -31,12 +31,14 @@ public class DataReader {
             public void completed(Integer result, AsynchronousSocketChannel channel) {
 
                 try {
-                    String data = new String(buf.array().toString());
+                    String data = new String(buf.array());
                     if (result < 0 || data.contains(Constant.END_MARKER)) {
                         onComplete.onComplete();
                         dataWriter.close();
-                        //channel.close();
-                        throw new ImbpException().setMessage("Done read");
+                        channel.shutdownInput();
+                        channel.shutdownOutput();
+                        channel.close();
+                        throw new ImbpException().setMessage("Done read from "+data);
                     }
                     dataWriter.write(buf);
                     buf.flip();
@@ -45,14 +47,18 @@ public class DataReader {
                 }catch (ImbpException imbp){
                     log.info(imbp.getMessage());
                 }catch (Exception e){
-                    log.error(Throwables.getStackTraceAsString(e));
+                    onComplete.onComplete();
+                    log.error("read failed -- "+Throwables.getStackTraceAsString(e));
                 }
             }
 
             @Override
             public void failed(Throwable exc, AsynchronousSocketChannel attachment) {
-                log.error(Throwables.getStackTraceAsString(exc));
+                onComplete.onComplete();
+                log.error("reader failed -- "+Throwables.getStackTraceAsString(exc));
             }
         });
     }
+
+
 }

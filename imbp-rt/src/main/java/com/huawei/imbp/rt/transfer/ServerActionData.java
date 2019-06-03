@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.util.concurrent.CountDownLatch;
 
 /**
@@ -19,6 +20,9 @@ public class ServerActionData {
 
     private CountDownLatch jobs;
     private CountDownLatch ready;
-    private DataReceiver dataReceiver;
+    //private DataReceiver dataReceiver;
     private DataManager dataManager;
+    private InetSocketAddress socketAddress;
+    private int participatedClients;
+    private String filePath;
 }

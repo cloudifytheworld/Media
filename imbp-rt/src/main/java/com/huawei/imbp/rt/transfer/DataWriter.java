@@ -38,14 +38,16 @@ public class DataWriter {
 
         assert !Objects.isNull(buffer);
         buffer.flip();
-        while(buffer.hasRemaining()) {
-            this.channel.write(buffer);
-        }
-        this.channel.force(true);
+        this.channel.write(buffer);
+//        while(buffer.hasRemaining()) {
+//            this.channel.write(buffer);
+//        }
+        //this.channel.force(true);
     }
 
 
     public void close() throws Exception{
+        this.channel.force(true);
         this.channel.close();
     }
 }

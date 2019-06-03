@@ -126,11 +126,12 @@ public class CassandraThreadedService {
 
         storage.put(input.getGroupId(), input.getClientId(), input);
         DateTimeFormatter dft = DateTimeFormat.forPattern("yyyyMMdd");
-        String[] server = input.getServerIp().split(":");
+        String server = input.getServerIp();
+        int port = input.getServerPort();
         String date = input.getStartDate();
         log.info(date);
 
-        InetSocketAddress serverAddress = new InetSocketAddress(server[0], Integer.parseInt(server[1]));
+        InetSocketAddress serverAddress = new InetSocketAddress(server, port);
         DataSender send = new DataSender(serverAddress);
 
         List<ResultSetFuture> futuresData = new ArrayList<>();

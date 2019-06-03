@@ -32,23 +32,23 @@ public class ClientAction extends UntypedAbstractActor {
     public void onReceive(Object msg) {
 
         if(ClientActionData.class.isInstance(msg)) {
-            ClientActionData client = (ClientActionData)msg;
-            final CountDownLatch jobs = client.getJobs();
-            final DataReceiver dataReceiver = client.getDataReceiver();
-            final String groupId = dataReceiver.getGroupId();
-            final DataManager dataManager = client.getDataManager();
-            dataManager.execute(client.getSystem(), client.getStart(),
-                    client.getEnd(), client.getServerIp(), groupId);
-
-            log.info("writing data to file ["+groupId+"].......");
-            try {
-                jobs.await();
-                dataManager.clear(groupId);
-                dataReceiver.close();
-                log.info("task completed for group "+groupId);
-            }catch (Exception e){
-                log.error(Throwables.getStackTraceAsString(e));
-            }
+//            ClientActionData client = (ClientActionData)msg;
+//            final CountDownLatch jobs = client.getJobs();
+//            final DataReceiver dataReceiver = client.getDataReceiver();
+////            final String groupId = dataReceiver.getGroupId();
+////            final DataManager dataManager = client.getDataManager();
+//////            dataManager.execute(client.getSystem(), client.getStart(),
+//////                    client.getEnd(), client.getServerIp(), groupId);
+//
+//            log.info("writing data to file ["+groupId+"].......");
+//            try {
+//                jobs.await();
+//                dataManager.clear(groupId);
+//                dataReceiver.close();
+//                log.info("task completed for group "+groupId);
+//            }catch (Exception e){
+//                log.error(Throwables.getStackTraceAsString(e));
+//            }
         }
 
     }
