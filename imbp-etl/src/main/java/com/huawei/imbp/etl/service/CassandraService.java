@@ -6,6 +6,7 @@ import com.huawei.imbp.etl.entity.AoiEntity;
 import com.huawei.imbp.etl.transform.ConversionData;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.cassandra.core.ReactiveCassandraOperations;
 import org.springframework.data.redis.core.ReactiveRedisTemplate;
 import org.springframework.data.redis.core.ReactiveSetOperations;
 import org.springframework.stereotype.Component;
@@ -30,6 +31,8 @@ public class CassandraService {
 
     @Autowired
     private AoiRepository aoiRepository;
+    @Autowired
+    private ReactiveCassandraOperations aoiSession;
 
     @Autowired
     private ReactiveRedisTemplate<String, String> redisTemplate;
@@ -41,7 +44,7 @@ public class CassandraService {
 
         try {
             AoiEntity entity = ConversionData.convert(payload);
-            aoiRepository.insert(entity).subscribe(s -> { log.debug("insertion is successful");});
+            aoiSession.insert(entity).subscribe(s -> { log.debug("insertion is successful");});
             createIndex(entity, (String)requestData.get("sender"));
             return Mono.empty();
         }catch (Exception e){

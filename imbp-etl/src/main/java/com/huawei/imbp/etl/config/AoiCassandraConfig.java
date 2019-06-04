@@ -12,8 +12,8 @@ import org.springframework.data.cassandra.repository.config.EnableReactiveCassan
 @EnableReactiveCassandraRepositories
 public class AoiCassandraConfig extends CassandraConfig {
 
-    @Override
-    public String getKeyspaceName() {
-        return "images";
-    }
+//    @Override
+//    public String getKeyspaceName() {
+//        return "images";
+//    }
 }
