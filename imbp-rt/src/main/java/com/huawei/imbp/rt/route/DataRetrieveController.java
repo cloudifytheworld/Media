@@ -89,15 +89,15 @@ public class DataRetrieveController {
                 });
     }
 
-    @GetMapping(value = "/api/{system}/rt/file")
-    public String retrieveDataByFile(@PathVariable String system, @RequestParam String start, @RequestParam String end){
-
-
-        try {
-            String groupId = transferService.generateFile(system, start, end);
-            return groupId;
-        }catch (Exception e){
-            return "fail to start file service "+e.getMessage();
-        }
-    }
+//    @GetMapping(value = "/api/{system}/rt/file")
+//    public String retrieveDataByFile(@PathVariable String system, @RequestParam String start, @RequestParam String end){
+//
+//
+//        try {
+//            String groupId = transferService.generateFile(system, start, end);
+//            return groupId;
+//        }catch (Exception e){
+//            return "fail to start file service "+e.getMessage();
+//        }
+//    }
 }

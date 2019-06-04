@@ -5,22 +5,35 @@ import akka.actor.ActorSystem;
 import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.ResultSetFuture;
 import com.datastax.driver.core.Row;
+import com.datastax.driver.core.Statement;
+import com.datastax.driver.core.querybuilder.Clause;
+import com.datastax.driver.core.querybuilder.QueryBuilder;
+import com.datastax.driver.core.querybuilder.Select;
 import com.google.common.base.Throwables;
 import com.google.common.util.concurrent.AtomicDouble;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.huawei.imbp.rt.common.InputParameter;
+import com.huawei.imbp.rt.common.JobStatus;
 import com.huawei.imbp.rt.config.ImbpRtActionExtension;
+import com.huawei.imbp.rt.entity.Aoi;
 import com.huawei.imbp.rt.entity.AoiEntity;
 import com.huawei.imbp.rt.entity.DateDevice;
 import com.huawei.imbp.rt.repository.AoiRepository;
+import com.huawei.imbp.rt.transfer.ClientData;
+import com.huawei.imbp.rt.transfer.DataSender;
+import com.huawei.imbp.rt.transfer.JobStorage;
 import com.huawei.imbp.rt.util.DataUtil;
+import com.huawei.imbp.rt.util.StatisticManager;
 import com.huawei.imbp.rt.util.WriteToFile;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.codec.binary.Base64;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
+import org.springframework.data.cassandra.core.ReactiveCassandraOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.BodyInserters;
@@ -29,6 +42,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import scala.Int;
 
+import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
@@ -56,6 +70,12 @@ public class CassandraAsyncService {
 
     @Autowired
     private AoiRepository aoiRepository;
+
+    @Autowired
+    ReactiveCassandraOperations cassandraDataSession;
+
+    @Autowired
+    JobStorage storage;
 
     /*
      *  /api/{system}/rt/single
@@ -85,6 +105,52 @@ public class CassandraAsyncService {
         }
     }
 
+    public void getDataByDate(ClientData input){
+
+        storage.put(input.getGroupId(), input.getClientId(), input);
+        String server = input.getServerIp();
+        int port = input.getServerPort();
+        String date = input.getStartDate();
+        log.info(date);
+
+        InetSocketAddress serverAddress = new InetSocketAddress(server, port);
+        DataSender send = new DataSender(serverAddress);
+
+        long start = System.currentTimeMillis();
+        Semaphore semaphore = new Semaphore(60);
+        Set<String> indexes = redisTemplate.boundZSetOps("secDate:"+input.getSystem() + ":" + date).rangeByScore(1541055600000l,1541141999000l);
+        indexes.stream().forEach( index -> {
+            String[] keys = index.split("#");
+            try {
+                Select select = QueryBuilder.select().all().from("images", "aoi_single_component_image_1");
+                semaphore.acquire();
+                select.where(QueryBuilder.eq("created_day", input.getStartDate()))
+                        .and(QueryBuilder.eq("device_type", keys[0]))
+                        .and(QueryBuilder.eq("hour", Integer.parseInt(keys[1])))
+                        .and(QueryBuilder.eq("mins", Integer.parseInt(keys[2])))
+                        .and(QueryBuilder.eq("sec", Integer.parseInt(keys[3])))
+                        .allowFiltering();
+
+                Flux<Aoi> aois = cassandraDataSession.select(select, Aoi.class);
+                aois.subscribe( aoi -> {
+                    byte[] data = aoi.toString().getBytes();
+                    StatisticManager.total += data.length;
+                    ByteBuffer buffer = ByteBuffer.wrap(data);
+                    send.write(buffer);
+                    semaphore.release();
+                });
+            }catch (Exception e){
+                log.error(Throwables.getStackTraceAsString(e));
+                semaphore.release();
+            }
+
+        });
+
+        send.close(input.getGroupId()+":"+input.getClientId()+":"+ JobStatus.complete);
+        long last = (System.currentTimeMillis() - start)/1000;
+        log.info(date+" takes "+last+" seconds,  total size(M) "+String.format("%.2f", (StatisticManager.total/1000000)));
+
+    }
     public void getDataByDates(InputParameter input){
 
         String[] dates = input.getFrom();

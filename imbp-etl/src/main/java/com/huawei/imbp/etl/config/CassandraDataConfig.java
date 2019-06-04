@@ -19,10 +19,10 @@ import java.util.Map;
 
 @Configuration
 @RefreshScope
-public class CassandraConfig {
+public class CassandraDataConfig {
 
     @Value("#{${db.cassandra}}")
-    public Map<String, String> cassandraConfig;
+    public Map<String, String> cassandra;
 
 
     @Bean
@@ -30,7 +30,7 @@ public class CassandraConfig {
     public ReactiveCassandraOperations cassandraDataTemplate(){
 
         PoolingOptions poolingOptions = new PoolingOptions();
-        poolingOptions.setHeartbeatIntervalSeconds(Integer.parseInt(cassandraConfig.get("heart-beat")));
+        poolingOptions.setHeartbeatIntervalSeconds(Integer.parseInt(cassandra.get("heart-beat")));
         poolingOptions.setCoreConnectionsPerHost(HostDistance.LOCAL, 100)
                 .setMaxConnectionsPerHost(HostDistance.LOCAL, 300)
                 .setNewConnectionThreshold(HostDistance.LOCAL, 200)
@@ -42,7 +42,7 @@ public class CassandraConfig {
         options.setTcpNoDelay(true);
 
         Cluster cluster = Cluster.builder()
-                .addContactPoints(cassandraConfig.get("contact-points").split(","))
+                .addContactPoints(cassandra.get("contact-points").split(","))
                 .withPoolingOptions(poolingOptions)
                 .withLoadBalancingPolicy(new RoundRobinPolicy())
                 .withSocketOptions(options)

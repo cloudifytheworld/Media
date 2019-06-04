@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.cassandra.core.ReactiveCassandraOperations;
+import org.springframework.data.cassandra.core.ReactiveCassandraTemplate;
+import org.springframework.data.cassandra.core.cql.session.DefaultBridgedReactiveSession;
 
 import java.util.Map;
 
@@ -34,13 +37,13 @@ public class CassandraDataConfig {
                 .setCoreConnectionsPerHost(HostDistance.LOCAL, 300);
 
         SocketOptions options = new SocketOptions();
-        options.setConnectTimeoutMillis(500000);
-        options.setReadTimeoutMillis(500000);
+        options.setConnectTimeoutMillis(50000);
+        options.setReadTimeoutMillis(50000);
         options.setTcpNoDelay(true);
 
         Cluster cluster = Cluster.builder()
                 .addContactPoints(cassandraConfig.get("contact-points").split(","))
-                .withQueryOptions(new QueryOptions().setConsistencyLevel(ConsistencyLevel.QUORUM))
+                .withQueryOptions(new QueryOptions().setConsistencyLevel(ConsistencyLevel.ONE))
                 .withPoolingOptions(poolingOptions)
                 .withSocketOptions(options)
                 .withLoadBalancingPolicy(new RoundRobinPolicy())
@@ -50,4 +53,13 @@ public class CassandraDataConfig {
 
         return cluster.connect();
     }
+
+    @Bean
+    public ReactiveCassandraOperations cassandraDataSession(){
+        ReactiveCassandraOperations template = new ReactiveCassandraTemplate(new DefaultBridgedReactiveSession(cassandraSession()));
+        return template;
+
+    }
+
+
 }

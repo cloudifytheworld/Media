@@ -54,7 +54,6 @@ public class DataTransferService {
         final CountDownLatch ready = new CountDownLatch(1);
 
         try {
-            //DataReceiver dataReceiver = new DataReceiver(netService.getSocketAddress(), participateClients, filePath);
             ActorRef serverAction = actorSystem.actorOf(imbpRtActionExtension.props("serverAction"));
             serverAction.tell(new ServerActionData(jobs, ready, dataManager,
                     netService.getSocketAddress(), participateClients, filePath), ActorRef.noSender());
@@ -67,31 +66,31 @@ public class DataTransferService {
         }
     }
 
-    public String generateFile(String system, String start, String end) throws Exception{
-
-        DataManager dataManager = new DataManager(storage);
-        NetworkManageService netService = new NetworkManageService();
-        dataManager.prepareClient().prepareCalls(system, start, end,
-                netService.getServerIp(), netService.getSocketPort());
-        Integer participateClients = storage.groupSize(dataManager.getGroupId());
-        if(participateClients == 0){
-            throw imbp.setMessage("servers is not ready yet");
-        }
-        final CountDownLatch jobs = new CountDownLatch(participateClients);
-        final CountDownLatch ready = new CountDownLatch(1);
-
-        try {
-            ActorRef serverAction = actorSystem.actorOf(imbpRtActionExtension.props("serverAction"));
-            serverAction.tell(new ServerActionData(jobs, ready, dataManager,
-                    netService.getSocketAddress(), participateClients, filePath), ActorRef.noSender());
-
-            return dataManager.getGroupId();
-
-        }catch (Exception e){
-            log.error(Throwables.getStackTraceAsString(e));
-            return "fail: "+e.getMessage();
-        }
-    }
+//    public String generateFile(String system, String start, String end) throws Exception{
+//
+//        DataManager dataManager = new DataManager(storage);
+//        NetworkManageService netService = new NetworkManageService();
+//        dataManager.prepareClient().prepareCalls(system, start, end,
+//                netService.getServerIp(), netService.getSocketPort());
+//        Integer participateClients = storage.groupSize(dataManager.getGroupId());
+//        if(participateClients == 0){
+//            throw imbp.setMessage("servers is not ready yet");
+//        }
+//        final CountDownLatch jobs = new CountDownLatch(participateClients);
+//        final CountDownLatch ready = new CountDownLatch(1);
+//
+//        try {
+//            ActorRef serverAction = actorSystem.actorOf(imbpRtActionExtension.props("serverAction"));
+//            serverAction.tell(new ServerActionData(jobs, ready, dataManager,
+//                    netService.getSocketAddress(), participateClients, filePath), ActorRef.noSender());
+//
+//            return dataManager.getGroupId();
+//
+//        }catch (Exception e){
+//            log.error(Throwables.getStackTraceAsString(e));
+//            return "fail: "+e.getMessage();
+//        }
+//    }
 
     public void processClient(ClientData clientData){
 

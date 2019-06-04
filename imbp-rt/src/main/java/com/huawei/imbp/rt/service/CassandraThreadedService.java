@@ -75,7 +75,9 @@ public class CassandraThreadedService {
 
     @PostConstruct
     private void init(){
-        statement = cassandraSession.prepare("SELECT * FROM images.aoi_single_component_image_1 where created_day = ? and device_type = ? and hour = ? and mins = ? ALLOW FILTERING");
+//        statement = cassandraSession.prepare("SELECT * FROM images.aoi_single_component_image_1 where created_day = ? and device_type = ? and hour = ? and mins = ? ALLOW FILTERING");
+        statement = cassandraSession.prepare("SELECT * FROM images.aoi_single_component_image_1 where created_day = ? and device_type = ? and hour = ? and mins = ? and sec = ? and label = ? ALLOW FILTERING");
+
     }
 
     public void getDataByDates(InputParameter input){
@@ -137,14 +139,16 @@ public class CassandraThreadedService {
         List<ResultSetFuture> futuresData = new ArrayList<>();
         long start = System.currentTimeMillis();
 
-        Set<String> indexes = redisTemplate.boundSetOps("date:"+input.getSystem() + ":" + date).members();
+//        Set<String> indexes = redisTemplate.boundSetOps("date:"+input.getSystem() + ":" + date).members();
+        Set<String> indexes = redisTemplate.boundZSetOps("secDate:"+input.getSystem() + ":" + date).rangeByScore(1541055600000l,1541141999000l);
+
         int indexSize = indexes.size();
         AtomicInteger count = new AtomicInteger();
 
         indexes.stream().forEach( index -> {
             String[] keys = index.split("#");
             ResultSetFuture resultSetFuture = cassandraSession.executeAsync(statement.bind(date, keys[0]
-                    , Integer.parseInt(keys[1]), Integer.parseInt(keys[2])));
+                    , Integer.parseInt(keys[1]), Integer.parseInt(keys[2]), Integer.parseInt(keys[3]), keys[4]));
             futuresData.add(resultSetFuture);
 
             if(count.incrementAndGet()%renderLimit == 0 || count.get() == indexSize){
@@ -195,7 +199,7 @@ public class CassandraThreadedService {
                     , Integer.parseInt(keys[1]), Integer.parseInt(keys[2])));
             futuresData.add(results);
 
-            if(count.incrementAndGet()%240 == 0 || count.get() == indexSize){
+            if(count.incrementAndGet()%renderLimit == 0 || count.get() == indexSize){
                 List<ListenableFuture<ResultSet>> futureLists = Futures.inCompletionOrder(futuresData);
                 for (ListenableFuture<ResultSet> future : futureLists) {
                     try {

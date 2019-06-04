@@ -6,6 +6,7 @@ import lombok.extern.log4j.Log4j2;
 import org.apache.commons.codec.binary.Base64;
 
 import java.nio.ByteBuffer;
+import java.util.Date;
 
 /**
  * @author Charles(Li) Cai
@@ -41,7 +42,7 @@ public class EntityMappingUtil {
 
         Long created_time = row.getTimestamp("created_time").getTime();
         if(created_time != null) {
-            aoi.setCreated_time(created_time);
+            aoi.setCreated_time(new Date(created_time));
         }
 
 

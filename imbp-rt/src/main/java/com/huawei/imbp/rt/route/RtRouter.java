@@ -67,7 +67,7 @@ public class RtRouter {
     @Bean
     public RouterFunction<ServerResponse> rtDataFileRouting(RtServiceHandler rtServiceHandler) {
 
-        return RouterFunctions.route(RequestPredicates.GET("/api/{system}/rt/file/async"),
+        return RouterFunctions.route(RequestPredicates.GET("/api/{system}/rt/file"),
                 rtServiceHandler::retrieveDataByFile);
     }
 

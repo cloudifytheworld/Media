@@ -11,6 +11,7 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.AsynchronousSocketChannel;
+import java.nio.channels.CompletionHandler;
 import java.util.concurrent.Future;
 
 /**
@@ -42,10 +43,12 @@ public class DataSender {
     public void write(ByteBuffer data){
 
         try {
-            Future<Integer> writeValue = sockChannel.write(data);
-            writeValue.get();
+            sockChannel.write(data);
+            //Future<Integer> writeValue = sockChannel.write(data);
+            //writeValue.get();
+
         }catch (Exception e){
-            log.error(Throwables.getStackTraceAsString(e));
+            //log.error(e.getMessage());
         }
     }
 
