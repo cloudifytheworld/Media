@@ -87,15 +87,19 @@ public class CassandraService {
     private void createIndex(AoiEntity entity, String system ){
 
         try {
-            String dateKey = entity.getKey().getDeviceType()
-                +"#"+entity.getKey().getHour()+"#"+entity.getKey().getMinute()+"#"+entity.getKey().getSecond();
-            String hourKey = entity.getKey().getDeviceType() +"#" + entity.getKey().getMinute()+"#"+entity.getKey().getSecond();;
-            String primaryKey = entity.getKey().getDeviceType() +"#" + entity.getKey().getMinute()+"#"+entity.getKey().getSecond()
+//            String dateKey = entity.getKey().getDeviceType()
+//                +"#"+entity.getKey().getHour()+"#"+entity.getKey().getMinute()+"#"+entity.getKey().getSecond()
+//                    + "#" + entity.getKey().getLabel() + "#" + entity.getKey().getCreatedTime();
+//            String hourKey = entity.getKey().getDeviceType()+"#"+entity.getKey().getHour()+"#" + entity.getKey().getMinute()+"#"+entity.getKey().getSecond();;
+            String primaryKey = entity.getKey().getDeviceType()+"#"+entity.getKey().getHour() +"#" + entity.getKey().getMinute()+"#"+entity.getKey().getSecond()
                 + "#" + entity.getKey().getLabel() + "#" + entity.getKey().getCreatedTime();
 
-            redisTemplate.opsForZSet().add("secDate"+":"+system+":"+entity.getKey().getCreatedDay(), dateKey, entity.getKey().getCreatedTime().getTime()).subscribe();
-            redisTemplate.opsForZSet().add("secHour"+":"+system+":"+entity.getKey().getCreatedDay()+":"+entity.getKey().getHour(), hourKey, entity.getKey().getCreatedTime().getTime()).subscribe();
-            redisTemplate.opsForZSet().add("secDevice"+":"+system+":"+entity.getKey().getDeviceType(), primaryKey, entity.getKey().getCreatedTime().getTime()).subscribe();
+            redisTemplate.opsForZSet().add("secDate"+":"+system+":"+entity.getKey().getCreatedDay(),
+                    primaryKey, entity.getKey().getCreatedTime().getTime()).subscribe();
+            redisTemplate.opsForZSet().add("secHour"+":"+system+":"+entity.getKey().getCreatedDay()+":"+entity.getKey().getHour(),
+                    primaryKey, entity.getKey().getCreatedTime().getTime()).subscribe();
+            redisTemplate.opsForZSet().add("secDevice"+":"+system+":"+entity.getKey().getDeviceType(),
+                    primaryKey, entity.getKey().getCreatedTime().getTime()).subscribe();
 
     }catch (Exception e){
         log.error(Throwables.getStackTraceAsString(e));

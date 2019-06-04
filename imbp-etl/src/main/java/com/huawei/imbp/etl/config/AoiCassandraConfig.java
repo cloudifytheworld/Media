@@ -14,6 +14,6 @@ public class AoiCassandraConfig extends CassandraConfig {
 
     @Override
     public String getKeyspaceName() {
-        return "images1";
+        return "images";
     }
 }
