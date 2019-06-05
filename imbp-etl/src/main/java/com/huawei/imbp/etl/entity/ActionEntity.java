@@ -19,6 +19,7 @@ import java.util.Map;
 public class ActionEntity implements Serializable {
 
     private String id;
+    private String system;
     private Map<String, Object> input;
     private String errorMsg;
 }

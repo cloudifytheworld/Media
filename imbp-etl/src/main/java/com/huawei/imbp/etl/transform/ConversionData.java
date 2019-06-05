@@ -2,8 +2,10 @@ package com.huawei.imbp.etl.transform;
 
 import com.datastax.driver.core.querybuilder.Insert;
 import com.datastax.driver.core.querybuilder.QueryBuilder;
-import com.google.common.base.Throwables;
+import com.huawei.imbp.etl.build.OnIndexBuild;
+import com.huawei.imbp.etl.build.OnLogBuild;
 import com.huawei.imbp.etl.common.DataType;
+import com.huawei.imbp.etl.common.ImbpException;
 import com.huawei.imbp.etl.entity.AoiEntity;
 import com.huawei.imbp.etl.entity.AoiKey;
 import com.huawei.imbp.etl.validation.DataTypeValidation;
@@ -23,7 +25,8 @@ import java.util.Map;
 @Log4j2
 public class ConversionData {
 
-    static OnBuild onBuild;
+    static OnIndexBuild onIndexBuild;
+    static OnLogBuild onLogBuild;
 
     public static AoiEntity convert(Map<String, Object> payload) throws Exception{
 
@@ -62,9 +65,9 @@ public class ConversionData {
     }
 
 
-    public static Insert buildStatement(Map<String, Object> payload, String system) throws Exception{
+    public static Insert buildStatement(Map<String, Object> payload, String system, String keySpace, String table) throws Exception{
 
-        Insert insert = QueryBuilder.insertInto("images", "aoi_single_component_image");
+        Insert insert = QueryBuilder.insertInto(keySpace, table);
 
         Object created_day = payload.get("created_day");
         insert.value("created_day", created_day);
@@ -92,6 +95,9 @@ public class ConversionData {
 
         insert.value("created_time",timestamp);
 
+        String primaryKey = device_type+"#"+hour +"#" + minute+"#"+second
+                + "#" + label + "#" + mills;
+
         //columns
         insert.value("board_id", payload.get("board_id"));
         insert.value("board_loc", payload.get("board_loc"));
@@ -102,10 +108,9 @@ public class ConversionData {
         String imageStr = (String)payload.get("image");
         ByteBuffer image = (ByteBuffer)DataTypeValidation.checkDataType(DataType.BLOB, imageStr);
         insert.value("image", image);
+
         index((redisTemplate) ->{
 
-            String primaryKey = device_type+"#"+hour +"#" + minute+"#"+second
-                    + "#" + label + "#" + mills;
             try {
                 redisTemplate.opsForZSet().add("secDate" + ":" + system + ":" + created_day,
                         primaryKey, mills).subscribe();
@@ -119,16 +124,28 @@ public class ConversionData {
                         primaryKey, mills).subscribe();
             }catch (Exception e){
                 log.error(system + ":" + created_day+":"+primaryKey+"---"+e.getMessage());
+                throw new ImbpException().setMessage("Can't insert index for "+primaryKey+"--"+e.getMessage());
             }
         });
+
+        logMessage(() -> primaryKey);
         return insert;
     }
 
-    public static void index(OnBuild onBuild){
-        ConversionData.onBuild = onBuild;
+    public static String logMessage(OnLogBuild onLogBuild){
+        ConversionData.onLogBuild = onLogBuild;
+        return onLogBuild.onLogMsgBuild();
     }
 
-    public static void buildIndex(ReactiveRedisTemplate<String, String> redisTemplate){
-        onBuild.onIndexBuild(redisTemplate);
+    public static void index(OnIndexBuild onIndexBuild){
+        ConversionData.onIndexBuild = onIndexBuild;
+    }
+
+    public static void buildIndex(ReactiveRedisTemplate<String, String> redisTemplate) throws Exception{
+        onIndexBuild.onIndexBuild(redisTemplate);
+    }
+
+    public static String onComplete(){
+        return onLogBuild.onLogMsgBuild();
     }
 }

@@ -44,18 +44,20 @@ public class EtlServiceHandler {
 
     public Mono<ServerResponse> handleEtlService(ServerRequest serverRequest){
 
-        log.debug("handle etl service");
+        String system = serverRequest.pathVariable("system");
+        if (StringUtils.isEmpty(system)) {
+            return ServerResponse.badRequest().syncBody("must specify which system to ingest");
+        }
+
+        log.debug("handling imbp-etl service for "+system);
 
         Mono<ServerResponse> response = serverRequest.bodyToMono(Map.class).flatMap(s -> {
 
-                String system = (String)s.get("sender");
                 try {
-                    if (isSystemEmpty(system, s)) {
-                        return ServerResponse.badRequest().syncBody("system is empty");
-                    }
+
                     switch (system.toLowerCase()) {
                         case AOI:
-                            return cassandraService.onAoiProcess(s);
+                            return cassandraService.onAoiProcess(s, system);
                         default:
                             return ServerResponse.badRequest().syncBody(system + "is not supported");
                     }
@@ -76,21 +78,10 @@ public class EtlServiceHandler {
                         .withFallbackIsolationSemaphoreMaxConcurrentRequests(20)
                         .withExecutionTimeoutInMilliseconds(timeout)
                 )
-                .fallback(loggingService.onFallback("short circuit triggered ", serverRequest))
+                .fallback(loggingService.onFallback("short circuit triggered ", system, serverRequest, timeout))
                 .toMono();
 
         return hystrixResponse;
     }
 
-
-    private boolean isSystemEmpty(String system, Map<String, Object> input) {
-
-
-        if(StringUtils.isEmpty(system)){
-            loggingService.onFailure("system empty", input);
-            return true;
-        }
-
-        return false;
-    }
 }

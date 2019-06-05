@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import javax.annotation.PostConstruct;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.InputStream;
@@ -38,7 +37,6 @@ public class FileLoadService {
     private static final String DIR = "D://data//";
     private static final DateTimeFormatter dtf = DateTimeFormat.forPattern("yyyyMMddHHmmssSSS");
 
-    @PostConstruct
     public void parse(){
         long startTime = System.currentTimeMillis();
         FileUtil fileUtil = new FileUtil();

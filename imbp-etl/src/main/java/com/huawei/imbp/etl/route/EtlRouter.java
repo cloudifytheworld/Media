@@ -1,7 +1,5 @@
 package com.huawei.imbp.etl.route;
 
-import com.huawei.imbp.etl.handler.EtlMetaDataHandler;
-import com.huawei.imbp.etl.handler.EtlSecLogHandler;
 import com.huawei.imbp.etl.handler.EtlServiceHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,19 +19,9 @@ public class EtlRouter {
     @Bean
     public RouterFunction<ServerResponse> aoiEtlRouting(EtlServiceHandler etlServiceHandler) {
 
-        return RouterFunctions.route(RequestPredicates.POST("/api/aoi/etl").
+        return RouterFunctions.route(RequestPredicates.POST("/api/{system}/etl").
                         and(RequestPredicates.accept(MediaType.APPLICATION_JSON)),
                 etlServiceHandler::handleEtlService);
     }
-
-
-    @Bean
-    public RouterFunction<ServerResponse> etlMetaData(EtlMetaDataHandler etlMetaDataHandler) {
-
-        return RouterFunctions.route(RequestPredicates.GET("/api/etl/metadata").
-                        and(RequestPredicates.accept(MediaType.APPLICATION_JSON)),
-                etlMetaDataHandler::getMetadata);
-    }
-
 
 }

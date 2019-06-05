@@ -33,27 +33,22 @@ public class LoggingService {
     private ActorRef secLogAction;
     private ActorRef secRunAction;
 
-    public Mono<String> onFailure(String msg, Map<String, Object> input){
-        send(msg, input);
-        return Mono.empty();
-    }
 
-    public void onFailure(Throwable ex, Map<String, Object> input){
-        send(ex.getMessage(), input);
+    public void onFailure(Throwable ex, String system, Map<String, Object> input){
+        send(ex.getMessage(), system, input);
     }
 
     public void onRun(List<Map<String, Object>> data){
         secRunAction.tell(data, ActorRef.noSender());
     }
 
-    public Mono<ServerResponse> onFallback(String msg, ServerRequest request){
+    public Mono<ServerResponse> onFallback(String msg, String system, ServerRequest request, int timeout){
 
-        request.bodyToMono(Map.class).flatMap(s -> {
-            send(msg, s);
-            return ServerResponse.badRequest().syncBody("Save to SEC log");
+        request.bodyToMono(Map.class).subscribe(s -> {
+            send(msg, system, s);
         });
 
-        return ServerResponse.badRequest().syncBody(msg+"request is slower than defined timeout");
+        return ServerResponse.badRequest().syncBody(msg+",request is slower than defined timeout "+timeout);
     }
     @PostConstruct
     public void init(){
@@ -62,13 +57,16 @@ public class LoggingService {
         secRunAction = actorSystem.actorOf(imbpEtlActionExtension.props("secRunAction"));
     }
 
-    private void send(String msg, Map<String, Object> input){
+    private void send(String msg, String system, Map<String, Object> input){
 
         String id = DataUtil.createId(input);
+
         ActionEntity entity = new ActionEntity();
         entity.setId(id);
+        entity.setSystem(system);
         entity.setErrorMsg(msg);
         entity.setInput(input);
+
         logAction.tell(msg, ActorRef.noSender());
         secLogAction.tell(entity, ActorRef.noSender());
     }

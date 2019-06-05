@@ -36,87 +36,34 @@ public class CassandraService {
     @Autowired
     private ReactiveRedisTemplate<String, String> redisTemplate;
 
-    public Mono<ServerResponse> onAoiProcess(final Map requestData) {
 
-        log.debug("handling aoi insertion process");
-        Map<String, Object> payload = (Map)requestData.get("payload");
+
+    public Mono<ServerResponse> onAoiProcess(final Map requestData, String system) {
+
+        //Todo all tables should be in configuration in consul
+        final String keySpace = "images";
+        final String table = "aoi_single_component_image_1";
+
+        log.debug("starting  ingestion process for " + system);
+
+        Map<String, Object> payload = (Map) requestData.get("payload");
 
         try {
-            Insert insert = ConversionData.buildStatement(payload, (String)requestData.get("sender"));
+            Insert insert = ConversionData.buildStatement(payload, system, keySpace, table);
+            ConversionData.buildIndex(redisTemplate);
             cassandraDataTemplate.getReactiveCqlOperations()
                     .execute(insert).subscribe(
                     s -> {
-                        log.debug("insertion is successful");
+                        String index = ConversionData.onComplete();
+                        log.debug("Done insertion on "+system+" for index "+index);
                     });
-            AoiEntity entity = ConversionData.convert(payload);
-            //createIndex(entity, (String)requestData.get("sender"));
-            ConversionData.buildIndex(redisTemplate);
             return Mono.empty();
-        }catch (Exception e){
+        } catch (Exception e) {
+            String index = ConversionData.onComplete();
+            log.debug("Fail to insert system "+system+" for index "+index+
+                    "---"+Throwables.getStackTraceAsString(e));
             loggingService.onFailure(e, payload);
             return ServerResponse.badRequest().syncBody(e.getMessage());
         }
     }
-
-
-//    private void createIndex(AoiEntity entity, String system ){
-//
-//        try {
-//            String dateKey = entity.getKey().getDeviceType()
-//                    + "#" + entity.getKey().getHour() + "#" + entity.getKey().getMinute();
-//            String hourKey = entity.getKey().getDeviceType() +"#" + entity.getKey().getMinute();
-//            String primaryKey = entity.getKey().getDeviceType() +"#" + entity.getKey().getMinute()
-//                    + "#" + entity.getKey().getLabel() + "#" + entity.getKey().getCreatedTime();
-//
-//            redisTemplate.opsForSet().add("date"+":"+system+":"+entity.getKey().getCreatedDay(), dateKey).subscribe();
-//            redisTemplate.opsForSet().add("hour"+":"+system+":"+entity.getKey().getCreatedDay()+":"+entity.getKey().getHour(), hourKey).subscribe();
-//            redisTemplate.opsForSet().add("primary"+":"+system+":"+entity.getKey().getCreatedDay()+":"+entity.getKey().getHour(), primaryKey).subscribe();
-//            redisTemplate.opsForSet().add("device"+":"+system+":"+entity.getKey().getCreatedDay(), entity.getKey().getDeviceType()).subscribe();
-//        }catch (Exception e){
-//            log.error(Throwables.getStackTraceAsString(e));
-//        }
-//    }
-//    private void createIndex(AoiEntity entity, String system ){
-//
-//        try {
-//            String dateKey = entity.getKey().getDeviceType()
-//                +"#"+entity.getKey().getHour()+"#"+entity.getKey().getMinute()+"#"+entity.getKey().getSecond();
-//            String hourKey = entity.getKey().getDeviceType() +"#" + entity.getKey().getMinute()+"#"+entity.getKey().getSecond();;
-//            String primaryKey = entity.getKey().getDeviceType() +"#" + entity.getKey().getMinute()+"#"+entity.getKey().getSecond()
-//                + "#" + entity.getKey().getLabel() + "#" + entity.getKey().getCreatedTime();
-//
-//            redisTemplate.opsForSet().add("secDate"+":"+system+":"+entity.getKey().getCreatedDay(), dateKey).subscribe();
-//            redisTemplate.opsForSet().add("secHour"+":"+system+":"+entity.getKey().getCreatedDay()+":"+entity.getKey().getHour(), hourKey).subscribe();
-//            redisTemplate.opsForSet().add("secPrimary"+":"+system+":"+entity.getKey().getCreatedDay()+":"+entity.getKey().getHour(), primaryKey).subscribe();
-//        }catch (Exception e){
-//            log.error(Throwables.getStackTraceAsString(e));
-//        }
-//    }
-    private void createIndex(AoiEntity entity, String system ){
-
-        long mills =  entity.getKey().getCreatedTime().getTime();
-        try {
-//            String dateKey = entity.getKey().getDeviceType()
-//                +"#"+entity.getKey().getHour()+"#"+entity.getKey().getMinute()+"#"+entity.getKey().getSecond()
-//                    + "#" + entity.getKey().getLabel() + "#" + entity.getKey().getCreatedTime();
-//            String hourKey = entity.getKey().getDeviceType()+"#"+entity.getKey().getHour()+"#" + entity.getKey().getMinute()+"#"+entity.getKey().getSecond();;
-            String primaryKey = entity.getKey().getDeviceType()+"#"+entity.getKey().getHour() +"#" + entity.getKey().getMinute()+"#"+entity.getKey().getSecond()
-                + "#" + entity.getKey().getLabel() + "#" + mills;
-
-
-            redisTemplate.opsForZSet().add("secDate"+":"+system+":"+entity.getKey().getCreatedDay(),
-                    primaryKey, mills).subscribe();
-            redisTemplate.opsForZSet().add("secHour"+":"+system+":"+entity.getKey().getCreatedDay()+":"+entity.getKey().getHour(),
-                    primaryKey, mills).subscribe();
-            redisTemplate.opsForZSet().add("secDevice"+":"+system+":"+entity.getKey().getDeviceType(),
-                    primaryKey, mills).subscribe();
-            redisTemplate.opsForZSet().add("secTime"+":"+system+":"+mills,
-                    primaryKey, mills).subscribe();
-            redisTemplate.opsForZSet().add("secDeviceTime"+":"+system+":"+mills+":"+entity.getKey().getDeviceType(),
-                    primaryKey, mills).subscribe();
-
-    }catch (Exception e){
-        log.error(Throwables.getStackTraceAsString(e));
-    }
-}
  }
