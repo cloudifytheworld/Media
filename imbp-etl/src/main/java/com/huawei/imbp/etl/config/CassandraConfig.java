@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.cassandra.core.ReactiveCassandraOperations;
 import org.springframework.data.cassandra.core.ReactiveCassandraTemplate;
 import org.springframework.data.cassandra.core.cql.session.DefaultBridgedReactiveSession;
+import org.springframework.data.cassandra.repository.config.EnableReactiveCassandraRepositories;
 
 import java.util.Map;
 
@@ -37,8 +38,8 @@ public class CassandraConfig {
                 .setConnectionsPerHost(HostDistance.LOCAL, 1, 250);
 
         SocketOptions options = new SocketOptions();
-        options.setConnectTimeoutMillis(50000);
-        options.setReadTimeoutMillis(50000);
+        options.setConnectTimeoutMillis(5000);
+        options.setReadTimeoutMillis(5000);
         options.setTcpNoDelay(true);
 
         Cluster cluster = Cluster.builder()
