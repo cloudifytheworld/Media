@@ -19,7 +19,7 @@ import java.util.Map;
 
 @Configuration
 @RefreshScope
-public class CassandraDataConfig {
+public class CassandraConfig {
 
     @Value("#{${db.cassandra}}")
     public Map<String, String> cassandra;
@@ -43,6 +43,7 @@ public class CassandraDataConfig {
 
         Cluster cluster = Cluster.builder()
                 .addContactPoints(cassandra.get("contact-points").split(","))
+                .withQueryOptions(new QueryOptions().setConsistencyLevel(ConsistencyLevel.ONE))
                 .withPoolingOptions(poolingOptions)
                 .withLoadBalancingPolicy(new RoundRobinPolicy())
                 .withSocketOptions(options)

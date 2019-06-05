@@ -78,7 +78,7 @@ public class FileLoadService {
         }
     }
 
-    public void parseData(Payload payload) throws Exception{
+    public void parseData(Payload payload) {
 
         try {
             String fileName = payload.getFile_name();
@@ -102,7 +102,7 @@ public class FileLoadService {
             webClient.post().uri("http://localhost:8085/api/aoi/etl")
                     .syncBody(inputData)
                     .exchange().subscribe();
-            log.info(payload.getCreated_day());
+            log.debug(payload.getCreated_day());
         }catch (Exception ex){
             log.error(ex);
             count++;
