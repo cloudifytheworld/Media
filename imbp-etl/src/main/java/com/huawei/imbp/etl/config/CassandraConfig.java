@@ -52,7 +52,7 @@ public class CassandraConfig {
                 .withoutJMXReporting()
                 .build();
 
-        Session session = cluster.connect("images");
+        Session session = cluster.connect();
         ReactiveCassandraOperations template = new ReactiveCassandraTemplate(new DefaultBridgedReactiveSession(session));
         return template;
     }

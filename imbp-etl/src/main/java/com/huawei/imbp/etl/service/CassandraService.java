@@ -1,6 +1,8 @@
 package com.huawei.imbp.etl.service;
 
+import com.datastax.driver.core.querybuilder.Insert;
 import com.google.common.base.Throwables;
+import com.google.gson.Gson;
 import com.huawei.imbp.etl.entity.AoiEntity;
 import com.huawei.imbp.etl.transform.ConversionData;
 import lombok.extern.log4j.Log4j2;
@@ -40,9 +42,15 @@ public class CassandraService {
         Map<String, Object> payload = (Map)requestData.get("payload");
 
         try {
+            Insert insert = ConversionData.buildStatement(payload, (String)requestData.get("sender"));
+            cassandraDataTemplate.getReactiveCqlOperations()
+                    .execute(insert).subscribe(
+                    s -> {
+                        log.debug("insertion is successful");
+                    });
             AoiEntity entity = ConversionData.convert(payload);
-            cassandraDataTemplate.insert(entity).subscribe(s -> { log.debug("insertion is successful");});
-            createIndex(entity, (String)requestData.get("sender"));
+            //createIndex(entity, (String)requestData.get("sender"));
+            ConversionData.buildIndex(redisTemplate);
             return Mono.empty();
         }catch (Exception e){
             loggingService.onFailure(e, payload);
