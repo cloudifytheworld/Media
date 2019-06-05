@@ -7,9 +7,7 @@ import com.huawei.imbp.etl.config.ImbpEtlActionExtension;
 import com.huawei.imbp.etl.util.DataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.reactive.function.server.ServerRequest;
-import org.springframework.web.reactive.function.server.ServerResponse;
-import reactor.core.publisher.Mono;
+
 
 import javax.annotation.PostConstruct;
 import java.util.List;
@@ -42,14 +40,10 @@ public class LoggingService {
         secRunAction.tell(data, ActorRef.noSender());
     }
 
-    public Mono<ServerResponse> onFallback(String msg, String system, ServerRequest request, int timeout){
-
-        request.bodyToMono(Map.class).subscribe(s -> {
-            send(msg, system, s);
-        });
-
-        return ServerResponse.badRequest().syncBody(msg+",request is slower than defined timeout "+timeout);
+    public void onFallback(String msg, String system, Map<String, Object> payload){
+            send(msg, system, payload);
     }
+
     @PostConstruct
     public void init(){
         logAction = actorSystem.actorOf(imbpEtlActionExtension.props("logAction"));

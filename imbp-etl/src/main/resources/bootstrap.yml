@@ -1,6 +1,6 @@
 spring:
   application:
-    name: etl-service
+    name: imbp-etl
   cloud:
     consul:
       host: localhost

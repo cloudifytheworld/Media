@@ -7,7 +7,6 @@ package com.huawei.imbp.etl.common;
 
 public class ImbpCommon {
 
-    public final static String OK = "ok";
     public final static String SUCCESS = "success";
     public final static String FAIL = "fail";
     public final static String DUPLICATE = "duplicate";

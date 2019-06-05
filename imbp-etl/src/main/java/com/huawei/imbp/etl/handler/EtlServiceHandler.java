@@ -44,20 +44,20 @@ public class EtlServiceHandler {
 
     public Mono<ServerResponse> handleEtlService(ServerRequest serverRequest){
 
-        String system = serverRequest.pathVariable("system");
+        final String system = serverRequest.pathVariable("system");
         if (StringUtils.isEmpty(system)) {
-            return ServerResponse.badRequest().syncBody("must specify which system to ingest");
+            return ServerResponse.badRequest().syncBody("must specify which system to ingest in url");
         }
 
         log.debug("handling imbp-etl service for "+system);
 
-        Mono<ServerResponse> response = serverRequest.bodyToMono(Map.class).flatMap(s -> {
+        Mono<ServerResponse> response = serverRequest.bodyToMono(Map.class).flatMap(input -> {
 
                 try {
 
                     switch (system.toLowerCase()) {
                         case AOI:
-                            return cassandraService.onAoiProcess(s, system);
+                            return cassandraService.onAoiProcess(input, system);
                         default:
                             return ServerResponse.badRequest().syncBody(system + "is not supported");
                     }
@@ -69,8 +69,8 @@ public class EtlServiceHandler {
 
         Mono<ServerResponse> hystrixResponse = HystrixCommands
                 .from(response)
-                .commandName("ETL-process")
-                .groupName("ETLGroup")
+                .commandName(system+"-"+"ETL-Process")
+                .groupName(system+"-"+"ETL-Group")
                 .eager()
                 .commandProperties(HystrixCommandProperties.Setter()
                         .withExecutionIsolationStrategy(HystrixCommandProperties.ExecutionIsolationStrategy.SEMAPHORE)
@@ -78,10 +78,20 @@ public class EtlServiceHandler {
                         .withFallbackIsolationSemaphoreMaxConcurrentRequests(20)
                         .withExecutionTimeoutInMilliseconds(timeout)
                 )
-                .fallback(loggingService.onFallback("short circuit triggered ", system, serverRequest, timeout))
+                .fallback(onFallbackCall(system, serverRequest))
                 .toMono();
 
         return hystrixResponse;
+    }
+
+    private Mono<ServerResponse> onFallbackCall(String system, ServerRequest serverRequest){
+
+        final String errorMsg = "request is slower than defined timeout "+timeout;
+        serverRequest.bodyToMono(Map.class).subscribe(payload -> {
+            loggingService.onFallback(errorMsg, system, payload);
+        });
+
+        return ServerResponse.badRequest().syncBody(errorMsg);
     }
 
 }

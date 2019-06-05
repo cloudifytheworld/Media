@@ -2,8 +2,6 @@ package com.huawei.imbp.etl.service;
 
 import com.datastax.driver.core.querybuilder.Insert;
 import com.google.common.base.Throwables;
-import com.google.gson.Gson;
-import com.huawei.imbp.etl.entity.AoiEntity;
 import com.huawei.imbp.etl.transform.ConversionData;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +10,6 @@ import org.springframework.data.redis.core.ReactiveRedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
-
-
 
 import java.util.Map;
 
@@ -62,7 +58,7 @@ public class CassandraService {
             String index = ConversionData.onComplete();
             log.debug("Fail to insert system "+system+" for index "+index+
                     "---"+Throwables.getStackTraceAsString(e));
-            loggingService.onFailure(e, payload);
+            loggingService.onFailure(e, system, payload);
             return ServerResponse.badRequest().syncBody(e.getMessage());
         }
     }

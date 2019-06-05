@@ -33,11 +33,12 @@ public class SecRunAction extends UntypedAbstractActor {
         if(List.class.isInstance(message)){
             List<Map<String, Object>> data = List.class.cast(message);
             data.stream().forEach(d ->{
+                String system = (String)d.remove("system");
                 try{
-                    service.onAoiProcess(d);
+                    service.onAoiProcess(d, system);
                 }catch (Exception e){
                     log.error(e.getMessage());
-                    loggingService.onFailure(e, d);
+                    loggingService.onFailure(e, system, d);
                 }
 
             });

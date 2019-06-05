@@ -110,6 +110,7 @@ public class SecLogService {
         try {
             String id = input.getId();
             String msg = input.getErrorMsg();
+            String system = input.getSystem();
 
             IndexEntity dataValue = indexMap.get(id);
             if(dataValue != null) {
@@ -120,9 +121,11 @@ public class SecLogService {
                 return false;
             }
             dataValue = new IndexEntity();
+            //Todo add system to index file
             Long value = createIndexData(msg, id, length);
             dataValue.setIndex(value);
             dataValue.setErrorMsg(msg);
+            dataValue.setSystem(system);
             indexMap.put(id, dataValue);
         }catch (Exception e){
             log.error(Throwables.getStackTraceAsString(e));
@@ -399,6 +402,8 @@ public class SecLogService {
                     Long index = indexEntity.getIndex();
                     if ((index & 1) != 1) {
                         Map<String, Object> obj = getSecMapData(indexEntity, rand);
+                        //Todo Temp solution
+                        obj.put("system",indexEntity.getSystem());
                         data.add(obj);
                     }
                 }catch (Exception e){
