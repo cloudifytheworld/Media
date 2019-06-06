@@ -32,6 +32,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -148,8 +149,8 @@ public class CassandraThreadedService {
 
         indexes.stream().forEach( index -> {
             String[] keys = index.split("#");
-            ResultSetFuture resultSetFuture = cassandraSession.executeAsync(statement.bind(date, keys[0]
-                    , Integer.parseInt(keys[1]), Integer.parseInt(keys[2]), Integer.parseInt(keys[3]), keys[4]));
+            ResultSetFuture resultSetFuture = cassandraSession.executeAsync(statement.bind(keys[0], keys[1]
+                    , Integer.parseInt(keys[2]), Integer.parseInt(keys[3]), Integer.parseInt(keys[4]), keys[5], new Timestamp(Long.parseLong(keys[6]))));
             futuresData.add(resultSetFuture);
 
             if(count.incrementAndGet()%renderLimit == 0 || count.get() == indexSize){
@@ -157,16 +158,16 @@ public class CassandraThreadedService {
                 for (ListenableFuture<ResultSet> future : futureLists) {
                     try {
                         ResultSet rs = future.get();
-                        List<Row> rows = rs.all();
+//                        List<Row> rows = rs.all();
 
-                        rows.stream().forEach(s -> {
-                            Aoi aoi = EntityMappingUtil.mappingAoi(s);
+//                        rows.stream().forEach(s -> {
+                            Aoi aoi = EntityMappingUtil.mappingAoi(rs.one());
                             byte[] data = aoi.toString().getBytes();
                             StatisticManager.total += data.length;
                             ByteBuffer buffer = ByteBuffer.wrap(data);
-                            send.write(buffer);
-                            //WriteToFile.writeToFile(aoi);
-                        });
+                            //send.write(buffer);
+                            WriteToFile.writeToFile(aoi);
+//                        });
 
                     } catch (Exception e) {
                         log.error(Throwables.getStackTraceAsString(e));

@@ -13,6 +13,7 @@ import com.google.common.base.Throwables;
 import com.google.common.util.concurrent.AtomicDouble;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
+import com.huawei.imbp.rt.common.Constant;
 import com.huawei.imbp.rt.common.InputParameter;
 import com.huawei.imbp.rt.common.JobStatus;
 import com.huawei.imbp.rt.config.ImbpRtActionExtension;
@@ -129,12 +130,12 @@ public class CassandraAsyncService {
 
         InetSocketAddress serverAddress = new InetSocketAddress(server, port);
         DataSender send = new DataSender(serverAddress);
-        CountDownLatch latch = new CountDownLatch(4);
+        CountDownLatch latch = new CountDownLatch(2);
 
         long start = System.currentTimeMillis();
         Semaphore semaphore = new Semaphore(renderLimit);
-        ThreadServiceManage manage = new ThreadServiceManage(4);
-        QueueService<Aoi> queue = new QueueService<>();
+        ThreadServiceManage manage = new ThreadServiceManage(2);
+        QueueService<String> queue = new QueueService<>();
         IntStream.range(0, 4).forEach(s -> {
             DataSender sender = new DataSender(serverAddress);
             manage.submit(new Task(s, queue, sender, latch, total));
@@ -164,7 +165,7 @@ public class CassandraAsyncService {
 //                    ByteBuffer buffer = ByteBuffer.wrap(data);
 //                    //send.write(buffer);
 //                    WriteToFile.writeToFile(aoi);
-                    queue.add(aoi);
+                    queue.add(aoi.toString());
 
                 });
                 semaphore.release();
@@ -184,13 +185,18 @@ public class CassandraAsyncService {
 
         });
 
-  //      send.close(input.getGroupId()+":"+input.getClientId()+":"+ JobStatus.complete);
         try {
             latch.await();
+            queue.add(Constant.END_MARKER+":"+input.getGroupId()+":"+input.getClientId()+":"+ JobStatus.complete);
+            queue.add(Constant.END_MARKER+":"+input.getGroupId()+":"+input.getClientId()+":"+ JobStatus.complete);
+
+            //      send.close(Constant.END_MARKER+":"+input.getGroupId()+":"+input.getClientId()+":"+ JobStatus.complete);
+
             manage.close();
         }catch (Exception e){
             log.error(e.getMessage());
         }
+
         long last = (System.currentTimeMillis() - start)/1000;
         log.info(date+" takes "+last+" seconds, total files "+count.get()+", total size(M) "+total.get()/1000000);
 

@@ -1,5 +1,6 @@
 package com.huawei.imbp.rt.thread;
 
+import com.huawei.imbp.rt.common.Constant;
 import com.huawei.imbp.rt.entity.Aoi;
 import com.huawei.imbp.rt.service.QueueService;
 import com.huawei.imbp.rt.transfer.DataSender;
@@ -18,7 +19,7 @@ import java.util.concurrent.atomic.AtomicLong;
 @Log4j2
 public class Task implements Runnable{
 
-    QueueService<Aoi> queue;
+    QueueService<String> queue;
     DataSender send;
     CountDownLatch latch;
     AtomicLong bytes;
@@ -36,15 +37,16 @@ public class Task implements Runnable{
 
         try {
 
-            Thread.sleep(5000);
-            while (!queue.hasNext()) {
-                Aoi aoi = queue.poll();
-                byte[] data = aoi.toString().getBytes();
+            Thread.sleep(2000);
+            String aoi = queue.poll();
+            while (!aoi.contains(Constant.END_MARKER)) {
+                byte[] data = aoi.getBytes();
                 bytes.addAndGet(data.length);
                 WriteToFile.writeToFile(data);
 //                byte[] data = aoi.toString().getBytes();
 //                ByteBuffer buffer = ByteBuffer.wrap(data);
 //                send.write(buffer);
+                aoi = queue.poll();
             }
         }catch (Exception e){
             log.error(e);

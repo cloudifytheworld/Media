@@ -52,10 +52,10 @@ public class DataSender {
         }
     }
 
-    public void close(String status){
+    public void close(String end){
 
         try {
-            String end = Constant.END_MARKER+":"+status;
+
             ByteBuffer buffer = ByteBuffer.wrap(end.getBytes());
             write(buffer);
             sockChannel.shutdownInput();

@@ -44,8 +44,8 @@ public class FileAction extends UntypedAbstractActor {
         }
 
         if(ClientData.class.isInstance(msg)){
-//            service.getDataByDate((ClientData)msg);
-            asyncService.getDataByDate((ClientData)msg);
+            service.getDataByDate((ClientData)msg);
+//            asyncService.getDataByDate((ClientData)msg);
         }
     }
 
