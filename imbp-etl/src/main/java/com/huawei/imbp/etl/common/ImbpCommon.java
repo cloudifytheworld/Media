@@ -10,7 +10,6 @@ public class ImbpCommon {
     public final static String SUCCESS = "success";
     public final static String FAIL = "fail";
     public final static String DUPLICATE = "duplicate";
-    public final static String AOI = "aoi";
 
     public final static String TEXT = "text";
     public final static String TIMESTAMP = "timestamp";

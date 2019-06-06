@@ -64,7 +64,7 @@ public class ConversionData {
         return aoiEntity;
     }
 
-
+    //Todo All primary throw exception when null
     public static Insert buildStatement(Map<String, Object> payload, String system, String keySpace, String table) throws Exception{
 
         Insert insert = QueryBuilder.insertInto(keySpace, table);
@@ -122,13 +122,14 @@ public class ConversionData {
                         primaryKey, mills).subscribe();
                 redisTemplate.opsForZSet().add("secDeviceTime" + ":" + system + ":" + mills + ":" + device_type,
                         primaryKey, mills).subscribe();
+                log.debug("index build in redis "+system + ":" + created_day+":"+primaryKey);
             }catch (Exception e){
                 log.error(system + ":" + created_day+":"+primaryKey+"---"+e.getMessage());
                 throw new ImbpException().setMessage("Can't insert index for "+primaryKey+"--"+e.getMessage());
             }
         });
 
-        logMessage(() -> primaryKey);
+        logMessage(() -> created_day+"#"+primaryKey);
         return insert;
     }
 

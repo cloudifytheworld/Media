@@ -1,7 +1,6 @@
 package com.huawei.imbp.etl.service;
 
 import com.datastax.driver.core.querybuilder.Insert;
-import com.google.common.base.Throwables;
 import com.huawei.imbp.etl.transform.ConversionData;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,7 @@ import java.util.Map;
 
 /**
  * @author Charles(Li) Cai
- * @date 2/15/2019
+ * @date 5/15/2019
  */
 
 @Component
@@ -34,7 +33,7 @@ public class CassandraService {
 
 
 
-    public Mono<ServerResponse> onAoiProcess(final Map requestData, String system) {
+    public Mono<ServerResponse> onAoiProcess(final Map requestData, final String system) throws Exception {
 
         //Todo all tables should be in configuration in consul
         final String keySpace = "images";
@@ -47,19 +46,21 @@ public class CassandraService {
         try {
             Insert insert = ConversionData.buildStatement(payload, system, keySpace, table);
             ConversionData.buildIndex(redisTemplate);
-            cassandraDataTemplate.getReactiveCqlOperations()
-                    .execute(insert).subscribe(
-                    s -> {
-                        String index = ConversionData.onComplete();
-                        log.debug("Done insertion on "+system+" for index "+index);
-                    });
+
+            cassandraDataTemplate.getReactiveCqlOperations().execute(insert)
+                    .doOnError( e ->
+                        loggingService.onFailure(e, system, requestData)
+                    ).subscribe(
+                            success -> log.debug("Done insertion on "+system+" for index " +
+                                    ConversionData.onComplete()),
+                            error -> log.debug("Fail to insert system "+system+" for index " +
+                                    ConversionData.onComplete()+" on Error "+error)
+            );
             return Mono.empty();
         } catch (Exception e) {
-            String index = ConversionData.onComplete();
-            log.debug("Fail to insert system "+system+" for index "+index+
-                    "---"+Throwables.getStackTraceAsString(e));
-            loggingService.onFailure(e, system, payload);
-            return ServerResponse.badRequest().syncBody(e.getMessage());
+            loggingService.onFailure(e, system, requestData);
+            throw e;
         }
+
     }
  }

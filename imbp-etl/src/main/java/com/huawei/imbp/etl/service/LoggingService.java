@@ -32,15 +32,15 @@ public class LoggingService {
     private ActorRef secRunAction;
 
 
-    public void onFailure(Throwable ex, String system, Map<String, Object> input){
+    public void onFailure(final Throwable ex, final String system, final Map<String, Object> input){
         send(ex.getMessage(), system, input);
     }
 
-    public void onRun(List<Map<String, Object>> data){
+    public void onRun(final List<Map<String, Object>> data){
         secRunAction.tell(data, ActorRef.noSender());
     }
 
-    public void onFallback(String msg, String system, Map<String, Object> payload){
+    public void onFallback(final String msg, final String system, final Map<String, Object> payload){
             send(msg, system, payload);
     }
 
@@ -51,7 +51,7 @@ public class LoggingService {
         secRunAction = actorSystem.actorOf(imbpEtlActionExtension.props("secRunAction"));
     }
 
-    private void send(String msg, String system, Map<String, Object> input){
+    private void send(final String msg, final String system, final Map<String, Object> input){
 
         String id = DataUtil.createId(input);
 

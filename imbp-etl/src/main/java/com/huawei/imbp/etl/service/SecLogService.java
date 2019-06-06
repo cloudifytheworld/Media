@@ -122,7 +122,7 @@ public class SecLogService {
             }
             dataValue = new IndexEntity();
             //Todo add system to index file
-            Long value = createIndexData(msg, id, length);
+            Long value = createIndexData(msg, id, system, length);
             dataValue.setIndex(value);
             dataValue.setErrorMsg(msg);
             dataValue.setSystem(system);
@@ -144,7 +144,8 @@ public class SecLogService {
                     IndexEntity dataValue = new IndexEntity();
                     String[] line = s.split(":");
                     dataValue.setIndex(Long.parseLong(line[1]));
-                    dataValue.setErrorMsg(line[2]);
+                    dataValue.setSystem(line[2]);
+                    dataValue.setErrorMsg(line[3]);
                     indexMap.put(line[0], dataValue);
                 });
                 String line = lines.get(lines.size() - 1);
@@ -169,7 +170,7 @@ public class SecLogService {
                     byte[] data = new byte[size];
                     rand.read(data, 0, size);
                     Map obj = (Map)ObjectConversion.toObject(data);
-                    setSecEntity(actionEntities, obj, k, v.getErrorMsg());
+                    setSecEntity(actionEntities, obj, k, v.getSystem(), v.getErrorMsg());
                 }catch (Exception ex){
                     log.error("failed to load "+k+" sec data "+Throwables.getStackTraceAsString(ex));
                 }
@@ -221,20 +222,20 @@ public class SecLogService {
         try {
             RandomAccessFile rand = new RandomAccessFile(secLocation + secLogName, "r");
             Arrays.stream(ids).forEach(id -> {
+                IndexEntity indexEntity = indexMap.get(id);
                 try {
-                    IndexEntity indexEntity = indexMap.get(id);
                     if(indexEntity == null) throw new ImbpException().setMessage("NO SUCH ID");
                     Map<String, Object> obj = getSecMapData(indexEntity, rand);
-                    setSecEntity(actionEntities, obj, id, indexEntity.getErrorMsg());
+                    setSecEntity(actionEntities, obj, id, indexEntity.getSystem(), indexEntity.getErrorMsg());
                 }catch (Exception e){
                     log.debug("failed to load "+id+" from sec data "+Throwables.getStackTraceAsString(e));
-                    setSecEntity(actionEntities, null, id, "failed to load "+id+" from sec data "+e.getMessage());
+                    setSecEntity(actionEntities, null, id, null, "failed to load "+id+" from sec data "+e.getMessage());
                 }
             });
             rand.close();
         }catch (Exception ex){
             log.error(Throwables.getStackTraceAsString(ex));
-            setSecEntity(actionEntities, null, null, "failed to load sec data "+ex.getMessage());
+            setSecEntity(actionEntities, null, null, null,"failed to load sec data "+ex.getMessage());
         }
 
         return actionEntities;
@@ -262,6 +263,7 @@ public class SecLogService {
             }
 
             Map<String, Object> payload = actionEntity.getInput();
+            String system = actionEntity.getSystem();
             if(payload == null || payload.size() == 0){
                 resultEntity.setStatus(ImbpCommon.FAIL);
                 resultEntity.setMessage(inputId+" is empty");
@@ -278,10 +280,11 @@ public class SecLogService {
             byte[] data = ObjectConversion.toByteArray(payload);
             int size = data.length;
             String errorMsg = actionEntity.getErrorMsg()+"--"+ImbpCommon.UPDATED;
-            long value = createIndexData(errorMsg, id, size);
+            long value = createIndexData(errorMsg, id, system, size);
             Files.write(secLogPath, data, StandardOpenOption.APPEND);
             newIndexEntity.setIndex(value);
             newIndexEntity.setErrorMsg(errorMsg);
+            newIndexEntity.setSystem(system);
             reset(actionEntity.getId(), false);
             indexMap.put(id, newIndexEntity);
         }catch (Exception ex){
@@ -355,6 +358,8 @@ public class SecLogService {
                     Long index = indexEntity.getIndex();
                     if((index & 1) != 1) {
                         Map<String, Object> obj = getSecMapData(indexEntity, rand);
+                        //Todo Temp solution
+                        obj.put("system",indexEntity.getSystem());
                         lists.add(obj);
                         reset(k, false);
                     }else{
@@ -428,11 +433,11 @@ public class SecLogService {
         return resultEntity;
     }
 
-    private long createIndexData(String msg, String id, long size) throws Exception{
+    private long createIndexData(String msg, String id, String system, long size) throws Exception{
 
         long value = offset << 1 | size << 32;
         offset += size;
-        String index = id+":"+value+":"+msg+System.lineSeparator();
+        String index = id+":"+value+":"+system+":"+msg+System.lineSeparator();
         Files.write(indexPath, index.getBytes(), StandardOpenOption.APPEND);
         return value;
     }
@@ -447,7 +452,7 @@ public class SecLogService {
             indexEntity.setIndex(nx);
             String value = id+":"+nx+":"+indexEntity.getErrorMsg()+System.lineSeparator();
             RandomAccessFile rand = new RandomAccessFile(secLocation+indexName, "rw");
-            String line = null;
+            String line;
             while((line = rand.readLine()) != null){
                 if(line.contains(id+":"+index)){
                     rand.seek(rand.getFilePointer()-line.getBytes().length-System.lineSeparator().getBytes().length);
@@ -463,11 +468,12 @@ public class SecLogService {
     }
 
 
-    private void setSecEntity(List<ActionEntity> actionEntities, Map<String, Object> obj, String id, String errorMsg){
+    private void setSecEntity(List<ActionEntity> actionEntities, Map<String, Object> obj, String id, String system, String errorMsg){
 
         ActionEntity actionEntity = new ActionEntity();
         actionEntity.setId(id);
         actionEntity.setInput(obj);
+        actionEntity.setSystem(system);
         actionEntity.setErrorMsg(errorMsg);
         actionEntities.add(actionEntity);
     }
