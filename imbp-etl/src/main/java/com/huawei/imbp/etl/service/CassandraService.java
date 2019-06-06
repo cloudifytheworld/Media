@@ -33,7 +33,7 @@ public class CassandraService {
 
 
 
-    public Mono<ServerResponse> onAoiProcess(final Map requestData, final String system) throws Exception {
+    public Mono<ServerResponse> onAoiProcess(final Map payload, final String system) throws Exception {
 
         //Todo all tables should be in configuration in consul
         final String keySpace = "images";
@@ -41,7 +41,6 @@ public class CassandraService {
 
         log.debug("starting  ingestion process for " + system);
 
-        Map<String, Object> payload = (Map) requestData.get("payload");
 
         try {
             Insert insert = ConversionData.buildStatement(payload, system, keySpace, table);
@@ -49,7 +48,7 @@ public class CassandraService {
 
             cassandraDataTemplate.getReactiveCqlOperations().execute(insert)
                     .doOnError( e ->
-                        loggingService.onFailure(e, system, requestData)
+                        loggingService.onFailure(e, system, payload)
                     ).subscribe(
                             success -> log.debug("Done insertion on "+system+" for index " +
                                     ConversionData.onComplete()),
@@ -58,7 +57,7 @@ public class CassandraService {
             );
             return Mono.empty();
         } catch (Exception e) {
-            loggingService.onFailure(e, system, requestData);
+            loggingService.onFailure(e, system, payload);
             throw e;
         }
 

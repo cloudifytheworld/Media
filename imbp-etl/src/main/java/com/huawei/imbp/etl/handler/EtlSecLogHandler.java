@@ -55,7 +55,7 @@ public class EtlSecLogHandler {
         ResultEntity result;
         Optional<String> all = serverRequest.queryParam("all");
 
-        if(all.isPresent()){
+        if(all.isPresent() && Boolean.valueOf(all.get())){
             result = secLogService.replayAllData();
         }else{
             Optional<String> data = serverRequest.queryParam("id");
@@ -71,7 +71,7 @@ public class EtlSecLogHandler {
         ResultEntity result;
         Optional<String> all = serverRequest.queryParam("all");
 
-        if(all.isPresent()){
+        if(all.isPresent() && Boolean.valueOf(all.get())){
             result = secLogService.deleteAllData();
         }else{
             Optional<String> ids = serverRequest.queryParam("id");

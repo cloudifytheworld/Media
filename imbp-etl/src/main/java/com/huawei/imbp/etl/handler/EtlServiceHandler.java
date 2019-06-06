@@ -54,7 +54,8 @@ public class EtlServiceHandler {
 
                     switch (OnSystem.valueOf(system.toLowerCase())) {
                         case aoi:
-                            return cassandraService.onAoiProcess(input, system);
+                            Map<String, Object> payload = (Map) input.get("payload");
+                            return cassandraService.onAoiProcess(payload, system);
                         default:
                             return ServerResponse.badRequest().syncBody(system + "is not supported");
                     }
@@ -87,9 +88,13 @@ public class EtlServiceHandler {
 
         final String errorMsg = system+" request is slower than defined timeout "+timeout;
 
-        serverRequest.bodyToMono(Map.class).subscribe(payload -> {
-            loggingService.onFallback(errorMsg, system, payload);
-        });
+        serverRequest.bodyToMono(Map.class).subscribe(
+                input -> {
+                    Map<String, Object> payload = (Map) input.get("payload");
+                    loggingService.onFallback(errorMsg, system, payload);
+                    },
+                error -> {}
+        );
 
         return ServerResponse.badRequest().syncBody(errorMsg);
     }

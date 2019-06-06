@@ -26,7 +26,7 @@ public class LogAction extends UntypedAbstractActor {
         }else if(String.class.isInstance(msg)){
             onErrorMsg((String)msg);
         }else if(ActionEntity.class.isInstance(msg)){
-            //push
+            //Todo push to distributed logging system
         }
 
     }
