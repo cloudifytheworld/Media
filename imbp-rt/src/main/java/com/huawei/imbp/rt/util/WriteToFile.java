@@ -28,7 +28,7 @@ public class WriteToFile {
 
     static{
         try {
-            File file = new File("D://project//data//test"+ Math.random()+1+".txt");
+            File file = new File("D://work//file//"+Math.random()+1+".txt");
             filePath = Paths.get(file.getPath());
             file.createNewFile();
         }catch (Exception e){

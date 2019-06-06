@@ -76,7 +76,8 @@ public class CassandraThreadedService {
     @PostConstruct
     private void init(){
 //        statement = cassandraSession.prepare("SELECT * FROM images.aoi_single_component_image_1 where created_day = ? and device_type = ? and hour = ? and mins = ? ALLOW FILTERING");
-        statement = cassandraSession.prepare("SELECT * FROM images.aoi_single_component_image_1 where created_day = ? and device_type = ? and hour = ? and mins = ? and sec = ? and label = ? ALLOW FILTERING");
+        statement = cassandraSession.prepare("SELECT * FROM images.aoi_single_component_image_1 where created_day = ? and device_type = ? and hour = ? and mins = ? and sec = ? " +
+                "and label = ? and created_time = ? ALLOW FILTERING");
 
     }
 
