@@ -20,6 +20,8 @@ import com.huawei.imbp.rt.entity.Aoi;
 import com.huawei.imbp.rt.entity.AoiEntity;
 import com.huawei.imbp.rt.entity.DateDevice;
 import com.huawei.imbp.rt.repository.AoiRepository;
+import com.huawei.imbp.rt.thread.Task;
+import com.huawei.imbp.rt.thread.ThreadServiceManage;
 import com.huawei.imbp.rt.transfer.ClientData;
 import com.huawei.imbp.rt.transfer.DataSender;
 import com.huawei.imbp.rt.transfer.JobStorage;
@@ -43,6 +45,7 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import scala.Int;
+import scala.collection.immutable.Stream;
 
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
@@ -52,6 +55,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.IntStream;
 
 /**
  * @author Charles(Li) Cai
@@ -125,10 +129,18 @@ public class CassandraAsyncService {
 
         InetSocketAddress serverAddress = new InetSocketAddress(server, port);
         DataSender send = new DataSender(serverAddress);
+        CountDownLatch latch = new CountDownLatch(4);
 
         long start = System.currentTimeMillis();
         Semaphore semaphore = new Semaphore(renderLimit);
-        Set<String> indexes = redisTemplate.boundZSetOps("secDate:"+input.getSystem() + ":" + date).rangeByScore(1541055600000l,1541141999000l);
+        ThreadServiceManage manage = new ThreadServiceManage(4);
+        QueueService<Aoi> queue = new QueueService<>();
+        IntStream.range(0, 4).forEach(s -> {
+            DataSender sender = new DataSender(serverAddress);
+            manage.submit(new Task(s, queue, sender, latch, total));
+        });
+        //Set<String> indexes = redisTemplate.boundZSetOps("secDate:"+input.getSystem() + ":" + date).rangeByScore(1541055600000l,1541141999000l);
+        Set<String> indexes = redisTemplate.boundSetOps("date:"+input.getSystem() + ":" + date).members();
 
         indexes.stream().forEach( index -> {
             String[] keys = index.split("#");
@@ -136,32 +148,34 @@ public class CassandraAsyncService {
                 semaphore.acquire();
                 Select select = QueryBuilder.select().all().from("images", "aoi_single_component_image_1");
 
-                select.where(QueryBuilder.eq("created_day", input.getStartDate()))
-                        .and(QueryBuilder.eq("device_type", keys[0]))
-                        .and(QueryBuilder.eq("hour", Integer.parseInt(keys[1])))
-                        .and(QueryBuilder.eq("mins", Integer.parseInt(keys[2])))
-                        .and(QueryBuilder.eq("sec", Integer.parseInt(keys[3])))
-                        .and(QueryBuilder.eq("label", keys[4]))
-                        .and(QueryBuilder.eq("created_time", Long.parseLong(keys[5])));
-                        //.allowFiltering();
+                select.where(QueryBuilder.eq("created_day", keys[0]))
+                        .and(QueryBuilder.eq("device_type", keys[1]))
+                        .and(QueryBuilder.eq("hour", Integer.parseInt(keys[2])))
+                        .and(QueryBuilder.eq("mins", Integer.parseInt(keys[3])))
+                        .and(QueryBuilder.eq("sec", Integer.parseInt(keys[4])))
+//                        .and(QueryBuilder.eq("label", keys[5]))
+//                        .and(QueryBuilder.eq("created_time", Long.parseLong(keys[6])));
+                        .allowFiltering();
 
-//                Flux<Aoi> aois = cassandraDataSession.select(select, Aoi.class);
-//                aois.subscribe( aoi -> {
+                Flux<Aoi> aois = cassandraDataSession.select(select, Aoi.class);
+                aois.subscribe( aoi -> {
 //                    byte[] data = aoi.toString().getBytes();
-//                    StatisticManager.total += data.length;
+//                    total.addAndGet(data.length);
 //                    ByteBuffer buffer = ByteBuffer.wrap(data);
-//                    send.write(buffer);
+//                    //send.write(buffer);
+//                    WriteToFile.writeToFile(aoi);
+                    queue.add(aoi);
+
+                });
+                semaphore.release();
+//                cassandraDataSession.selectOne(select, Aoi.class).subscribe(aoi ->{
+//                    byte[] data = aoi.toString().getBytes();
+//                    total.addAndGet(data.length);
+//                    ByteBuffer buffer = ByteBuffer.wrap(data);
+//                    //send.write(buffer);
 //                    WriteToFile.writeToFile(aoi);
 //                    semaphore.release();
 //                });
-                cassandraDataSession.selectOne(select, Aoi.class).subscribe(aoi ->{
-                    byte[] data = aoi.toString().getBytes();
-                    total.addAndGet(data.length);
-                    ByteBuffer buffer = ByteBuffer.wrap(data);
-                    //send.write(buffer);
-                    WriteToFile.writeToFile(aoi);
-                    semaphore.release();
-                });
                 int number = count.incrementAndGet();
             }catch (Exception e){
                 log.error(Throwables.getStackTraceAsString(e));
@@ -170,7 +184,13 @@ public class CassandraAsyncService {
 
         });
 
-        send.close(input.getGroupId()+":"+input.getClientId()+":"+ JobStatus.complete);
+  //      send.close(input.getGroupId()+":"+input.getClientId()+":"+ JobStatus.complete);
+        try {
+            latch.await();
+            manage.close();
+        }catch (Exception e){
+            log.error(e.getMessage());
+        }
         long last = (System.currentTimeMillis() - start)/1000;
         log.info(date+" takes "+last+" seconds, total files "+count.get()+", total size(M) "+total.get()/1000000);
 

@@ -28,7 +28,7 @@ public class WriteToFile {
 
     static{
         try {
-            File file = new File("D://work//file//"+Math.random()+1+".txt");
+            File file = new File("D://work//file//"+(Math.random()+1)+".txt");
             filePath = Paths.get(file.getPath());
             file.createNewFile();
         }catch (Exception e){
@@ -144,4 +144,23 @@ public class WriteToFile {
         }
     }
 
+    public static void writeToFile(byte[] aoi){
+
+        try{
+            Files.write(filePath, aoi, StandardOpenOption.APPEND);
+        }catch (Exception e){
+            log.error(Throwables.getStackTraceAsString(e));
+        }
+    }
+//    public static void writeToFile(Flux rows){
+//
+//        rows.forEach( r -> {
+//            try {
+//                Aoi aoi = EntityMappingUtil.mappingAoi(r);
+//                Files.write(filePath, aoi.toString().getBytes(), StandardOpenOption.APPEND);
+//            }catch (Exception e){
+//                log.error(Throwables.getStackTraceAsString(e));
+//            }
+//        });
+//    }
 }

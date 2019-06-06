@@ -44,14 +44,14 @@ public class CassandraService {
             Insert insert = ConversionData.buildStatement(payload, system, keySpace, table);
             final String key = ConversionData.buildIndex(redisTemplate);
 
-            cassandraDataTemplate.getReactiveCqlOperations().execute(insert)
-                    .doOnError( e ->
-                        loggingService.onFailure(e, system, payload)
-                    ).subscribe(
-                            success -> log.debug("Done insertion on "+system+" for index "+key),
-                            error -> log.debug("Fail to insert system "+system+" for index " +
-                                    key+" on Error "+error)
-            );
+//            cassandraDataTemplate.getReactiveCqlOperations().execute(insert)
+//                    .doOnError( e ->
+//                        loggingService.onFailure(e, system, payload)
+//                    ).subscribe(
+//                            success -> log.debug("Done insertion on "+system+" for index "+key),
+//                            error -> log.debug("Fail to insert system "+system+" for index " +
+//                                    key+" on Error "+error)
+//            );
             return Mono.empty();
         } catch (Exception e) {
             loggingService.onFailure(e, system, payload);

@@ -100,7 +100,7 @@ public class FileLoadService {
             webClient.post().uri("http://localhost:8085/api/aoi/etl")
                     .syncBody(inputData)
                     .exchange().subscribe();
-            log.debug(payload.getCreated_day());
+            log.info(payload.getCreated_day());
         }catch (Exception ex){
             log.error(ex);
             count++;

@@ -95,6 +95,8 @@ public class ConversionData {
 
         String primaryKey = device_type+"#"+hour +"#" + minute+"#"+second
                 + "#" + label + "#" + mills;
+        String partitionKey = created_day+"#"+device_type+"#"+hour+"#"+minute+"#"+second;
+        String clusterKey = label+"#"+mills;
 
         //columns
         insert.value("board_id", payload.get("board_id"));
@@ -110,16 +112,18 @@ public class ConversionData {
         index((redisTemplate) ->{
 
             try {
-                redisTemplate.opsForZSet().add("secDate" + ":" + system + ":" + created_day,
-                        primaryKey, mills).subscribe();
-                redisTemplate.opsForZSet().add("secHour" + ":" + system + ":" + created_day + ":" + hour,
-                        primaryKey, mills).subscribe();
-                redisTemplate.opsForZSet().add("secDevice" + ":" + system + ":" + device_type,
-                        primaryKey, mills).subscribe();
-                redisTemplate.opsForZSet().add("secTime" + ":" + system + ":" + mills,
-                        primaryKey, mills).subscribe();
-                redisTemplate.opsForZSet().add("secDeviceTime" + ":" + system + ":" + mills + ":" + device_type,
-                        primaryKey, mills).subscribe();
+//                redisTemplate.opsForZSet().add("secDate" + ":" + system + ":" + created_day,
+//                        partitionKey+"#"+clusterKey, mills).subscribe();
+                redisTemplate.opsForSet().add("date" + ":" + system + ":" + created_day,
+                        partitionKey).subscribe();
+//                redisTemplate.opsForZSet().add("secHour" + ":" + system + ":" + created_day + ":" + hour,
+//                        primaryKey, mills).subscribe();
+//                redisTemplate.opsForZSet().add("secDevice" + ":" + system + ":" + device_type,
+//                        primaryKey, mills).subscribe();
+//                redisTemplate.opsForZSet().add("secTime" + ":" + system + ":" + mills,
+//                        primaryKey, mills).subscribe();
+//                redisTemplate.opsForZSet().add("secDeviceTime" + ":" + system + ":" + mills + ":" + device_type,
+//                        primaryKey, mills).subscribe();
                 String key = system + ":" + created_day+":"+primaryKey;
                 return key;
             }catch (Exception e){;
