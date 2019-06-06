@@ -47,8 +47,8 @@ public class EtlServiceHandler {
             return ServerResponse.badRequest().syncBody("must specify which system to ingest in url");
         }
 
-
         Mono<ServerResponse> response = serverRequest.bodyToMono(Map.class).flatMap(input -> {
+
                 log.debug("handling imbp-etl service for "+system);
                 try {
 

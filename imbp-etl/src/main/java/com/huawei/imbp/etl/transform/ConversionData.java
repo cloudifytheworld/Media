@@ -3,7 +3,6 @@ package com.huawei.imbp.etl.transform;
 import com.datastax.driver.core.querybuilder.Insert;
 import com.datastax.driver.core.querybuilder.QueryBuilder;
 import com.huawei.imbp.etl.build.OnIndexBuild;
-import com.huawei.imbp.etl.build.OnLogBuild;
 import com.huawei.imbp.etl.common.DataType;
 import com.huawei.imbp.etl.common.ImbpException;
 import com.huawei.imbp.etl.entity.AoiEntity;
@@ -26,7 +25,6 @@ import java.util.Map;
 public class ConversionData {
 
     static OnIndexBuild onIndexBuild;
-    static OnLogBuild onLogBuild;
 
     public static AoiEntity convert(Map<String, Object> payload) throws Exception{
 
@@ -122,31 +120,23 @@ public class ConversionData {
                         primaryKey, mills).subscribe();
                 redisTemplate.opsForZSet().add("secDeviceTime" + ":" + system + ":" + mills + ":" + device_type,
                         primaryKey, mills).subscribe();
-                log.debug("index build in redis "+system + ":" + created_day+":"+primaryKey);
-            }catch (Exception e){
+                String key = system + ":" + created_day+":"+primaryKey;
+                return key;
+            }catch (Exception e){;
                 log.error(system + ":" + created_day+":"+primaryKey+"---"+e.getMessage());
                 throw new ImbpException().setMessage("Can't insert index for "+primaryKey+"--"+e.getMessage());
             }
         });
 
-        logMessage(() -> created_day+"#"+primaryKey);
         return insert;
     }
 
-    public static String logMessage(OnLogBuild onLogBuild){
-        ConversionData.onLogBuild = onLogBuild;
-        return onLogBuild.onLogMsgBuild();
-    }
 
     public static void index(OnIndexBuild onIndexBuild){
         ConversionData.onIndexBuild = onIndexBuild;
     }
 
-    public static void buildIndex(ReactiveRedisTemplate<String, String> redisTemplate) throws Exception{
-        onIndexBuild.onIndexBuild(redisTemplate);
-    }
-
-    public static String onComplete(){
-        return onLogBuild.onLogMsgBuild();
+    public static String buildIndex(ReactiveRedisTemplate<String, String> redisTemplate) throws Exception{
+        return onIndexBuild.onIndexBuild(redisTemplate);
     }
 }

@@ -40,7 +40,6 @@ public class SecRunAction extends UntypedAbstractActor {
                     log.error(e.getMessage());
                     loggingService.onFailure(e, system, d);
                 }
-
             });
         }
     }

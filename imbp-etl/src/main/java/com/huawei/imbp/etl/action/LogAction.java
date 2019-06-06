@@ -28,7 +28,6 @@ public class LogAction extends UntypedAbstractActor {
         }else if(ActionEntity.class.isInstance(msg)){
             //Todo push to distributed logging system
         }
-
     }
 
     private void onException(Throwable msg){

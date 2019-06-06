@@ -36,7 +36,7 @@ import java.util.concurrent.ConcurrentSkipListMap;
 public class SecLogService {
 
     //Todo Refactor SeclogService
-    
+
     @Value("${sec.location}")
     private String secLocation;
 

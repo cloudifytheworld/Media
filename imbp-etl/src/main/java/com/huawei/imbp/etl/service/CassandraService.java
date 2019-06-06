@@ -32,7 +32,6 @@ public class CassandraService {
     private ReactiveRedisTemplate<String, String> redisTemplate;
 
 
-
     public Mono<ServerResponse> onAoiProcess(final Map payload, final String system) throws Exception {
 
         //Todo all tables should be in configuration in consul
@@ -41,25 +40,22 @@ public class CassandraService {
 
         log.debug("starting  ingestion process for " + system);
 
-
         try {
             Insert insert = ConversionData.buildStatement(payload, system, keySpace, table);
-            ConversionData.buildIndex(redisTemplate);
+            final String key = ConversionData.buildIndex(redisTemplate);
 
             cassandraDataTemplate.getReactiveCqlOperations().execute(insert)
                     .doOnError( e ->
                         loggingService.onFailure(e, system, payload)
                     ).subscribe(
-                            success -> log.debug("Done insertion on "+system+" for index " +
-                                    ConversionData.onComplete()),
+                            success -> log.debug("Done insertion on "+system+" for index "+key),
                             error -> log.debug("Fail to insert system "+system+" for index " +
-                                    ConversionData.onComplete()+" on Error "+error)
+                                    key+" on Error "+error)
             );
             return Mono.empty();
         } catch (Exception e) {
             loggingService.onFailure(e, system, payload);
             throw e;
         }
-
     }
  }
