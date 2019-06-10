@@ -23,5 +23,5 @@ public class ClientActionData {
     private String serverIp;
     private CountDownLatch jobs;
     private DataManager dataManager;
-    private DataReceiver dataReceiver;
+    private DataServer dataServer;
 }

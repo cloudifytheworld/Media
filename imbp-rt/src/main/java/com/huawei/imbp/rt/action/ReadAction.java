@@ -2,7 +2,7 @@ package com.huawei.imbp.rt.action;
 
 import akka.actor.UntypedAbstractActor;
 import com.huawei.imbp.rt.entity.DateDevice;
-import com.huawei.imbp.rt.service.CassandraAsyncService;
+import com.huawei.imbp.rt.service.CassandraReactiveService;
 import com.huawei.imbp.rt.util.StatisticManager;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
 public class ReadAction extends UntypedAbstractActor {
 
     @Autowired
-    CassandraAsyncService cassandraAsyncService;
+    CassandraReactiveService cassandraReactiveService;
 
     @Override
     public void onReceive(Object msg) {
@@ -31,7 +31,7 @@ public class ReadAction extends UntypedAbstractActor {
             long start = System.currentTimeMillis();
             DateDevice dateDevice = (DateDevice)msg;
             int hour = dateDevice.getHour();
-            cassandraAsyncService.getData(dateDevice);
+            cassandraReactiveService.getData(dateDevice);
             long last = (System.currentTimeMillis() - start)/(1000);
             StatisticManager.putDay(dateDevice.getDate(), last);
             StatisticManager.putDay(dateDevice.getDate()+"-"+hour, last);

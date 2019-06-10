@@ -112,8 +112,8 @@ public class ConversionData {
         index((redisTemplate) ->{
 
             try {
-//                redisTemplate.opsForZSet().add("secDate" + ":" + system + ":" + created_day,
-//                        partitionKey+"#"+clusterKey, mills).subscribe();
+                redisTemplate.opsForZSet().add("secDate" + ":" + system + ":" + created_day,
+                        partitionKey+"#"+clusterKey, mills).subscribe();
                 redisTemplate.opsForSet().add("date" + ":" + system + ":" + created_day,
                         partitionKey).subscribe();
 //                redisTemplate.opsForZSet().add("secHour" + ":" + system + ":" + created_day + ":" + hour,

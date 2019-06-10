@@ -1,26 +1,18 @@
 package com.huawei.imbp.rt.util;
 
-import com.google.common.hash.HashFunction;
-import com.google.common.hash.Hashing;
+
 import com.google.common.net.InetAddresses;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.huawei.imbp.rt.common.ImbpException;
 import com.huawei.imbp.rt.transfer.ClientData;
-import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
-import org.joda.time.Days;
-import org.joda.time.LocalDate;
+
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-import java.sql.Date;
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
+
 
 /**
  * @author Charles(Li) Cai
@@ -28,7 +20,9 @@ import java.util.stream.Collectors;
  */
 public class DataUtil {
 
-    private static ImbpException imbpException = new ImbpException();
+    private static final ImbpException imbpException = new ImbpException();
+    private static final DateTimeFormatter dateFormat = DateTimeFormat.forPattern("yyyyMMdd");
+    private static final DateTimeFormatter timeFormat = DateTimeFormat.forPattern("yyyyMMddHHmmss");
 
     public static boolean isNumber(String num){
 
@@ -104,17 +98,36 @@ public class DataUtil {
         return clientData;
     }
 
-    public static int daysGap(String start, String end) throws Exception{
+    public static DateTime convertDate(String date) throws Exception{
 
-        DateTimeFormatter dtf = DateTimeFormat.forPattern("yyyyMMdd");
         try{
-            DateTime startDate = dtf.parseDateTime(start);
-            DateTime endDate = dtf.parseDateTime(end);
-            int gap = Days.daysBetween(startDate, endDate).getDays();
-            return gap;
+            DateTime dateTime = dateFormat.parseDateTime(date);
+            return dateTime;
         }catch (Exception e){
             throw imbpException.setMessage("can't convert date");
         }
+    }
+
+    public static DateTime convertDateTime(String time) throws Exception{
+
+        try{
+            DateTime dateTime = timeFormat.parseDateTime(time);
+            return dateTime;
+        }catch (Exception e){
+            throw imbpException.setMessage("can't convert date");
+        }
+    }
+
+    public static DateTime endOfDateTime(DateTime startTime) throws Exception{
+
+        try{
+            String date = startTime.getYear()+""+startTime.getMonthOfYear()+""+startTime.getDayOfMonth();
+            DateTime dateTime = convertDate(date).plusDays(1).minusMillis(1);
+            return dateTime;
+        }catch (Exception e){
+            throw imbpException.setMessage("can't get end of date for "+startTime.toString());
+        }
+
     }
 
 }

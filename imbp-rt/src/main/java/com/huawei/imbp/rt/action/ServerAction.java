@@ -2,9 +2,9 @@ package com.huawei.imbp.rt.action;
 
 import akka.actor.UntypedAbstractActor;
 import com.google.common.base.Throwables;
-import com.huawei.imbp.rt.service.CassandraAsyncService;
+import com.huawei.imbp.rt.service.CassandraReactiveService;
 import com.huawei.imbp.rt.transfer.DataManager;
-import com.huawei.imbp.rt.transfer.DataReceiver;
+import com.huawei.imbp.rt.transfer.DataServer;
 import com.huawei.imbp.rt.transfer.ServerActionData;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ import java.util.concurrent.CountDownLatch;
 public class ServerAction extends UntypedAbstractActor {
 
     @Autowired
-    CassandraAsyncService cassandraAsyncService;
+    CassandraReactiveService cassandraReactiveService;
 
     @Override
     public void onReceive(Object msg) {
@@ -43,13 +43,17 @@ public class ServerAction extends UntypedAbstractActor {
         DataManager dataManager = serverData.getDataManager();
         String groupId = dataManager.getGroupId();
 
-        DataReceiver dataReceiver = new DataReceiver(serverData.getSocketAddress(),
+        DataServer dataServer = new DataServer(serverData.getSocketAddress(),
                 serverData.getParticipatedClients(), serverData.getFilePath(), groupId);
 
 
         try {
-            dataReceiver.run(ready).start(() -> {
+            log.info(String .format("----total participated server(s) %d for group %s",
+                    serverData.getParticipatedClients(), groupId));
+            dataServer.run(ready).start(() -> {
                 jobs.countDown();
+                log.info(String .format("-------------JOB finish #%d for group %s --------------",
+                        jobs.getCount(), groupId));
             });
 
             ready.await();
@@ -59,10 +63,10 @@ public class ServerAction extends UntypedAbstractActor {
             jobs.await();
             log.info("starting to close server");
             dataManager.clear(groupId);
-            dataReceiver.close();
+            dataServer.close();
 
         }catch (Exception e){
-             log.error(this.getClass()+" "+
+             log.error(this.getClass()+"---"+
                      Throwables.getStackTraceAsString(e));
         }
     }

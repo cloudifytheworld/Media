@@ -22,8 +22,9 @@ public class ClientData {
     private String clientId;
     private String groupId;
     private String system;
-    private String startDate;
-    private String endDate;
+    private String date;
+    private long startTime;
+    private long endTime;
     private JobStatus status;
 
 }

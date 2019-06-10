@@ -1,14 +1,14 @@
 package com.huawei.imbp.rt.action;
 
 import akka.actor.UntypedAbstractActor;
-import com.datastax.driver.core.Row;
 import com.huawei.imbp.rt.entity.RowsKey;
+import com.huawei.imbp.rt.service.CassandraReactiveService;
 import com.huawei.imbp.rt.service.CassandraAsyncService;
-import com.huawei.imbp.rt.service.CassandraThreadedService;
 import com.huawei.imbp.rt.transfer.ClientData;
 import com.huawei.imbp.rt.util.WriteToFile;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -26,10 +26,13 @@ import java.util.List;
 public class FileAction extends UntypedAbstractActor {
 
     @Autowired
-    CassandraThreadedService service;
+    CassandraAsyncService threadedService;
 
     @Autowired
-    CassandraAsyncService asyncService;
+    CassandraReactiveService asyncService;
+
+    @Value("${data.useAsync}")
+    private boolean useAsync;
 
     @Override
     public void onReceive(Object msg) {
@@ -44,8 +47,12 @@ public class FileAction extends UntypedAbstractActor {
         }
 
         if(ClientData.class.isInstance(msg)){
-            service.getDataByDate((ClientData)msg);
-//            asyncService.getDataByDate((ClientData)msg);
+
+            if(useAsync){
+                asyncService.getDataByDate((ClientData)msg);
+            }else {
+                threadedService.getDataByDate((ClientData) msg);
+            }
         }
     }
 

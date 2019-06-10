@@ -20,15 +20,13 @@ import java.util.concurrent.Future;
  */
 
 @Log4j2
-public class DataSender {
+public class DataClient {
 
     private final AsynchronousSocketChannel sockChannel;
-    private final InetSocketAddress inetAddress;
     private final String ipAddress;
 
-    public DataSender(InetSocketAddress inetAddress){
+    public DataClient(InetSocketAddress inetAddress){
 
-        this.inetAddress = inetAddress;
         try {
             sockChannel = AsynchronousSocketChannel.open();
             Future<Void> result = sockChannel.connect(inetAddress);
@@ -36,29 +34,37 @@ public class DataSender {
             ipAddress = InetAddress.getLocalHost().getHostAddress();
             log.info(inetAddress+ " is connected");
         }catch (Exception e){
-            throw new IllegalStateException("unable to start DataSender", e);
+            throw new IllegalStateException("unable to start DataClient", e);
         }
     }
 
     public void write(ByteBuffer data){
 
         try {
-            sockChannel.write(data);
-            //Future<Integer> writeValue = sockChannel.write(data);
-            //writeValue.get();
+            Future<Integer> writeValue = sockChannel.write(data);
+            writeValue.get();
+//            sockChannel.write(data, data, new CompletionHandler<Integer, ByteBuffer>(){
+//
+//                @Override
+//                public void completed(Integer result, ByteBuffer buffer) {
+//                    while (buffer.hasRemaining()){
+//                        sockChannel.write(buffer);
+//                    }
+//                }
+//                @Override
+//                public void failed(Throwable exc, ByteBuffer buffer) {
+//                    log.error(exc);
+//                }
+//            });
 
         }catch (Exception e){
-            //log.error(e.getMessage());
+            log.error(e.getMessage());
         }
     }
 
-    public void close(String end){
+    public void close(){
 
         try {
-
-            ByteBuffer buffer = ByteBuffer.wrap(end.getBytes());
-            write(buffer);
-            sockChannel.shutdownInput();
             sockChannel.shutdownOutput();
             sockChannel.close();
         }catch (Exception e){

@@ -2,6 +2,7 @@ package com.huawei.imbp.rt.transfer;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
+import com.huawei.imbp.rt.util.DataUtil;
 import lombok.extern.log4j.Log4j2;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeComparator;
@@ -21,6 +22,7 @@ public class DataManager {
 
 
     JobStorage storage;
+    DateTimeFormatter dtf = DateTimeFormat.forPattern("yyyyMMdd");
 
     private RestTemplate restTemplate = new RestTemplate();
     JsonParser parser = new JsonParser();
@@ -67,13 +69,6 @@ public class DataManager {
         }
     }
 
-//    public void call(final ClientData clientData, String clientIp){
-//
-//        String url = "http://"+clientIp+clientUri;
-//        String status = restTemplate.postForObject(url, clientData, String.class);
-//        log.info(status);
-//    }
-
     public void call(final String groupId){
 
         Map<String, ClientData> clients = storage.get(groupId);
@@ -87,37 +82,60 @@ public class DataManager {
 
     }
 
-    public void prepareCalls(final String system, String start, String end, String serverIp, int serverPort){
+    public void prepareCalls(final String system, DateTime start, DateTime end, String serverIp, int serverPort)
+            throws Exception{
 
-        DateTimeFormatter dtf = DateTimeFormat.forPattern("yyyyMMdd");
-        DateTime startDate = dtf.parseDateTime(start);
-        DateTime endDate = dtf.parseDateTime(end);
-        int serverSize = clientServers.size();
-        DateTime nextDate = startDate;
         int y = 0;
-        while(DateTimeComparator.getDateOnlyInstance().compare(nextDate, endDate) <= 0){
+        int serverSize = clientServers.size();
+        DateTime nextDate = start;
+
+        try {
+            if (end.getDayOfMonth() - start.getDayOfMonth() > 0) {
+                ClientData clientData = setClientData(0, system, nextDate, serverIp, serverPort);
+                nextDate = DataUtil.endOfDateTime(nextDate);
+                clientData.setEndTime(nextDate.getMillis());
+                nextDate = nextDate.plusMillis(1);
+                y = 1;
+            }
+        }catch (Exception e){
+            throw new Exception("fail to convert date "+nextDate);
+        }
+
+        while(DateTimeComparator.getInstance().compare(nextDate, end) <= 0){
 
             y= y<serverSize?y:serverSize%y;
-            String clientIp = clientServers.get(y);
-            String clientId = UUID.randomUUID().toString();
-            ClientData clientData = new ClientData();
-            clientData.setClientId(clientId);
-            clientData.setClientIp(clientIp);
-            clientData.setServerIp(serverIp);
-            clientData.setServerPort(serverPort);
-            clientData.setGroupId(this.groupId);
-            clientData.setSystem(system);
-            clientData.setStartDate(nextDate.toString(dtf));
-            storage.put(this.groupId, clientId, clientData);
-
+            ClientData clientData = setClientData(y, system, nextDate, serverIp, serverPort);
             ++y;
             nextDate = nextDate.plusDays(1);
+            if(DateTimeComparator.getInstance().compare(nextDate, end) <= 0) {
+                clientData.setEndTime(nextDate.getMillis()-1);
+            }else{
+                clientData.setEndTime(end.getMillis());
+            }
         }
     }
 
     public String getGroupId(){
 
         return this.groupId;
+
+    }
+
+    private ClientData setClientData(int client, String system, DateTime nextDate, String serverIp, int serverPort){
+
+        String clientIp = clientServers.get(client);
+        String clientId = UUID.randomUUID().toString();
+        ClientData clientData = new ClientData();
+        clientData.setClientId(clientId);
+        clientData.setClientIp(clientIp);
+        clientData.setServerIp(serverIp);
+        clientData.setServerPort(serverPort);
+        clientData.setGroupId(this.groupId);
+        clientData.setSystem(system);
+        clientData.setStartTime(nextDate.getMillis());
+        clientData.setDate(nextDate.toString(dtf));
+        storage.put(this.groupId, clientId, clientData);
+        return clientData;
 
     }
 }

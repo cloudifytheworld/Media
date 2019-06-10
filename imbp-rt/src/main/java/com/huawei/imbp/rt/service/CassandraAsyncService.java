@@ -1,14 +1,7 @@
 package com.huawei.imbp.rt.service;
 
-import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
-import com.datastax.driver.core.ResultSet;
-import com.datastax.driver.core.ResultSetFuture;
-import com.datastax.driver.core.Row;
-import com.datastax.driver.core.Statement;
-import com.datastax.driver.core.querybuilder.Clause;
-import com.datastax.driver.core.querybuilder.QueryBuilder;
-import com.datastax.driver.core.querybuilder.Select;
+import com.datastax.driver.core.*;
 import com.google.common.base.Throwables;
 import com.google.common.util.concurrent.AtomicDouble;
 import com.google.common.util.concurrent.Futures;
@@ -18,49 +11,39 @@ import com.huawei.imbp.rt.common.InputParameter;
 import com.huawei.imbp.rt.common.JobStatus;
 import com.huawei.imbp.rt.config.ImbpRtActionExtension;
 import com.huawei.imbp.rt.entity.Aoi;
-import com.huawei.imbp.rt.entity.AoiEntity;
-import com.huawei.imbp.rt.entity.DateDevice;
-import com.huawei.imbp.rt.repository.AoiRepository;
-import com.huawei.imbp.rt.thread.Task;
+import com.huawei.imbp.rt.thread.FileTask;
+import com.huawei.imbp.rt.thread.NetTask;
 import com.huawei.imbp.rt.thread.ThreadServiceManage;
 import com.huawei.imbp.rt.transfer.ClientData;
-import com.huawei.imbp.rt.transfer.DataSender;
+import com.huawei.imbp.rt.transfer.DataClient;
+import com.huawei.imbp.rt.transfer.DataWriter;
 import com.huawei.imbp.rt.transfer.JobStorage;
-import com.huawei.imbp.rt.util.DataUtil;
+import com.huawei.imbp.rt.util.EntityMappingUtil;
+import com.huawei.imbp.rt.util.OffHeapMemoryAllocation;
 import com.huawei.imbp.rt.util.StatisticManager;
 import com.huawei.imbp.rt.util.WriteToFile;
 import lombok.extern.log4j.Log4j2;
-import org.apache.commons.codec.binary.Base64;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
-
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.data.cassandra.core.ReactiveCassandraOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
-import org.springframework.web.reactive.function.BodyInserters;
-import org.springframework.web.reactive.function.server.ServerResponse;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
-import scala.Int;
-import scala.collection.immutable.Stream;
 
+import javax.annotation.PostConstruct;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
-import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.IntStream;
 
 /**
  * @author Charles(Li) Cai
- * @date 4/14/2019
+ * @date 3/25/2019
  */
 
 @Component
@@ -68,290 +51,232 @@ import java.util.stream.IntStream;
 @RefreshScope
 public class CassandraAsyncService {
 
+
     @Autowired
-    public ActorSystem actorSystem;
+    JobStorage storage;
 
     @Autowired
     public ImbpRtActionExtension imbpRtActionExtension;
 
     @Autowired
+    public Session cassandraSession;
+
+    @Autowired
+    public OffHeapMemoryAllocation offHeapMemoryAllocation;
+
+    @Autowired
+    public ActorSystem actorSystem;
+
+    @Autowired
     public RedisTemplate<String, String> redisTemplate;
-
-    @Autowired
-    public AoiRepository aoiRepository;
-
-    @Autowired
-    public ReactiveCassandraOperations cassandraDataSession;
-
-    @Autowired
-    public JobStorage storage;
 
     @Value("${data.renderLimit}")
     public int renderLimit;
 
+    @Value("${data.threadSize}")
+    public int threadSize;
 
-    /*
-     *  /api/{system}/rt/single
-     */
-    public Mono<ServerResponse> getDataByOne(InputParameter input){
+    @Value("${data.writeToLocal}")
+    public boolean writeToLocal;
 
-       Mono<AoiEntity> data = aoiRepository.findByKeyCreatedDayAndKeyDeviceType(input.getFrom()[0], input.getDeviceType());
-       return ServerResponse.ok().body(BodyInserters.fromPublisher(data, AoiEntity.class));
-    }
+    @Value("${data.keyToSec}")
+    public boolean keyToSec;
 
-    public void getDataByDate(InputParameter input){
+    @Value("${data.filePath}")
+    public String filePath;
 
-        String[] dates = input.getFrom();
+    private PreparedStatement statementSec;
+    private PreparedStatement statementPrimary;
+    private PreparedStatement statement;
 
-        for(int i=0; i<dates.length; i++) {
-            String date = dates[i].trim();
-            log.info(date);
-            Set<String> deviceTypes = redisTemplate.boundSetOps(input.getSystem() + ":" + date).members();
-            for(int y=1; y<13; y++) {
-                DateDevice dateDevice = new DateDevice();
-                dateDevice.setDate(date);
-                dateDevice.setDeviceTypes(deviceTypes);
-                dateDevice.setHour(y);
-                ActorRef readAction = actorSystem.actorOf(imbpRtActionExtension.props("readAction"));
-                readAction.tell(dateDevice, ActorRef.noSender());
-            }
-        }
-    }
-
-    public void getDataByDate(ClientData input){
-
-        storage.put(input.getGroupId(), input.getClientId(), input);
-        String server = input.getServerIp();
-        int port = input.getServerPort();
-        String date = input.getStartDate();
-        log.info(date);
-        AtomicLong total = new AtomicLong();
-        AtomicInteger count = new AtomicInteger();
-
-        InetSocketAddress serverAddress = new InetSocketAddress(server, port);
-        DataSender send = new DataSender(serverAddress);
-        CountDownLatch latch = new CountDownLatch(2);
-
-        long start = System.currentTimeMillis();
-        Semaphore semaphore = new Semaphore(renderLimit);
-        ThreadServiceManage manage = new ThreadServiceManage(2);
-        QueueService<String> queue = new QueueService<>();
-        IntStream.range(0, 4).forEach(s -> {
-            DataSender sender = new DataSender(serverAddress);
-            manage.submit(new Task(s, queue, sender, latch, total));
-        });
-        //Set<String> indexes = redisTemplate.boundZSetOps("secDate:"+input.getSystem() + ":" + date).rangeByScore(1541055600000l,1541141999000l);
-        Set<String> indexes = redisTemplate.boundSetOps("date:"+input.getSystem() + ":" + date).members();
-
-        indexes.stream().forEach( index -> {
-            String[] keys = index.split("#");
-            try {
-                semaphore.acquire();
-                Select select = QueryBuilder.select().all().from("images", "aoi_single_component_image_1");
-
-                select.where(QueryBuilder.eq("created_day", keys[0]))
-                        .and(QueryBuilder.eq("device_type", keys[1]))
-                        .and(QueryBuilder.eq("hour", Integer.parseInt(keys[2])))
-                        .and(QueryBuilder.eq("mins", Integer.parseInt(keys[3])))
-                        .and(QueryBuilder.eq("sec", Integer.parseInt(keys[4])))
-//                        .and(QueryBuilder.eq("label", keys[5]))
-//                        .and(QueryBuilder.eq("created_time", Long.parseLong(keys[6])));
-                        .allowFiltering();
-
-                Flux<Aoi> aois = cassandraDataSession.select(select, Aoi.class);
-                aois.subscribe( aoi -> {
-//                    byte[] data = aoi.toString().getBytes();
-//                    total.addAndGet(data.length);
-//                    ByteBuffer buffer = ByteBuffer.wrap(data);
-//                    //send.write(buffer);
-//                    WriteToFile.writeToFile(aoi);
-                    queue.add(aoi.toString());
-
-                });
-                semaphore.release();
-//                cassandraDataSession.selectOne(select, Aoi.class).subscribe(aoi ->{
-//                    byte[] data = aoi.toString().getBytes();
-//                    total.addAndGet(data.length);
-//                    ByteBuffer buffer = ByteBuffer.wrap(data);
-//                    //send.write(buffer);
-//                    WriteToFile.writeToFile(aoi);
-//                    semaphore.release();
-//                });
-                int number = count.incrementAndGet();
-            }catch (Exception e){
-                log.error(Throwables.getStackTraceAsString(e));
-                semaphore.release();
-            }
-
-        });
-
-        try {
-            latch.await();
-            queue.add(Constant.END_MARKER+":"+input.getGroupId()+":"+input.getClientId()+":"+ JobStatus.complete);
-            queue.add(Constant.END_MARKER+":"+input.getGroupId()+":"+input.getClientId()+":"+ JobStatus.complete);
-
-            //      send.close(Constant.END_MARKER+":"+input.getGroupId()+":"+input.getClientId()+":"+ JobStatus.complete);
-
-            manage.close();
-        }catch (Exception e){
-            log.error(e.getMessage());
-        }
-
-        long last = (System.currentTimeMillis() - start)/1000;
-        log.info(date+" takes "+last+" seconds, total files "+count.get()+", total size(M) "+total.get()/1000000);
+    @PostConstruct
+    private void init(){
+        statementSec = cassandraSession.prepare("SELECT * FROM images.aoi_single_component_image_1 where created_day = ? and device_type = ? and hour = ? and mins = ? and sec = ? ALLOW FILTERING");
+        statement = cassandraSession.prepare("SELECT * FROM images.aoi_single_component_image_1 where created_day = ? and device_type = ? and hour = ? and mins = ? ALLOW FILTERING");
+        statementPrimary = cassandraSession.prepare("SELECT * FROM images.aoi_single_component_image_1 where created_day = ? and device_type = ? and hour = ? and mins = ? and sec = ? " +
+                "and label = ? and created_time = ?");
 
     }
+
     public void getDataByDates(InputParameter input){
 
         String[] dates = input.getFrom();
+        List<ResultSetFuture> futuresData = new ArrayList<>();
+        long start = System.currentTimeMillis();
 
         for(int i=0; i<dates.length; i++) {
             String date = dates[i].trim();
             log.info(date);
             Set<String> indexes = redisTemplate.boundSetOps(input.getSystem() + ":" + date).members();
-            DateDevice dateDevice = new DateDevice();
-            dateDevice.setDate(date);
-            dateDevice.setIndexes(indexes);
-            ActorRef readByDatesAction = actorSystem.actorOf(imbpRtActionExtension.props("readByDatesAction"));
-            readByDatesAction.tell(dateDevice, ActorRef.noSender());
-        }
-    }
+            int indexSize = indexes.size();
+            AtomicInteger count = new AtomicInteger();
 
-    /*
-     * /api/{system}/rt/page
-     */
-    public Mono<ServerResponse> getDataByPage(InputParameter input){
-        Flux<AoiEntity> results = null;
-
-        if(input.getCreatedTime() == null) {
-            results = aoiRepository.findTop2ByKeyCreatedDayAndKeyDeviceType(input.getFrom()[0], input.getDeviceType());
-        }else{
-            results = aoiRepository.findTop2ByKeyCreatedDayAndKeyDeviceTypeAndKeyHourAndKeyMinuteAndKeyLabelAndKeyCreatedTimeLessThan(
-                    input.getFrom()[0], input.getDeviceType(), input.getHour(), input.getMinute(), input.getLabel(), input.getCreatedTime()
-            );
-        }
-
-        return results.collectList().flatMap(l -> {
-            Map<String, Object> result = new HashMap<>();
-            if(l.size() == 0){
-                result.put("status", "no data");
-                return ServerResponse.ok().syncBody(result);
-            }
-            result.put("status", "success");
-            result.put("input", l);
-            result.put("previous", l.get(0).getKey());
-            result.put("next", l.get(l.size()-1).getKey());
-            return ServerResponse.ok().body(BodyInserters.fromObject(result));
-
-        });
-
-    }
-
-    /*
-     * /api/{system}/rt/feeding
-     */
-    public void getDataByFeeding(String system, String from, QueueService<String> queueService){
-
-        Semaphore semaphore = new Semaphore(60);
-        String[] dates = DataUtil.convertStringToArray(from);
-
-        for(int i=0; i<dates.length; i++) {
-            String date = dates[i].trim();
-            log.info(date);
-            Set<String> indexes = redisTemplate.boundSetOps(system + ":" + date).members();
             indexes.stream().forEach( index -> {
                 String[] keys = index.split("#");
-                try {
-                        semaphore.acquire();
-                        Flux<AoiEntity> aoiEntityFlux = aoiRepository.findByKeyCreatedDayAndKeyDeviceTypeAndKeyHourAndKeyMinute(
-                                date, keys[0], Integer.parseInt(keys[1]), Integer.parseInt(keys[2]));
-                        aoiEntityFlux.collectList().subscribe(s -> {
-                            s.stream().forEach(entity ->
-                            queueService.add(date+"@"+entity.getFileName()));
-                            semaphore.release();
-                        });
+                ResultSetFuture resultSetFuture = cassandraSession.executeAsync(statement.bind(date, keys[0]
+                        , Integer.parseInt(keys[1]), Integer.parseInt(keys[2])));
+                futuresData.add(resultSetFuture);
 
-                }catch (Exception e){
-                    log.error(Throwables.getStackTraceAsString(e));
-                    semaphore.release();
+                if(count.incrementAndGet()%renderLimit == 0 || count.get() == indexSize){
+                    List<ListenableFuture<ResultSet>> futureLists = Futures.inCompletionOrder(futuresData);
+                    for (ListenableFuture<ResultSet> future : futureLists) {
+                        try {
+                            ResultSet rs = future.get();
+                            List<Row> rows = rs.all();
+                            int size = rows.size();
+                            if (size > 0) {
+                                String key = "createdDay-"+date+":deviceType-"+keys[0]+":hour-"+keys[1]+":minute-"+keys[2];
+                                log.info(key + " size: " + size);
+                                StatisticManager.put(key, size);
+                                WriteToFile.writeToFile(rows, "created_day-" + date + ":device_type-" + keys[0], ":hour", Integer.parseInt(keys[1]));
+                            }
+                        } catch (Exception e) {
+                            log.error(Throwables.getStackTraceAsString(e));
+                        }
+                    }
                 }
             });
         }
+
+        long last = (System.currentTimeMillis() - start)/1000;
+        log.info(dates[0]+" takes "+last+" seconds, total "+StatisticManager.counter+" cells, total size(M) "+String.format("%.2f", StatisticManager.total));
     }
 
-    public void getDataByHourFeed(String system, String date, int hour, QueueService<String> queueService, CountDownLatch valueLatch){
+    //Todo: not enough memory
+    //      1. send by socket from NetFile needs verification by real servers
+    //      2. when keyToSec is false
+    // Works to write one at time, justify speed by renderLimit and threadSize
+    public void getDataByDate(ClientData input){
 
-        Semaphore semaphore = new Semaphore(30);
+        AtomicInteger count = new AtomicInteger();
+        AtomicLong total = new AtomicLong();
         long start = System.currentTimeMillis();
-        AtomicInteger countSize = new AtomicInteger();
-        AtomicDouble image = new AtomicDouble();
 
-        Set<String> indexes = redisTemplate.boundSetOps("hour"+":"+system + ":" + date+":"+hour).members();
-        log.info(date+":"+hour+"async-index size: "+indexes.size());
+        String groupId= input.getGroupId();
+        String clientId = input.getClientId();
+        String date = input.getDate();
+        String server = input.getServerIp();
+        long startTime = input.getStartTime();
+        long endTime = input.getEndTime();
+        int port = input.getServerPort();
+
+        log.info("client info "+input.toString());
+
+        storage.put(groupId, clientId, input);
+        InetSocketAddress serverAddress = new InetSocketAddress(server, port);
+
+
+        Set<String> indexes = keyToSec?
+            redisTemplate.boundSetOps("date:" + input.getSystem() + ":" + date).members():
+                redisTemplate.boundZSetOps("secDate:"+input.getSystem() + ":" + date).rangeByScore(startTime, endTime);
+        int indexSize = indexes.size();
+        log.info("size of file in index "+indexSize);
+
+        CountDownLatch latch = new CountDownLatch(threadSize);
+        ThreadServiceManage manage = new ThreadServiceManage(threadSize);
+        QueueService<String> queue = new QueueService<>();
+        DataWriter dataWriter = writeToLocal?new DataWriter(filePath, groupId):null;
+        IntStream.range(0, threadSize).forEach(s -> {
+            Runnable task = writeToLocal?
+                    new FileTask(s, queue, dataWriter, latch, total):
+                    new NetTask(s, queue, new DataClient(serverAddress), latch, total);
+            manage.submit(task);
+        });
+
+//        IntStream.range(0, 4).forEach( i -> queue.add(i+""));
+
+        List<ResultSetFuture> futuresData = new ArrayList<>();
 
         indexes.stream().forEach( index -> {
             String[] keys = index.split("#");
-            try {
-                semaphore.acquire();
-                Flux<AoiEntity> aoiEntityFlux = aoiRepository.findByKeyCreatedDayAndKeyDeviceTypeAndKeyHourAndKeyMinute(
-                        date, keys[0], hour, Integer.parseInt(keys[1]));
-                aoiEntityFlux.collectList().subscribe(s -> {
-                    countSize.addAndGet(s.size());
-                    s.stream().forEach(entity -> {
-                        long imageSize = entity.getImage().array().length;
-                        image.addAndGet((double)imageSize/1000000);
-                        queueService.add(date+"@"+entity.getFileName());
-                    });
-                    semaphore.release();
-                    if(queueService.size() > 5000 ) valueLatch.countDown();
-                });
-            }catch (Exception e){
-                log.error(Throwables.getStackTraceAsString(e));
-                semaphore.release();
+            BoundStatement boundStatement = keyToSec?statementSec.bind(keys[0], keys[1]
+                    , Integer.parseInt(keys[2]), Integer.parseInt(keys[3]), Integer.parseInt(keys[4])):
+                    statementPrimary.bind(keys[0], keys[1], Integer.parseInt(keys[2]), Integer.parseInt(keys[3]),
+                            Integer.parseInt(keys[4]), keys[5], new Timestamp(Long.parseLong(keys[6])));
+
+            ResultSetFuture resultSetFuture = cassandraSession.executeAsync(boundStatement);
+            futuresData.add(resultSetFuture);
+
+            if(count.incrementAndGet()%renderLimit == 0 || count.get() == indexSize){
+                List<ListenableFuture<ResultSet>> futureLists = Futures.inCompletionOrder(futuresData);
+                for (ListenableFuture<ResultSet> future : futureLists) {
+                    try {
+                        ResultSet rs = future.get();
+                        List<Row> rows = rs.all();
+                        rows.stream().forEach(row -> {
+                            Aoi aoi = EntityMappingUtil.mappingAoi(row);
+                            queue.add(aoi.toString());
+                        });
+
+                    } catch (Exception e) {
+                        log.error(Throwables.getStackTraceAsString(e));
+                    }
+                }
             }
+
         });
 
-        if(indexes.size() == 0) {
-            valueLatch.countDown();
+        try {
+            //Todo mutex lock for exclusive send end of file msg
+            IntStream.range(0, threadSize).forEach(i -> queue.add(Constant.END_MARKER));
+
+            latch.await();
+            manage.close();
+
+            DataClient senderClose = new DataClient(serverAddress);
+            senderClose.write(ByteBuffer.wrap((
+                    Constant.END_MARKER + ":" + groupId + ":" + clientId + ":" + JobStatus.complete).getBytes()));
+            senderClose.close();
+
+        }catch (Exception e){
+            log.error(e.getMessage());
         }
 
-        Long end = (System.currentTimeMillis()-start)/1000;
-        log.info(date+":"+hour+" takes seconds "+end+", and process cells "+countSize.get()+", data in size(M) "+String.format("%.2f", image.get()));
-
+        long last = (System.currentTimeMillis() - start)/1000;
+        log.info(date+" takes "+last+" seconds,  total size(M) "+total.get()/1000000);
     }
 
-    public void getDataByDateFeed(String system, String date, QueueService<String> queueService, CountDownLatch valueLatch){
 
-        Semaphore semaphore = new Semaphore(120);
+    public void feedDataByDates(String system, String date, QueueService<String> queueService, CountDownLatch valueLatch){
+
+        List<ResultSetFuture> futuresData = new ArrayList<>();
         long start = System.currentTimeMillis();
+        AtomicInteger count = new AtomicInteger();
         AtomicInteger countSize = new AtomicInteger();
         AtomicDouble image = new AtomicDouble();
 
         Set<String> indexes = redisTemplate.boundSetOps("date"+":"+system + ":" + date).members();
-        log.info(date+" async-index size "+indexes.size());
+        log.info(date+" index size: "+indexes.size());
+        int indexSize = indexes.size();
+
+
         indexes.stream().forEach( index -> {
+
             String[] keys = index.split("#");
-            try {
-                semaphore.acquire();
-                Flux<AoiEntity> aoiEntityFlux = aoiRepository.findByKeyCreatedDayAndKeyDeviceTypeAndKeyHourAndKeyMinute(
-                        date, keys[0], Integer.parseInt(keys[1]), Integer.parseInt(keys[2]));
-                aoiEntityFlux.collectList().subscribe(s -> {
-                    countSize.addAndGet(s.size());
-                    s.stream().forEach(entity -> {
-                        long imageSize = entity.getImage().array().length;
-                        image.addAndGet((double)imageSize/1000000);
-                        queueService.add(date+"@"+entity.getFileName());
-                    });
-                    semaphore.release();
-                    if(queueService.size() > 5000 ) valueLatch.countDown();
-                });
-            }catch (Exception e){
-                log.error(Throwables.getStackTraceAsString(e));
-                semaphore.release();
+            ResultSetFuture results = cassandraSession.executeAsync(statement.bind(date, keys[0]
+                    , Integer.parseInt(keys[1]), Integer.parseInt(keys[2])));
+            futuresData.add(results);
+
+            if(count.incrementAndGet()%renderLimit == 0 || count.get() == indexSize){
+                List<ListenableFuture<ResultSet>> futureLists = Futures.inCompletionOrder(futuresData);
+                for (ListenableFuture<ResultSet> future : futureLists) {
+                    try {
+                        ResultSet rs = future.get();
+                        List<Row> rows = rs.all();
+                        countSize.addAndGet(rows.size());
+                        rows.stream().forEach(d -> {
+                            long imageSize = d.getBytes("image").array().length;
+                            image.addAndGet((double)imageSize/1000000);
+                            queueService.add(date+"@"+d.getString("file_name"));
+                        });
+                    } catch (Exception e) {
+                        log.error(Throwables.getStackTraceAsString(e));
+                    }
+                    if(queueService.size() > 500 ) valueLatch.countDown();
+                }
             }
         });
-
-        if(indexes.size() == 0) {
+        if(indexes.size() == 0 || queueService.size() > 0) {
             valueLatch.countDown();
         }
 
@@ -359,70 +284,51 @@ public class CassandraAsyncService {
         log.info(date+" takes seconds "+end+", and process cells "+countSize.get()+", data in size(M) "+String.format("%.2f", image.get()));
     }
 
-    //ReadAction
-    public void getData(DateDevice dateDevice){
+    public void feedDataByHour(String system, String date, int hour, QueueService<String> queueService, CountDownLatch valueLatch){
 
-        Semaphore semaphore = new Semaphore(60);
+        List<ResultSetFuture> futuresData = new ArrayList<>();
+        long start = System.currentTimeMillis();
+        Set<String> indexes = redisTemplate.boundSetOps("hour"+":"+system + ":" + date+":"+hour).members();
+        log.info(date+":"+hour+"-index size: "+indexes.size());
+        int indexSize = indexes.size();
+        AtomicInteger count = new AtomicInteger();
+        AtomicInteger countSize = new AtomicInteger();
+        AtomicDouble image = new AtomicDouble();
 
-        String date = dateDevice.getDate();
-        Set<String> deviceTypes = dateDevice.getDeviceTypes();
-        int i = dateDevice.getHour();
+        indexes.stream().forEach( index -> {
 
-        Iterator<String> itr = deviceTypes.iterator();
+            String[] keys = index.split("#");
+            ResultSetFuture results = cassandraSession.executeAsync(statement.bind(date, keys[0]
+                    ,hour, Integer.parseInt(keys[1])));
+            futuresData.add(results);
 
-        while (itr.hasNext()) {
-
-            try {
-                String deviceType = itr.next();
-                for (int x = 0; x < 60; x++) {
-                    semaphore.acquire();
-                    Flux<AoiEntity> aoiEntityFlux = aoiRepository.findByKeyCreatedDayAndKeyDeviceTypeAndKeyHourAndKeyMinute(date, deviceType, i, x);
-                    aoiEntityFlux.collectList().subscribe(s -> {
-                        semaphore.release();
-                        int size = s.size();
-                        if(size > 0) {
-                            WriteToFile.writeToFile(s);
-                            String key = "created_day-" + date + ":device_type-" + deviceType + ":hour-" + i;
-                            log.info(key + " size: " + size);
-                        }
-                    });
+            if(count.incrementAndGet()%240 == 0 || count.get() == indexSize){
+                List<ListenableFuture<ResultSet>> futureLists = Futures.inCompletionOrder(futuresData);
+                for (ListenableFuture<ResultSet> future : futureLists) {
+                    try {
+                        ResultSet rs = future.get();
+                        List<Row> rows = rs.all();
+                        countSize.addAndGet(rows.size());
+                        rows.stream().forEach(d -> {
+                            long imageSize = d.getBytes("image").array().length;
+                            image.addAndGet((double)imageSize/1000000);
+                            queueService.add(hour+"#"+d.getString("file_name"));
+                        });
+                    } catch (Exception e) {
+                        log.error(Throwables.getStackTraceAsString(e));
+                    }
+                    if(queueService.size() > 500 ) valueLatch.countDown();
                 }
-            }catch (Exception e){
-                log.error(Throwables.getStackTraceAsString(e));
-                semaphore.release();
-            }
-        }
-
-    }
-
-    //ReadByDatesAction
-    public void getDates(DateDevice dateDevice){
-
-        Semaphore semaphore = new Semaphore(60);
-
-        String date = dateDevice.getDate();
-        Set<String> indexes = dateDevice.getIndexes();
-
-        indexes.stream().forEach( next -> {
-            try {
-                String[] index = next.split("#");
-                semaphore.acquire();
-
-                Flux<AoiEntity> aoiEntityFlux = aoiRepository.findByKeyCreatedDayAndKeyDeviceTypeAndKeyHourAndKeyMinute
-                        (date, index[0], Integer.parseInt(index[1]), Integer.parseInt(index[2]));
-                aoiEntityFlux.collectList().subscribe(s -> {
-                    int size = s.size();
-                    WriteToFile.writeToFile(s);
-                    String key = "createdDay-"+date+":deviceType-"+index[0]+":hour-"+index[1]+":minute-"+index[2];
-                    log.info(key + " size: " + size);
-                });
-
-                semaphore.release();
-            }catch (Exception e){
-                log.error(Throwables.getStackTraceAsString(e));
-                semaphore.release();
             }
         });
+        if(indexes.size() == 0) {
+            valueLatch.countDown();
+        }
+
+        Long end = (System.currentTimeMillis()-start)/1000;
+        log.info(date+":"+hour+" seconds "+end+", and process cells "+countSize.get()+", data in size(M) "+String.format("%.2f", image.get()));
+
     }
+
 
 }

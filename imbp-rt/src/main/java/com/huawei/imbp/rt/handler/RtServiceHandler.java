@@ -2,22 +2,23 @@ package com.huawei.imbp.rt.handler;
 
 
 import com.google.common.base.Throwables;
+import com.huawei.imbp.rt.common.ImbpException;
 import com.huawei.imbp.rt.common.InputParameter;
 
 import com.huawei.imbp.rt.common.JobStatus;
+import com.huawei.imbp.rt.service.CassandraReactiveService;
 import com.huawei.imbp.rt.service.CassandraAsyncService;
-import com.huawei.imbp.rt.service.CassandraThreadedService;
 import com.huawei.imbp.rt.service.DataTransferService;
 import com.huawei.imbp.rt.transfer.ClientData;
 import com.huawei.imbp.rt.util.DataUtil;
 import com.huawei.imbp.rt.util.ServiceUtil;
 import lombok.extern.log4j.Log4j2;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
-import redis.clients.jedis.Client;
 
 import java.util.Map;
 import java.util.Optional;
@@ -36,10 +37,10 @@ public class RtServiceHandler {
     public DataTransferService transferService;
 
     @Autowired
-    public CassandraThreadedService cassandraThreadedService;
+    public CassandraAsyncService cassandraAsyncService;
 
     @Autowired
-    public CassandraAsyncService cassandraAsyncService;
+    public CassandraReactiveService cassandraReactiveService;
 
     /*
      * Require params: system, from(start day) and deviceType
@@ -51,7 +52,7 @@ public class RtServiceHandler {
 
         try {
             InputParameter input = ServiceUtil.getInputParam(serverRequest);
-            return cassandraAsyncService.getDataByOne(input);
+            return cassandraReactiveService.getDataByOne(input);
         }catch (Exception e){
             log.error(Throwables.getStackTraceAsString(e));
             return ServerResponse.badRequest().syncBody(e.getMessage());
@@ -70,7 +71,7 @@ public class RtServiceHandler {
         try {
             InputParameter input = ServiceUtil.getInputParam(serverRequest);
             //cassandraService.getDataByDates(input);
-            cassandraThreadedService.getDataByDates(input);
+            cassandraAsyncService.getDataByDates(input);
         }catch (Exception e){
             log.error(Throwables.getStackTraceAsString(e));
             return ServerResponse.badRequest().syncBody(e.getMessage());
@@ -91,7 +92,7 @@ public class RtServiceHandler {
 
         try{
             InputParameter input = ServiceUtil.getInputParam(serverRequest);
-            return cassandraAsyncService.getDataByPage(input);
+            return cassandraReactiveService.getDataByPage(input);
         }catch (Exception e){
             log.error(Throwables.getStackTraceAsString(e));
             return ServerResponse.badRequest().syncBody(e.getMessage());
@@ -106,11 +107,28 @@ public class RtServiceHandler {
     public Mono<ServerResponse> retrieveDataByFile(ServerRequest serverRequest){
 
         String system = serverRequest.pathVariable("system");
-        Optional<String> start = serverRequest.queryParam("start");
-        Optional<String> end = serverRequest.queryParam("end");
-
+        DateTime startTime = null;
+        DateTime endTime = null;
         try {
-            Mono<String> groupId = transferService.processServer(system, start.get(), end.get());
+            Optional<String> start = serverRequest.queryParam("start");
+            Optional<String> end = serverRequest.queryParam("end");
+            if(start.isPresent()){
+                startTime = DataUtil.convertDate(start.get());
+                endTime = end.isPresent()?DataUtil.convertDate(end.get()):
+                        startTime.plusDays(1).minusMillis(1);
+            }else{
+                start = serverRequest.queryParam("startTime");
+                end = serverRequest.queryParam("endTime");
+                if(!start.isPresent()){
+                    throw new ImbpException().setMessage("missing start or startTime");
+                }
+
+                startTime = DataUtil.convertDateTime(start.get());
+                endTime = end.isPresent()?DataUtil.convertDateTime(end.get()):
+                        DataUtil.endOfDateTime(startTime);
+            }
+
+            Mono<String> groupId = transferService.processServer(system, startTime, endTime);
             return ServerResponse.ok().body(groupId, String.class);
         }catch (Exception e){
             return ServerResponse.badRequest().syncBody(e.getMessage());

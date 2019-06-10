@@ -43,6 +43,7 @@ public class CassandraDataConfig {
 
         Cluster cluster = Cluster.builder()
                 .addContactPoints(cassandraConfig.get("contact-points").split(","))
+                .withProtocolVersion(ProtocolVersion.V4)
                 .withQueryOptions(new QueryOptions().setConsistencyLevel(ConsistencyLevel.ONE))
                 .withPoolingOptions(poolingOptions)
                 .withSocketOptions(options)
@@ -50,7 +51,9 @@ public class CassandraDataConfig {
                 .withoutMetrics()
                 .withoutJMXReporting()
                 .build();
-
+        ProtocolVersion myCurrentVersion = cluster.getConfiguration()
+                .getProtocolOptions()
+                .getProtocolVersion();
         return cluster.connect();
     }
 

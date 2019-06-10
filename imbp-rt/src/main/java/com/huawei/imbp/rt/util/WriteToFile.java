@@ -5,7 +5,6 @@ import com.google.common.base.Throwables;
 import com.huawei.imbp.rt.entity.Aoi;
 import com.huawei.imbp.rt.entity.AoiEntity;
 import lombok.extern.log4j.Log4j2;
-import org.apache.commons.codec.binary.Base64;
 
 import java.io.File;
 import java.nio.ByteBuffer;
@@ -14,7 +13,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author Charles(Li) Cai
@@ -152,15 +150,6 @@ public class WriteToFile {
             log.error(Throwables.getStackTraceAsString(e));
         }
     }
-//    public static void writeToFile(Flux rows){
-//
-//        rows.forEach( r -> {
-//            try {
-//                Aoi aoi = EntityMappingUtil.mappingAoi(r);
-//                Files.write(filePath, aoi.toString().getBytes(), StandardOpenOption.APPEND);
-//            }catch (Exception e){
-//                log.error(Throwables.getStackTraceAsString(e));
-//            }
-//        });
-//    }
+
+
 }

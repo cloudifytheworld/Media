@@ -9,6 +9,5 @@ import org.springframework.data.redis.core.ReactiveRedisTemplate;
 
 @FunctionalInterface
 public interface OnIndexBuild {
-
-    public String onIndexBuild(ReactiveRedisTemplate<String, String> reactiveRedisTemplate) throws Exception;
+    String onIndexBuild(ReactiveRedisTemplate<String, String> reactiveRedisTemplate) throws Exception;
 }

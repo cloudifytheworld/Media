@@ -20,7 +20,6 @@ public class ServerActionData {
 
     private CountDownLatch jobs;
     private CountDownLatch ready;
-    //private DataReceiver dataReceiver;
     private DataManager dataManager;
     private InetSocketAddress socketAddress;
     private int participatedClients;

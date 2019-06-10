@@ -47,8 +47,6 @@ public class DataRetrieveController {
     @Value("${data.rateLimit}")
     public int rateLimit;
 
-    @Value("${data.sleepLimit}")
-    public int sleepLimit;
 
     @GetMapping(value = "/api/{system}/rt/feeding", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Publisher<String> retrieveDataByFeeding(@RequestParam String from){

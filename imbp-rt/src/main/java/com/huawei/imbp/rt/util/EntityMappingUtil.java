@@ -70,9 +70,8 @@ public class EntityMappingUtil {
 
         if(image != null) {
             try{
-                //String deserialize = TypeCodec.varchar().deserialize(image, ProtocolVersion.V5);
-                String img = Base64.encodeBase64String(image.array());
-                aoi.setImage(img);
+                //String img = Base64.encodeBase64String(image.array());
+                aoi.setImage(new String(image.array()));
             }catch (Exception e){
                 log.error(e.getMessage());
             }

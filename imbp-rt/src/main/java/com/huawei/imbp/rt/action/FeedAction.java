@@ -2,14 +2,13 @@ package com.huawei.imbp.rt.action;
 
 import akka.actor.UntypedAbstractActor;
 import com.huawei.imbp.rt.entity.FeedEntity;
+import com.huawei.imbp.rt.service.CassandraReactiveService;
 import com.huawei.imbp.rt.service.CassandraAsyncService;
-import com.huawei.imbp.rt.service.CassandraThreadedService;
 import com.huawei.imbp.rt.service.QueueService;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -28,10 +27,10 @@ import java.util.concurrent.CountDownLatch;
 public class FeedAction extends UntypedAbstractActor {
 
     @Autowired
-    private CassandraAsyncService asyncService;
+    private CassandraReactiveService asyncService;
 
     @Autowired
-    private CassandraThreadedService threadedService;
+    private CassandraAsyncService threadedService;
 
     @Value("${data.useAsync}")
     private boolean useAsync;

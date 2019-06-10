@@ -21,7 +21,7 @@ public class ThreadServiceManage {
         this.executorService = Executors.newFixedThreadPool(size);
     }
 
-    public void submit(Task task){
+    public void submit(Runnable task){
         executorService.submit(task);
     }
 
