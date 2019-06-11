@@ -27,6 +27,9 @@ public class DataTransferService {
     @Value("${data.filePath}")
     public String filePath;
 
+    @Value("${server.port}")
+    int port;
+
     @Autowired
     JobStorage storage;
 
@@ -36,13 +39,11 @@ public class DataTransferService {
     @Autowired
     public ImbpRtActionExtension imbpRtActionExtension;
 
-    @Autowired
-    NetworkManageService netService;
-
     private ImbpException imbp = new ImbpException();
 
     public Mono<String> processServer(String system, DateTime start, DateTime end) throws Exception{
 
+        NetworkManageService netService = new NetworkManageService(port);
         DataManager dataManager = new DataManager(storage, netService);
         dataManager.prepareClient().prepareCalls(system, start, end,
                 netService.getServerIp(), netService.getSocketPort());

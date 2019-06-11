@@ -29,8 +29,7 @@ public class DataClient {
 
         try {
             sockChannel = AsynchronousSocketChannel.open();
-            Future<Void> result = sockChannel.connect(inetAddress);
-            result.get();
+            sockChannel.connect(inetAddress).get();
             ipAddress = InetAddress.getLocalHost().getHostAddress();
             log.info(inetAddress+ " is connected");
         }catch (Exception e){
@@ -41,24 +40,9 @@ public class DataClient {
     public void write(ByteBuffer data){
 
         try {
-            Future<Integer> writeValue = sockChannel.write(data);
-            writeValue.get();
-//            sockChannel.write(data, data, new CompletionHandler<Integer, ByteBuffer>(){
-//
-//                @Override
-//                public void completed(Integer result, ByteBuffer buffer) {
-//                    while (buffer.hasRemaining()){
-//                        sockChannel.write(buffer);
-//                    }
-//                }
-//                @Override
-//                public void failed(Throwable exc, ByteBuffer buffer) {
-//                    log.error(exc);
-//                }
-//            });
-
+            sockChannel.write(data).get();
         }catch (Exception e){
-            log.error(e.getMessage());
+            log.error(Throwables.getStackTraceAsString(e));
         }
     }
 

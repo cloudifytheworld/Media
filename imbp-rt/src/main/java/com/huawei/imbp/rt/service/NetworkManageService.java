@@ -17,12 +17,9 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @date 6/2/2019
  */
 
-@Component
 @Log4j2
 public class NetworkManageService {
 
-
-    @Value("${server.port}")
     int port;
 
     private final Random random = new Random();
@@ -31,7 +28,8 @@ public class NetworkManageService {
     private final InetSocketAddress socketAddress;
 
 
-    public NetworkManageService() throws Exception{
+    public NetworkManageService(int port) throws Exception{
+        this.port = port;
         socketAddress = createSocketAddress();
     }
 

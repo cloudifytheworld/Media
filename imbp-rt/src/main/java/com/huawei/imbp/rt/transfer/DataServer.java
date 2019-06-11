@@ -10,6 +10,7 @@ import java.nio.channels.AsynchronousSocketChannel;
 import java.nio.channels.CompletionHandler;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -82,8 +83,8 @@ public class DataServer {
     public void close(){
         try {
             this.onCloseChannel.onClose();
-//            this.serverGroup.shutdown();
-//            this.serverGroup.awaitTermination(1000, TimeUnit.MILLISECONDS);
+            this.serverGroup.shutdown();
+            this.serverGroup.awaitTermination(1000, TimeUnit.MILLISECONDS);
             this.server.close();
         }catch (Exception e){
             log.error("unable to shut down "+e.getMessage());
