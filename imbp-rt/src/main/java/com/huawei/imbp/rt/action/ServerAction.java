@@ -10,6 +10,7 @@ import com.huawei.imbp.rt.transfer.JobStorage;
 import com.huawei.imbp.rt.transfer.ServerActionData;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -32,6 +33,9 @@ public class ServerAction extends UntypedAbstractActor {
     @Autowired
     CassandraReactiveService cassandraReactiveService;
 
+    @Value("${data.inMemoryWrite}")
+    public boolean inMemoryWrite;
+
     @Override
     public void onReceive(Object msg) {
 
@@ -49,7 +53,7 @@ public class ServerAction extends UntypedAbstractActor {
         String groupId = dataManager.getGroupId();
 
         DataServer dataServer = new DataServer(serverData.getSocketAddress(),
-                serverData.getParticipatedClients(), serverData.getFilePath(), groupId);
+                serverData.getParticipatedClients(), serverData.getFilePath(), groupId, inMemoryWrite);
 
 
         try {

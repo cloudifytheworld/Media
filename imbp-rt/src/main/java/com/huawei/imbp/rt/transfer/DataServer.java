@@ -27,12 +27,12 @@ public class DataServer {
     private final AsynchronousChannelGroup serverGroup;
     private final AtomicInteger jobNumber = new AtomicInteger();
     private final DataReader dataReader;
+    private DataWriter dataWriter;
 
-
-    public DataServer(InetSocketAddress inetAddress, int poolSize, String filePath, String groupId){
+    public DataServer(InetSocketAddress inetAddress, int poolSize, String filePath, String groupId, boolean inMemoryWrite){
 
         try {
-            DataWriter dataWriter = new DataWriter(filePath, groupId);
+            dataWriter = new DataWriter(filePath, groupId, inMemoryWrite);
             this.dataReader = new DataReader(dataWriter);
             this.serverGroup = AsynchronousChannelGroup.withThreadPool(Executors.newFixedThreadPool(poolSize));
             this.server = AsynchronousServerSocketChannel.open(this.serverGroup).setOption(
@@ -58,6 +58,7 @@ public class DataServer {
                         channel.shutdownInput();
                         channel.shutdownOutput();
                         channel.close();
+                        dataWriter.close();
                     }catch (Exception e){
                         log.error("Closing channel "+e.getMessage());
                     }

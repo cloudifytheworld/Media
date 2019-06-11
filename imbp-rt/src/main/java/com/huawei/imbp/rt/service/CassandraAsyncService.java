@@ -85,6 +85,9 @@ public class CassandraAsyncService {
     @Value("${data.filePath}")
     public String filePath;
 
+    @Value("${data.inMemoryWrite}")
+    public boolean inMemoryWrite;
+
     private PreparedStatement statementSec;
     private PreparedStatement statementPrimary;
     private PreparedStatement statement;
@@ -176,7 +179,7 @@ public class CassandraAsyncService {
         CountDownLatch latch = new CountDownLatch(threadSize);
         ThreadServiceManage manage = new ThreadServiceManage(threadSize);
         QueueService<String> queue = new QueueService<>();
-        DataWriter dataWriter = writeToLocal?new DataWriter(filePath, groupId):null;
+        DataWriter dataWriter = writeToLocal?new DataWriter(filePath, groupId, inMemoryWrite):null;
         IntStream.range(0, threadSize).forEach(s -> {
             Runnable task = writeToLocal?
                     new FileTask(s, queue, dataWriter, latch, total):

@@ -24,13 +24,14 @@ import java.util.Objects;
 @RefreshScope
 public class DataWriter {
 
-    @Value("${data.inMemoryWrite}")
     public boolean inMemoryWrite;
 
     private final FileChannel channel;
     private Path path;
 
-    public DataWriter(String filePath, String fileName){
+    public DataWriter(String filePath, String fileName, boolean inMemoryWrite){
+
+        this.inMemoryWrite = inMemoryWrite;
 
         try {
             File dir = new File(filePath);
