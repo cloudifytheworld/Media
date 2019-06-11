@@ -58,6 +58,7 @@ public class FileTask implements Runnable{
                     }
                 }
             }
+            if(inMemoryWrite) writer.close();
         }catch (Exception e){
             log.error(e);
         }

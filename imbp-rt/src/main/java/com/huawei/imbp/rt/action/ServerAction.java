@@ -2,9 +2,11 @@ package com.huawei.imbp.rt.action;
 
 import akka.actor.UntypedAbstractActor;
 import com.google.common.base.Throwables;
+import com.huawei.imbp.rt.common.JobStatus;
 import com.huawei.imbp.rt.service.CassandraReactiveService;
 import com.huawei.imbp.rt.transfer.DataManager;
 import com.huawei.imbp.rt.transfer.DataServer;
+import com.huawei.imbp.rt.transfer.JobStorage;
 import com.huawei.imbp.rt.transfer.ServerActionData;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,9 @@ import java.util.concurrent.CountDownLatch;
 @Log4j2
 @Scope("prototype")
 public class ServerAction extends UntypedAbstractActor {
+
+    @Autowired
+    JobStorage jobStorage;
 
     @Autowired
     CassandraReactiveService cassandraReactiveService;
@@ -50,7 +55,9 @@ public class ServerAction extends UntypedAbstractActor {
         try {
             log.info(String .format("----total participated server(s) %d for group %s",
                     serverData.getParticipatedClients(), groupId));
-            dataServer.run(ready).start(() -> {
+            dataServer.run(ready).start((endMsg) -> {
+                String end[] = endMsg.split(":");
+                jobStorage.setClientStatus(end[1], end[2], JobStatus.valueOf(end[3].trim()));
                 jobs.countDown();
                 log.info(String .format("-------------JOB finish #%d for group %s --------------",
                         jobs.getCount(), groupId));

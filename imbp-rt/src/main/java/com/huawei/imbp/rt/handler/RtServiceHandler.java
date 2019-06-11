@@ -107,15 +107,16 @@ public class RtServiceHandler {
     public Mono<ServerResponse> retrieveDataByFile(ServerRequest serverRequest){
 
         String system = serverRequest.pathVariable("system");
-        DateTime startTime = null;
-        DateTime endTime = null;
+        DateTime startTime;
+        DateTime endTime;
+
         try {
             Optional<String> start = serverRequest.queryParam("start");
             Optional<String> end = serverRequest.queryParam("end");
             if(start.isPresent()){
                 startTime = DataUtil.convertDate(start.get());
-                endTime = end.isPresent()?DataUtil.convertDate(end.get()):
-                        startTime.plusDays(1).minusMillis(1);
+                endTime = end.isPresent() && !end.get().equals(start.get())
+                        ?DataUtil.convertDate(end.get()):startTime.plusDays(1).minusMillis(1);
             }else{
                 start = serverRequest.queryParam("startTime");
                 end = serverRequest.queryParam("endTime");
@@ -124,8 +125,8 @@ public class RtServiceHandler {
                 }
 
                 startTime = DataUtil.convertDateTime(start.get());
-                endTime = end.isPresent()?DataUtil.convertDateTime(end.get()):
-                        DataUtil.endOfDateTime(startTime);
+                endTime = end.isPresent() && !end.get().equals(start.get())
+                        ?DataUtil.convertDateTime(end.get()):DataUtil.endOfDateTime(startTime);
             }
 
             Mono<String> groupId = transferService.processServer(system, startTime, endTime);

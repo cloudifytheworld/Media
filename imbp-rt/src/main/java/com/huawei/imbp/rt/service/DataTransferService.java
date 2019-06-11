@@ -36,12 +36,14 @@ public class DataTransferService {
     @Autowired
     public ImbpRtActionExtension imbpRtActionExtension;
 
+    @Autowired
+    NetworkManageService netService;
+
     private ImbpException imbp = new ImbpException();
 
     public Mono<String> processServer(String system, DateTime start, DateTime end) throws Exception{
 
-        DataManager dataManager = new DataManager(storage);
-        NetworkManageService netService = new NetworkManageService();
+        DataManager dataManager = new DataManager(storage, netService);
         dataManager.prepareClient().prepareCalls(system, start, end,
                 netService.getServerIp(), netService.getSocketPort());
         Integer participateClients = storage.groupSize(dataManager.getGroupId());

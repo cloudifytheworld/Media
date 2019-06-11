@@ -33,7 +33,7 @@ public class DataReader {
                 try {
                     String data = new String(buf.array());
                     if (data.contains(Constant.END_MARKER)) {
-                        onComplete.onComplete();
+                        onComplete.onComplete(data);
                         throw new ImbpException().setMessage("Done read from "+data);
                     }
                     dataWriter.write(buf);

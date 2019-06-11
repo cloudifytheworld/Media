@@ -7,5 +7,5 @@ package com.huawei.imbp.rt.transfer;
 @FunctionalInterface
 public interface OnComplete {
 
-    void onComplete();
+    void onComplete(String endMessage);
 }

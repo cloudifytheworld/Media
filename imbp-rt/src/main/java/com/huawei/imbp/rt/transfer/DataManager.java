@@ -2,12 +2,14 @@ package com.huawei.imbp.rt.transfer;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
+import com.huawei.imbp.rt.service.NetworkManageService;
 import com.huawei.imbp.rt.util.DataUtil;
 import lombok.extern.log4j.Log4j2;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeComparator;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
@@ -15,13 +17,15 @@ import java.util.*;
 /**
  * @author Charles(Li) Cai
  * @date 5/25/2019
+ * Todo check group status, if any of then fail, initiate new call
  */
 
 @Log4j2
 public class DataManager {
 
-
     JobStorage storage;
+    NetworkManageService netService;
+
     DateTimeFormatter dtf = DateTimeFormat.forPattern("yyyyMMdd");
 
     private RestTemplate restTemplate = new RestTemplate();
@@ -32,10 +36,13 @@ public class DataManager {
     private final String clientUri = "/api/system/rt/client/";
     private final String groupId;
 
-    public DataManager(JobStorage storage){
+    public DataManager(JobStorage storage, NetworkManageService netService){
+        this.netService = netService;
         this.storage = storage;
         this.groupId = UUID.randomUUID().toString();
+
     }
+
     public void clear(String uuid){
         storage.remove(uuid);
     }
@@ -52,10 +59,23 @@ public class DataManager {
             getServerStatus(serviceId, address + ":" + port);
         });
 
+        //remove itself from list of servers for as a master
+        if(clientServers.size() > 1){
+            List<String> net = netService.getNetworkInterface();
+            if(net != null && net.size() > 0) {
+                for (int i = 0; i < net.size(); i++) {
+                    String ip = net.get(i);
+                    if (clientServers.contains(ip)) {
+                        clientServers.remove(ip);
+                        break;
+                    }
+                }
+            }
+        }
+
         return this;
     }
 
-    //Todo filter out master server if more than one in clientServer list.
     private void getServerStatus(final String serviceId, final String address){
 
         try {

@@ -3,6 +3,7 @@ package com.huawei.imbp.rt.transfer;
 import com.google.common.base.Throwables;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,6 +21,7 @@ import java.util.Objects;
  */
 
 @Log4j2
+@RefreshScope
 public class DataWriter {
 
     @Value("${data.inMemoryWrite}")
@@ -75,7 +77,6 @@ public class DataWriter {
     }
 
     public void close() throws Exception{
-        this.channel.force(true);
         this.channel.close();
     }
 }
