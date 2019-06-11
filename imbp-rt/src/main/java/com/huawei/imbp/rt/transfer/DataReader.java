@@ -7,6 +7,7 @@ import lombok.extern.log4j.Log4j2;
 
 import java.nio.ByteBuffer;
 import java.nio.channels.AsynchronousSocketChannel;
+import java.nio.channels.ClosedChannelException;
 import java.nio.channels.CompletionHandler;
 
 /**
@@ -40,8 +41,11 @@ public class DataReader {
                     buf.flip();
                     read(channel, onComplete);
 
-                }catch (Exception imbp){
+                }catch (ImbpException imbp) {
                     log.info(imbp.getMessage());
+                }catch (ClosedChannelException cx){
+                }catch (Exception ex){
+                    log.error(Throwables.getStackTraceAsString(ex));
                 }
             }
 

@@ -78,6 +78,7 @@ public class DataWriter {
     }
 
     public void close() throws Exception{
+        this.channel.force(true);
         this.channel.close();
     }
 }

@@ -19,9 +19,6 @@ import java.util.concurrent.atomic.AtomicLong;
 public class NetTask implements Runnable{
 
 
-    @Value("${data.sleepLimit}")
-    public int sleepLimit;
-
     QueueService<String> queue;
     DataClient send;
     CountDownLatch latch;
@@ -42,8 +39,6 @@ public class NetTask implements Runnable{
         String threadName = seq+" "+Thread.currentThread().getName();
 
         try {
-
-            Thread.sleep(sleepLimit);
 
             while (true) {
                 String aoi = queue.poll();

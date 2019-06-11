@@ -36,6 +36,10 @@ public class ServerAction extends UntypedAbstractActor {
     @Value("${data.inMemoryWrite}")
     public boolean inMemoryWrite;
 
+
+    @Value("${data.sleepLimit}")
+    public int sleepLimit;
+
     @Override
     public void onReceive(Object msg) {
 
@@ -65,6 +69,7 @@ public class ServerAction extends UntypedAbstractActor {
                 jobs.countDown();
                 log.info(String .format("-------------JOB finish #%d for group %s --------------",
                         jobs.getCount(), groupId));
+
             });
 
             ready.await();
@@ -72,10 +77,10 @@ public class ServerAction extends UntypedAbstractActor {
             dataManager.call(groupId);
 
             jobs.await();
-            log.info("starting to close server");
+            Thread.sleep(sleepLimit);
             dataManager.clear(groupId);
             dataServer.close();
-
+            log.info("server closed");
         }catch (Exception e){
              log.error(this.getClass()+"---"+
                      Throwables.getStackTraceAsString(e));
