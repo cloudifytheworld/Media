@@ -187,6 +187,9 @@ public class CassandraAsyncService {
             manage.submit(task);
         });
 
+        log.info(String.format("keyToSec: %s - threadSize: %d - writeToLocal: %s - inMemoryWrite: %s" +
+                        " - renderLimit: %d - filePath: %s", keyToSec+"", threadSize, writeToLocal+"",
+                inMemoryWrite+"", renderLimit, filePath));
 //        IntStream.range(0, 4).forEach( i -> queue.add(i+""));
 
         List<ResultSetFuture> futuresData = new ArrayList<>();

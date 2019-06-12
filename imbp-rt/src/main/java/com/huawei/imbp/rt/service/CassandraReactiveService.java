@@ -17,10 +17,12 @@ import com.huawei.imbp.rt.entity.Aoi;
 import com.huawei.imbp.rt.entity.AoiEntity;
 import com.huawei.imbp.rt.entity.DateDevice;
 import com.huawei.imbp.rt.repository.AoiRepository;
+import com.huawei.imbp.rt.thread.FileReactiveTask;
 import com.huawei.imbp.rt.thread.FileTask;
 import com.huawei.imbp.rt.thread.ThreadServiceManage;
 import com.huawei.imbp.rt.transfer.ClientData;
 import com.huawei.imbp.rt.transfer.DataClient;
+import com.huawei.imbp.rt.transfer.DataWriter;
 import com.huawei.imbp.rt.transfer.JobStorage;
 import com.huawei.imbp.rt.util.DataUtil;
 import com.huawei.imbp.rt.util.WriteToFile;
@@ -80,6 +82,14 @@ public class CassandraReactiveService {
     @Value("${data.renderLimit}")
     public int renderLimit;
 
+    @Value("${data.threadSize}")
+    public int threadSize;
+
+    @Value("${data.filePath}")
+    public String filePath;
+
+    @Value("${data.inMemoryWrite}")
+    public boolean inMemoryWrite;
 
     /*
      *  /api/{system}/rt/single
@@ -111,24 +121,34 @@ public class CassandraReactiveService {
 
     public void getDataByDate(ClientData input){
 
-        storage.put(input.getGroupId(), input.getClientId(), input);
-        String server = input.getServerIp();
-        int port = input.getServerPort();
-        String date = input.getDate();
-        log.info(date);
-        AtomicLong total = new AtomicLong();
         AtomicInteger count = new AtomicInteger();
-
-        CountDownLatch latch = new CountDownLatch(2);
-
+        AtomicLong total = new AtomicLong();
         long start = System.currentTimeMillis();
+
+        String groupId= input.getGroupId();
+        String clientId = input.getClientId();
+        String date = input.getDate();
+        String server = input.getServerIp();
+        long startTime = input.getStartTime();
+        long endTime = input.getEndTime();
+        int port = input.getServerPort();
+
+        log.info("client info "+input.toString());
+
+        storage.put(groupId, clientId, input);
+
+        CountDownLatch latch = new CountDownLatch(threadSize);
+
         Semaphore semaphore = new Semaphore(renderLimit);
-        ThreadServiceManage manage = new ThreadServiceManage(2);
+        ThreadServiceManage manage = new ThreadServiceManage(threadSize);
         QueueService<String> queue = new QueueService<>();
-        IntStream.range(0, 2).forEach(s -> {
-           // manage.submit(new FileTask(s, queue, latch, total));
+        DataWriter dataWriter = new DataWriter(filePath, groupId, inMemoryWrite);
+
+        IntStream.range(0, threadSize).forEach(s -> {
+            manage.submit(new FileReactiveTask(s, queue, dataWriter, latch, total, semaphore));
         });
-        Set<String> indexes = redisTemplate.boundZSetOps("secDate:"+input.getSystem() + ":" + date).rangeByScore(1541055600000l,1541141999000l);
+        Set<String> indexes = redisTemplate.boundZSetOps("secDate:"+input.getSystem() + ":" + date)
+                .rangeByScore(startTime,endTime);
 //        Set<String> indexes = redisTemplate.boundSetOps("date:"+input.getSystem() + ":" + date).members();
 
         indexes.stream().forEach( index -> {
@@ -182,12 +202,8 @@ public class CassandraReactiveService {
         });
 
         try {
-
-            queue.add(Constant.END_MARKER+":"+input.getGroupId()+":"+input.getClientId()+":"+ JobStatus.complete);
-            queue.add(Constant.END_MARKER+":"+input.getGroupId()+":"+input.getClientId()+":"+ JobStatus.complete);
+            IntStream.range(0, threadSize).forEach(i -> queue.add(Constant.END_MARKER));
             latch.await();
-            //      send.close(Constant.END_MARKER+":"+input.getGroupId()+":"+input.getClientId()+":"+ JobStatus.complete);
-
             manage.close();
         }catch (Exception e){
             log.error(e.getMessage());
