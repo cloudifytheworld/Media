@@ -1,7 +1,9 @@
 package com.huawei.imbp.etl.service;
 
 import com.datastax.driver.core.querybuilder.Insert;
-import com.huawei.imbp.etl.transform.ConversionData;
+import com.google.common.base.Throwables;
+import com.huawei.imbp.etl.build.BuildStatement;
+import com.huawei.imbp.etl.build.StatementBuildFactory;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.cassandra.core.ReactiveCassandraOperations;
@@ -31,29 +33,30 @@ public class CassandraService {
     @Autowired
     private ReactiveRedisTemplate<String, String> redisTemplate;
 
+    @Autowired
+    private StatementBuildFactory build;
 
-    public Mono<ServerResponse> onAoiProcess(final Map payload, final String system) throws Exception {
 
-        //Todo all tables should be in configuration in consul
-        final String keySpace = "images";
-        final String table = "aoi_single_component_image_1";
+    public Mono<ServerResponse> onProcess(final Map payload, final String system) throws Exception {
 
         log.debug("starting  ingestion process for " + system);
 
         try {
-            Insert insert = ConversionData.buildStatement(payload, system, keySpace, table);
-            final String key = ConversionData.buildIndex(redisTemplate);
+            BuildStatement buildStatement = build.get(system);
+            Insert insert = buildStatement.build(payload, system);
+            String key = buildStatement.buildIndex(redisTemplate);
 
-//            cassandraDataTemplate.getReactiveCqlOperations().execute(insert)
-//                    .doOnError( e ->
-//                        loggingService.onFailure(e, system, payload)
-//                    ).subscribe(
-//                            success -> log.debug("Done insertion on "+system+" for index "+key),
-//                            error -> log.debug("Fail to insert system "+system+" for index " +
-//                                    key+" on Error "+error)
-//            );
+            cassandraDataTemplate.getReactiveCqlOperations().execute(insert)
+                    .doOnError( e ->
+                        loggingService.onFailure(e, system, payload)
+                    ).subscribe(
+                            success -> log.debug("Done insertion on "+system+" for index "+key),
+                            error -> log.debug("Fail to insert system "+system+" for index " +
+                                    key+" on Error "+error)
+            );
             return Mono.empty();
         } catch (Exception e) {
+            log.error(Throwables.getStackTraceAsString(e));
             loggingService.onFailure(e, system, payload);
             throw e;
         }

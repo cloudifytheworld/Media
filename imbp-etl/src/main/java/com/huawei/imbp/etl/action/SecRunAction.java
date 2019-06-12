@@ -35,7 +35,7 @@ public class SecRunAction extends UntypedAbstractActor {
             data.stream().forEach(d ->{
                 String system = (String)d.remove("system");
                 try{
-                    service.onAoiProcess(d, system);
+                    service.onProcess(d, system);
                 }catch (Exception e){
                     log.error(e.getMessage());
                     loggingService.onFailure(e, system, d);

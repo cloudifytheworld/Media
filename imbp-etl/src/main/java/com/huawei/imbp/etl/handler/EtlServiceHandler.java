@@ -51,14 +51,8 @@ public class EtlServiceHandler {
 
                 log.debug("handling imbp-etl service for "+system);
                 try {
-
-                    switch (OnSystem.valueOf(system.toLowerCase())) {
-                        case aoi:
-                            Map<String, Object> payload = (Map) input.get("payload");
-                            return cassandraService.onAoiProcess(payload, system);
-                        default:
-                            return ServerResponse.badRequest().syncBody(system + "is not supported");
-                    }
+                     Map<String, Object> payload = (Map) input.get("payload");
+                     return cassandraService.onProcess(payload, system);
                 }catch (Exception e){
                     return ServerResponse.badRequest().syncBody(e.getMessage());
                 }
