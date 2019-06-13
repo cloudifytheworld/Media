@@ -1,10 +1,13 @@
-package com.huawei.imbp.rt.transfer;
+package com.huawei.imbp.rt.entity;
 
 import com.huawei.imbp.rt.common.JobStatus;
+import com.huawei.imbp.rt.service.QueueService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.joda.time.DateTime;
+
+import java.util.concurrent.CountDownLatch;
 
 /**
  * @author Charles(Li) Cai
@@ -14,7 +17,7 @@ import org.joda.time.DateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ClientData {
+public class ClientData<T> {
 
     private String serverIp;
     private int serverPort;
@@ -28,5 +31,8 @@ public class ClientData {
     private JobStatus status;
     private boolean dateTimeRange;
     private boolean consolidation;
+    private CountDownLatch valueLatch;
+    private QueueService<T> queue;
+
 
 }

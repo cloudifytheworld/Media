@@ -1,6 +1,7 @@
 package com.huawei.imbp.rt.transfer;
 
 import com.huawei.imbp.rt.common.JobStatus;
+import com.huawei.imbp.rt.entity.ClientData;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 

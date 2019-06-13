@@ -4,7 +4,7 @@ import akka.actor.UntypedAbstractActor;
 import com.huawei.imbp.rt.entity.RowsKey;
 import com.huawei.imbp.rt.service.CassandraReactiveService;
 import com.huawei.imbp.rt.service.CassandraAsyncService;
-import com.huawei.imbp.rt.transfer.ClientData;
+import com.huawei.imbp.rt.entity.ClientData;
 import com.huawei.imbp.rt.util.WriteToFile;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;

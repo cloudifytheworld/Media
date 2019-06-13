@@ -2,6 +2,7 @@ package com.huawei.imbp.rt.transfer;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
+import com.huawei.imbp.rt.entity.ClientData;
 import com.huawei.imbp.rt.service.NetworkManageService;
 import com.huawei.imbp.rt.util.DataUtil;
 import lombok.extern.log4j.Log4j2;
@@ -9,7 +10,6 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeComparator;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
@@ -26,10 +26,9 @@ public class DataManager {
     JobStorage storage;
     NetworkManageService netService;
 
-    DateTimeFormatter dtf = DateTimeFormat.forPattern("yyyyMMdd");
-
     private RestTemplate restTemplate = new RestTemplate();
     JsonParser parser = new JsonParser();
+
     private List<String> clientServers = new ArrayList<>();
     private final String serverUrl = "http://localhost:8500/v1/catalog/service/imbp-rt";
     private final String serverStatusUrl = "http://localhost:8500/v1/agent/health/service/id/";
@@ -157,7 +156,7 @@ public class DataManager {
         clientData.setConsolidation(consolidation);
         clientData.setDateTimeRange(range);
         clientData.setStartTime(nextDate.getMillis());
-        clientData.setDate(nextDate.toString(dtf));
+        clientData.setDate(DataUtil.toDateString(nextDate));
         storage.put(this.groupId, clientId, clientData);
         return clientData;
 

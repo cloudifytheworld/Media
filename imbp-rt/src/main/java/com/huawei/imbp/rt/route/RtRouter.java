@@ -46,6 +46,13 @@ public class RtRouter {
                 rtServiceHandler::retrieveDataByPagination);
     }
 
+    @Bean
+    public RouterFunction<ServerResponse> rtDataSavingRouting(RtServiceHandler rtServiceHandler) {
+
+        return RouterFunctions.route(RequestPredicates.GET("/api/{system}/rt/location"),
+                rtServiceHandler::retrieveDataByDate);
+    }
+
     /*
      * Require params: system, from(start day) and deviceType
      * Todo: support label and created_time

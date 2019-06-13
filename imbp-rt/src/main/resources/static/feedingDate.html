@@ -11,7 +11,7 @@
         var data = document.getElementById('data');
         var date = window.prompt('date');
 
-        var ws = new WebSocket("ws://localhost:8083/ws/api/rt/feeding");
+        var ws = new WebSocket("ws://localhost:8084/ws/api/rt/feeding");
         ws.addEventListener('open', function (evt) {
             ws.send(date)
         })

@@ -40,7 +40,7 @@ public class WebSocketConfig {
     }
 
     @Bean
-    WebSocketHandler webSocketHandler(DataRetrieveController queue){
+    WebSocketHandler webSocketHandler(DataRetrieveController controller){
         return webSocketSession ->  {
             log.info("Start webSocket session "+webSocketSession.getId());
             Flux<String> ask =  webSocketSession.receive()
@@ -49,7 +49,7 @@ public class WebSocketConfig {
                         log.info("Terminate webSocket session");
                         webSocketSession.close();
                     });
-            Flux<String> response =  ask.flatMap(queue::retrieveDataByFeeding);
+            Flux<String> response =  ask.flatMap(controller::retrieveDataByFeeding);
             Flux<WebSocketMessage> rep = response.map(data -> webSocketSession.textMessage(data));
             return webSocketSession.send(rep);
         };

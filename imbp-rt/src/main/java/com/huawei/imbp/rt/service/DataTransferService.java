@@ -5,6 +5,7 @@ import akka.actor.ActorSystem;
 import com.google.common.base.Throwables;
 import com.huawei.imbp.rt.common.ImbpException;
 import com.huawei.imbp.rt.config.ImbpRtActionExtension;
+import com.huawei.imbp.rt.entity.ClientData;
 import com.huawei.imbp.rt.transfer.*;
 import lombok.extern.log4j.Log4j2;
 import org.joda.time.DateTime;

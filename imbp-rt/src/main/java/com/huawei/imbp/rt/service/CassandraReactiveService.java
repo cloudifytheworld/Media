@@ -11,17 +11,14 @@ import com.google.common.util.concurrent.AtomicDouble;
 
 import com.huawei.imbp.rt.common.Constant;
 import com.huawei.imbp.rt.common.InputParameter;
-import com.huawei.imbp.rt.common.JobStatus;
 import com.huawei.imbp.rt.config.ImbpRtActionExtension;
 import com.huawei.imbp.rt.entity.Aoi;
 import com.huawei.imbp.rt.entity.AoiEntity;
 import com.huawei.imbp.rt.entity.DateDevice;
 import com.huawei.imbp.rt.repository.AoiRepository;
 import com.huawei.imbp.rt.thread.FileReactiveTask;
-import com.huawei.imbp.rt.thread.FileTask;
 import com.huawei.imbp.rt.thread.ThreadServiceManage;
-import com.huawei.imbp.rt.transfer.ClientData;
-import com.huawei.imbp.rt.transfer.DataClient;
+import com.huawei.imbp.rt.entity.ClientData;
 import com.huawei.imbp.rt.transfer.DataWriter;
 import com.huawei.imbp.rt.transfer.JobStorage;
 import com.huawei.imbp.rt.util.DataUtil;
@@ -41,8 +38,6 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-
-import java.net.InetSocketAddress;
 
 import java.util.*;
 import java.util.concurrent.CountDownLatch;

@@ -5,7 +5,7 @@ import com.google.common.net.InetAddresses;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.huawei.imbp.rt.common.ImbpException;
-import com.huawei.imbp.rt.transfer.ClientData;
+import com.huawei.imbp.rt.entity.ClientData;
 import org.joda.time.DateTime;
 
 import org.joda.time.format.DateTimeFormat;
@@ -128,6 +128,10 @@ public class DataUtil {
             throw imbpException.setMessage("can't get end of date for "+startTime.toString());
         }
 
+    }
+
+    public static String toDateString(DateTime dateTime){
+        return dateTime.toString(dateFormat);
     }
 
 }

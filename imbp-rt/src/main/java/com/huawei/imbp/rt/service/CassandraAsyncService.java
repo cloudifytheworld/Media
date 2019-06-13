@@ -13,15 +13,11 @@ import com.huawei.imbp.rt.common.InputParameter;
 import com.huawei.imbp.rt.common.JobStatus;
 import com.huawei.imbp.rt.config.ImbpRtActionExtension;
 import com.huawei.imbp.rt.entity.Aoi;
-import com.huawei.imbp.rt.thread.FileTask;
-import com.huawei.imbp.rt.thread.NetTask;
 import com.huawei.imbp.rt.thread.ThreadServiceManage;
-import com.huawei.imbp.rt.transfer.ClientData;
+import com.huawei.imbp.rt.entity.ClientData;
 import com.huawei.imbp.rt.transfer.DataClient;
-import com.huawei.imbp.rt.transfer.DataWriter;
 import com.huawei.imbp.rt.transfer.JobStorage;
 import com.huawei.imbp.rt.util.EntityMappingUtil;
-import com.huawei.imbp.rt.util.OffHeapMemoryAllocation;
 import com.huawei.imbp.rt.util.StatisticManager;
 import com.huawei.imbp.rt.util.WriteToFile;
 import lombok.extern.log4j.Log4j2;
@@ -34,7 +30,6 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -89,7 +84,7 @@ public class CassandraAsyncService extends DataAccessService {
     @PostConstruct
     //Todo refactor and init based on system input
     private void init(){
-        statement = cassandraSession.prepare("SELECT * FROM images.aoi_single_component_image_1 where created_day = ? and device_type = ? and hour = ? and mins = ? ALLOW FILTERING");
+        statement = cassandraSession.prepare("SELECT * FROM images.aoi_single_component_image_1 where created_day = ? and device_type = ? and hour = ? and mins = ? and sec = ? ALLOW FILTERING");
     }
 
     public void getDataByDates(InputParameter input){
@@ -138,7 +133,6 @@ public class CassandraAsyncService extends DataAccessService {
 
     //Todo: not enough memory
     //      1. send by socket from NetFile needs verification by real servers
-    //      2. when keyToSec is false
     // Works to write one at time, justify speed by renderLimit and threadSize
     public void getDataByDate(ClientData input){
 
@@ -235,98 +229,60 @@ public class CassandraAsyncService extends DataAccessService {
         }
     }
 
-    public void feedDataByDates(String system, String date, QueueService<String> queueService, CountDownLatch valueLatch){
+    public void feedDataByDate(ClientData clientData){
 
-        List<ResultSetFuture> futuresData = new ArrayList<>();
         long start = System.currentTimeMillis();
         AtomicInteger count = new AtomicInteger();
         AtomicInteger countSize = new AtomicInteger();
-        AtomicDouble image = new AtomicDouble();
 
-        Set<String> indexes = redisTemplate.boundSetOps("date"+":"+system + ":" + date).members();
-        log.info(date+" index size: "+indexes.size());
-        int indexSize = indexes.size();
+        long startTime = clientData.getStartTime();
+        long endTime = clientData.getEndTime();
+        String date = clientData.getDate();
+        boolean dateTimeRange = clientData.isDateTimeRange();
+        String system = clientData.getSystem();
+        QueueService<String> queue = clientData.getQueue();
+        CountDownLatch latch = clientData.getValueLatch();
 
+        try {
+            BuildStatement stmt = buildFactory.get(system, dateTimeRange);
+            PreparedStatement prepStmt = stmt.build(system);
+            Set<String> indexes = stmt.getIndex(system, date, startTime, endTime);
+            log.info(date + " index size: " + indexes.size());
+            int indexSize = indexes.size();
 
-        indexes.stream().forEach( index -> {
+            List<ResultSetFuture> futuresData = new ArrayList<>();
 
-            String[] keys = index.split("#");
-            ResultSetFuture results = cassandraSession.executeAsync(statement.bind(date, keys[0]
-                    , Integer.parseInt(keys[1]), Integer.parseInt(keys[2])));
-            futuresData.add(results);
+            indexes.stream().forEach(index -> {
 
-            if(count.incrementAndGet()%renderLimit == 0 || count.get() == indexSize){
-                List<ListenableFuture<ResultSet>> futureLists = Futures.inCompletionOrder(futuresData);
-                for (ListenableFuture<ResultSet> future : futureLists) {
-                    try {
-                        ResultSet rs = future.get();
-                        List<Row> rows = rs.all();
-                        countSize.addAndGet(rows.size());
-                        rows.stream().forEach(d -> {
-                            long imageSize = d.getBytes("image").array().length;
-                            image.addAndGet((double)imageSize/1000000);
-                            queueService.add(date+"@"+d.getString("file_name"));
-                        });
-                    } catch (Exception e) {
-                        log.error(Throwables.getStackTraceAsString(e));
+                String[] keys = index.split("#");
+                ResultSetFuture results = cassandraSession.executeAsync(stmt.bind(keys, prepStmt));
+                futuresData.add(results);
+
+                if (count.incrementAndGet() % renderLimit == 0 || count.get() == indexSize) {
+                    List<ListenableFuture<ResultSet>> futureLists = Futures.inCompletionOrder(futuresData);
+                    for (ListenableFuture<ResultSet> future : futureLists) {
+                        try {
+                            ResultSet rs = future.get();
+                            List<Row> rows = rs.all();
+                            countSize.addAndGet(rows.size());
+                            rows.stream().forEach(d -> {
+                                queue.add(date + "@" + d.getString("file_name"));
+                            });
+                        } catch (Exception e) {
+                            log.error(e);
+                        }
                     }
-                    if(queueService.size() > 500 ) valueLatch.countDown();
+                    latch.countDown();
                 }
+            });
+            if (indexes.size() == 0) {
+                latch.countDown();
             }
-        });
-        if(indexes.size() == 0 || queueService.size() > 0) {
-            valueLatch.countDown();
+        }catch (Exception e){
+            log.error(e);
         }
-
         Long end = (System.currentTimeMillis()-start)/1000;
-        log.info(date+" takes seconds "+end+", and process cells "+countSize.get()+", data in size(M) "+String.format("%.2f", image.get()));
+        log.info(date+" takes seconds "+end+", and process cells "+countSize.get());
     }
-
-    public void feedDataByHour(String system, String date, int hour, QueueService<String> queueService, CountDownLatch valueLatch){
-
-        List<ResultSetFuture> futuresData = new ArrayList<>();
-        long start = System.currentTimeMillis();
-        Set<String> indexes = redisTemplate.boundSetOps("hour"+":"+system + ":" + date+":"+hour).members();
-        log.info(date+":"+hour+"-index size: "+indexes.size());
-        int indexSize = indexes.size();
-        AtomicInteger count = new AtomicInteger();
-        AtomicInteger countSize = new AtomicInteger();
-        AtomicDouble image = new AtomicDouble();
-
-        indexes.stream().forEach( index -> {
-
-            String[] keys = index.split("#");
-            ResultSetFuture results = cassandraSession.executeAsync(statement.bind(date, keys[0]
-                    ,hour, Integer.parseInt(keys[1])));
-            futuresData.add(results);
-
-            if(count.incrementAndGet()%240 == 0 || count.get() == indexSize){
-                List<ListenableFuture<ResultSet>> futureLists = Futures.inCompletionOrder(futuresData);
-                for (ListenableFuture<ResultSet> future : futureLists) {
-                    try {
-                        ResultSet rs = future.get();
-                        List<Row> rows = rs.all();
-                        countSize.addAndGet(rows.size());
-                        rows.stream().forEach(d -> {
-                            long imageSize = d.getBytes("image").array().length;
-                            image.addAndGet((double)imageSize/1000000);
-                            queueService.add(hour+"#"+d.getString("file_name"));
-                        });
-                    } catch (Exception e) {
-                        log.error(Throwables.getStackTraceAsString(e));
-                    }
-                    if(queueService.size() > 500 ) valueLatch.countDown();
-                }
-            }
-        });
-        if(indexes.size() == 0) {
-            valueLatch.countDown();
-        }
-
-        Long end = (System.currentTimeMillis()-start)/1000;
-        log.info(date+":"+hour+" seconds "+end+", and process cells "+countSize.get()+", data in size(M) "+String.format("%.2f", image.get()));
-
-    }
-
 
 }

@@ -9,11 +9,10 @@ import com.huawei.imbp.rt.common.JobStatus;
 import com.huawei.imbp.rt.service.CassandraReactiveService;
 import com.huawei.imbp.rt.service.CassandraAsyncService;
 import com.huawei.imbp.rt.service.DataTransferService;
-import com.huawei.imbp.rt.transfer.ClientData;
+import com.huawei.imbp.rt.entity.ClientData;
 import com.huawei.imbp.rt.util.DataUtil;
 import com.huawei.imbp.rt.util.Logging;
 import com.huawei.imbp.rt.util.ServiceUtil;
-import lombok.extern.log4j.Log4j2;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -123,6 +122,10 @@ public class RtServiceHandler {
             DateTime endTime = end.isPresent() && !end.get().equals(start.get())
                         ?DataUtil.convertDate(end.get()):startTime.plusDays(1).minusMillis(1);
 
+            if(endTime.isBefore(startTime.getMillis())){
+                throw new ImbpException().setMessage("end date is smaller than start date");
+            }
+
             Boolean consolidate = consolidation.isPresent()?Boolean.parseBoolean(consolidation.get()):true;
 
             Mono<String> groupId = transferService.processServer(system, startTime, endTime, consolidate, false);
@@ -148,6 +151,10 @@ public class RtServiceHandler {
             DateTime startTime = DataUtil.convertDateTime(start.get());
             DateTime endTime = end.isPresent() && !end.get().equals(start.get())
                         ?DataUtil.convertDateTime(end.get()):DataUtil.endOfDateTime(startTime);
+
+            if(endTime.isBefore(startTime.getMillis())){
+                throw new ImbpException().setMessage("endTime is smaller than startTime");
+            }
 
             Boolean consolidate = consolidation.isPresent()?Boolean.parseBoolean(consolidation.get()):true;
 
