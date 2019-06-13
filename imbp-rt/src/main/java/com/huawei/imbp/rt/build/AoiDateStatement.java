@@ -5,6 +5,7 @@ import com.datastax.driver.core.PreparedStatement;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.Set;
 
 /**
@@ -16,11 +17,13 @@ import java.util.Set;
 @Log4j2
 public class AoiDateStatement extends BuildStatement {
 
-    @Override
-    public PreparedStatement build(String system) throws Exception {
+    PreparedStatement prepStmt;
 
-        String spaceTable = getSpaceAndTable(system);
-        return cassandraSession.prepare("SELECT * FROM "+spaceTable+" where created_day = ?" +
+    @PostConstruct
+    @Override
+    public void init(){
+
+        prepStmt = cassandraSession.prepare("SELECT * FROM "+aoiKeySpaceTable+" where created_day = ?" +
                 " and device_type = ? and hour = ? and mins = ? and sec = ? ALLOW FILTERING");
     }
 
@@ -30,8 +33,8 @@ public class AoiDateStatement extends BuildStatement {
     }
 
     @Override
-    public BoundStatement bind(String[] keys, PreparedStatement prepStmt) {
-        return prepStmt.bind(keys[0], keys[1], Integer.parseInt(keys[2]), Integer.parseInt(keys[3]),
+    public BoundStatement bind(String[] keys) {
+        return this.prepStmt.bind(keys[0], keys[1], Integer.parseInt(keys[2]), Integer.parseInt(keys[3]),
                 Integer.parseInt(keys[4]));
     }
 }

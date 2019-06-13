@@ -162,7 +162,6 @@ public class CassandraAsyncService extends DataAccessService {
 
         try {
             BuildStatement stmt = buildFactory.get(system, dateTimeRange);
-            PreparedStatement prepStmt = stmt.build(system);
             Set<String> indexes = stmt.getIndex(system, date, startTime, endTime);
             List<ResultSetFuture> futuresData = new ArrayList<>();
 
@@ -173,7 +172,7 @@ public class CassandraAsyncService extends DataAccessService {
 
             indexes.stream().forEach( index -> {
                 String[] keys = index.split("#");
-                BoundStatement boundStatement = stmt.bind(keys, prepStmt);
+                BoundStatement boundStatement = stmt.bind(keys);
                 execute(count, boundStatement, indexSize, futuresData, queue);
             });
 
@@ -245,7 +244,6 @@ public class CassandraAsyncService extends DataAccessService {
 
         try {
             BuildStatement stmt = buildFactory.get(system, dateTimeRange);
-            PreparedStatement prepStmt = stmt.build(system);
             Set<String> indexes = stmt.getIndex(system, date, startTime, endTime);
             log.info(date + " index size: " + indexes.size());
             int indexSize = indexes.size();
@@ -255,7 +253,7 @@ public class CassandraAsyncService extends DataAccessService {
             indexes.stream().forEach(index -> {
 
                 String[] keys = index.split("#");
-                ResultSetFuture results = cassandraSession.executeAsync(stmt.bind(keys, prepStmt));
+                ResultSetFuture results = cassandraSession.executeAsync(stmt.bind(keys));
                 futuresData.add(results);
 
                 if (count.incrementAndGet() % renderLimit == 0 || count.get() == indexSize) {

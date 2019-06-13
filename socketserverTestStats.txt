@@ -1,0 +1,57 @@
+500M data
+keyToSec: false - threadSize: 4 - writeToLocal: false - inMemoryWrite: true - renderLimit: 120 - filePath: D://work//file//
+- 20181112 takes 36 seconds,  total size(M) 567
+
+keyToSec: false - threadSize: 4 - writeToLocal: false - inMemoryWrite: true - renderLimit: 120 - filePath: D://work//file//
+- 20181112 takes 35 seconds,  total size(M) 567
+
+keyToSec: false - threadSize: 4 - writeToLocal: false - inMemoryWrite: true - renderLimit: 960 - filePath: D://work//file//
+- 20181112 takes 29 seconds,  total size(M) 567
+
+keyToSec: false - threadSize: 4 - writeToLocal: false - inMemoryWrite: true - renderLimit: 960 - filePath: D://work//file//
+- 20181112 takes 28 seconds,  total size(M) 567
+
+keyToSec: true - threadSize: 4 - writeToLocal: false - inMemoryWrite: true - renderLimit: 120 - filePath: D://work//file//
+- 20181112 takes 13 seconds,  total size(M) 567
+
+keyToSec: true - threadSize: 4 - writeToLocal: false - inMemoryWrite: true - renderLimit: 120 - filePath: D://work//file//
+- 20181112 takes 13 seconds,  total size(M) 567
+
+keyToSec: true - threadSize: 4 - writeToLocal: false - inMemoryWrite: true - renderLimit: 960 - filePath: D://work//file//
+- 20181112 takes 14 seconds,  total size(M) 567
+
+keyToSec: true - threadSize: 4 - writeToLocal: false - inMemoryWrite: true - renderLimit: 960 - filePath: D://work//file//
+- 20181112 takes 13 seconds,  total size(M) 567
+
+keyToSec: true - threadSize: 1 - writeToLocal: false - inMemoryWrite: true - renderLimit: 960 - filePath: D://work//file//
+- 20181112 takes 16 seconds,  total size(M) 567
+
+keyToSec: true - threadSize: 2 - writeToLocal: false - inMemoryWrite: true - renderLimit: 960 - filePath: D://work//file//
+- 20181112 takes 13 seconds,  total size(M) 567
+
+keyToSec: true - threadSize: 8 - writeToLocal: false - inMemoryWrite: true - renderLimit: 960 - filePath: D://work//file//
+- 20181112 takes 13 seconds,  total size(M) 567
+
+keyToSec: true - threadSize: 8 - writeToLocal: false - inMemoryWrite: true - renderLimit: 120 - filePath: D://work//file//
+- 20181110 takes 26 seconds,  total size(M) 1026
+
+keyToSec: true - threadSize: 8 - writeToLocal: false - inMemoryWrite: true - renderLimit: 120 - filePath: D://work//file//
+- 20181112 takes 38 seconds,  total size(M) 1026
+
+keyToSec: true - threadSize: 8 - writeToLocal: false - inMemoryWrite: true - renderLimit: 960 - filePath: D://work//file//
+- 20181112 takes 53 seconds,  total size(M) 1026
+
+keyToSec: true - threadSize: 8 - writeToLocal: false - inMemoryWrite: true - renderLimit: 960 - filePath: D://work//file//
+- 20181112 takes 107 seconds,  total size(M) 1026
+
+keyToSec: true - threadSize: 2 - writeToLocal: false - inMemoryWrite: true - renderLimit: 960 - filePath: D://work//file//
+- 20181112 takes 49 seconds,  total size(M) 1026
+
+keyToSec: true - threadSize: 2 - writeToLocal: false - inMemoryWrite: true - renderLimit: 120 - filePath: D://work//file//
+- 20181112 takes 57 seconds,  total size(M) 1026
+
+keyToSec: true - threadSize: 4 - writeToLocal: false - inMemoryWrite: true - renderLimit: 120 - filePath: D://work//file//
+- 20181112 takes 38 seconds,  total size(M) 1026
+
+keyToSec: true - threadSize: 4 - writeToLocal: false - inMemoryWrite: true - renderLimit: 960 - filePath: D://work//file//
+- 20181112 takes 50 seconds,  total size(M) 1026

@@ -25,41 +25,16 @@ import java.util.Set;
 @Log4j2
 public abstract class BuildStatement {
 
+    public static final String aoiKeySpaceTable = "images.aoi_single_component_image_1";
+
     @Autowired
     public Session cassandraSession;
 
     @Autowired
     public RedisTemplate<String, String> redisTemplate;
 
-    Map<OnSystem, KeySpaceTable> systemKeySpaceTable = new HashMap<>();
-
-    @PostConstruct
-    public void init(){
-
-        try {
-            KeySpaceTable aoi = new KeySpaceTable();
-            aoi.setKeySpace("images");
-            aoi.setTable("aoi_single_component_image_1");
-
-            systemKeySpaceTable.put(OnSystem.valueOf("aoi"), aoi);
-        }catch (Exception e){
-            log.error(Throwables.getStackTraceAsString(e));
-        }
-    }
-
-    public abstract PreparedStatement build(String system) throws Exception;
+    public abstract void init();
     public abstract Set<String> getIndex(String system, String date, long startTime, long endTime);
-    public abstract BoundStatement bind(String[] keys, PreparedStatement prepStmt);
-
-    public String getSpaceAndTable(String system) {
-
-        KeySpaceTable keySpaceTable = systemKeySpaceTable.get(OnSystem.valueOf(system));
-        String keySpace = keySpaceTable.getKeySpace();
-        String table = keySpaceTable.getTable();
-        String spaceTable = keySpace+"."+table;
-
-        return spaceTable;
-    }
-
+    public abstract BoundStatement bind(String[] keys);
 
 }

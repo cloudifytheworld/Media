@@ -26,7 +26,7 @@ public class StatementBuildFactory {
 
     public BuildStatement get(String system, boolean range) throws Exception{
 
-        log.info(String.format("build system %s the range set is %s ", system, range+""));
+        log.debug(String.format("build system %s the range set is %s ", system, range+""));
 
         switch (OnSystem.valueOf(system)){
             case aoi:

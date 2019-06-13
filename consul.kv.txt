@@ -12,7 +12,7 @@ curl -X PUT -d 2000000 http://localhost:8500/v1/kv/config/imbp-gateway/filter/im
 
 
 /* imbp-etl */
-curl -X PUT -d 8085 http://localhost:8500/v1/kv/config/imbp-etl/server/port
+curl -X PUT -d 8082 http://localhost:8500/v1/kv/config/imbp-etl/server/port
 curl -X PUT -d "{\"contact-points\": \"10.208.51.74,10.208.51.85\", \"heart-beat\" : \"60\"}" http://localhost:8500/v1/kv/config/imbp-etl/db/cassandra
 curl -X PUT -d INFO http://localhost:8500/v1/kv/config/imbp-etl/logging/level-root
 curl -X PUT -d 55000 http://localhost:8500/v1/kv/config/imbp-etl/image/breakImageSize
@@ -25,7 +25,7 @@ curl -X PUT -d "{\"redisServer\": \"192.168.30.19\", \"redisPort\" : \"6379\"}" 
 
 
 /* imbp-etl-large */
-curl -X PUT -d 8085 http://localhost:8500/v1/kv/config/imbp-etl-large/server/port
+curl -X PUT -d 8086 http://localhost:8500/v1/kv/config/imbp-etl-large/server/port
 curl -X PUT -d "{\"contact-points\": \"10.208.51.74,10.208.51.85\", \"heart-beat\" : \"60\"}" http://localhost:8500/v1/kv/config/imbp-etl-large/db/cassandra
 curl -X PUT -d INFO http://localhost:8500/v1/kv/config/imbp-etl-large/logging/level-root
 curl -X PUT -d 55000 http://localhost:8500/v1/kv/config/imbp-etl-large/image/breakImageSize
