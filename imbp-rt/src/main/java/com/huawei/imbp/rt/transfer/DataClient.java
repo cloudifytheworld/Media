@@ -42,7 +42,7 @@ public class DataClient {
         try {
             sockChannel.write(data).get();
         }catch (Exception e){
-            log.error(Throwables.getStackTraceAsString(e));
+            log.error(e);
         }
     }
 

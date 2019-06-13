@@ -6,6 +6,8 @@ import com.google.common.base.Throwables;
 import com.google.common.util.concurrent.AtomicDouble;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
+import com.huawei.imbp.rt.build.BuildStatement;
+import com.huawei.imbp.rt.build.StatementBuildFactory;
 import com.huawei.imbp.rt.common.Constant;
 import com.huawei.imbp.rt.common.InputParameter;
 import com.huawei.imbp.rt.common.JobStatus;
@@ -49,7 +51,7 @@ import java.util.stream.IntStream;
 @Component
 @Log4j2
 @RefreshScope
-public class CassandraAsyncService {
+public class CassandraAsyncService extends DataAccessService {
 
 
     @Autowired
@@ -66,6 +68,10 @@ public class CassandraAsyncService {
 
     @Autowired
     public ActorSystem actorSystem;
+
+    @Autowired
+    public StatementBuildFactory buildFactory;
+
 
     @Autowired
     public RedisTemplate<String, String> redisTemplate;
@@ -88,18 +94,12 @@ public class CassandraAsyncService {
     @Value("${data.inMemoryWrite}")
     public boolean inMemoryWrite;
 
-    private PreparedStatement statementSec;
-    private PreparedStatement statementPrimary;
     private PreparedStatement statement;
 
     @PostConstruct
     //Todo refactor and init based on system input
     private void init(){
-        statementSec = cassandraSession.prepare("SELECT * FROM images.aoi_single_component_image_1 where created_day = ? and device_type = ? and hour = ? and mins = ? and sec = ? ALLOW FILTERING");
         statement = cassandraSession.prepare("SELECT * FROM images.aoi_single_component_image_1 where created_day = ? and device_type = ? and hour = ? and mins = ? ALLOW FILTERING");
-        statementPrimary = cassandraSession.prepare("SELECT * FROM images.aoi_single_component_image_1 where created_day = ? and device_type = ? and hour = ? and mins = ? and sec = ? " +
-                "and label = ? and created_time = ?");
-
     }
 
     public void getDataByDates(InputParameter input){
@@ -162,87 +162,91 @@ public class CassandraAsyncService {
         String server = input.getServerIp();
         long startTime = input.getStartTime();
         long endTime = input.getEndTime();
+        String system = input.getSystem();
         int port = input.getServerPort();
+        boolean consolidation = input.isConsolidation();
+        boolean dateTimeRange = input.isDateTimeRange();
 
-        log.info("client info "+input.toString());
-
+        log.info("client info:-- "+input.toString());
         storage.put(groupId, clientId, input);
-        InetSocketAddress serverAddress = new InetSocketAddress(server, port);
-
-
-        Set<String> indexes = keyToSec?
-            redisTemplate.boundSetOps("date:" + input.getSystem() + ":" + date).members():
-                redisTemplate.boundZSetOps("secDate:"+input.getSystem() + ":" + date).rangeByScore(startTime, endTime);
-        int indexSize = indexes.size();
-        log.info("size of file in index "+indexSize);
 
         CountDownLatch latch = new CountDownLatch(threadSize);
-        ThreadServiceManage manage = new ThreadServiceManage(threadSize);
         QueueService<String> queue = new QueueService<>();
-        DataWriter dataWriter = writeToLocal?new DataWriter(filePath, groupId, inMemoryWrite):null;
-        IntStream.range(0, threadSize).forEach(s -> {
-            Runnable task = writeToLocal?
-                    new FileTask(s, queue, dataWriter, latch, total):
-                    new NetTask(s, queue, new DataClient(serverAddress), latch, total);
-            manage.submit(task);
-        });
+        ThreadServiceManage manage = new ThreadServiceManage(threadSize);
+        Runnable task = consolidation?
+            new NetTask(queue, new DataClient(new InetSocketAddress(server, port)), latch, total):
+            new FileTask(queue, new DataWriter(filePath, groupId, inMemoryWrite), latch, total);
 
-        log.info(String.format("keyToSec: %s - threadSize: %d - writeToLocal: %s - inMemoryWrite: %s" +
-                        " - renderLimit: %d - filePath: %s", keyToSec+"", threadSize, writeToLocal+"",
-                inMemoryWrite+"", renderLimit, filePath));
-//        IntStream.range(0, 4).forEach( i -> queue.add(i+""));
-
-        List<ResultSetFuture> futuresData = new ArrayList<>();
-
-        indexes.stream().forEach( index -> {
-            String[] keys = index.split("#");
-            BoundStatement boundStatement = keyToSec?statementSec.bind(keys[0], keys[1]
-                    , Integer.parseInt(keys[2]), Integer.parseInt(keys[3]), Integer.parseInt(keys[4])):
-                    statementPrimary.bind(keys[0], keys[1], Integer.parseInt(keys[2]), Integer.parseInt(keys[3]),
-                            Integer.parseInt(keys[4]), keys[5], new Timestamp(Long.parseLong(keys[6])));
-
-            ResultSetFuture resultSetFuture = cassandraSession.executeAsync(boundStatement);
-            futuresData.add(resultSetFuture);
-
-            if(count.incrementAndGet()%renderLimit == 0 || count.get() == indexSize){
-                List<ListenableFuture<ResultSet>> futureLists = Futures.inCompletionOrder(futuresData);
-                for (ListenableFuture<ResultSet> future : futureLists) {
-                    try {
-                        ResultSet rs = future.get();
-                        List<Row> rows = rs.all();
-                        rows.stream().forEach(row -> {
-                            Aoi aoi = EntityMappingUtil.mappingAoi(row);
-                            queue.add(aoi.toString());
-                        });
-
-                    } catch (Exception e) {
-                        log.error(Throwables.getStackTraceAsString(e));
-                    }
-                }
-            }
-
-        });
+        manage.execute(task, threadSize);
 
         try {
+            BuildStatement stmt = buildFactory.get(system, dateTimeRange);
+            PreparedStatement prepStmt = stmt.build(system);
+            Set<String> indexes = stmt.getIndex(system, date, startTime, endTime);
+            List<ResultSetFuture> futuresData = new ArrayList<>();
+
+            int indexSize = indexes.size();
+            log.info("size of file in index "+indexSize);
+            log.info(String.format("dateTime: %s - threadSize: %d - renderLimit: %d - consolidation: %s - inMemoryWrite: %s" +
+                            " - filePath: %s", dateTimeRange+"", threadSize, renderLimit, consolidation+"", inMemoryWrite+"", filePath));
+
+            indexes.stream().forEach( index -> {
+                String[] keys = index.split("#");
+                BoundStatement boundStatement = stmt.bind(keys, prepStmt);
+                execute(count, boundStatement, indexSize, futuresData, queue);
+            });
+
             //Todo mutex lock for exclusive send end of file msg
             IntStream.range(0, threadSize).forEach(i -> queue.add(Constant.END_MARKER));
 
             latch.await();
             manage.close();
+            onEnd(groupId, clientId, server, port, JobStatus.complete);
 
-            DataClient senderClose = new DataClient(serverAddress);
-            senderClose.write(ByteBuffer.wrap((
-                    Constant.END_MARKER + ":" + groupId + ":" + clientId + ":" + JobStatus.complete).getBytes()));
-            senderClose.close();
 
         }catch (Exception e){
-            log.error(e.getMessage());
+            manage.close();
+            onEnd(groupId, clientId, server, port, JobStatus.fail);
+            log.error(e);
         }
 
         long last = (System.currentTimeMillis() - start)/1000;
         log.info(date+" takes "+last+" seconds,  total size(M) "+total.get()/1000000);
     }
 
+    private void onEnd(String groupId, String clientId, String server, int port, JobStatus status){
+
+        DataClient senderClose = new DataClient(new InetSocketAddress(server, port));
+        senderClose.write(ByteBuffer.wrap((
+                Constant.END_MARKER + ":" + groupId + ":" + clientId + ":" + status).getBytes()));
+        senderClose.close();
+    }
+
+    @Override
+    public void execute(AtomicInteger count, BoundStatement boundStatement, int indexSize,
+                        List<ResultSetFuture> futuresData, QueueService<String> queue) {
+
+        ResultSetFuture resultSetFuture = cassandraSession.executeAsync(boundStatement);
+        futuresData.add(resultSetFuture);
+
+        if(count.incrementAndGet()%renderLimit == 0 || count.get() == indexSize){
+            List<ListenableFuture<ResultSet>> futureLists = Futures.inCompletionOrder(futuresData);
+            for (ListenableFuture<ResultSet> future : futureLists) {
+                try {
+                    ResultSet rs = future.get();
+                    List<Row> rows = rs.all();
+                    rows.stream().forEach(row -> {
+                        //Todo base on system
+                        Aoi aoi = EntityMappingUtil.mappingAoi(row);
+                        queue.add(aoi.toString());
+                    });
+
+                } catch (Exception e) {
+                    log.error(e);
+                }
+            }
+        }
+    }
 
     public void feedDataByDates(String system, String date, QueueService<String> queueService, CountDownLatch valueLatch){
 

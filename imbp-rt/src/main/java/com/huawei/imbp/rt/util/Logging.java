@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 
 public class Logging {
 
-    public static final String packageName = "com.huawei.imbp.etl";
+    public static final String packageName = "com.huawei.imbp.rt";
 
     private LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
     private Logger logger = loggerContext.getLogger(packageName);
@@ -24,5 +24,9 @@ public class Logging {
 
     public void debug(String msg){
         logger.debug(msg);
+    }
+
+    public void error(String msg){
+        logger.error(msg);
     }
 }

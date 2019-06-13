@@ -102,7 +102,8 @@ public class DataManager {
 
     }
 
-    public void prepareCalls(final String system, DateTime start, DateTime end, String serverIp, int serverPort)
+    public void prepareCalls(final String system, DateTime start, DateTime end, boolean consolidation,
+                             boolean rang, String serverIp, int serverPort)
             throws Exception{
 
         int y = 0;
@@ -111,7 +112,7 @@ public class DataManager {
 
         try {
             if (end.getDayOfMonth() - start.getDayOfMonth() > 0) {
-                ClientData clientData = setClientData(0, system, nextDate, serverIp, serverPort);
+                ClientData clientData = setClientData(0, system, consolidation, rang, nextDate, serverIp, serverPort);
                 nextDate = DataUtil.endOfDateTime(nextDate);
                 clientData.setEndTime(nextDate.getMillis());
                 nextDate = nextDate.plusMillis(1);
@@ -124,7 +125,7 @@ public class DataManager {
         while(DateTimeComparator.getInstance().compare(nextDate, end) <= 0){
 
             y= y<serverSize?y:serverSize%y;
-            ClientData clientData = setClientData(y, system, nextDate, serverIp, serverPort);
+            ClientData clientData = setClientData(y, system, consolidation, rang, nextDate, serverIp, serverPort);
             ++y;
             nextDate = nextDate.plusDays(1);
             if(DateTimeComparator.getInstance().compare(nextDate, end) <= 0) {
@@ -141,7 +142,8 @@ public class DataManager {
 
     }
 
-    private ClientData setClientData(int client, String system, DateTime nextDate, String serverIp, int serverPort){
+    private ClientData setClientData(int client, String system, boolean consolidation, boolean range,
+                                     DateTime nextDate, String serverIp, int serverPort){
 
         String clientIp = clientServers.get(client);
         String clientId = UUID.randomUUID().toString();
@@ -152,6 +154,8 @@ public class DataManager {
         clientData.setServerPort(serverPort);
         clientData.setGroupId(this.groupId);
         clientData.setSystem(system);
+        clientData.setConsolidation(consolidation);
+        clientData.setDateTimeRange(range);
         clientData.setStartTime(nextDate.getMillis());
         clientData.setDate(nextDate.toString(dtf));
         storage.put(this.groupId, clientId, clientData);

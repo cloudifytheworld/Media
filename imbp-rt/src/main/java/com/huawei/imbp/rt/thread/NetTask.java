@@ -4,7 +4,6 @@ import com.huawei.imbp.rt.common.Constant;
 import com.huawei.imbp.rt.service.QueueService;
 import com.huawei.imbp.rt.transfer.DataClient;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Value;
 
 import java.nio.ByteBuffer;
 import java.util.concurrent.CountDownLatch;
@@ -23,10 +22,9 @@ public class NetTask implements Runnable{
     DataClient send;
     CountDownLatch latch;
     AtomicLong bytes;
-    int seq;
 
-    public NetTask(int seq, QueueService queue, DataClient send, CountDownLatch latch, AtomicLong bytes){
-        this.seq = seq;
+    public NetTask(QueueService queue, DataClient send, CountDownLatch latch, AtomicLong bytes){
+
         this.queue = queue;
         this.send = send;
         this.latch = latch;
@@ -35,8 +33,6 @@ public class NetTask implements Runnable{
 
     @Override
     public void run() {
-
-        String threadName = seq+" "+Thread.currentThread().getName();
 
         try {
 
@@ -57,7 +53,7 @@ public class NetTask implements Runnable{
         }
 
         latch.countDown();
-        log.info("Done "+threadName);
+        log.info("Done "+Thread.currentThread().getName());
         send.close();
     }
 }

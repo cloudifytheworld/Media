@@ -4,7 +4,6 @@ import com.huawei.imbp.rt.common.Constant;
 import com.huawei.imbp.rt.service.QueueService;
 import com.huawei.imbp.rt.transfer.DataWriter;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Value;
 
 import java.nio.ByteBuffer;
 import java.util.concurrent.CountDownLatch;
@@ -18,21 +17,17 @@ import java.util.concurrent.atomic.AtomicLong;
 @Log4j2
 public class FileTask implements Runnable{
 
-    @Value("${data.sleepLimit}")
-    public int sleepLimit;
 
-    @Value("${data.inMemoryWrite}")
-    public boolean inMemoryWrite;
+    boolean inMemoryWrite;
 
     QueueService<String> queue;
     CountDownLatch latch;
     DataWriter writer;
     AtomicLong bytes;
-    int seq;
 
 
-    public FileTask(int seq, QueueService queue, DataWriter writer, CountDownLatch latch, AtomicLong bytes){
-        this.seq = seq;
+    public FileTask(QueueService queue, DataWriter writer, CountDownLatch latch, AtomicLong bytes){
+
         this.queue = queue;
         this.latch = latch;
         this.bytes = bytes;
@@ -43,7 +38,6 @@ public class FileTask implements Runnable{
 
         try {
 
-            Thread.sleep(sleepLimit);
 
             while (true) {
                 String aoi = queue.poll();
@@ -63,6 +57,6 @@ public class FileTask implements Runnable{
             log.error(e);
         }
         latch.countDown();
-        log.info(seq+" Finish "+Thread.currentThread().getName());
+        log.info("Finish "+Thread.currentThread().getName());
     }
 }

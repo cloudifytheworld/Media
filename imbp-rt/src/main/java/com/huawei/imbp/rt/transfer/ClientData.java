@@ -26,5 +26,7 @@ public class ClientData {
     private long startTime;
     private long endTime;
     private JobStatus status;
+    private boolean dateTimeRange;
+    private boolean consolidation;
 
 }

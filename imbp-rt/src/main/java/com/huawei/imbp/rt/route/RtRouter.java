@@ -65,10 +65,17 @@ public class RtRouter {
     }
 
     @Bean
-    public RouterFunction<ServerResponse> rtDataFileRouting(RtServiceHandler rtServiceHandler) {
+    public RouterFunction<ServerResponse> rtDataToFileByDateRouting(RtServiceHandler rtServiceHandler) {
 
-        return RouterFunctions.route(RequestPredicates.GET("/api/{system}/rt/file"),
-                rtServiceHandler::retrieveDataByFile);
+        return RouterFunctions.route(RequestPredicates.GET("/api/{system}/rt/file/date"),
+                rtServiceHandler::retrieveDataToFileByDate);
+    }
+
+    @Bean
+    public RouterFunction<ServerResponse> rtDataToFileByDateTimeRouting(RtServiceHandler rtServiceHandler) {
+
+        return RouterFunctions.route(RequestPredicates.GET("/api/{system}/rt/file/dateTime"),
+                rtServiceHandler::retrieveDataToFileByDateTime);
     }
 
     @Bean

@@ -41,11 +41,11 @@ public class DataTransferService {
 
     private ImbpException imbp = new ImbpException();
 
-    public Mono<String> processServer(String system, DateTime start, DateTime end) throws Exception{
+    public Mono<String> processServer(String system, DateTime start, DateTime end, boolean consolidate, boolean range) throws Exception{
 
         NetworkManageService netService = new NetworkManageService(port);
         DataManager dataManager = new DataManager(storage, netService);
-        dataManager.prepareClient().prepareCalls(system, start, end,
+        dataManager.prepareClient().prepareCalls(system, start, end, consolidate, range,
                 netService.getServerIp(), netService.getSocketPort());
         Integer participateClients = storage.groupSize(dataManager.getGroupId());
         if(participateClients == 0){

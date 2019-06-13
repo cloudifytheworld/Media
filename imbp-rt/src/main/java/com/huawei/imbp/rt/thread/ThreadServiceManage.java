@@ -3,9 +3,11 @@ package com.huawei.imbp.rt.thread;
 import com.google.common.base.Throwables;
 import lombok.extern.log4j.Log4j2;
 
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.IntStream;
 
 /**
  * @author Charles(Li) Cai
@@ -34,6 +36,9 @@ public class ThreadServiceManage {
         }
     }
 
+    public void execute(Runnable task, int threadSize){
+        IntStream.range(0, threadSize).forEach(s -> submit(task));
+    }
 }
 
 

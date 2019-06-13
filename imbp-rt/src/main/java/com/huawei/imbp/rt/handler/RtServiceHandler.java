@@ -11,6 +11,7 @@ import com.huawei.imbp.rt.service.CassandraAsyncService;
 import com.huawei.imbp.rt.service.DataTransferService;
 import com.huawei.imbp.rt.transfer.ClientData;
 import com.huawei.imbp.rt.util.DataUtil;
+import com.huawei.imbp.rt.util.Logging;
 import com.huawei.imbp.rt.util.ServiceUtil;
 import lombok.extern.log4j.Log4j2;
 import org.joda.time.DateTime;
@@ -30,7 +31,6 @@ import java.util.Optional;
  */
 
 @Component
-@Log4j2
 public class RtServiceHandler {
 
     @Autowired
@@ -42,6 +42,8 @@ public class RtServiceHandler {
     @Autowired
     public CassandraReactiveService cassandraReactiveService;
 
+    @Autowired
+    public Logging log;
     /*
      * Require params: system, from(start day) and deviceType
      * ToDo: with list of deviceType
@@ -104,32 +106,52 @@ public class RtServiceHandler {
      * ToDo: add project to all pathVariable other than system
      *
      */
-    public Mono<ServerResponse> retrieveDataByFile(ServerRequest serverRequest){
+    public Mono<ServerResponse> retrieveDataToFileByDate(ServerRequest serverRequest){
 
         String system = serverRequest.pathVariable("system");
-        DateTime startTime;
-        DateTime endTime;
 
         try {
             Optional<String> start = serverRequest.queryParam("start");
             Optional<String> end = serverRequest.queryParam("end");
-            if(start.isPresent()){
-                startTime = DataUtil.convertDate(start.get());
-                endTime = end.isPresent() && !end.get().equals(start.get())
-                        ?DataUtil.convertDate(end.get()):startTime.plusDays(1).minusMillis(1);
-            }else{
-                start = serverRequest.queryParam("startTime");
-                end = serverRequest.queryParam("endTime");
-                if(!start.isPresent()){
-                    throw new ImbpException().setMessage("missing start or startTime");
-                }
+            Optional<String> consolidation = serverRequest.queryParam("consolidate");
 
-                startTime = DataUtil.convertDateTime(start.get());
-                endTime = end.isPresent() && !end.get().equals(start.get())
-                        ?DataUtil.convertDateTime(end.get()):DataUtil.endOfDateTime(startTime);
+            if(!start.isPresent()) {
+                throw new ImbpException().setMessage("missing start date");
             }
 
-            Mono<String> groupId = transferService.processServer(system, startTime, endTime);
+            DateTime startTime = DataUtil.convertDate(start.get());
+            DateTime endTime = end.isPresent() && !end.get().equals(start.get())
+                        ?DataUtil.convertDate(end.get()):startTime.plusDays(1).minusMillis(1);
+
+            Boolean consolidate = consolidation.isPresent()?Boolean.parseBoolean(consolidation.get()):true;
+
+            Mono<String> groupId = transferService.processServer(system, startTime, endTime, consolidate, false);
+            return ServerResponse.ok().body(groupId, String.class);
+        }catch (Exception e){
+            return ServerResponse.badRequest().syncBody(e.getMessage());
+        }
+    }
+
+    public Mono<ServerResponse> retrieveDataToFileByDateTime(ServerRequest serverRequest){
+
+        String system = serverRequest.pathVariable("system");
+
+        try {
+            Optional<String> start = serverRequest.queryParam("startTime");
+            Optional<String> end = serverRequest.queryParam("endTime");
+            Optional<String> consolidation = serverRequest.queryParam("consolidate");
+
+            if(!start.isPresent()){
+                throw new ImbpException().setMessage("missing startTime");
+            }
+
+            DateTime startTime = DataUtil.convertDateTime(start.get());
+            DateTime endTime = end.isPresent() && !end.get().equals(start.get())
+                        ?DataUtil.convertDateTime(end.get()):DataUtil.endOfDateTime(startTime);
+
+            Boolean consolidate = consolidation.isPresent()?Boolean.parseBoolean(consolidation.get()):true;
+
+            Mono<String> groupId = transferService.processServer(system, startTime, endTime, consolidate, true);
             return ServerResponse.ok().body(groupId, String.class);
         }catch (Exception e){
             return ServerResponse.badRequest().syncBody(e.getMessage());
