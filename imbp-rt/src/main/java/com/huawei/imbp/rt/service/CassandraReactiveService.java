@@ -140,8 +140,8 @@ public class CassandraReactiveService {
         CountDownLatch latch = new CountDownLatch(threadSize);
 
         Semaphore semaphore = new Semaphore(renderLimit);
-        ThreadServiceManage manage = new ThreadServiceManage(threadSize);
         QueueService<String> queue = new QueueService<>();
+        ThreadServiceManage manage = new ThreadServiceManage(threadSize, total, queue, latch);
         DataWriter dataWriter = new DataWriter(filePath, groupId, inMemoryWrite);
 
         IntStream.range(0, threadSize).forEach(s -> {

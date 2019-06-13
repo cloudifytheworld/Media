@@ -15,8 +15,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Component
 public abstract class DataAccessService {
 
-    @Value("${data.renderLimit}")
-    public int renderLimit;
 
     public abstract void execute(AtomicInteger count, BoundStatement boundStatement, int indexSize,
     List<ResultSetFuture> futuresData, QueueService<String> queue);

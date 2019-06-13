@@ -64,14 +64,10 @@ public class CassandraAsyncService extends DataAccessService {
     public Session cassandraSession;
 
     @Autowired
-    public OffHeapMemoryAllocation offHeapMemoryAllocation;
-
-    @Autowired
     public ActorSystem actorSystem;
 
     @Autowired
     public StatementBuildFactory buildFactory;
-
 
     @Autowired
     public RedisTemplate<String, String> redisTemplate;
@@ -81,12 +77,6 @@ public class CassandraAsyncService extends DataAccessService {
 
     @Value("${data.threadSize}")
     public int threadSize;
-
-    @Value("${data.writeToLocal}")
-    public boolean writeToLocal;
-
-    @Value("${data.keyToSec}")
-    public boolean keyToSec;
 
     @Value("${data.filePath}")
     public String filePath;
@@ -172,12 +162,9 @@ public class CassandraAsyncService extends DataAccessService {
 
         CountDownLatch latch = new CountDownLatch(threadSize);
         QueueService<String> queue = new QueueService<>();
-        ThreadServiceManage manage = new ThreadServiceManage(threadSize);
-        Runnable task = consolidation?
-            new NetTask(queue, new DataClient(new InetSocketAddress(server, port)), latch, total):
-            new FileTask(queue, new DataWriter(filePath, groupId, inMemoryWrite), latch, total);
-
-        manage.execute(task, threadSize);
+        ThreadServiceManage manage = new ThreadServiceManage(threadSize, total, queue, latch);
+        boolean done = consolidation?manage.executeNet(server, port):
+                manage.executeFile(filePath, groupId, inMemoryWrite);
 
         try {
             BuildStatement stmt = buildFactory.get(system, dateTimeRange);

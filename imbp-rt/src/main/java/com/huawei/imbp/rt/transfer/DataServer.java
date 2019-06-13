@@ -83,8 +83,8 @@ public class DataServer {
     public void close(){
         try {
             this.onCloseChannel.onClose();
-            this.serverGroup.shutdown();
-            this.serverGroup.awaitTermination(1000, TimeUnit.MILLISECONDS);
+//            this.serverGroup.shutdown();
+//            this.serverGroup.awaitTermination(1000, TimeUnit.MILLISECONDS);
             this.server.close();
         }catch (Exception e){
             log.error("unable to shut down "+e.getMessage());

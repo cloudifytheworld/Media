@@ -46,8 +46,6 @@ curl -X PUT -d 2000 http://localhost:8500/v1/kv/config/imbp-rt/data/sleepLimit
 curl -X PUT -d 120 http://localhost:8500/v1/kv/config/imbp-rt/data/renderLimit
 curl -X PUT -d 4 http://localhost:8500/v1/kv/config/imbp-rt/data/threadSize
 curl -X PUT -d false http://localhost:8500/v1/kv/config/imbp-rt/data/inMemoryWrite
-curl -X PUT -d false http://localhost:8500/v1/kv/config/imbp-rt/data/writeToLocal
-curl -X PUT -d false http://localhost:8500/v1/kv/config/imbp-rt/data/keyToSec
 curl -X PUT -d "D://work//file//" http://localhost:8500/v1/kv/config/imbp-rt/data/filePath
 curl -X PUT -d true http://localhost:8500/v1/kv/config/imbp-rt/data/useAsync
 
