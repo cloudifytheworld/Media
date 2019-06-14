@@ -13,6 +13,8 @@ import com.huawei.imbp.rt.common.InputParameter;
 import com.huawei.imbp.rt.common.JobStatus;
 import com.huawei.imbp.rt.config.ImbpRtActionExtension;
 import com.huawei.imbp.rt.entity.Aoi;
+import com.huawei.imbp.rt.entity.ClientDateTime;
+import com.huawei.imbp.rt.entity.FeedData;
 import com.huawei.imbp.rt.thread.ThreadServiceManage;
 import com.huawei.imbp.rt.entity.ClientData;
 import com.huawei.imbp.rt.transfer.DataClient;
@@ -228,59 +230,60 @@ public class CassandraAsyncService extends DataAccessService {
         }
     }
 
-    public void feedDataByDate(ClientData clientData){
+    public void feedDataByDate(FeedData feedData){
 
         long start = System.currentTimeMillis();
-        AtomicInteger count = new AtomicInteger();
-        AtomicInteger countSize = new AtomicInteger();
 
-        long startTime = clientData.getStartTime();
-        long endTime = clientData.getEndTime();
-        String date = clientData.getDate();
-        boolean dateTimeRange = clientData.isDateTimeRange();
-        String system = clientData.getSystem();
-        QueueService<String> queue = clientData.getQueue();
-        CountDownLatch latch = clientData.getValueLatch();
+        List<ClientDateTime> dateTimes = feedData.getDateTimes();
+        boolean dateTimeRange = feedData.isDateTimeRange();
+        String system = feedData.getSystem();
+        QueueService<String> queue = feedData.getQueue();
+        CountDownLatch latch = feedData.getValueLatch();
 
         try {
             BuildStatement stmt = buildFactory.get(system, dateTimeRange);
-            Set<String> indexes = stmt.getIndex(system, date, startTime, endTime);
-            log.info(date + " index size: " + indexes.size());
-            int indexSize = indexes.size();
+            dateTimes.stream().forEach(date -> {
+                AtomicInteger count = new AtomicInteger();
+                AtomicInteger countSize = new AtomicInteger();
 
-            List<ResultSetFuture> futuresData = new ArrayList<>();
+                Set<String> indexes = stmt.getIndex(system, date.getDate(), date.getStartTime(), date.getEndTime());
+                int indexSize = indexes.size();
+                log.info("%s index size: %d - dateTimeRange: %s", date.getDate(), indexSize,dateTimeRange+"");
 
-            indexes.stream().forEach(index -> {
+                List<ResultSetFuture> futuresData = new ArrayList<>();
 
-                String[] keys = index.split("#");
-                ResultSetFuture results = cassandraSession.executeAsync(stmt.bind(keys));
-                futuresData.add(results);
+                indexes.stream().forEach(index -> {
 
-                if (count.incrementAndGet() % renderLimit == 0 || count.get() == indexSize) {
-                    List<ListenableFuture<ResultSet>> futureLists = Futures.inCompletionOrder(futuresData);
-                    for (ListenableFuture<ResultSet> future : futureLists) {
-                        try {
-                            ResultSet rs = future.get();
-                            List<Row> rows = rs.all();
-                            countSize.addAndGet(rows.size());
-                            rows.stream().forEach(d -> {
-                                queue.add(date + "@" + d.getString("file_name"));
-                            });
-                        } catch (Exception e) {
-                            log.error(e);
+                    String[] keys = index.split("#");
+                    ResultSetFuture results = cassandraSession.executeAsync(stmt.bind(keys));
+                    futuresData.add(results);
+
+                    if (count.incrementAndGet() % renderLimit == 0 || count.get() == indexSize) {
+                        List<ListenableFuture<ResultSet>> futureLists = Futures.inCompletionOrder(futuresData);
+                        for (ListenableFuture<ResultSet> future : futureLists) {
+                            try {
+                                ResultSet rs = future.get();
+                                List<Row> rows = rs.all();
+                                countSize.addAndGet(rows.size());
+                                rows.stream().forEach(d -> {
+                                    queue.add(date.getDate() + "@" + d.getString("file_name"));
+                                });
+                            } catch (Exception e) {
+                                log.error(e);
+                            }
                         }
+                        latch.countDown();
                     }
+                });
+                if (indexes.size() == 0) {
                     latch.countDown();
                 }
+                Long end = (System.currentTimeMillis()-start)/1000;
+                log.info(date+" takes seconds "+end+", and process cells "+countSize.get());
             });
-            if (indexes.size() == 0) {
-                latch.countDown();
-            }
         }catch (Exception e){
             log.error(e);
         }
-        Long end = (System.currentTimeMillis()-start)/1000;
-        log.info(date+" takes seconds "+end+", and process cells "+countSize.get());
     }
 
 }

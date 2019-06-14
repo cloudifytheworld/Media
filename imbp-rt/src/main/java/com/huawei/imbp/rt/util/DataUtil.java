@@ -6,8 +6,10 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.huawei.imbp.rt.common.ImbpException;
 import com.huawei.imbp.rt.entity.ClientData;
+import com.huawei.imbp.rt.entity.ClientDateTime;
 import org.joda.time.DateTime;
 
+import org.joda.time.DateTimeComparator;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
@@ -18,31 +20,13 @@ import java.util.*;
  * @author Charles(Li) Cai
  * @date 5/14/2019
  */
+
 public class DataUtil {
 
     private static final ImbpException imbpException = new ImbpException();
     private static final DateTimeFormatter dateFormat = DateTimeFormat.forPattern("yyyyMMdd");
     private static final DateTimeFormatter timeFormat = DateTimeFormat.forPattern("yyyyMMddHHmmss");
 
-    public static boolean isNumber(String num){
-
-        Integer dt = checkValidInteger(num);
-        if(dt == null || dt > Integer.MAX_VALUE || dt < Integer.MIN_VALUE){
-            return false;
-        }
-        return true;
-
-    }
-
-    public static Long checkValidLong(Object value){
-
-        try{
-            return Long.parseLong(value.toString());
-        }catch (Exception e){
-            return null;
-        }
-
-    }
 
     public static Integer checkValidInteger(Object value){
 
@@ -53,36 +37,41 @@ public class DataUtil {
         }
 
     }
-    public static Boolean checkValidBoolean(Object value){
 
-        try{
-            return Boolean.parseBoolean(value.toString());
+    public static List<ClientDateTime> getDateTimes(DateTime startTime, DateTime endTime) throws Exception{
+
+        List<ClientDateTime> dateTimes = new ArrayList<>();
+        DateTime nextTime = startTime;
+
+        try {
+            if (endTime.getDayOfMonth() - startTime.getDayOfMonth() > 0) {
+
+                ClientDateTime clientDateTime = new ClientDateTime();
+                nextTime = endOfDateTime(nextTime);
+                clientDateTime.setDate(toDateString(startTime));
+                clientDateTime.setStartTime(startTime.getMillis());
+                clientDateTime.setEndTime(nextTime.getMillis());
+                nextTime = nextTime.plusMillis(1);
+                dateTimes.add(clientDateTime);
+            }
+
+            while(DateTimeComparator.getInstance().compare(nextTime, endTime) <= 0){
+                ClientDateTime clientDateTime = new ClientDateTime();
+                clientDateTime.setDate(toDateString(nextTime));
+                clientDateTime.setStartTime(nextTime.getMillis());
+                nextTime = nextTime.plusDays(1);
+                if(DateTimeComparator.getInstance().compare(nextTime, endTime) <= 0) {
+                    clientDateTime.setEndTime(nextTime.getMillis()-1);
+                }else{
+                    clientDateTime.setEndTime(endTime.getMillis());
+                }
+                dateTimes.add(clientDateTime);
+            }
         }catch (Exception e){
-            return null;
+            throw e;
         }
 
-    }
-    public static Double checkValidDouble(Object value){
-
-        try{
-            return Double.parseDouble(value.toString());
-        }catch (Exception e){
-            return null;
-        }
-    }
-
-    public static boolean checkIpAddress(Object value){
-
-        return InetAddresses.isInetAddress(value.toString());
-    }
-
-    public static UUID checkValidUUID(Object value){
-
-        try{
-            return UUID.fromString(value.toString());
-        }catch (Exception e){
-            return null;
-        }
+        return dateTimes;
     }
 
     public static String[] convertStringToArray(String line){

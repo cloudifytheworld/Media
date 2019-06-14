@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.joda.time.DateTime;
 
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 /**
@@ -25,14 +26,11 @@ public class ClientData<T> {
     private String clientId;
     private String groupId;
     private String system;
+    private JobStatus status;
     private String date;
     private long startTime;
     private long endTime;
-    private JobStatus status;
     private boolean dateTimeRange;
     private boolean consolidation;
-    private CountDownLatch valueLatch;
-    private QueueService<T> queue;
-
 
 }

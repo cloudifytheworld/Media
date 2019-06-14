@@ -58,12 +58,12 @@ public class DataRetrieveController {
                 case date:
                     startTime = DataUtil.convertDate(data[2]);
                     endTime = data.length == 4   && !data[2].equals(data[3])
-                            ? DataUtil.convertDate(data[2]) : startTime.plusDays(1).minusMillis(1);
+                            ? DataUtil.convertDate(data[3]) : startTime.plusDays(1).minusMillis(1);
                     break;
                 case dateTime:
                     startTime = DataUtil.convertDateTime(data[2]);
                     endTime = data.length == 4  && !data[2].equals(data[3])
-                            ?DataUtil.convertDateTime(data[2]):DataUtil.endOfDateTime(startTime);
+                            ?DataUtil.convertDateTime(data[3]):DataUtil.endOfDateTime(startTime);
                     break;
                 default:
                     return Flux.just("not support feed type - date or dateTime");

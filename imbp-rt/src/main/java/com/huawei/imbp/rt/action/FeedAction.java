@@ -1,7 +1,7 @@
 package com.huawei.imbp.rt.action;
 
 import akka.actor.UntypedAbstractActor;
-import com.huawei.imbp.rt.entity.ClientData;
+import com.huawei.imbp.rt.entity.FeedData;
 import com.huawei.imbp.rt.service.CassandraAsyncService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +25,8 @@ public class FeedAction extends UntypedAbstractActor {
     @Override
     public void onReceive(Object msg) {
 
-        ClientData<String> clientData = (ClientData) msg;
-        asyncService.feedDataByDate(clientData);
+        FeedData<String> feedData = (FeedData) msg;
+        asyncService.feedDataByDate(feedData);
 
     }
 
