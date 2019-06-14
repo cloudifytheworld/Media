@@ -2,7 +2,6 @@ package com.huawei.imbp.rt.build;
 
 import com.datastax.driver.core.BoundStatement;
 import com.datastax.driver.core.PreparedStatement;
-import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -15,7 +14,6 @@ import java.util.Set;
  */
 
 @Component
-@Log4j2
 public class AoiDateTimeStatement extends BuildStatement{
 
     PreparedStatement prepStmt;

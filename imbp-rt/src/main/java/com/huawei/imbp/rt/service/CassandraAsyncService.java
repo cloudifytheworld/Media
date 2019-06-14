@@ -64,7 +64,6 @@ public class CassandraAsyncService extends DataAccessService {
     public boolean inMemoryWrite;
 
 
-    // Works to write one at time, justify speed by renderLimit and threadSize
     public void getDataByDate(ClientData input){
 
         AtomicInteger count = new AtomicInteger();
@@ -177,7 +176,7 @@ public class CassandraAsyncService extends DataAccessService {
 
                 Set<String> indexes = stmt.getIndex(system, date.getDate(), date.getStartTime(), date.getEndTime());
                 int indexSize = indexes.size();
-                log.info("%s index size: %d - dateTimeRange: %s", date.getDate(), indexSize,dateTimeRange+"");
+                log.info(String.format("%s index size: %d - dateTimeRange: %s", date.getDate(), indexSize, dateTimeRange+""));
 
                 List<ResultSetFuture> futuresData = new ArrayList<>();
 
