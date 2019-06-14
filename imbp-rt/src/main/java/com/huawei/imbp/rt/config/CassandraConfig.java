@@ -1,63 +1,66 @@
 package com.huawei.imbp.rt.config;
 
 import com.datastax.driver.core.*;
+import com.datastax.driver.core.policies.RoundRobinPolicy;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.data.cassandra.config.AbstractReactiveCassandraConfiguration;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.cassandra.core.ReactiveCassandraOperations;
+import org.springframework.data.cassandra.core.ReactiveCassandraTemplate;
+import org.springframework.data.cassandra.core.cql.session.DefaultBridgedReactiveSession;
 
 import java.util.Map;
 
 /**
  * @author Charles(Li) Cai
- * @date 5/13/2019
+ * @date 5/20/2019
  */
 
+@Configuration
 @RefreshScope
-public abstract class CassandraConfig extends AbstractReactiveCassandraConfiguration {
+public class CassandraConfig {
 
     @Value("#{${db.cassandra}}")
     public Map<String, String> cassandraConfig;
 
-    @Override
-    protected String getContactPoints(){
-        return cassandraConfig.get("contact-points");
-    }
 
-    @Override
-    public String[] getEntityBasePackages(){
-      String[] entities = {"com.huawei.imbp.etl.entity.AoiEntity"};
-      return entities;
-    }
-
-    @Override
-    public PoolingOptions getPoolingOptions(){
+    @Bean
+    @RefreshScope
+    public Session cassandraSession(){
 
         PoolingOptions poolingOptions = new PoolingOptions();
         poolingOptions.setHeartbeatIntervalSeconds(Integer.parseInt(cassandraConfig.get("heart-beat")));
-        poolingOptions.setConnectionsPerHost(HostDistance.LOCAL, 1, 300)
-                .setMaxRequestsPerConnection(HostDistance.LOCAL, 350)
+        poolingOptions.setMaxRequestsPerConnection(HostDistance.LOCAL, 350)
                 .setNewConnectionThreshold(HostDistance.LOCAL, 200)
+                .setConnectionsPerHost(HostDistance.LOCAL, 1, 300)
                 .setCoreConnectionsPerHost(HostDistance.LOCAL, 300);
 
-        return poolingOptions;
-    }
-
-
-    @Override
-    public QueryOptions getQueryOptions(){
-
-        QueryOptions queryOptions = new QueryOptions();
-        queryOptions.setConsistencyLevel(ConsistencyLevel.QUORUM);
-        return queryOptions;
-    }
-
-    @Override
-    public SocketOptions getSocketOptions(){
-
         SocketOptions options = new SocketOptions();
-        options.setConnectTimeoutMillis(500000);
-        options.setReadTimeoutMillis(500000);
+        options.setConnectTimeoutMillis(50000);
+        options.setReadTimeoutMillis(50000);
         options.setTcpNoDelay(true);
-        return options;
+
+        Cluster cluster = Cluster.builder()
+                .addContactPoints(cassandraConfig.get("contact-points").split(","))
+                .withProtocolVersion(ProtocolVersion.V4)
+                .withQueryOptions(new QueryOptions().setConsistencyLevel(ConsistencyLevel.ONE))
+                .withPoolingOptions(poolingOptions)
+                .withSocketOptions(options)
+                .withLoadBalancingPolicy(new RoundRobinPolicy())
+                .withoutMetrics()
+                .withoutJMXReporting()
+                .build();
+
+        return cluster.connect();
     }
+
+    @Bean
+    public ReactiveCassandraOperations cassandraDataSession(){
+        ReactiveCassandraOperations template = new ReactiveCassandraTemplate(new DefaultBridgedReactiveSession(cassandraSession()));
+        return template;
+
+    }
+
+
 }

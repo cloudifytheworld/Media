@@ -28,7 +28,7 @@
             <!--<td id="image9"></td>-->
         <!--</tr>-->
         <tr>
-            <!--<td id="image10"></td>-->
+            <td id="image10"></td>
             <td id="image12"></td>
             <td id="image13"></td>
             <td id="image14"></td>
@@ -39,16 +39,16 @@
             <td id="image17"></td>
             <td id="image19"></td>
         </tr>
-        <tr>
-            <td id="image20"></td>
-            <td id="image21"></td>
-            <td id="image22"></td>
-            <td id="image23"></td>
-        </tr>
-        <tr>
-            <td id="image24"></td>
-            <td id="image25"></td>
-        </tr>
+        <!--<tr>-->
+            <!--<td id="image20"></td>-->
+            <!--<td id="image21"></td>-->
+            <!--<td id="image22"></td>-->
+            <!--<td id="image23"></td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+            <!--<td id="image24"></td>-->
+            <!--<td id="image25"></td>-->
+        <!--</tr>-->
     </table>
 <script>
     window.addEventListener('load', function (ev) {
@@ -68,12 +68,12 @@
         var image16 = document.getElementById('image16');
         var image17 = document.getElementById('image17');
         var image19 = document.getElementById('image19');
-        var image20 = document.getElementById('image20');
-        var image21 = document.getElementById('image21');
-        var image22 = document.getElementById('image22');
-        var image23 = document.getElementById('image23');
-        var image24 = document.getElementById('image24');
-        var image25 = document.getElementById('image25');
+        // var image20 = document.getElementById('image20');
+        // var image21 = document.getElementById('image21');
+        // var image22 = document.getElementById('image22');
+        // var image23 = document.getElementById('image23');
+        // var image24 = document.getElementById('image24');
+        // var image25 = document.getElementById('image25');
 
 
         // var ws1 = new WebSocket('ws://localhost:8081/ws/api/rt/feeding');
@@ -92,12 +92,12 @@
         var ws16 = new WebSocket('ws://localhost:8081/ws/api/rt/feeding');
         var ws17 = new WebSocket('ws://localhost:8081/ws/api/rt/feeding');
         var ws19= new WebSocket('ws://localhost:8081/ws/api/rt/feeding');
-        var ws20 = new WebSocket('ws://localhost:8081/ws/api/rt/feeding');
-        var ws21 = new WebSocket('ws://localhost:8081/ws/api/rt/feeding');
-        var ws22 = new WebSocket('ws://localhost:8081/ws/api/rt/feeding');
-        var ws23 = new WebSocket('ws://localhost:8081/ws/api/rt/feeding');
-        var ws24 = new WebSocket('ws://localhost:8081/ws/api/rt/feeding');
-        var ws25 = new WebSocket('ws://localhost:8081/ws/api/rt/feeding');
+        // var ws20 = new WebSocket('ws://localhost:8081/ws/api/rt/feeding');
+        // var ws21 = new WebSocket('ws://localhost:8081/ws/api/rt/feeding');
+        // var ws22 = new WebSocket('ws://localhost:8081/ws/api/rt/feeding');
+        // var ws23 = new WebSocket('ws://localhost:8081/ws/api/rt/feeding');
+        // var ws24 = new WebSocket('ws://localhost:8081/ws/api/rt/feeding');
+        // var ws25 = new WebSocket('ws://localhost:8081/ws/api/rt/feeding');
 
 
         //var date = window.prompt('date');
@@ -152,24 +152,24 @@
         ws19.onopen = function() {
             ws19.send('aoi:date:20181119');
         };
-        ws20.onopen = function() {
-            ws20.send('aoi:date:20181120');
-        };
-        ws21.onopen = function() {
-            ws21.send('aoi:date:20181121');
-        };
-        ws22.onopen = function() {
-            ws22.send('aoi:date:20181122');
-        };
-        ws23.onopen = function() {
-            ws23.send('aoi:date:20181123');
-        };
-        ws24.onopen = function() {
-            ws24.send('aoi:date:20181124');
-        };
-        ws25.onopen = function() {
-            ws25.send('aoi:date:20181125');
-        };
+        // ws20.onopen = function() {
+        //     ws20.send('aoi:date:20181120');
+        // };
+        // ws21.onopen = function() {
+        //     ws21.send('aoi:date:20181121');
+        // };
+        // ws22.onopen = function() {
+        //     ws22.send('aoi:date:20181122');
+        // };
+        // ws23.onopen = function() {
+        //     ws23.send('aoi:date:20181123');
+        // };
+        // ws24.onopen = function() {
+        //     ws24.send('aoi:date:20181124');
+        // };
+        // ws25.onopen = function() {
+        //     ws25.send('aoi:date:20181125');
+        // };
 
 
         // ws1.onmessage = function (evt) {
@@ -220,24 +220,24 @@
         ws19.onmessage = function (evt) {
             image19.innerHTML = evt.data;
         };
-        ws20.onmessage = function (evt) {
-            image20.innerHTML = evt.data;
-        };
-        ws21.onmessage = function (evt) {
-            image21.innerHTML = evt.data;
-        };
-        ws22.onmessage = function (evt) {
-            image22.innerHTML = evt.data;
-        };
-        ws23.onmessage = function (evt) {
-            image23.innerHTML = evt.data;
-        };
-        ws24.onmessage = function (evt) {
-            image24.innerHTML = evt.data;
-        };
-        ws25.onmessage = function (evt) {
-            image25.innerHTML = evt.data;
-        };
+        // ws20.onmessage = function (evt) {
+        //     image20.innerHTML = evt.data;
+        // };
+        // ws21.onmessage = function (evt) {
+        //     image21.innerHTML = evt.data;
+        // };
+        // ws22.onmessage = function (evt) {
+        //     image22.innerHTML = evt.data;
+        // };
+        // ws23.onmessage = function (evt) {
+        //     image23.innerHTML = evt.data;
+        // };
+        // ws24.onmessage = function (evt) {
+        //     image24.innerHTML = evt.data;
+        // };
+        // ws25.onmessage = function (evt) {
+        //     image25.innerHTML = evt.data;
+        // };
 
         // ws.onmessage = function (evt) {
         //     image1.innerHTML = '<img width="150" src="data:image/jpg;base64,'+evt.data+'">'

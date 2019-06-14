@@ -14,8 +14,6 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.Optional;
 
-import static com.huawei.imbp.rt.common.Constant.IMAGE_PAGE_SIZE;
-
 /**
  * @author Charles(Li) Cai
  * @date 5/14/2019

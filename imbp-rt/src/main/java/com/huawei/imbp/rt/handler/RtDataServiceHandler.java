@@ -74,7 +74,7 @@ public class RtDataServiceHandler {
             long ready = (System.currentTimeMillis() - start)/1000;
             log.info(" it takes "+ready+" seconds to be ready to start feeding data of "+from);
         }catch (Exception e){
-            log.error(e);
+            return Flux.error(e);
         }
 
         return Flux.fromStream(queueService.asStream())

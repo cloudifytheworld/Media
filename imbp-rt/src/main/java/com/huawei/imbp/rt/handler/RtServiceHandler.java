@@ -43,62 +43,9 @@ public class RtServiceHandler {
 
     @Autowired
     public Logging log;
-    /*
-     * Require params: system, from(start day) and deviceType
-     * ToDo: with list of deviceType
-     */
-    public Mono<ServerResponse> retrieveDataSingle(ServerRequest serverRequest) {
 
-        log.debug("retrieve single data");
 
-        try {
-            InputParameter input = ServiceUtil.getInputParam(serverRequest);
-            return cassandraReactiveService.getDataByOne(input);
-        }catch (Exception e){
-            log.error(Throwables.getStackTraceAsString(e));
-            return ServerResponse.badRequest().syncBody(e.getMessage());
-        }
 
-    }
-
-    /*
-     * Require params: system, from(start day) or list of start day.
-     * Todo: Results should save to location or somewhere
-     */
-    public Mono<ServerResponse> retrieveDataByDate(ServerRequest serverRequest) {
-
-        log.debug("retrieve data by date");
-
-        try {
-            InputParameter input = ServiceUtil.getInputParam(serverRequest);
-            //cassandraService.getDataByDates(input);
-            cassandraAsyncService.getDataByDates(input);
-        }catch (Exception e){
-            log.error(Throwables.getStackTraceAsString(e));
-            return ServerResponse.badRequest().syncBody(e.getMessage());
-        }
-        return Mono.empty();
-    }
-
-    /*
-     * Require params: system, from, deviceType
-     * Optional: hour, minutes, label and created_day for first run, subsequently access to
-     *           next page requires these parameters.
-     * ToDo:  1. support from (start day) to begin only
-     *        2. support from and to (end day) to begin
-     *        3. support deviceType including 1 and 2 above.
-     */
-
-    public Mono<ServerResponse> retrieveDataByPagination(ServerRequest serverRequest){
-
-        try{
-            InputParameter input = ServiceUtil.getInputParam(serverRequest);
-            return cassandraReactiveService.getDataByPage(input);
-        }catch (Exception e){
-            log.error(Throwables.getStackTraceAsString(e));
-            return ServerResponse.badRequest().syncBody(e.getMessage());
-        }
-    }
 
     /*
      * Require param: system, start, end date

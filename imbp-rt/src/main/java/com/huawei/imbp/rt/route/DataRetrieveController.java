@@ -48,7 +48,7 @@ public class DataRetrieveController {
 
         String[] data = from.split(":");
         if(data.length < 3){
-            return Flux.just("not enough values to process "+from);
+            return Flux.error(new ImbpException().setMessage("not enough values to process "+from));
         }
         String system = data[0];
         FeedType type = FeedType.valueOf(data[1]);
@@ -74,7 +74,7 @@ public class DataRetrieveController {
                 throw new ImbpException().setMessage("endTime is smaller than startTime");
             }
         }catch (Exception e){
-            return Flux.just(e.getMessage());
+            return Flux.error(e);
         }
 
         return handler.feedingDate(system, startTime, endTime, type.equals(FeedType.dateTime));

@@ -38,8 +38,8 @@ public class CassandraConfig {
                 .setConnectionsPerHost(HostDistance.LOCAL, 1, 250);
 
         SocketOptions options = new SocketOptions();
-        options.setConnectTimeoutMillis(5000);
-        options.setReadTimeoutMillis(5000);
+        options.setConnectTimeoutMillis(50000);
+        options.setReadTimeoutMillis(50000);
         options.setTcpNoDelay(true);
 
         Cluster cluster = Cluster.builder()
