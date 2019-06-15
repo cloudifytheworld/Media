@@ -3,6 +3,7 @@ package com.huawei.imbp.rt.entity;
 import com.huawei.imbp.rt.service.QueueService;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
@@ -14,6 +15,7 @@ import java.util.concurrent.CountDownLatch;
 
 @Data
 @NoArgsConstructor
+@ToString
 public class FeedData<T> {
 
     private CountDownLatch valueLatch;

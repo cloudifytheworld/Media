@@ -1,10 +1,7 @@
 package com.huawei.imbp.rt.handler;
 
 
-import com.google.common.base.Throwables;
 import com.huawei.imbp.rt.common.ImbpException;
-import com.huawei.imbp.rt.common.InputParameter;
-
 import com.huawei.imbp.rt.common.JobStatus;
 import com.huawei.imbp.rt.service.CassandraReactiveService;
 import com.huawei.imbp.rt.service.CassandraAsyncService;
@@ -12,10 +9,11 @@ import com.huawei.imbp.rt.service.DataTransferService;
 import com.huawei.imbp.rt.entity.ClientData;
 import com.huawei.imbp.rt.util.DataUtil;
 import com.huawei.imbp.rt.util.Logging;
-import com.huawei.imbp.rt.util.ServiceUtil;
+
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
@@ -45,8 +43,6 @@ public class RtServiceHandler {
     public Logging log;
 
 
-
-
     /*
      * Require param: system, start, end date
      * ToDo: add project to all pathVariable other than system
@@ -74,6 +70,8 @@ public class RtServiceHandler {
             }
 
             Boolean consolidate = consolidation.isPresent()?Boolean.parseBoolean(consolidation.get()):true;
+            log.debug(String.format("startTime: %s - endTime: %s - consolidation: %s", startTime.toString(),
+                    endTime.toString(), consolidate.toString()));
 
             Mono<String> groupId = transferService.processServer(system, startTime, endTime, consolidate, false);
             return ServerResponse.ok().body(groupId, String.class);
@@ -104,6 +102,8 @@ public class RtServiceHandler {
             }
 
             Boolean consolidate = consolidation.isPresent()?Boolean.parseBoolean(consolidation.get()):true;
+            log.debug(String.format("startTime: %s - endTime: %s - consolidation: %s", startTime.toString(),
+                    endTime.toString(), consolidate.toString()));
 
             Mono<String> groupId = transferService.processServer(system, startTime, endTime, consolidate, true);
             return ServerResponse.ok().body(groupId, String.class);
@@ -114,6 +114,8 @@ public class RtServiceHandler {
 
     public Mono<ServerResponse> processClient(ServerRequest serverRequest){
 
+        log.debug("start to processClient");
+
         Mono<ServerResponse> response = serverRequest.bodyToMono(Map.class).flatMap(s -> {
 
             ClientData clientData = DataUtil.convertMapToObject(s, ClientData.class);
@@ -122,6 +124,19 @@ public class RtServiceHandler {
             return ServerResponse.ok().syncBody(clientData);
         });
         return response;
+    }
+
+
+    public Mono<ServerResponse> download(ServerRequest serverRequest){
+
+        String id = serverRequest.pathVariable("id");
+        log.debug("start to download file "+id);
+
+        try {
+            return transferService.processDownload(id);
+        }catch (Exception e){
+            return ServerResponse.badRequest().syncBody(e.getMessage());
+        }
     }
 }
 

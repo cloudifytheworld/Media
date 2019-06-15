@@ -1,7 +1,6 @@
 package com.huawei.imbp.rt.util;
 
 
-import com.google.common.net.InetAddresses;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.huawei.imbp.rt.common.ImbpException;

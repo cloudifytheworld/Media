@@ -1,6 +1,5 @@
 package com.huawei.imbp.rt.transfer;
 
-import com.google.common.base.Throwables;
 import lombok.extern.log4j.Log4j2;
 
 import java.io.File;
@@ -42,7 +41,7 @@ public class DataWriter {
             path = Paths.get(file.getPath());
             this.channel = FileChannel.open(path, StandardOpenOption.WRITE, StandardOpenOption.APPEND);
         }catch (Exception e){
-            log.error(Throwables.getStackTraceAsString(e));
+            log.error(e);
             throw new IllegalStateException(e.getMessage());
         }
     }
@@ -73,7 +72,7 @@ public class DataWriter {
         try{
             Files.write(path, aoi, StandardOpenOption.APPEND);
         }catch (Exception e){
-            log.error(Throwables.getStackTraceAsString(e));
+            log.error(e);
         }
     }
 

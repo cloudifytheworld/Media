@@ -32,10 +32,11 @@ import java.util.stream.Stream;
 @RestController
 @Log4j2
 public class WebSocketController {
+
     @Autowired
     public WebClient.Builder webClient;
 
-    @Value("${url.rt-page}")
+    @Value("${url.rt}")
     public String rtUrl;
 
     public Publisher<String> feeding(@RequestParam String data){

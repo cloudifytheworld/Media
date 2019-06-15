@@ -13,11 +13,9 @@ import org.reactivestreams.Publisher;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
+
 
 
 /**
@@ -27,19 +25,20 @@ import reactor.core.publisher.Flux;
 
 @RestController
 @Log4j2
+@RequestMapping("/api/{system}/rt")
 public class DataRetrieveController {
 
     @Autowired
     public RtDataServiceHandler handler;
 
     /*
-     * Params: the format of from variable is expected as following
+     * Params: the format of from parameter is expected as following
      *        system:feedType:start:end
      * The feedType either date or dateTime
      * The start must be there, end is optional
      * The minimum value expected for from is 3
      */
-    @GetMapping(value = "/api/{system}/rt/feeding", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    @GetMapping(value = "/feeding", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Publisher<String> retrieveDataByFeeding(@RequestParam String from){
 
 
@@ -79,6 +78,5 @@ public class DataRetrieveController {
 
         return handler.feedingDate(system, startTime, endTime, type.equals(FeedType.dateTime));
     }
-
 
 }

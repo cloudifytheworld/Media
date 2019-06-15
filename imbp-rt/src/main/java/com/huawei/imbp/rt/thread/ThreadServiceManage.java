@@ -1,6 +1,5 @@
 package com.huawei.imbp.rt.thread;
 
-import com.google.common.base.Throwables;
 import com.huawei.imbp.rt.service.QueueService;
 import com.huawei.imbp.rt.transfer.DataClient;
 import com.huawei.imbp.rt.transfer.DataWriter;
@@ -11,7 +10,6 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.IntStream;
 

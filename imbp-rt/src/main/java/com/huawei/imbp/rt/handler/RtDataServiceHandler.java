@@ -10,7 +10,6 @@ import com.huawei.imbp.rt.service.QueueService;
 import com.huawei.imbp.rt.util.DataUtil;
 import lombok.extern.log4j.Log4j2;
 import org.joda.time.DateTime;
-import org.joda.time.DateTimeComparator;
 import org.reactivestreams.Publisher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,7 +19,6 @@ import reactor.core.publisher.Flux;
 import reactor.core.scheduler.Schedulers;
 
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
@@ -68,11 +66,13 @@ public class RtDataServiceHandler {
             feedData.setValueLatch(valueLatch);
             feedData.setDateTimes(dateTimes);
             feedData.setSystem(system);
+
+            log.debug("the feed data "+feedData.toString());
     
             feedingAction.tell(feedData, ActorRef.noSender());
             valueLatch.await();
             long ready = (System.currentTimeMillis() - start)/1000;
-            log.info(" it takes "+ready+" seconds to be ready to start feeding data of "+from);
+            log.debug(" it takes "+ready+" seconds to be ready to start feeding data of "+from);
         }catch (Exception e){
             return Flux.error(e);
         }
@@ -81,7 +81,7 @@ public class RtDataServiceHandler {
                 .delayElements(Duration.ofMillis(rateLimit))
                 .parallel().runOn(Schedulers.parallel())
                 .doOnTerminate(() ->{
-                    log.info(from+" is done on RT in mins "+ String.format("%.2f", (float)(System.currentTimeMillis()-start)/60000));
+                    log.debug(from+" is done on RT in mins "+ String.format("%.2f", (float)(System.currentTimeMillis()-start)/60000));
                 }).doOnError(throwable -> {
                     log.error("+++++++++++RT++++++++++");
                     log.error(throwable);

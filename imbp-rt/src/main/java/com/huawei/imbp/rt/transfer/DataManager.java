@@ -8,8 +8,7 @@ import com.huawei.imbp.rt.util.DataUtil;
 import lombok.extern.log4j.Log4j2;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeComparator;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
+
 import org.springframework.web.client.RestTemplate;
 
 import java.util.*;

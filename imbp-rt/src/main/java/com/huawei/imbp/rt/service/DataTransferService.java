@@ -11,9 +11,16 @@ import lombok.extern.log4j.Log4j2;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.BodyInserters;
+import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.concurrent.CountDownLatch;
 
 /**
@@ -73,5 +80,24 @@ public class DataTransferService {
         ActorRef fileAction = actorSystem.actorOf(imbpRtActionExtension.props("fileAction"));
         fileAction.tell(clientData, ActorRef.noSender());
 
+    }
+
+
+    public Mono<ServerResponse> processDownload(String id) throws Exception{
+
+        InputStreamResource resource;
+        File file = new File(filePath + id);
+
+        try {
+            resource = new InputStreamResource(new FileInputStream(file));
+        }catch (Exception e){
+            log.error(e);
+            throw imbp.setMessage("fail to process file "+e.getMessage());
+        }
+        return ServerResponse.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + id)
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .contentLength(file.length())
+                .body(BodyInserters.fromObject(resource));
     }
 }

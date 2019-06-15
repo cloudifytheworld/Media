@@ -28,8 +28,8 @@ public class RtRouter {
     @Bean
     public RouterFunction<ServerResponse> rtDataSingleRouting(RtServiceHandler rtServiceHandler) {
 
-        return RouterFunctions.route(RequestPredicates.GET("/api/{system}/rt/download"),
-                rtServiceHandler::retrieveDataToFileByDate);
+        return RouterFunctions.route(RequestPredicates.GET("/api/{system}/rt/download/{id}"),
+                rtServiceHandler::download);
     }
 
     @Bean

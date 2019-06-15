@@ -1,6 +1,5 @@
 package com.huawei.imbp.gateway.filter;
 
-import com.google.common.base.Throwables;
 import com.huawei.imbp.gateway.util.Logging;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang.StringUtils;
@@ -50,7 +49,7 @@ import reactor.core.publisher.Mono;
 //                               .path(largeImagePath).build()).build());
 //                    }
 //            }catch (Exception e){
-//                log.error(Throwables.getStackTraceAsString(e));
+//                log.error(e);
 //            }
 //        }
 //        return webFilterChain.filter(serverWebExchange);

@@ -1,9 +1,9 @@
 /* imbp-gateway */
-curl -X PUT -d http://imbp-etl/api/aoi/etl http://localhost:8500/v1/kv/config/imbp-gateway/url/etl-aoi
-curl -X PUT -d http://imbp-etl-large/api/aoi/etl/large http://localhost:8500/v1/kv/config/imbp-gateway/url/etl-aoi-large
-curl -X PUT -d http://imbp-rt http://localhost:8500/v1/kv/config/imbp-gateway/url/rt-page
+curl -X PUT -d http://imbp-etl http://localhost:8500/v1/kv/config/imbp-gateway/url/etl
+curl -X PUT -d http://imbp-etl-large http://localhost:8500/v1/kv/config/imbp-gateway/url/etl-large
+curl -X PUT -d http://imbp-rt http://localhost:8500/v1/kv/config/imbp-gateway/url/rt
+curl -X PUT -d http://imbp-admin http://localhost:8500/v1/kv/config/imbp-gateway/url/admin
 
-curl -X PUT -d http://imbp-admin/api/admin/metadata/db http://localhost:8500/v1/kv/config/imbp-gateway/url/metadata-generate
 curl -X PUT -d INFO http://localhost:8500/v1/kv/config/imbp-gateway/logging/level-root
 curl -X PUT -d 8081 http://localhost:8500/v1/kv/config/imbp-gateway/server/port
 curl -X PUT -d x-image http://localhost:8500/v1/kv/config/imbp-gateway/filter/imageHeader

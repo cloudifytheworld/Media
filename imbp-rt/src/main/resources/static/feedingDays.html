@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Feeding data</title>
+</head>
+<body>
+<div id="update"></div>
+<table style="width:100%">
+    <tr>
+        <th style="width:25%; text-align: left">name</th>
+        <th style="width:25%; text-align: left">name</th>
+        <th style="width:25%; text-align: left">name</th>
+        <th style="width:25%; text-align: left">name</th>
+    </tr>
+
+    <tr>
+        <td id="image10"></td>
+        <td id="image12"></td>
+        <td id="image13"></td>
+        <td id="image14"></td>
+    </tr>
+    <p></p>
+
+</table>
+<script>
+    window.addEventListener('load', function (ev) {
+
+        var image10 = document.getElementById('image10');
+        var image12 = document.getElementById('image12');
+        var image13 = document.getElementById('image13');
+        var image14 = document.getElementById('image14');
+
+        var ws10 = new WebSocket('ws://localhost:8083/ws/api/rt/feeding');
+        var ws12 = new WebSocket('ws://localhost:8083/ws/api/rt/feeding');
+        var ws13 = new WebSocket('ws://localhost:8083/ws/api/rt/feeding');
+        var ws14 = new WebSocket('ws://localhost:8083/ws/api/rt/feeding');
+
+        ws10.onopen = function() {
+            ws10.send('aoi:date:20181110');
+        };
+        ws12.onopen = function() {
+            ws12.send('aoi:date:20181112');
+        };
+        ws13.onopen = function() {
+            ws13.send('aoi:date:20181113');
+        };
+        ws14.onopen = function() {
+            ws14.send('aoi:date:20181114');
+        };
+
+        ws10.onmessage = function (evt) {
+            image10.innerHTML = evt.data;
+        };
+        ws12.onmessage = function (evt) {
+            image12.innerHTML = evt.data;
+        };
+        ws13.onmessage = function (evt) {
+            image13.innerHTML = evt.data;
+        };
+        ws14.onmessage = function (evt) {
+            image14.innerHTML = evt.data;
+        };
+
+
+        ws10.onclose = function() {
+            alert("DONE");
+        };
+
+        ws10.onerror = function (ev1) {
+            alert(ev1.data);
+        };
+
+    })
+    function sleep(delay) {
+        var start = new Date().getTime();
+        while (new Date().getTime() < start + delay);
+    }
+</script>
+</body>
+</html>
