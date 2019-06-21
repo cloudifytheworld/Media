@@ -4,11 +4,19 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.reactive.function.BodyInserters;
+import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.Map;
 
 
@@ -20,6 +28,8 @@ public class GatewayController {
 
     @Autowired
     public WebClient.Builder webClient;
+
+    public WebClient.Builder httpCall = WebClient.builder();
 
     @Value("${url.rt}")
     public String rtUrl;
@@ -64,16 +74,17 @@ public class GatewayController {
      */
 
     @GetMapping(value = "/{system}/rt/download/{id}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-    public Mono<String> etlLargeService(@PathVariable String system, @PathVariable String id){
+    public Mono<String> rtDownload(@PathVariable String system, @PathVariable String id){
 
-        return webClient.baseUrl(rtUrl).build().get()
+        String ip[] = id.split(":");
+        return httpCall.baseUrl("http://"+ip[1]+":8083").build().get()
                 .uri("/api/"+system+"/rt/download/"+id)
                 .exchange().flatMap(s -> s.bodyToMono(String.class));
     }
 
 
     @GetMapping(value = "/ws/rt/feeding", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Flux<String> feeding(@RequestParam String data){
+    public Flux<String> rtFeeding(@RequestParam String data){
         return webClient.baseUrl(rtUrl).build().get()
                 .uri("/api/ws/rt/feeding?from="+data).accept(MediaType.TEXT_EVENT_STREAM)
                 .retrieve().bodyToFlux(String.class);

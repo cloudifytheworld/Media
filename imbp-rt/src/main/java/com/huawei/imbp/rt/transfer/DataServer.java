@@ -29,15 +29,17 @@ public class DataServer {
     private final DataReader dataReader;
     private DataWriter dataWriter;
 
+    //Todo refactor server in global setting without initialize it for every request
     public DataServer(InetSocketAddress inetAddress, int poolSize, String filePath, String groupId, boolean inMemoryWrite){
 
         try {
-            dataWriter = new DataWriter(filePath, groupId, inMemoryWrite);
+            String ip = inetAddress.getAddress().getHostAddress();
+            dataWriter = new DataWriter(filePath, groupId+":"+ip, inMemoryWrite);
             this.dataReader = new DataReader(dataWriter);
             this.serverGroup = AsynchronousChannelGroup.withThreadPool(Executors.newFixedThreadPool(poolSize));
             this.server = AsynchronousServerSocketChannel.open(this.serverGroup).setOption(
                     StandardSocketOptions.SO_REUSEADDR, true).bind(inetAddress);
-            log.info(String.format("server address %s:%d ", inetAddress.getAddress(), inetAddress.getPort()));
+            log.info(String.format("server address %s:%d ", ip, inetAddress.getPort()));
         } catch (Exception e) {
             throw new IllegalStateException("unable to start DataServer", e);
         }

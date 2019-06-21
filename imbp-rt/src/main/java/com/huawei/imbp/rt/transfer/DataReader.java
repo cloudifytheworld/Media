@@ -33,6 +33,10 @@ public class DataReader {
 
                 try {
                     String data = new String(buf.array());
+                    //Todo client sends processing status in a designate time interval
+                    //save it jobStore with timestamp, if timestamp is two to three times larger
+                    //than current time and status is still processing, we can safely assuming that
+                    //the client is experiencing some kind of hardship
                     if (data.contains(Constant.END_MARKER)) {
                         onComplete.onComplete(data);
                         throw new ImbpException().setMessage("Done read from "+data);

@@ -67,7 +67,7 @@ public class RtDataServiceHandler {
             feedData.setDateTimes(dateTimes);
             feedData.setSystem(system);
 
-            log.debug("the feed data "+feedData.toString());
+            log.debug("the feed data: "+feedData.toString());
     
             feedingAction.tell(feedData, ActorRef.noSender());
             valueLatch.await();

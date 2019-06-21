@@ -12,14 +12,17 @@ import com.huawei.imbp.rt.util.Logging;
 
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 
 
 /**
@@ -137,6 +140,12 @@ public class RtServiceHandler {
         }catch (Exception e){
             return ServerResponse.badRequest().syncBody(e.getMessage());
         }
+    }
+
+    public Mono<ServerResponse> feed(ServerRequest serverRequest){
+
+        Flux<String> aFlux = Flux.range(0, 1000).map(i -> UUID.randomUUID().toString());
+        return ServerResponse.ok().contentType(MediaType.TEXT_EVENT_STREAM).body(aFlux, String.class);
     }
 }
 

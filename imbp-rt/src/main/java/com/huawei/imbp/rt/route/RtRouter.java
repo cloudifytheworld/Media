@@ -24,9 +24,16 @@ public class RtRouter {
                 rtServiceHandler::retrieveDataToFileByDate);
     }
 
+    @Bean
+    public RouterFunction<ServerResponse> rtDataFeedingRouting(RtServiceHandler rtServiceHandler){
+
+        return RouterFunctions.route(RequestPredicates.GET("/api/{system}/rt/feed")
+                .and(RequestPredicates.accept(MediaType.TEXT_EVENT_STREAM)),
+                rtServiceHandler::feed);
+    }
 
     @Bean
-    public RouterFunction<ServerResponse> rtDataSingleRouting(RtServiceHandler rtServiceHandler) {
+    public RouterFunction<ServerResponse> rtDataDownloadRouting(RtServiceHandler rtServiceHandler) {
 
         return RouterFunctions.route(RequestPredicates.GET("/api/{system}/rt/download/{id}"),
                 rtServiceHandler::download);

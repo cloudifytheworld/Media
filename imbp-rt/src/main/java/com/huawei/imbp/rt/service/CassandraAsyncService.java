@@ -194,6 +194,7 @@ public class CassandraAsyncService extends DataAccessService {
                                 List<Row> rows = rs.all();
                                 countSize.addAndGet(rows.size());
                                 rows.stream().forEach(d -> {
+                                    //Todo change to specific requirement for data in queue
                                     queue.add(date.getDate() + "@" + d.getString("file_name"));
                                 });
                             } catch (Exception e) {

@@ -66,11 +66,11 @@ public class DataTransferService {
             ActorRef serverAction = actorSystem.actorOf(imbpRtActionExtension.props("serverAction"));
             serverAction.tell(new ServerActionData(jobs, ready, dataManager,
                     netService.getSocketAddress(), participateClients, filePath), ActorRef.noSender());
-
-            return Mono.just(dataManager.getGroupId())  ;
+            //Todo save to mongoDB
+            return Mono.just(dataManager.getGroupId()+"#"+netService.getServerIp()+"#"+port)  ;
 
         }catch (Exception e){
-            log.error(Throwables.getStackTraceAsString(e));
+            log.error(e);
             return Mono.just("fail: "+e.getMessage());
         }
     }

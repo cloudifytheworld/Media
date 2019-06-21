@@ -38,6 +38,7 @@ import java.util.stream.IntStream;
 @Component
 @Log4j2
 @RefreshScope
+//Todo redo the class, not work for now
 public class CassandraReactiveService {
 
     @Autowired
