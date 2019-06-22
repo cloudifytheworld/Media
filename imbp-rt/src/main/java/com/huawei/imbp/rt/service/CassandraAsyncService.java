@@ -63,7 +63,7 @@ public class CassandraAsyncService extends DataAccessService {
     @Value("${data.inMemoryWrite}")
     public boolean inMemoryWrite;
 
-
+    //Todo test throttle with semaphore instead of counter
     public void getDataByDate(ClientData input){
 
         AtomicInteger count = new AtomicInteger();
