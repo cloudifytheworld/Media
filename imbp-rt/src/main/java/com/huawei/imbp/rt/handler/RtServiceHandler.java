@@ -1,12 +1,14 @@
 package com.huawei.imbp.rt.handler;
 
 
+import com.huawei.imbp.rt.common.FeedType;
 import com.huawei.imbp.rt.common.ImbpException;
 import com.huawei.imbp.rt.common.JobStatus;
 import com.huawei.imbp.rt.service.CassandraReactiveService;
 import com.huawei.imbp.rt.service.CassandraAsyncService;
 import com.huawei.imbp.rt.service.DataTransferService;
 import com.huawei.imbp.rt.entity.ClientData;
+import com.huawei.imbp.rt.service.FeedDataService;
 import com.huawei.imbp.rt.util.DataUtil;
 import com.huawei.imbp.rt.util.Logging;
 
@@ -35,6 +37,9 @@ public class RtServiceHandler {
 
     @Autowired
     public DataTransferService transferService;
+
+    @Autowired
+    public FeedDataService feedDataService;
 
     @Autowired
     public CassandraAsyncService cassandraAsyncService;
@@ -144,8 +149,42 @@ public class RtServiceHandler {
 
     public Mono<ServerResponse> feed(ServerRequest serverRequest){
 
-        Flux<String> aFlux = Flux.range(0, 1000).map(i -> UUID.randomUUID().toString());
-        return ServerResponse.ok().contentType(MediaType.TEXT_EVENT_STREAM).body(aFlux, String.class);
+        DateTime startTime;
+        DateTime endTime;
+        String from = serverRequest.queryParam("from").get();
+
+        String[] data = from.split(":");
+        if(data.length < 3){
+            return ServerResponse.badRequest().syncBody(Flux.error(new ImbpException().setMessage("not enough values to process "+from)));
+        }
+        String system = data[0];
+        FeedType type = FeedType.valueOf(data[1]);
+
+        try {
+            switch (type) {
+                case date:
+                    startTime = DataUtil.convertDate(data[2]);
+                    endTime = data.length == 4   && !data[2].equals(data[3])
+                            ? DataUtil.convertDate(data[3]) : startTime.plusDays(1).minusMillis(1);
+                    break;
+                case dateTime:
+                    startTime = DataUtil.convertDateTime(data[2]);
+                    endTime = data.length == 4  && !data[2].equals(data[3])
+                            ?DataUtil.convertDateTime(data[3]):DataUtil.endOfDateTime(startTime);
+                    break;
+                default:
+                    return ServerResponse.badRequest().syncBody(Flux.just("not support feed type - date or dateTime"));
+
+            }
+
+            if(endTime.isBefore(startTime.getMillis())){
+                throw new ImbpException().setMessage("endTime is smaller than startTime");
+            }
+        }catch (Exception e){
+            return ServerResponse.badRequest().syncBody(Flux.error(e));
+        }
+
+        return feedDataService.feedDate(system, startTime, endTime, type.equals(FeedType.dateTime));
     }
 }
 

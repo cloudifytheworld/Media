@@ -4,7 +4,7 @@ package com.huawei.imbp.rt.route;
 import com.huawei.imbp.rt.common.FeedType;
 import com.huawei.imbp.rt.common.ImbpException;
 
-import com.huawei.imbp.rt.handler.RtDataServiceHandler;
+import com.huawei.imbp.rt.service.FeedDataService;
 
 import com.huawei.imbp.rt.util.DataUtil;
 import lombok.extern.log4j.Log4j2;
@@ -29,7 +29,7 @@ import reactor.core.publisher.Flux;
 public class DataRetrieveController {
 
     @Autowired
-    public RtDataServiceHandler handler;
+    public FeedDataService handler;
 
     /*
      * Params: the format of from parameter is expected as following
