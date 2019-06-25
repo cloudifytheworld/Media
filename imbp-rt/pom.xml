@@ -9,7 +9,7 @@
         <relativePath/>
     </parent>
 
-    <groupId>com.huawei.imbp</groupId>
+    <groupId>com.fw.imbp</groupId>
     <artifactId>imbp-rt</artifactId>
     <version>1.0.0</version>
     <name>imbp-rt</name>

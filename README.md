@@ -77,7 +77,7 @@
 10. Now start any spring boot application
 
 11. Run json file on postman below
-Post http://l00483498-sc01.china.huawei.com:8080/api/aoi/etl
+Post http://l00483498-sc01.china.fw.com:8080/api/aoi/etl
 {
 	"created_day":"20190215",
 	"device_type":"whatever", 

@@ -8,7 +8,7 @@
         <version>2.1.4.RELEASE</version>
         <relativePath/>
     </parent>
-    <groupId>com.huawei.imbp</groupId>
+    <groupId>com.fw.imbp</groupId>
     <artifactId>imbp-etl</artifactId>
     <version>1.0.0</version>
     <name>imbp-etl</name>

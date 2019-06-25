@@ -8,7 +8,7 @@
         <version>2.1.3.RELEASE</version>
         <relativePath/>
     </parent>
-    <groupId>com.huawei.imbp</groupId>
+    <groupId>com.fw.imbp</groupId>
     <artifactId>imbp-admin</artifactId>
     <version>1.0.0</version>
     <name>imbp-admin</name>
@@ -54,12 +54,12 @@
         </dependency>
 
         <!--<dependency>-->
-            <!--<groupId>huawei.mfg</groupId>-->
+            <!--<groupId>fw.mfg</groupId>-->
             <!--<artifactId>mfg-imbp-metadata</artifactId>-->
             <!--<version>${mfg.commons.version}</version>-->
         <!--</dependency>-->
         <!--<dependency>-->
-            <!--<groupId>huawei.mfg</groupId>-->
+            <!--<groupId>fw.mfg</groupId>-->
             <!--<artifactId>mfg-imbp-commons</artifactId>-->
             <!--<version>${mfg.commons.version}</version>-->
         <!--</dependency>-->
