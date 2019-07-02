@@ -2,6 +2,7 @@ package com.fw.imbp.rt.config;
 
 import com.datastax.driver.core.*;
 import com.datastax.driver.core.policies.RoundRobinPolicy;
+import com.datastax.driver.core.policies.TokenAwarePolicy;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Bean;
@@ -47,7 +48,7 @@ public class CassandraConfig {
                 .withQueryOptions(new QueryOptions().setConsistencyLevel(ConsistencyLevel.ONE))
                 .withPoolingOptions(poolingOptions)
                 .withSocketOptions(options)
-                .withLoadBalancingPolicy(new RoundRobinPolicy())
+                .withLoadBalancingPolicy(new TokenAwarePolicy(new RoundRobinPolicy(), false))
                 .withoutMetrics()
                 .withoutJMXReporting()
                 .build();

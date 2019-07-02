@@ -1,0 +1,23 @@
+Read request
+  Which node to choose? https://www.datastax.com/dev/blog/dynamic-snitching-in-cassandra-past-present-and-future
+    1. dynamic_snitch_update_interval_in_ms : how long to require nodes information
+    2. dynamic_snitch_reset_interval_in_ms : how long to let other nodes to have a fair chance
+    3. dynamic_snitch_badness_threshold : how bad a node performance compare to others could trigger the node switch
+  Which types of read request? https://docs.datastax.com/en/dse/5.1/dse-arch/datastax_enterprise/dbInternals/dbIntClientRequestsRead.html#dbIntClientRequestsRead
+
+Table configuration
+  Option values - https://docs.datastax.com/en/dse/5.1/cql/cql/cql_reference/cql_commands/cqlCreateTable.html#cqlTableProperties__Speculative_retry
+
+Sync data when nodes in cluster out of sync
+  https://medium.com/@marikalam/3-ways-cassandra-keeps-data-in-sync-bbbbfe1756c8
+
+Query loadbalancer: app configuration for cluster access
+  https://github.com/datastax/java-driver/tree/3.x/manual/load_balancing#tokenawarepolicy
+
+Write request
+  Node replica: https://stackoverflow.com/questions/53022197/cassandra-vnodes-replicas
+                https://grokbase.com/t/cassandra/user/14489wefsy/vnodes-and-replication
+
+Extra memory size
+  https://www.datastax.com/dev/blog/performance-improvements-in-cassandra-1-2
+  http://btoddb-cass-storage.blogspot.com/
