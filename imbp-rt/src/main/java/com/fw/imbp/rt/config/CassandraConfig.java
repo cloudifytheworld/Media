@@ -48,7 +48,7 @@ public class CassandraConfig {
                 .withQueryOptions(new QueryOptions().setConsistencyLevel(ConsistencyLevel.ONE))
                 .withPoolingOptions(poolingOptions)
                 .withSocketOptions(options)
-                .withLoadBalancingPolicy(new TokenAwarePolicy(new RoundRobinPolicy(), false))
+                .withLoadBalancingPolicy(new TokenAwarePolicy(new RoundRobinPolicy()))
                 .withoutMetrics()
                 .withoutJMXReporting()
                 .build();
