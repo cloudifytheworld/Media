@@ -1,0 +1,90 @@
+consul.exe agent -data-dir="d:/consul/tmp" -node=client -bind="192.168.30.1" -join 192.168.30.14
+nohup consul agent -server -bootstrap-expect=1 -data-dir=/tmp/consul -node=server -bind=192.168.30.14 -enable-script-checks=true -config-dir=/etc/consul.d -ui -client=0.0.0.0 &
+
+
+mvn install:install-file -Dfile=target\mfg-imbp-commons-0.1.jar -DgroupId=huawei.mfg -DartifactId=mfg-imbp-commons -Dversion=0.1 -Dpackaging=jar
+
+mvn install:install-file -Dfile=target\mfg-imbp-metadata-0.1.jar -DgroupId=huawei.mfg -DartifactId=mfg-imbp-metadata -Dversion=0.1 -Dpackaging=jar
+
+consul agent -server -bootstrap-expect=1 -data-dir=/tmp/consul -node=server -bind=10.208.51.107 -enable-script-checks=true -config-dir=/etc/consul.d -ui -client=0.0.0.0
+
+nohup consul agent -data-dir=/tmp/consul -node=etl-147 -bind=10.208.51.147 -enable-script-checks=true -config-dir=/etc/consul.d -join 10.208.51.107 -client=0.0.0.0 &
+
+-Dcassandra.config="%CASSANDRA_HOME%\cassandra\src\resources\org\apache\cassandra\config"
+
+
+
+curl -X PUT http://localhost:8500/v1/agent/service/deregister/SAN1000002900:8085
+
+CREATE KEYSPACE images
+  WITH REPLICATION = { 
+   'class' : 'SimpleStrategy', 
+   'replication_factor' : 1 
+  };
+
+CREATE TABLE images.aoi_single_component_image (
+    created_day text,
+    device_type text,
+    label text,
+    created_time timestamp,
+    board_id text,
+    board_loc text,
+    extension text,
+    file_name text,
+    image blob,
+    product_type text,
+    PRIMARY KEY ((created_day, device_type), label, created_time)
+) WITH CLUSTERING ORDER BY (label DESC, created_time DESC);
+
+CREATE TABLE images.aoi_single_component_image_1 (
+    created_day text,
+    device_type text,
+    hour int,
+    mins int,
+    sec int,
+    label text,
+    created_time timestamp,
+    board_id text,
+    board_loc text,
+    extension text,
+    file_name text,
+    image blob,
+    product_type text,
+    PRIMARY KEY ((created_day, device_type, hour, mins, sec), label, created_time)
+) WITH CLUSTERING ORDER BY (label DESC, created_time DESC);
+
+select count(*) from images.aoi_single_component_image
+
+CREATE TABLE test_multiple_parts_image.aoi_single_component_image (
+    created_day text,
+    device_type text,
+    label text,
+    created_time timestamp,
+    board_id text,
+    board_loc text,
+    part int,
+    extension text,
+    file_name text,
+    image blob,
+    product_type text,
+    PRIMARY KEY ((created_day, device_type), label, created_time, part)
+) WITH CLUSTERING ORDER BY (label DESC, created_time DESC, part ASC);
+
+ALTER TABLE images.aoi_single_component_image_1 WITH compaction = { 'class' :  'LeveledCompactionStrategy'  };
+
+Installing D:\project\info\mfg-imbp-commons\mfg-imbp-metadata\target\mfg-imbp-metadata-0.1.jar to C:\Users\l00483498\.m2\repository\huawei\mfg\mfg-imbp-metadata\0.1\mfg-imbp-metadata-0.1.jar
+
+ Installing D:\project\info\mfg-imbp-commons\mfg-imbp-metadata\target\mfg-imbp-metadata-0.1.jar to C:\Users\l00483498\.m2\repository\huawei\mfg\mfg-imbp-metadata\0.1\mfg-imbp-metadata-0.1.jar
+
+config set stop-writes-on-bgsave-error no
+
+echo 'vm.overcommit_memory = 1' >> /etc/sysctl.conf
+sysctl vm.overcommit_memory=1
+
+C:\Windows\System32>netstat -ano | findstr :9042
+  TCP    127.0.0.1:9042         0.0.0.0:0              LISTENING       946132
+
+C:\Windows\System32>taskkill /PID 946132 /F
+SUCCESS: The process with PID 946132 has been terminated.
+
+-XX:+UseG1GC -XX:+UseStringDeduplication
