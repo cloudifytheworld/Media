@@ -1,0 +1,83 @@
+Slave spark install
+
+1. Check ubuntu version 18.04
+   lsb_release -a
+   mkdir /usr/local/spark
+   cd spark
+
+2. Download spark:
+    wget http://apache.claz.org/spark/spark-2.4.3/spark-2.4.3-bin-hadoop2.7.tgz
+
+3. Install scala:
+    apt-get install scala
+
+4. Untar spark
+   tar -xzf spark-2.4.3-bin-hadoop2.7.tgz
+
+5. go to spark-2.4.3-bin-hadoop2.7
+   cd spark-2.4.3-bin-hadoop2.7/jars
+
+6. Download spark cassandra connector
+   wget  http://dl.bintray.com/spark-packages/maven/datastax/spark-cassandra-connector/2.4.0-s_2.11/spark-cassandra-connector-2.4.0-s_2.11.jar
+
+
+
+
+
+
+
+
+Master install on Window 10
+
+1. Make directories under d:
+   D:\program\spark
+   D:\program\hadoop
+   D:\program\scala
+
+2. Download spark
+   https://www.apache.org/dyn/closer.lua/spark/spark-2.4.3/spark-2.4.3-bin-hadoop2.7.tgz
+   unzip it to d:\program\spark
+
+3. Download spark cassandra connector
+   http://dl.bintray.com/spark-packages/maven/datastax/spark-cassandra-connector/2.4.0-s_2.11/spark-cassandra-connector-2.4.0-s_2.11.jar
+   move the jar to d:\program\spark\jars
+
+4. Download winutils-master.zip
+   https://github.com/steveloughran/winutils
+   open the zip, go to folder hadoop-2.7.1
+   extract winutils.exe to D:\program\hadoop\bin
+
+5. Download scala
+   https://downloads.lightbend.com/scala/2.11.8/scala-2.11.8.zip
+   extract to D:\program\scala
+
+6. Set window env variable and path
+   SPARK_HOME D:\program\spark
+   SCALA_HOME D:\program\scala
+   HADOOP_HOME D:\program\hadoop
+
+   path D:\program\spark\bin;D:\program\scala\bin;D:\program\hadoop\bin
+
+7. Start master
+   $SPARK_HOME/bin/spark-class org.apache.spark.deploy.master.Master
+
+8. Go to slave servers
+   $SPARK_HOME/bin/spark-class org.apache.spark.deploy.worker.Worker spark://192.168.30.1:7077
+/**** for ubuntu *******
+7. Add slaves to master file
+   cd /usr/local/spark/spark-2.4.3-bin-hadoop2.7/conf
+   change slaves.template to slaves
+   add:
+       192.168.30.16
+       192.168.30.17
+       192.168.30.18
+
+8. Add master env
+   cd /usr/local/spark/spark-2.4.3-bin-hadoop2.7/conf
+   change spark-env.sh.template to spark-env.sh
+   add SPARK_MASTER_HOST="192.168.30.1"
+
+9. Start master
+   go to /sbin/start-master.sh
+   go to /sbin/start-slaves.sh
+********************/
