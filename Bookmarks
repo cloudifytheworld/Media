@@ -1,0 +1,2878 @@
+{
+   "checksum": "aa87bd3b64c7a8d40cda0b150fae3ac2",
+   "roots": {
+      "bookmark_bar": {
+         "children": [ {
+            "children": [ {
+               "date_added": "13187242407358966",
+               "id": "5",
+               "meta_info": {
+                  "last_visited_desktop": "13188596332454959"
+               },
+               "name": "Angular - The Application Shell",
+               "type": "url",
+               "url": "https://angular.io/tutorial/toh-pt0"
+            }, {
+               "date_added": "13187242432029400",
+               "id": "7",
+               "meta_info": {
+                  "last_visited_desktop": "13187731038991763"
+               },
+               "name": "Angular Tutorial for Beginners | Getting Started with Angular 4 | Edureka",
+               "type": "url",
+               "url": "https://www.edureka.co/blog/angular-tutorial/?78%5CDASFWERPIQWJGLKNGMAL/SD,NMGADSLMPQWIRJGFPIQJGFutm_campaign=social-media-edureka-june-ab&utm_medium=crosspost&utm_source=quora"
+            }, {
+               "date_added": "13187242474220228",
+               "id": "8",
+               "meta_info": {
+                  "last_visited_desktop": "13188099856951403"
+               },
+               "name": "Angular 4 Tutorial",
+               "type": "url",
+               "url": "https://www.tutorialspoint.com/angular4/"
+            }, {
+               "date_added": "13187337180017053",
+               "id": "12",
+               "meta_info": {
+                  "last_visited_desktop": "13187337180025932"
+               },
+               "name": "Tutorial: Add bootstrap to angular-cli apps – beeman 🐝 – Medium",
+               "type": "url",
+               "url": "https://medium.com/@beeman/tutorial-add-bootstrap-to-angular-cli-apps-b0a652f2eb2"
+            }, {
+               "date_added": "13188018629649760",
+               "id": "14",
+               "meta_info": {
+                  "last_visited_desktop": "13188018629650017"
+               },
+               "name": "4 Ways to Deploy Spring Boot Angular App | DevGlan",
+               "type": "url",
+               "url": "https://www.devglan.com/spring-boot/spring-boot-angular-deployment"
+            }, {
+               "date_added": "13188106908819027",
+               "id": "15",
+               "meta_info": {
+                  "last_visited_desktop": "13188106939313206"
+               },
+               "name": "Getting started | Angular Material",
+               "type": "url",
+               "url": "https://material.angular.io/guide/getting-started"
+            }, {
+               "date_added": "13188118483042641",
+               "id": "16",
+               "meta_info": {
+                  "last_visited_desktop": "13188118483042981"
+               },
+               "name": "Angular: Hide Navbar Menu from Login page",
+               "type": "url",
+               "url": "https://loiane.com/2017/08/angular-hide-navbar-login-page/"
+            }, {
+               "date_added": "13188121358437761",
+               "id": "17",
+               "meta_info": {
+                  "last_visited_desktop": "13188121358446976"
+               },
+               "name": "SubMenu or Dropdown menu without Jquery in angular(2/4/5/6) using only bootstrap and Custom…",
+               "type": "url",
+               "url": "https://medium.com/@alok.lko631/submenu-or-dropdown-menu-without-jquery-in-angular-2-4-5-6-using-only-bootstrap-and-custom-fd716db511be"
+            }, {
+               "date_added": "13188160659786911",
+               "id": "18",
+               "meta_info": {
+                  "last_visited_desktop": "13188160659788061"
+               },
+               "name": "Angular Bootstrap",
+               "type": "url",
+               "url": "https://valor-software.com/ngx-bootstrap/#/dropdowns"
+            }, {
+               "date_added": "13188546368436064",
+               "id": "19",
+               "meta_info": {
+                  "last_visited_desktop": "13192681343116841"
+               },
+               "name": "BigDataUI",
+               "type": "url",
+               "url": "http://10.208.51.172:4200/tables"
+            }, {
+               "date_added": "13190939562033882",
+               "id": "20",
+               "meta_info": {
+                  "last_visited_desktop": "13191298949808223"
+               },
+               "name": "spring-cloud-gateway-sample/DemogatewayApplication.java at master · spring-cloud-samples/spring-cloud-gateway-sample · GitHub",
+               "type": "url",
+               "url": "https://github.com/spring-cloud-samples/spring-cloud-gateway-sample/blob/master/src/main/java/com/example/demogateway/DemogatewayApplication.java"
+            }, {
+               "date_added": "13191122796411257",
+               "id": "23",
+               "meta_info": {
+                  "last_visited_desktop": "13191459718919521"
+               },
+               "name": "Install Node.js, npm, and Angular on CentOS 7.x - DevOps & Python",
+               "type": "url",
+               "url": "http://devopspy.com/linux/install-node-js-npm-angular-on-centos-7-x/"
+            }, {
+               "date_added": "13195422562590681",
+               "id": "230",
+               "meta_info": {
+                  "last_visited_desktop": "13195422562591314"
+               },
+               "name": "Streaming Financial Chart - bl.ocks.org",
+               "type": "url",
+               "url": "https://bl.ocks.org/ColinEberhardt/ab7805a9a7af9717e86adc1656fa98d9"
+            }, {
+               "date_added": "13195422657927416",
+               "id": "231",
+               "meta_info": {
+                  "last_visited_desktop": "13195422657927741"
+               },
+               "name": "GitHub - d3fc/d3fc: A collection of components that make it easy to build interactive charts with D3",
+               "type": "url",
+               "url": "https://github.com/d3fc/d3fc"
+            }, {
+               "date_added": "13195422672180008",
+               "id": "232",
+               "meta_info": {
+                  "last_visited_desktop": "13195422672180302"
+               },
+               "name": "d3fc",
+               "type": "url",
+               "url": "https://d3fc.io/"
+            } ],
+            "date_added": "13187242423137111",
+            "date_modified": "13195446926104279",
+            "id": "6",
+            "name": "angular4",
+            "type": "folder"
+         }, {
+            "children": [ {
+               "date_added": "13187300501890427",
+               "id": "10",
+               "meta_info": {
+                  "last_visited_desktop": "13187731038976878"
+               },
+               "name": "A Farewell to CSS3 Gradients — SitePoint",
+               "type": "url",
+               "url": "https://www.sitepoint.com/a-farewell-to-css3-gradients/"
+            } ],
+            "date_added": "13187300518713173",
+            "date_modified": "13187337180017053",
+            "id": "11",
+            "name": "svg",
+            "type": "folder"
+         }, {
+            "children": [ {
+               "date_added": "13191099885000058",
+               "id": "21",
+               "meta_info": {
+                  "last_visited_desktop": "13191100009221489"
+               },
+               "name": "Quick Start to Vagrant on Windows 10",
+               "type": "url",
+               "url": "https://www.swtestacademy.com/quick-start-vagrant-windows-10/"
+            }, {
+               "date_added": "13191746331221115",
+               "id": "49",
+               "meta_info": {
+                  "last_visited_desktop": "13205477081360501"
+               },
+               "name": "DataStax Academy: Free Cassandra Tutorials and Training |",
+               "type": "url",
+               "url": "https://academy.datastax.com/"
+            }, {
+               "date_added": "13192499191128773",
+               "id": "103",
+               "meta_info": {
+                  "last_visited_desktop": "13192503207783346"
+               },
+               "name": "HBase Courses & Certification",
+               "type": "url",
+               "url": "https://learn.mapr.com/series/hbase"
+            }, {
+               "date_added": "13193968520571549",
+               "id": "174",
+               "meta_info": {
+                  "last_visited_desktop": "13194501297563343"
+               },
+               "name": "SequenceDiagram.org - Free Sequence Diagram Tool Online",
+               "type": "url",
+               "url": "https://sequencediagram.org/"
+            } ],
+            "date_added": "13191099908942662",
+            "date_modified": "13194061721928377",
+            "id": "22",
+            "name": "tutorial",
+            "type": "folder"
+         }, {
+            "children": [ {
+               "date_added": "13191305842860481",
+               "id": "24",
+               "meta_info": {
+                  "last_visited_desktop": "13193179632434033"
+               },
+               "name": "Getting Started · Client Side Load Balancing with Ribbon and Spring Cloud",
+               "type": "url",
+               "url": "https://spring.io/guides/gs/client-side-load-balancing/"
+            }, {
+               "date_added": "13191305894814022",
+               "id": "26",
+               "meta_info": {
+                  "last_visited_desktop": "13200727958027072"
+               },
+               "name": "Introduction to Spring Cloud Netflix - Eureka | Baeldung",
+               "type": "url",
+               "url": "https://www.baeldung.com/spring-cloud-netflix-eureka"
+            }, {
+               "date_added": "13192178412232478",
+               "id": "73",
+               "meta_info": {
+                  "last_visited_desktop": "13192178412234857"
+               },
+               "name": "Stream Processing With Spring, Kafka, Spark and Cassandra - Part 3 & 4 - Si",
+               "type": "url",
+               "url": "https://www.signifytechnology.com/blog/2018/06/stream-processing-with-spring-kafka-spark-and-cassandra-part-3-and-4"
+            }, {
+               "date_added": "13192179417241917",
+               "id": "74",
+               "meta_info": {
+                  "last_visited_desktop": "13199584386872867"
+               },
+               "name": "Asynchronous queries with the Java driver | DataStax",
+               "type": "url",
+               "url": "https://www.datastax.com/dev/blog/java-driver-async-queries"
+            }, {
+               "date_added": "13192234586145182",
+               "id": "75",
+               "meta_info": {
+                  "last_visited_desktop": "13192234586145625"
+               },
+               "name": "Docker - Help | IntelliJ IDEA",
+               "type": "url",
+               "url": "https://www.jetbrains.com/help/idea/docker.html"
+            }, {
+               "date_added": "13192342923683494",
+               "id": "95",
+               "meta_info": {
+                  "last_visited_desktop": "13199343227626813"
+               },
+               "name": "Java Driver for Apache Cassandra - Asynchronous programming",
+               "type": "url",
+               "url": "https://docs.datastax.com/en/developer/java-driver/3.6/manual/async/"
+            }, {
+               "children": [ {
+                  "date_added": "13192343166260394",
+                  "id": "96",
+                  "meta_info": {
+                     "last_visited_desktop": "13195630811929930"
+                  },
+                  "name": "HBaseClient (Asynchronous HBase Client 1.8.0 API)",
+                  "type": "url",
+                  "url": "https://opentsdb.github.io/asynchbase/javadoc/org/hbase/async/HBaseClient.html"
+               }, {
+                  "date_added": "13192411980167533",
+                  "id": "100",
+                  "meta_info": {
+                     "last_visited_desktop": "13194404371149193"
+                  },
+                  "name": "Web on Reactive Stack",
+                  "type": "url",
+                  "url": "https://docs.spring.io/spring/docs/current/spring-framework-reference/web-reactive.html#webflux"
+               }, {
+                  "date_added": "13192416775071069",
+                  "id": "101",
+                  "meta_info": {
+                     "last_visited_desktop": "13194501329872955"
+                  },
+                  "name": "Reactive Microservices with Spring WebFlux and Spring Cloud – Piotr's TechBlog",
+                  "type": "url",
+                  "url": "https://piotrminkowski.wordpress.com/2018/05/04/reactive-microservices-with-spring-webflux-and-spring-cloud/"
+               }, {
+                  "date_added": "13193604997413198",
+                  "id": "170",
+                  "meta_info": {
+                     "last_visited_desktop": "13204174293935975"
+                  },
+                  "name": "GitHub - reactive-streams/reactive-streams-jvm: Reactive Streams Specification for the JVM",
+                  "type": "url",
+                  "url": "https://github.com/reactive-streams/reactive-streams-jvm/"
+               }, {
+                  "date_added": "13194239397373471",
+                  "id": "183",
+                  "meta_info": {
+                     "last_visited_desktop": "13202511666608047"
+                  },
+                  "name": "MicroServices - Part 4 : Spring Cloud Circuit Breaker using Netflix Hystrix - SivaLabs",
+                  "type": "url",
+                  "url": "https://sivalabs.in/2018/03/spring-cloud-netflix-circuit-breaker/"
+               }, {
+                  "date_added": "13194474245196394",
+                  "id": "193",
+                  "meta_info": {
+                     "last_visited_desktop": "13195526048672776"
+                  },
+                  "name": "Reactor 3 Reference Guide",
+                  "type": "url",
+                  "url": "https://projectreactor.io/docs/core/release/reference/#schedulers"
+               }, {
+                  "date_added": "13194475205377482",
+                  "id": "194",
+                  "meta_info": {
+                     "last_visited_desktop": "13194501204693057"
+                  },
+                  "name": "Mono (Reactor Core 3.2.6.RELEASE)",
+                  "type": "url",
+                  "url": "https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Mono.html"
+               }, {
+                  "date_added": "13194482780110438",
+                  "id": "195",
+                  "meta_info": {
+                     "last_visited_desktop": "13194501400458238"
+                  },
+                  "name": "BodyInserters (Spring Framework 5.1.4.RELEASE API)",
+                  "type": "url",
+                  "url": "https://docs.spring.io/spring/docs/current/javadoc-api/index.html?org/springframework/web/reactive/function/BodyInserters.html"
+               }, {
+                  "date_added": "13194501446670749",
+                  "id": "197",
+                  "meta_info": {
+                     "last_visited_desktop": "13194501446671016"
+                  },
+                  "name": "Building Reactive Rest APIs with Spring WebFlux and Reactive MongoDB | CalliCoder",
+                  "type": "url",
+                  "url": "https://www.callicoder.com/reactive-rest-apis-spring-webflux-reactive-mongo/"
+               }, {
+                  "date_added": "13194898281739550",
+                  "id": "216",
+                  "meta_info": {
+                     "last_visited_desktop": "13199342900126625"
+                  },
+                  "name": "Java Driver for Apache Cassandra - Using the mapper",
+                  "type": "url",
+                  "url": "https://docs.datastax.com/en/developer/java-driver/3.6/manual/object_mapper/using/"
+               } ],
+               "date_added": "13192343194158521",
+               "date_modified": "13195029859462220",
+               "id": "97",
+               "name": "async",
+               "type": "folder"
+            }, {
+               "date_added": "13193006118975844",
+               "id": "137",
+               "meta_info": {
+                  "last_visited_desktop": "13193013570095849"
+               },
+               "name": "GitHub - spring-cloud/spring-cloud-consul: Spring Cloud Consul",
+               "type": "url",
+               "url": "https://github.com/spring-cloud/spring-cloud-consul"
+            }, {
+               "date_added": "13193013720697459",
+               "id": "139",
+               "meta_info": {
+                  "last_visited_desktop": "13205178966630476"
+               },
+               "name": "Spring Cloud",
+               "type": "url",
+               "url": "https://spring.io/projects/spring-cloud"
+            }, {
+               "date_added": "13193014405177340",
+               "id": "140",
+               "meta_info": {
+                  "last_visited_desktop": "13194654987861047"
+               },
+               "name": "Spring Initializr",
+               "type": "url",
+               "url": "https://start.spring.io/"
+            }, {
+               "date_added": "13193025155160422",
+               "id": "141",
+               "meta_info": {
+                  "last_visited_desktop": "13201064730594714"
+               },
+               "name": "LB Service Discovery using Consul & Spring Cloud – Trifork Blog",
+               "type": "url",
+               "url": "https://blog.trifork.com/2016/12/14/service-discovery-using-consul-and-spring-cloud/"
+            }, {
+               "date_added": "13193025924807811",
+               "id": "142",
+               "meta_info": {
+                  "last_visited_desktop": "13193026142177988"
+               },
+               "name": "LB Consul Service Registration and Discovery Example - HowToDoInJava",
+               "type": "url",
+               "url": "https://howtodoinjava.com/spring-cloud/consul-service-registration-discovery/"
+            }, {
+               "date_added": "13193032461845510",
+               "id": "143",
+               "meta_info": {
+                  "last_visited_desktop": "13194399524106014"
+               },
+               "name": "A Quick Guide to Spring Cloud Consul | Baeldung",
+               "type": "url",
+               "url": "https://www.baeldung.com/spring-cloud-consul"
+            }, {
+               "date_added": "13193035048083621",
+               "id": "144",
+               "meta_info": {
+                  "last_visited_desktop": "13193278394865113"
+               },
+               "name": "Guide to @ConfigurationProperties in Spring Boot | Baeldung",
+               "type": "url",
+               "url": "https://www.baeldung.com/configuration-properties-in-spring-boot"
+            }, {
+               "date_added": "13193112316120553",
+               "id": "146",
+               "meta_info": {
+                  "last_visited_desktop": "13193112316121139"
+               },
+               "name": "How can I support an HTTP Proxy using Spring 5 WebClient? - Stack Overflow",
+               "type": "url",
+               "url": "https://stackoverflow.com/questions/46979982/how-can-i-support-an-http-proxy-using-spring-5-webclient"
+            }, {
+               "date_added": "13193112658279993",
+               "id": "147",
+               "meta_info": {
+                  "last_visited_desktop": "13199126657084090"
+               },
+               "name": "Reactive Microservices With Spring WebFlux and Spring Cloud - DZone Microservices",
+               "type": "url",
+               "url": "https://dzone.com/articles/reactive-microservices-with-spring-webflux-and-spr"
+            }, {
+               "date_added": "13193129989323861",
+               "id": "148",
+               "meta_info": {
+                  "last_visited_desktop": "13202511280389379"
+               },
+               "name": "Learn how to create Flux instances - Reactive Programming with Reactor 3",
+               "type": "url",
+               "url": "https://tech.io/playgrounds/929/reactive-programming-with-reactor-3/Flux"
+            }, {
+               "date_added": "13193129996651560",
+               "id": "149",
+               "meta_info": {
+                  "last_visited_desktop": "13204254957970068"
+               },
+               "name": "Web on Reactive Stack",
+               "type": "url",
+               "url": "https://docs.spring.io/spring/docs/current/spring-framework-reference/web-reactive.html"
+            }, {
+               "date_added": "13193130242905862",
+               "id": "150",
+               "meta_info": {
+                  "last_visited_desktop": "13194501334241183"
+               },
+               "name": "ReactiveX - Operators",
+               "type": "url",
+               "url": "http://reactivex.io/documentation/operators.html"
+            }, {
+               "date_added": "13193356945926082",
+               "id": "160",
+               "meta_info": {
+                  "last_visited_desktop": "13196224363896649"
+               },
+               "name": "Spring Boot Admin – Admin UI for administration of spring boot applications | Smart Techie",
+               "type": "url",
+               "url": "https://smarttechie.org/2017/06/18/spring-boot-admin-admin-ui-for-administration-of-spring-boot-applications/"
+            }, {
+               "children": [ {
+                  "date_added": "13193358553487380",
+                  "id": "162",
+                  "meta_info": {
+                     "last_visited_desktop": "13201740594079790"
+                  },
+                  "name": "Getting Started with Logstash | Logstash Reference [6.6] | Elastic",
+                  "type": "url",
+                  "url": "https://www.elastic.co/guide/en/logstash/current/getting-started-with-logstash.html"
+               }, {
+                  "date_added": "13193357216347407",
+                  "id": "161",
+                  "meta_info": {
+                     "last_visited_desktop": "13193357216347722"
+                  },
+                  "name": "Stream Log4j Logs to Apache Kafka | DevGlan",
+                  "type": "url",
+                  "url": "https://www.devglan.com/apache-kafka/stream-log4j-logs-to-kafka"
+               }, {
+                  "date_added": "13193358884780311",
+                  "id": "164",
+                  "meta_info": {
+                     "last_visited_desktop": "13193358884780553"
+                  },
+                  "name": "Log Management for Spring Boot Applications with Logstash, Elasticsearch and Kibana - codecentric AG Blog",
+                  "type": "url",
+                  "url": "https://blog.codecentric.de/en/2014/10/log-management-spring-boot-applications-logstash-elastichsearch-kibana/"
+               } ],
+               "date_added": "13193358578152795",
+               "date_modified": "13193520759954659",
+               "id": "163",
+               "name": "logging",
+               "type": "folder"
+            }, {
+               "date_added": "13194472286614538",
+               "id": "192",
+               "meta_info": {
+                  "last_visited_desktop": "13194501416516662"
+               },
+               "name": "Reactive Programming With Spring WebFlux - DZone Java",
+               "type": "url",
+               "url": "https://dzone.com/articles/reactive-programming-with-spring-webflux"
+            }, {
+               "children": [ {
+                  "date_added": "13194501468798969",
+                  "id": "198",
+                  "meta_info": {
+                     "last_visited_desktop": "13204248999535224"
+                  },
+                  "name": "Handling Errors in Spring WebFlux | Baeldung",
+                  "type": "url",
+                  "url": "https://www.baeldung.com/spring-webflux-errors"
+               }, {
+                  "date_added": "13194504279867086",
+                  "id": "201",
+                  "meta_info": {
+                     "last_visited_desktop": "13198699681389421"
+                  },
+                  "name": "java - Spring Reactive get body JSONObject using ServerRequest - Stack Overflow",
+                  "type": "url",
+                  "url": "https://stackoverflow.com/questions/52870517/spring-reactive-get-body-jsonobject-using-serverrequest/52872509#52872509"
+               } ],
+               "date_added": "13194501489557447",
+               "date_modified": "13194505391791047",
+               "id": "199",
+               "name": "webflux",
+               "type": "folder"
+            }, {
+               "children": [ {
+                  "date_added": "13194647289378518",
+                  "id": "207",
+                  "meta_info": {
+                     "last_visited_desktop": "13204245475612694"
+                  },
+                  "name": "聊聊spring cloud netflix的HystrixCommands - code-craft - SegmentFault 思否",
+                  "type": "url",
+                  "url": "https://segmentfault.com/a/1190000015363119"
+               }, {
+                  "date_added": "13194656384024492",
+                  "id": "209",
+                  "meta_info": {
+                     "last_visited_desktop": "13204255483285876"
+                  },
+                  "name": "How it Works · Netflix/Hystrix Wiki · GitHub",
+                  "type": "url",
+                  "url": "https://github.com/Netflix/Hystrix/wiki/How-it-Works"
+               }, {
+                  "date_added": "13194668278550338",
+                  "id": "210",
+                  "meta_info": {
+                     "last_visited_desktop": "13204245484214241"
+                  },
+                  "name": "Resilience4j User Guide",
+                  "type": "url",
+                  "url": "http://resilience4j.github.io/resilience4j/#_circuitbreaker_2"
+               } ],
+               "date_added": "13194647314004252",
+               "date_modified": "13194735956255363",
+               "id": "208",
+               "name": "Hystrix",
+               "type": "folder"
+            }, {
+               "date_added": "13195630332579640",
+               "id": "236",
+               "meta_info": {
+                  "last_visited_desktop": "13195630332580747"
+               },
+               "name": "Spring Boot Hbase Example - tanwenliang's Blog",
+               "type": "url",
+               "url": "http://www.tanwenliang.com/2018/07/05/spring-boot-hbase-example.html"
+            }, {
+               "date_added": "13196494061276001",
+               "id": "252",
+               "meta_info": {
+                  "last_visited_desktop": "13198378219289845"
+               },
+               "name": "24. Externalized Configuration",
+               "type": "url",
+               "url": "https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html"
+            }, {
+               "children": [ {
+                  "date_added": "13196635142352297",
+                  "id": "253",
+                  "meta_info": {
+                     "last_visited_desktop": "13198724167442086"
+                  },
+                  "name": "java - How to perform a binary search of a text file - Stack Overflow",
+                  "type": "url",
+                  "url": "https://stackoverflow.com/questions/10010151/how-to-perform-a-binary-search-of-a-text-file"
+               } ],
+               "date_added": "13196635163642044",
+               "date_modified": "13196653298165330",
+               "id": "254",
+               "name": "sec",
+               "type": "folder"
+            }, {
+               "date_added": "13196974679919434",
+               "id": "259",
+               "meta_info": {
+                  "last_visited_desktop": "13196974679920445"
+               },
+               "name": "Intercepting Filter Pattern Introduction | Baeldung",
+               "type": "url",
+               "url": "https://www.baeldung.com/intercepting-filter-pattern-in-java"
+            }, {
+               "date_added": "13197149818226424",
+               "id": "261",
+               "meta_info": {
+                  "last_visited_desktop": "13197149818227487"
+               },
+               "name": "Appendix A. Common application properties",
+               "type": "url",
+               "url": "https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html"
+            }, {
+               "children": [ {
+                  "date_added": "13199859040639184",
+                  "id": "299",
+                  "meta_info": {
+                     "last_visited_desktop": "13199859097489033"
+                  },
+                  "name": "Live Dashboard Using Apache Kafka and Spring WebSocket - DZone Java",
+                  "type": "url",
+                  "url": "https://dzone.com/articles/live-dashboard-using-apache-kafka-and-spring-webso"
+               }, {
+                  "date_added": "13199859080765488",
+                  "id": "301",
+                  "meta_info": {
+                     "last_visited_desktop": "13201332930337033"
+                  },
+                  "name": "Getting Started · Using WebSocket to build an interactive web application",
+                  "type": "url",
+                  "url": "https://spring.io/guides/gs/messaging-stomp-websocket/"
+               }, {
+                  "date_added": "13199859187125559",
+                  "id": "302",
+                  "meta_info": {
+                     "last_visited_desktop": "13201336692541874"
+                  },
+                  "name": "Reactive WebSockets with Spring 5 | Baeldung",
+                  "type": "url",
+                  "url": "https://www.baeldung.com/spring-5-reactive-websockets"
+               }, {
+                  "date_added": "13199861619377737",
+                  "id": "303",
+                  "meta_info": {
+                     "last_visited_desktop": "13199861619378102"
+                  },
+                  "name": "html5 - Pushing complete data from Spring Boot server through Web Socket to Client - Stack Overflow",
+                  "type": "url",
+                  "url": "https://stackoverflow.com/questions/47049306/pushing-complete-data-from-spring-boot-server-through-web-socket-to-client"
+               }, {
+                  "date_added": "13201336672021002",
+                  "id": "307",
+                  "meta_info": {
+                     "last_visited_desktop": "13202670633710235"
+                  },
+                  "name": "tutorials/spring-5-reactive/src/main/java/com/baeldung/websocket at master · eugenp/tutorials",
+                  "type": "url",
+                  "url": "https://github.com/eugenp/tutorials/tree/master/spring-5-reactive/src/main/java/com/baeldung/websocket"
+               }, {
+                  "date_added": "13201337404046746",
+                  "id": "308",
+                  "meta_info": {
+                     "last_visited_desktop": "13202628298536855"
+                  },
+                  "name": "zcmgyu/websocket-spring-react: Sample about Websocket using React and Spring Boot Oauth2 to send a notification between user.",
+                  "type": "url",
+                  "url": "https://github.com/zcmgyu/websocket-spring-react"
+               }, {
+                  "date_added": "13202071213167629",
+                  "id": "321",
+                  "meta_info": {
+                     "last_visited_desktop": "13205386601019093"
+                  },
+                  "name": "Spring Tips: Reactive Web Views - YouTube",
+                  "type": "url",
+                  "url": "https://www.youtube.com/watch?v=ewpJ9EUAz5s"
+               } ],
+               "date_added": "13199859059662003",
+               "date_modified": "13202151616733491",
+               "id": "300",
+               "name": "websocket",
+               "type": "folder"
+            }, {
+               "date_added": "13202257763036469",
+               "id": "324",
+               "meta_info": {
+                  "last_visited_desktop": "13202259695019365"
+               },
+               "name": "hantsy/spring-reactive-sample: Spring 5 Reactive playground",
+               "type": "url",
+               "url": "https://github.com/hantsy/spring-reactive-sample#spring-data-cassandra"
+            }, {
+               "date_added": "13202704744652623",
+               "id": "325",
+               "meta_info": {
+                  "last_visited_desktop": "13202704744653907"
+               },
+               "name": "API Flux (Reactor Core 3.2.9.RELEASE)",
+               "type": "url",
+               "url": "https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Flux.html"
+            } ],
+            "date_added": "13191305857025139",
+            "date_modified": "13202888813538831",
+            "id": "25",
+            "name": "spring",
+            "type": "folder"
+         }, {
+            "children": [ {
+               "date_added": "13191357980556674",
+               "id": "27",
+               "meta_info": {
+                  "last_visited_desktop": "13191357980556969"
+               },
+               "name": "My Products",
+               "type": "url",
+               "url": "https://secure.transamerica.com/myproducts/#forward"
+            }, {
+               "date_added": "13191465646948240",
+               "id": "29",
+               "meta_info": {
+                  "last_visited_desktop": "13191465646949940"
+               },
+               "name": "Appcanary - Everything you need to know about HTTP security headers",
+               "type": "url",
+               "url": "https://blog.appcanary.com/2017/http-security-headers.html"
+            }, {
+               "date_added": "13191543575951564",
+               "id": "30",
+               "meta_info": {
+                  "last_visited_desktop": "13191543575960609"
+               },
+               "name": "work order Log In",
+               "type": "url",
+               "url": "http://rdsd/TrackItWeb/SelfService/Account/LogIn?ReturnUrl=%2fTrackItWeb%2fSelfService%2fApplication%2fMain"
+            }, {
+               "date_added": "13191553447006960",
+               "id": "36",
+               "meta_info": {
+                  "last_visited_desktop": "13191962725908402"
+               },
+               "name": " JIRA",
+               "type": "url",
+               "url": "http://rnd-jira-usa.inhuawei.com/secure/Dashboard.jspa"
+            }, {
+               "date_added": "13202945147789919",
+               "id": "327",
+               "meta_info": {
+                  "last_visited_desktop": "13204057559110719"
+               },
+               "name": "Workday vhr_huawei - Sign In to Workday",
+               "type": "url",
+               "url": "https://www.myworkday.com/wday/authgwy/vhr_huawei/login.htmld?redirect=n&returnTo=%2fvhr_huawei%2fd%2fhome.htmld"
+            }, {
+               "date_added": "13202945294422370",
+               "id": "328",
+               "meta_info": {
+                  "last_visited_desktop": "13204265729842678"
+               },
+               "name": "Outlook",
+               "type": "url",
+               "url": "https://outlook.office365.com/"
+            } ],
+            "date_added": "13191357995614722",
+            "date_modified": "13203059244323423",
+            "id": "28",
+            "name": "personal",
+            "type": "folder"
+         }, {
+            "children": [ {
+               "date_added": "13191547582566565",
+               "id": "31",
+               "meta_info": {
+                  "last_visited_desktop": "13192077407697563"
+               },
+               "name": "| Docker Command Documentation",
+               "type": "url",
+               "url": "https://docs.docker.com/engine/reference/run/#runtime-constraints-on-resources"
+            }, {
+               "date_added": "13191643766853774",
+               "id": "40",
+               "meta_info": {
+                  "last_visited_desktop": "13191746138404793"
+               },
+               "name": "Workflows: using Docker Machine and Docker Compose together in development | Alexander Zeitler",
+               "type": "url",
+               "url": "https://alexanderzeitler.com/articles/docker-machine-and-docker-compose-developer-workflows/"
+            }, {
+               "date_added": "13192065147551203",
+               "id": "63",
+               "meta_info": {
+                  "last_visited_desktop": "13192065147560803"
+               },
+               "name": "Install Docker and Docker Compose (Centos 7) · NaturalHistoryMuseum/scratchpads2 Wiki · GitHub",
+               "type": "url",
+               "url": "https://github.com/NaturalHistoryMuseum/scratchpads2/wiki/Install-Docker-and-Docker-Compose-(Centos-7)"
+            }, {
+               "date_added": "13192091173215967",
+               "id": "67",
+               "meta_info": {
+                  "last_visited_desktop": "13192091173216960"
+               },
+               "name": "Set up a Docker Repository. - 1&1 Hosting (US)",
+               "type": "url",
+               "url": "https://www.ionos.com/community/server-cloud-infrastructure/docker/setting-up-a-docker-repository/"
+            }, {
+               "date_added": "13192093431774520",
+               "id": "68",
+               "meta_info": {
+                  "last_visited_desktop": "13192093431775570"
+               },
+               "name": "Run a Docker registry · Issue #1319 · kubernetes/kubernetes · GitHub",
+               "type": "url",
+               "url": "https://github.com/kubernetes/kubernetes/issues/1319"
+            }, {
+               "date_added": "13192093630950028",
+               "id": "70",
+               "meta_info": {
+                  "last_visited_desktop": "13192093630950576"
+               },
+               "name": "Deploy a registry server | Docker Documentation",
+               "type": "url",
+               "url": "https://docs.docker.com/registry/deploying/"
+            }, {
+               "date_added": "13192240302040859",
+               "id": "80",
+               "meta_info": {
+                  "last_visited_desktop": "13192849929385770"
+               },
+               "name": "Pushing and Pulling to and from Docker Hub",
+               "type": "url",
+               "url": "https://ropenscilabs.github.io/r-docker-tutorial/04-Dockerhub.html"
+            }, {
+               "date_added": "13193009326262700",
+               "id": "138",
+               "meta_info": {
+                  "last_visited_desktop": "13193282338192480"
+               },
+               "name": "Distributed Service Configuration with Consul, Spring Cloud, and Docker | Programmatic Ponderings",
+               "type": "url",
+               "url": "https://programmaticponderings.com/2017/02/28/distributed-service-configuration-with-consul-spring-cloud-and-docker-2/"
+            } ],
+            "date_added": "13191547617795422",
+            "date_modified": "13193013720697459",
+            "id": "32",
+            "name": "docker",
+            "type": "folder"
+         }, {
+            "children": [ {
+               "date_added": "13191548750767756",
+               "id": "33",
+               "meta_info": {
+                  "last_visited_desktop": "13191548750768064"
+               },
+               "name": "How To Edit the Sudoers File on Ubuntu and CentOS | DigitalOcean",
+               "type": "url",
+               "url": "https://www.digitalocean.com/community/tutorials/how-to-edit-the-sudoers-file-on-ubuntu-and-centos"
+            }, {
+               "date_added": "13191548832466235",
+               "id": "35",
+               "meta_info": {
+                  "last_visited_desktop": "13191548832466462"
+               },
+               "name": "Initial Server Setup with Ubuntu 16.04 | DigitalOcean",
+               "type": "url",
+               "url": "https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-16-04"
+            }, {
+               "date_added": "13191647056465223",
+               "id": "41",
+               "meta_info": {
+                  "last_visited_desktop": "13191647056465434"
+               },
+               "name": "How To Set Up Nginx Load Balancing | DigitalOcean",
+               "type": "url",
+               "url": "https://www.digitalocean.com/community/tutorials/how-to-set-up-nginx-load-balancing"
+            }, {
+               "date_added": "13191716365486189",
+               "id": "46",
+               "meta_info": {
+                  "last_visited_desktop": "13191716463675758"
+               },
+               "name": "Ubuntu tutorials",
+               "type": "url",
+               "url": "https://tutorials.ubuntu.com/"
+            }, {
+               "date_added": "13193176950218214",
+               "id": "151",
+               "meta_info": {
+                  "last_visited_desktop": "13194501254247235"
+               },
+               "name": "How To Set Up Highly Available Web Servers with Keepalived and Floating IPs on Ubuntu 14.04 | DigitalOcean",
+               "type": "url",
+               "url": "https://www.digitalocean.com/community/tutorials/how-to-set-up-highly-available-web-servers-with-keepalived-and-floating-ips-on-ubuntu-14-04"
+            }, {
+               "date_added": "13201458282570005",
+               "id": "310",
+               "meta_info": {
+                  "last_visited_desktop": "13204155208066358"
+               },
+               "name": "Unlimit reset",
+               "type": "url",
+               "url": "https://underyx.me/articles/raising-the-maximum-number-of-file-descriptors"
+            } ],
+            "date_added": "13191548767740733",
+            "date_modified": "13201488892653001",
+            "id": "34",
+            "name": "linux",
+            "type": "folder"
+         }, {
+            "children": [ {
+               "date_added": "13191571056434255",
+               "id": "39",
+               "meta_info": {
+                  "last_visited_desktop": "13198914435241882"
+               },
+               "name": "Cassandra Time Series Data Modeling For Massive Scale",
+               "type": "url",
+               "url": "http://thelastpickle.com/blog/2017/08/02/time-series-data-modeling-massive-scale.html"
+            }, {
+               "date_added": "13192500705552130",
+               "id": "104",
+               "meta_info": {
+                  "last_visited_desktop": "13194501257136002"
+               },
+               "name": "Cassandra vs. HBase: twins or just strangers with similar looks?",
+               "type": "url",
+               "url": "https://www.scnsoft.com/blog/cassandra-vs-hbase"
+            }, {
+               "date_added": "13192509074402342",
+               "id": "105",
+               "meta_info": {
+                  "last_visited_desktop": "13198460004647184"
+               },
+               "name": "About Deletes and Tombstones in Cassandra",
+               "type": "url",
+               "url": "http://thelastpickle.com/blog/2016/07/27/about-deletes-and-tombstones.html"
+            }, {
+               "date_added": "13193695001653947",
+               "id": "172",
+               "meta_info": {
+                  "last_visited_desktop": "13199343381840070"
+               },
+               "name": "Cassandra Sizing",
+               "type": "url",
+               "url": "http://btoddb-cass-storage.blogspot.com/"
+            }, {
+               "date_added": "13194503753568398",
+               "id": "200",
+               "meta_info": {
+                  "last_visited_desktop": "13201418310071351"
+               },
+               "name": "Commands",
+               "type": "url",
+               "url": "https://docs.datastax.com/en/cql/3.3/cql/cql_reference/cqlCreateKeyspace.html"
+            }, {
+               "date_added": "13194554451578289",
+               "id": "204",
+               "meta_info": {
+                  "last_visited_desktop": "13199342854865871"
+               },
+               "name": "DataStax drivers | DataStax drivers matrix",
+               "type": "url",
+               "url": "https://docs.datastax.com/en/driver-matrix/doc/driver_matrix/common/driverMatrix.html"
+            }, {
+               "date_added": "13194582201947145",
+               "id": "205",
+               "meta_info": {
+                  "last_visited_desktop": "13199342837766656"
+               },
+               "name": "Java Driver for Apache Cassandra - Connection pooling",
+               "type": "url",
+               "url": "https://docs.datastax.com/en/developer/java-driver/3.6/manual/pooling/"
+            }, {
+               "date_added": "13194735956255363",
+               "id": "211",
+               "meta_info": {
+                  "last_visited_desktop": "13198288147583362"
+               },
+               "name": "cql-to-java-type-mapping",
+               "type": "url",
+               "url": "https://docs.datastax.com/en/developer/java-driver/3.1/manual/#cql-to-java-type-mapping"
+            }, {
+               "date_added": "13195109689311045",
+               "id": "219",
+               "meta_info": {
+                  "last_visited_desktop": "13195109689311478"
+               },
+               "name": "java-driver/Cluster.java at 2.1 · datastax/java-driver · GitHub",
+               "type": "url",
+               "url": "https://github.com/datastax/java-driver/blob/2.1/driver-core/src/main/java/com/datastax/driver/core/Cluster.java"
+            }, {
+               "date_added": "13195110112935673",
+               "id": "220",
+               "meta_info": {
+                  "last_visited_desktop": "13199154149194461"
+               },
+               "name": "How to improve cassandra 3.0 read performance and throughput using async queries? - Stack Overflow",
+               "type": "url",
+               "url": "https://stackoverflow.com/questions/36772566/how-to-improve-cassandra-3-0-read-performance-and-throughput-using-async-queries"
+            }, {
+               "date_added": "13195458222800483",
+               "id": "234",
+               "meta_info": {
+                  "last_visited_desktop": "13195458222801162"
+               },
+               "name": "Set Up a Production-Ready Cassandra Node Cluster on Ubuntu 16.04 and CentOS 7",
+               "type": "url",
+               "url": "https://www.linode.com/docs/databases/cassandra/set-up-a-cassandra-node-cluster-on-ubuntu-and-centos/"
+            }, {
+               "date_added": "13195507260870600",
+               "id": "235",
+               "meta_info": {
+                  "last_visited_desktop": "13195507260871395"
+               },
+               "name": "Install Idea Documentation",
+               "type": "url",
+               "url": "http://cassandra.apache.org/doc/4.0/development/ide.html"
+            }, {
+               "date_added": "13196104008440691",
+               "id": "242",
+               "meta_info": {
+                  "last_visited_desktop": "13198651271534355"
+               },
+               "name": "How To Figure Out Cassandra Extra Off-Heap Memory Usage - Stack Overflow",
+               "type": "url",
+               "url": "https://stackoverflow.com/questions/52760039/how-to-figure-out-cassandra-extra-off-heap-memory-usage"
+            }, {
+               "date_added": "13196294725776103",
+               "id": "246",
+               "meta_info": {
+                  "last_visited_desktop": "13199343409479920"
+               },
+               "name": "Metrics Java Driver Cassandra ",
+               "type": "url",
+               "url": "https://docs.datastax.com/en/developer/java-driver/3.5/manual/metrics/"
+            }, {
+               "date_added": "13196412809024141",
+               "id": "248",
+               "meta_info": {
+                  "last_visited_desktop": "13199753998605605"
+               },
+               "name": "Log Structured Merge Trees - ben stopford",
+               "type": "url",
+               "url": "http://www.benstopford.com/2015/02/14/log-structured-merge-trees/"
+            }, {
+               "date_added": "13196412822095237",
+               "id": "249",
+               "meta_info": {
+                  "last_visited_desktop": "13196412822095447"
+               },
+               "name": "how the append-only btree works",
+               "type": "url",
+               "url": "http://www.bzero.se/ldapd/btree.html"
+            }, {
+               "date_added": "13196742406505182",
+               "id": "256",
+               "meta_info": {
+                  "last_visited_desktop": "13198810535224373"
+               },
+               "name": "cassandra/CommitLogReader.java at e31e216234c6b57a531cae607e0355666007deb2 · apache/cassandra · GitHub",
+               "type": "url",
+               "url": "https://github.com/apache/cassandra/blob/e31e216234c6b57a531cae607e0355666007deb2/src/java/org/apache/cassandra/db/commitlog/CommitLogReader.java"
+            }, {
+               "date_added": "13197098207232892",
+               "id": "260",
+               "meta_info": {
+                  "last_visited_desktop": "13197098207234686"
+               },
+               "name": "Stargate documentation — Stargate Search and Indexing",
+               "type": "url",
+               "url": "https://stargate-core.readthedocs.io/"
+            }, {
+               "date_added": "13198460130210235",
+               "id": "271",
+               "meta_info": {
+                  "last_visited_desktop": "13198460130210780"
+               },
+               "name": "Undetectable tombstones in Apache Cassandra",
+               "type": "url",
+               "url": "http://thelastpickle.com/blog/2018/07/05/undetectable-tombstones-in-apache-cassandra.html"
+            }, {
+               "date_added": "13198460151223773",
+               "id": "272",
+               "meta_info": {
+                  "last_visited_desktop": "13198526055899084"
+               },
+               "name": "Common Problems in Cassandra Data Models - Business Platform Team",
+               "type": "url",
+               "url": "https://blog.anant.us/common-problems-cassandra-data-models/"
+            }, {
+               "date_added": "13198521517394301",
+               "id": "274",
+               "meta_info": {
+                  "last_visited_desktop": "13198810678545437"
+               },
+               "name": "nodetool tablestats | Apache Cassandra 3.0",
+               "type": "url",
+               "url": "https://docs.datastax.com/en/cassandra/3.0/cassandra/tools/toolsTablestats.html"
+            }, {
+               "date_added": "13198815970608791",
+               "id": "279",
+               "meta_info": {
+                  "last_visited_desktop": "13198815970610018"
+               },
+               "name": "tolbertam/sstable-tools: Tools for parsing, creating and doing other fun stuff with sstables",
+               "type": "url",
+               "url": "https://github.com/tolbertam/sstable-tools"
+            }, {
+               "date_added": "13198820438709138",
+               "id": "280",
+               "meta_info": {
+                  "last_visited_desktop": "13198820438709436"
+               },
+               "name": "Debugging SSTables in Cassandra - DZone Big Data",
+               "type": "url",
+               "url": "https://dzone.com/articles/where-is-my-data-debugging-sstables-in-cassandra"
+            }, {
+               "children": [ {
+                  "date_added": "13198895251305109",
+                  "id": "281",
+                  "meta_info": {
+                     "last_visited_desktop": "13198895251305320"
+                  },
+                  "name": "cassandra - com.datastax.driver.core.exceptions.BusyPoolException - Stack Overflow",
+                  "type": "url",
+                  "url": "https://stackoverflow.com/questions/47900973/com-datastax-driver-core-exceptions-busypoolexception"
+               }, {
+                  "date_added": "13198895403144101",
+                  "id": "283",
+                  "meta_info": {
+                     "last_visited_desktop": "13205626615825140"
+                  },
+                  "name": "java - Cassandra - Is there a way to limit number of async queries? - Stack Overflow",
+                  "type": "url",
+                  "url": "https://stackoverflow.com/questions/30509095/cassandra-is-there-a-way-to-limit-number-of-async-queries/30526719#30526719"
+               } ],
+               "date_added": "13198895267339491",
+               "date_modified": "13198912070552149",
+               "id": "282",
+               "name": "issue",
+               "type": "folder"
+            }, {
+               "date_added": "13198912070552149",
+               "id": "284",
+               "meta_info": {
+                  "last_visited_desktop": "13198912070553273"
+               },
+               "name": "nodetool tablehistograms | Apache Cassandra 3.0",
+               "type": "url",
+               "url": "https://docs.datastax.com/en/cassandra/3.0/cassandra/tools/toolsTablehisto.html"
+            }, {
+               "date_added": "13199149705937588",
+               "id": "286",
+               "meta_info": {
+                  "last_visited_desktop": "13199149705938960"
+               },
+               "name": " Choose a Compaction Strategy",
+               "type": "url",
+               "url": "https://docs.scylladb.com/architecture/compaction/compaction-strategies/#which-strategy-is-best"
+            }, {
+               "date_added": "13199150826829991",
+               "id": "287",
+               "meta_info": {
+                  "last_visited_desktop": "13199150826830462"
+               },
+               "name": "How is data maintained? | DataStax Distribution of Apache Cassandra",
+               "type": "url",
+               "url": "https://docs.datastax.com/en/ddac/doc/datastax_enterprise/dbInternals/dbIntHowDataMaintain.html"
+            }, {
+               "date_added": "13199907679515748",
+               "id": "304",
+               "meta_info": {
+                  "last_visited_desktop": "13199910673315717"
+               },
+               "name": "How to Install Apache Cassandra on Ubuntu 18.04 | Linuxize",
+               "type": "url",
+               "url": "https://linuxize.com/post/how-to-install-apache-cassandra-on-ubuntu-18-04/"
+            }, {
+               "date_added": "13199914893680926",
+               "id": "305",
+               "meta_info": {
+                  "last_visited_desktop": "13201989856566454"
+               },
+               "name": "Amy's Cassandra 2.1 tuning guide",
+               "type": "url",
+               "url": "https://tobert.github.io/pages/als-cassandra-21-tuning-guide.html"
+            }, {
+               "date_added": "13200861875290695",
+               "id": "306",
+               "meta_info": {
+                  "last_visited_desktop": "13200861875293025"
+               },
+               "name": "Config Server Paramters",
+               "type": "url",
+               "url": "http://cassandra.apache.org/doc/latest/configuration/cassandra_config_file.html#windows-timer-interval"
+            }, {
+               "date_added": "13201419872995388",
+               "id": "309",
+               "meta_info": {
+                  "last_visited_desktop": "13201419872996570"
+               },
+               "name": "How To Set Up A Cluster With Even Token Distribution",
+               "type": "url",
+               "url": "https://thelastpickle.com/blog/2019/02/21/set-up-a-cluster-with-even-token-distribution.html"
+            }, {
+               "date_added": "13202151616733491",
+               "id": "322",
+               "meta_info": {
+                  "last_visited_desktop": "13205626505834856"
+               },
+               "name": "Cassandra cluster - data density (data size per node) - looking for feedback and advises - Stack Overflow",
+               "type": "url",
+               "url": "https://stackoverflow.com/questions/31563447/cassandra-cluster-data-density-data-size-per-node-looking-for-feedback-and/31690279#31690279"
+            }, {
+               "date_added": "13202151994116346",
+               "id": "323",
+               "meta_info": {
+                  "last_visited_desktop": "13202151994116636"
+               },
+               "name": "CassandraLimitations - Cassandra Wiki",
+               "type": "url",
+               "url": "https://wiki.apache.org/cassandra/CassandraLimitations"
+            }, {
+               "date_added": "13205898964489581",
+               "id": "335",
+               "name": "The Log: What every software engineer should know about real-time data's unifying abstraction | LinkedIn Engineering",
+               "type": "url",
+               "url": "https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying"
+            }, {
+               "date_added": "13205963280378163",
+               "id": "336",
+               "name": "Cassandra | Cassandra Backup and Restore Methods | 8k Miles",
+               "type": "url",
+               "url": "https://8kmiles.com/blog/cassandra-backup-and-restore-methods/"
+            }, {
+               "date_added": "13205970463352423",
+               "id": "337",
+               "name": "Cassandra Query Plans",
+               "type": "url",
+               "url": "https://thelastpickle.com/blog/2011/07/04/Cassandra-Query-Plans.html"
+            }, {
+               "date_added": "13205976911848130",
+               "id": "338",
+               "name": "Dynamic snitching in Cassandra: past, present, and future | DataStax",
+               "type": "url",
+               "url": "https://www.datastax.com/dev/blog/dynamic-snitching-in-cassandra-past-present-and-future"
+            }, {
+               "date_added": "13206136591126219",
+               "id": "339",
+               "name": "3 Ways Cassandra Keeps Data in Sync - Marika Lam - Medium",
+               "type": "url",
+               "url": "https://medium.com/@marikalam/3-ways-cassandra-keeps-data-in-sync-bbbbfe1756c8"
+            }, {
+               "date_added": "13207105726698735",
+               "id": "341",
+               "name": "工程师手记：Cassandra在风控数据处理中的应用实践 - 知乎",
+               "type": "url",
+               "url": "https://zhuanlan.zhihu.com/p/42131091"
+            }, {
+               "date_added": "13207185613110985",
+               "id": "342",
+               "name": "工程師手記：Cassandra在風控數據處理中的應用實踐 - ITW01",
+               "type": "url",
+               "url": "https://itw01.com/QQB3KE5.html"
+            }, {
+               "date_added": "13207255527750290",
+               "id": "343",
+               "name": "How read works",
+               "type": "url",
+               "url": "https://wiki.apache.org/cassandra/ReadPathForUsers"
+            }, {
+               "date_added": "13207267216800992",
+               "id": "344",
+               "name": "How is data read DataStax?",
+               "type": "url",
+               "url": "https://docs.datastax.com/en/archived/cassandra/3.0/cassandra/dml/dmlAboutReads.html"
+            }, {
+               "date_added": "13207440086455407",
+               "id": "348",
+               "name": "NodeTool doc",
+               "type": "url",
+               "url": "http://cassandra.apache.org/doc/latest/tools/nodetool/nodetool.html"
+            }, {
+               "date_added": "13207533065664260",
+               "id": "354",
+               "name": "Spark And Cassandra: 2 Fast, 2 Furious",
+               "type": "url",
+               "url": "https://www.slideshare.net/JenAman/spark-and-cassandra-2-fast-2-furious-63064852"
+            } ],
+            "date_added": "13191568477680344",
+            "date_modified": "13207556088176039",
+            "id": "38",
+            "name": "cassandra",
+            "type": "folder"
+         }, {
+            "children": [ {
+               "date_added": "13192079151841986",
+               "id": "66",
+               "meta_info": {
+                  "last_visited_desktop": "13192079151842274"
+               },
+               "name": "GitHub - genuinetools/img: Standalone, daemon-less, unprivileged Dockerfile and OCI compatible container image builder.",
+               "type": "url",
+               "url": "https://github.com/genuinetools/img"
+            }, {
+               "date_added": "13192140569571922",
+               "id": "71",
+               "meta_info": {
+                  "last_visited_desktop": "13192140569572194"
+               },
+               "name": "Monitor Node Health - Kubernetes",
+               "type": "url",
+               "url": "https://kubernetes.io/docs/tasks/debug-application-cluster/monitor-node-health/"
+            }, {
+               "date_added": "13192151052130491",
+               "id": "72",
+               "meta_info": {
+                  "last_visited_desktop": "13192151052131021"
+               },
+               "name": "kubernetes - How can I distribute a deployment across nodes? - Stack Overflow",
+               "type": "url",
+               "url": "https://stackoverflow.com/questions/39092090/how-can-i-distribute-a-deployment-across-nodes"
+            }, {
+               "date_added": "13192240387103983",
+               "id": "81",
+               "meta_info": {
+                  "last_visited_desktop": "13192240387104177"
+               },
+               "name": "Using Source IP - Kubernetes",
+               "type": "url",
+               "url": "https://kubernetes.io/docs/tutorials/services/source-ip/"
+            }, {
+               "children": [ {
+                  "date_added": "13192246228510512",
+                  "id": "85",
+                  "meta_info": {
+                     "last_visited_desktop": "13192847915320302"
+                  },
+                  "name": "Accessing Dashboard 1.7.X and above · kubernetes/dashboard Wiki · GitHub",
+                  "type": "url",
+                  "url": "https://github.com/kubernetes/dashboard/wiki/Accessing-Dashboard---1.7.X-and-above"
+               }, {
+                  "date_added": "13192246281502183",
+                  "id": "87",
+                  "meta_info": {
+                     "last_visited_desktop": "13192844005755081"
+                  },
+                  "name": "Install Kubernetes Dashboard - Part III",
+                  "type": "url",
+                  "url": "https://iamchuka.com/install-kubernetes-dashboard-part-iii/"
+               }, {
+                  "date_added": "13192246295349417",
+                  "id": "88",
+                  "meta_info": {
+                     "last_visited_desktop": "13192841913395817"
+                  },
+                  "name": "https://gist.githubusercontent.com/chukaofili/b5e5380bdac703abd1e8a7f0b9f0d6df/raw/a2385788765a3f438b6be2976090e2b7409ef96e/heapster-influxdb-grafana.yaml",
+                  "type": "url",
+                  "url": "https://gist.githubusercontent.com/chukaofili/b5e5380bdac703abd1e8a7f0b9f0d6df/raw/a2385788765a3f438b6be2976090e2b7409ef96e/heapster-influxdb-grafana.yaml"
+               }, {
+                  "date_added": "13192246309522946",
+                  "id": "89",
+                  "meta_info": {
+                     "last_visited_desktop": "13192842071589272"
+                  },
+                  "name": "https://gist.githubusercontent.com/chukaofili/9e94d966e73566eba5abdca7ccb067e6/raw/0f17cd37d2932fb4c3a2e7f4434d08bc64432090/k8s-dashboard-admin-user.yaml",
+                  "type": "url",
+                  "url": "https://gist.githubusercontent.com/chukaofili/9e94d966e73566eba5abdca7ccb067e6/raw/0f17cd37d2932fb4c3a2e7f4434d08bc64432090/k8s-dashboard-admin-user.yaml"
+               }, {
+                  "date_added": "13192246397052879",
+                  "id": "90",
+                  "meta_info": {
+                     "last_visited_desktop": "13192840365139277"
+                  },
+                  "name": "Setp 1 Installation ·dashboard",
+                  "type": "url",
+                  "url": "https://github.com/kubernetes/dashboard/wiki/Installation"
+               }, {
+                  "date_added": "13192417506648781",
+                  "id": "102",
+                  "meta_info": {
+                     "last_visited_desktop": "13192417506649437"
+                  },
+                  "name": "kubeadm 1.13 安装高可用 kubernetes v1.13.1 集群 - 向南",
+                  "type": "url",
+                  "url": "http://hiko.im/post/kubeadm-v1.13-install-ha-kubernetes-v1.13.1.html"
+               } ],
+               "date_added": "13192246251584541",
+               "date_modified": "13192499191128773",
+               "id": "86",
+               "name": "dashboard",
+               "type": "folder"
+            }, {
+               "date_added": "13192330979026938",
+               "id": "91",
+               "meta_info": {
+                  "last_visited_desktop": "13192330979035960"
+               },
+               "name": "etcd/why.md at master · etcd-io/etcd · GitHub",
+               "type": "url",
+               "url": "https://github.com/etcd-io/etcd/blob/master/Documentation/learning/why.md"
+            }, {
+               "date_added": "13192337080251365",
+               "id": "93",
+               "meta_info": {
+                  "last_visited_desktop": "13192680184539107"
+               },
+               "name": "Kubernetes Basics",
+               "type": "url",
+               "url": "https://www.slideshare.net/e2m/kubernetes-basics"
+            }, {
+               "date_added": "13192338013846253",
+               "id": "94",
+               "meta_info": {
+                  "last_visited_desktop": "13192338013846692"
+               },
+               "name": "Image in  local ",
+               "type": "url",
+               "url": "https://github.com/kubernetes/kubernetes/issues/24903"
+            }, {
+               "children": [ {
+                  "date_added": "13191568459371446",
+                  "id": "37",
+                  "meta_info": {
+                     "last_visited_desktop": "13199151111634728"
+                  },
+                  "name": "TWCS part 1 - how does it work and when should you use it ?",
+                  "type": "url",
+                  "url": "http://thelastpickle.com/blog/2016/12/08/TWCS-part1.html"
+               }, {
+                  "date_added": "13192524809585478",
+                  "id": "108",
+                  "meta_info": {
+                     "last_visited_desktop": "13192524809585690"
+                  },
+                  "name": "Cluster Networking - Kubernetes",
+                  "type": "url",
+                  "url": "https://kubernetes.io/docs/concepts/cluster-administration/networking/"
+               }, {
+                  "date_added": "13192583735764108",
+                  "id": "109",
+                  "meta_info": {
+                     "last_visited_desktop": "13192676289522648"
+                  },
+                  "name": "Understanding kubernetes networking: services – Google Cloud Platform - Community – Medium",
+                  "type": "url",
+                  "url": "https://medium.com/google-cloud/understanding-kubernetes-networking-services-f0cb48e4cc82"
+               }, {
+                  "date_added": "13192524749975326",
+                  "id": "107",
+                  "meta_info": {
+                     "last_visited_desktop": "13192524749975514"
+                  },
+                  "name": "Misadventures with Kube DNS",
+                  "type": "url",
+                  "url": "https://blog.sophaskins.net/blog/misadventures-with-kube-dns/"
+               }, {
+                  "date_added": "13192524670466278",
+                  "id": "106",
+                  "meta_info": {
+                     "last_visited_desktop": "13192761682316913"
+                  },
+                  "name": "A container networking overview - Julia Evans",
+                  "type": "url",
+                  "url": "https://jvns.ca/blog/2016/12/22/container-networking/"
+               }, {
+                  "date_added": "13191802270511810",
+                  "id": "50",
+                  "meta_info": {
+                     "last_visited_desktop": "13192676287400142"
+                  },
+                  "name": "A Guide to the Kubernetes Networking Model - Kevin Sookocheff",
+                  "type": "url",
+                  "url": "https://sookocheff.com/post/kubernetes/understanding-kubernetes-networking-model/"
+               }, {
+                  "date_added": "13192584222225975",
+                  "id": "114",
+                  "meta_info": {
+                     "last_visited_desktop": "13192676289504714"
+                  },
+                  "name": "Understanding kubernetes networking: pods – Google Cloud Platform - Community – Medium",
+                  "type": "url",
+                  "url": "https://medium.com/google-cloud/understanding-kubernetes-networking-pods-7117dd28727"
+               }, {
+                  "date_added": "13192585214812785",
+                  "id": "115",
+                  "meta_info": {
+                     "last_visited_desktop": "13192676295498100"
+                  },
+                  "name": "Understanding kubernetes networking: ingress – Google Cloud Platform - Community – Medium",
+                  "type": "url",
+                  "url": "https://medium.com/google-cloud/understanding-kubernetes-networking-ingress-1bc341c84078"
+               }, {
+                  "date_added": "13192657527885413",
+                  "id": "116",
+                  "meta_info": {
+                     "last_visited_desktop": "13192657527886275"
+                  },
+                  "name": "An Introduction to Networking Terminology, Interfaces, and Protocols | DigitalOcean",
+                  "type": "url",
+                  "url": "https://www.digitalocean.com/community/tutorials/an-introduction-to-networking-terminology-interfaces-and-protocols"
+               }, {
+                  "date_added": "13192657756005123",
+                  "id": "117",
+                  "meta_info": {
+                     "last_visited_desktop": "13192657756005460"
+                  },
+                  "name": "GitHub - InstantWebP2P/node-httpp: Run HTTP over UDP with Node.js for the Distributed Web",
+                  "type": "url",
+                  "url": "https://github.com/InstantWebP2P/node-httpp"
+               }, {
+                  "date_added": "13192657917364743",
+                  "id": "118",
+                  "meta_info": {
+                     "last_visited_desktop": "13192657917365004"
+                  },
+                  "name": "HTTP/3 | daniel.haxx.se",
+                  "type": "url",
+                  "url": "https://daniel.haxx.se/blog/tag/http3/"
+               }, {
+                  "date_added": "13192657986367019",
+                  "id": "119",
+                  "meta_info": {
+                     "last_visited_desktop": "13192676291789035"
+                  },
+                  "name": "Understanding IP Addresses, Subnets, and CIDR Notation for Networking | DigitalOcean",
+                  "type": "url",
+                  "url": "https://www.digitalocean.com/community/tutorials/understanding-ip-addresses-subnets-and-cidr-notation-for-networking"
+               }, {
+                  "date_added": "13192658609568739",
+                  "id": "120",
+                  "meta_info": {
+                     "last_visited_desktop": "13192658609568983"
+                  },
+                  "name": "Container Networking From Scratch - Kristen Jacobs, Oracle - YouTube",
+                  "type": "url",
+                  "url": "https://www.youtube.com/watch?v=6v_BDHIgOY8&feature=youtu.be"
+               } ],
+               "date_added": "13192583808518702",
+               "date_modified": "13192663790940315",
+               "id": "110",
+               "name": "network",
+               "type": "folder"
+            }, {
+               "children": [ {
+                  "date_added": "13191973676761939",
+                  "id": "58",
+                  "meta_info": {
+                     "last_visited_desktop": "13191973717179104"
+                  },
+                  "name": "K8s commands",
+                  "type": "url",
+                  "url": "https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#get"
+               }, {
+                  "date_added": "13192075885068675",
+                  "id": "64",
+                  "meta_info": {
+                     "last_visited_desktop": "13192075885068984"
+                  },
+                  "name": "Kubernetes API Reference Docs",
+                  "type": "url",
+                  "url": "https://v1-10.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.10/#deployment-v1-apps"
+               }, {
+                  "date_added": "13191974528396992",
+                  "id": "59",
+                  "meta_info": {
+                     "last_visited_desktop": "13192054258531836"
+                  },
+                  "name": "kubeadm init - Kubernetes",
+                  "type": "url",
+                  "url": "https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-init/"
+               }, {
+                  "date_added": "13191729741392175",
+                  "id": "47",
+                  "meta_info": {
+                     "last_visited_desktop": "13192228889905341"
+                  },
+                  "name": "kubeadm reset - Kubernetes",
+                  "type": "url",
+                  "url": "https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-reset/"
+               } ],
+               "date_added": "13192583902073927",
+               "date_modified": "13192584043129993",
+               "id": "111",
+               "name": "command",
+               "type": "folder"
+            }, {
+               "children": [ {
+                  "date_added": "13192239786991646",
+                  "id": "78",
+                  "meta_info": {
+                     "last_visited_desktop": "13192239786991994"
+                  },
+                  "name": "setup K8s CentOS7",
+                  "type": "url",
+                  "url": "https://www.kevinhooke.com/tag/kubeadm/"
+               }, {
+                  "date_added": "13191993468614649",
+                  "id": "61",
+                  "meta_info": {
+                     "last_visited_desktop": "13192060578408957"
+                  },
+                  "name": "Deploy Kuberbetes with kubeadm on Ubuntu 16.04 | Karim's Blog",
+                  "type": "url",
+                  "url": "https://elatov.github.io/2018/05/deploy-kuberbetes-with-kubeadm-on-ubuntu-1604/"
+               }, {
+                  "date_added": "13191993901436675",
+                  "id": "62",
+                  "meta_info": {
+                     "last_visited_desktop": "13192232966336331"
+                  },
+                  "name": "Setting up a Kubernetes CentOS Nodes - DZone Cloud",
+                  "type": "url",
+                  "url": "https://dzone.com/articles/setting-up-a-kubernetes-cluster-across-two-virtual"
+               }, {
+                  "date_added": "13191980136111539",
+                  "id": "60",
+                  "meta_info": {
+                     "last_visited_desktop": "13192841506134225"
+                  },
+                  "name": "kubeadm快速部署Kubernetes（1.13.1，HA） - 运维 - 掘金",
+                  "type": "url",
+                  "url": "https://juejin.im/entry/5c13894c6fb9a04a006ee615"
+               }, {
+                  "date_added": "13192076902169784",
+                  "id": "65",
+                  "meta_info": {
+                     "last_visited_desktop": "13192145514899741"
+                  },
+                  "name": "Building Docker Images inside Kubernetes – Hootsuite Engineering – Medium",
+                  "type": "url",
+                  "url": "https://medium.com/hootsuite-engineering/building-docker-images-inside-kubernetes-42c6af855f25"
+               }, {
+                  "date_added": "13191888543147081",
+                  "id": "55",
+                  "meta_info": {
+                     "last_visited_desktop": "13191888849987261"
+                  },
+                  "name": "Installing kubeadm - Kubernetes",
+                  "type": "url",
+                  "url": "https://kubernetes.io/docs/setup/independent/install-kubeadm/"
+               }, {
+                  "date_added": "13191648686548917",
+                  "id": "42",
+                  "meta_info": {
+                     "last_visited_desktop": "13192761868943008"
+                  },
+                  "name": "How to quickly install Kubernetes on Ubuntu - TechRepublic",
+                  "type": "url",
+                  "url": "https://www.techrepublic.com/article/how-to-quickly-install-kubernetes-on-ubuntu/"
+               }, {
+                  "date_added": "13192336998624794",
+                  "id": "92",
+                  "meta_info": {
+                     "last_visited_desktop": "13192336998625262"
+                  },
+                  "name": "On setting up highly available Kubernetes clusters - elastisys",
+                  "type": "url",
+                  "url": "https://elastisys.com/2018/01/25/setting-highly-available-kubernetes-clusters/"
+               }, {
+                  "date_added": "13192239942348287",
+                  "id": "79",
+                  "meta_info": {
+                     "last_visited_desktop": "13192761868170262"
+                  },
+                  "name": "How to Install and Configure Kubernetes and Docker on Ubuntu 18.04 LTS",
+                  "type": "url",
+                  "url": "https://www.howtoforge.com/tutorial/how-to-install-kubernetes-on-ubuntu/"
+               }, {
+                  "date_added": "13192093574705839",
+                  "id": "69",
+                  "meta_info": {
+                     "last_visited_desktop": "13192134407655111"
+                  },
+                  "name": "Accessing Private Docker Images From Kubernetes",
+                  "type": "url",
+                  "url": "http://blog.shippable.com/accessing-private-docker-images-from-kubernetes"
+               } ],
+               "date_added": "13192583996982113",
+               "date_modified": "13192584222225975",
+               "id": "112",
+               "name": "installation",
+               "type": "folder"
+            }, {
+               "children": [ {
+                  "date_added": "13191880775707761",
+                  "id": "53",
+                  "meta_info": {
+                     "last_visited_desktop": "13192676302767947"
+                  },
+                  "name": "Learn Kubernetes Basics - Kubernetes",
+                  "type": "url",
+                  "url": "https://kubernetes.io/docs/tutorials/kubernetes-basics/"
+               }, {
+                  "date_added": "13191888042749314",
+                  "id": "54",
+                  "meta_info": {
+                     "last_visited_desktop": "13192134390524258"
+                  },
+                  "name": "Edit Stack Templates",
+                  "type": "url",
+                  "url": "https://docs.agilestacks.io/Tutorials/Edit%20Stack%20Templates.html"
+               }, {
+                  "date_added": "13191916726327705",
+                  "id": "57",
+                  "meta_info": {
+                     "last_visited_desktop": "13191916726327933"
+                  },
+                  "name": "Tutorials - Kubernetes",
+                  "type": "url",
+                  "url": "https://kubernetes.io/docs/tutorials/"
+               }, {
+                  "date_added": "13191909961150482",
+                  "id": "56",
+                  "meta_info": {
+                     "last_visited_desktop": "13191909961150722"
+                  },
+                  "name": "kubelet - Kubernetes",
+                  "type": "url",
+                  "url": "https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/"
+               }, {
+                  "date_added": "13192738005946622",
+                  "id": "124",
+                  "meta_info": {
+                     "last_visited_desktop": "13192738005946930"
+                  },
+                  "name": "Pods and Services - Core Concepts | Architecture | OpenShift Enterprise 3.0",
+                  "type": "url",
+                  "url": "https://docs.openshift.com/enterprise/3.0/architecture/core_concepts/pods_and_services.html"
+               } ],
+               "date_added": "13192584112254135",
+               "date_modified": "13192761739995874",
+               "id": "113",
+               "name": "knowledge",
+               "type": "folder"
+            }, {
+               "date_added": "13192663790940315",
+               "id": "121",
+               "meta_info": {
+                  "last_visited_desktop": "13192676289513746"
+               },
+               "name": "Kubernetes Master Components: Etcd, API Server, Controller Manager, and Scheduler",
+               "type": "url",
+               "url": "https://medium.com/jorgeacetozi/kubernetes-master-components-etcd-api-server-controller-manager-and-scheduler-3a0179fc8186"
+            }, {
+               "date_added": "13192690738452203",
+               "id": "123",
+               "meta_info": {
+                  "last_visited_desktop": "13192690738452995"
+               },
+               "name": "Kubernetes ConfigMaps and Secrets - Giant Swarm",
+               "type": "url",
+               "url": "https://blog.giantswarm.io/understanding-basic-kubernetes-concepts-iv-secrets-and-configmaps/"
+            }, {
+               "date_added": "13192922360447841",
+               "id": "128",
+               "meta_info": {
+                  "last_visited_desktop": "13192922360448964"
+               },
+               "name": "Deploying Angular, React and Vue Apps on Kubernetes",
+               "type": "url",
+               "url": "http://heidloff.net/article/angular-react-vue-kubernetes"
+            } ],
+            "date_added": "13191648710301316",
+            "date_modified": "13192922526199006",
+            "id": "43",
+            "name": "kubernates",
+            "type": "folder"
+         }, {
+            "children": [ {
+               "date_added": "13191662366829425",
+               "id": "44",
+               "meta_info": {
+                  "last_visited_desktop": "13193988421916855"
+               },
+               "name": "Service Discovery: Zookeeper vs etcd vs Consul | Technology Conversations",
+               "type": "url",
+               "url": "https://technologyconversations.com/2015/09/08/service-discovery-zookeeper-vs-etcd-vs-consul/"
+            }, {
+               "date_added": "13192403502458063",
+               "id": "98",
+               "meta_info": {
+                  "last_visited_desktop": "13193278739509862"
+               },
+               "name": "Share app's configuration with Consul - ServoCode",
+               "type": "url",
+               "url": "https://servocode.com/blog/share-apps-configuration-with-consul"
+            }, {
+               "date_added": "13192406103759075",
+               "id": "99",
+               "meta_info": {
+                  "last_visited_desktop": "13192406103760566"
+               },
+               "name": "Using Consul Key-Value Store for Service Configuration - Dots and Brackets: Code Blog",
+               "type": "url",
+               "url": "https://codeblog.dotsandbrackets.com/consul-key-value-store-configuration/"
+            }, {
+               "date_added": "13192922526199006",
+               "id": "129",
+               "meta_info": {
+                  "last_visited_desktop": "13201838064592640"
+               },
+               "name": "HAProxy with Consul",
+               "type": "url",
+               "url": "https://www.hashicorp.com/blog/haproxy-with-consul"
+            }, {
+               "date_added": "13192934803836738",
+               "id": "130",
+               "meta_info": {
+                  "last_visited_desktop": "13194338769318943"
+               },
+               "name": "Consul Quick Guide",
+               "type": "url",
+               "url": "https://www.tutorialspoint.com/consul/consul_quick_guide.htm"
+            }, {
+               "date_added": "13192937949273759",
+               "id": "131",
+               "meta_info": {
+                  "last_visited_desktop": "13192937949274328"
+               },
+               "name": "Microservices Architecture | Consul Service Discovery and Health For Microservices Architecture Tutorial - Mammatus",
+               "type": "url",
+               "url": "http://www.mammatustech.com/consul-service-discovery-and-health-for-microservices-architecture-tutorial"
+            }, {
+               "date_added": "13192955349463732",
+               "id": "132",
+               "meta_info": {
+                  "last_visited_desktop": "13195282783918640"
+               },
+               "name": "Consul on window",
+               "type": "url",
+               "url": "https://dotnet.github.io/orleans/1.5/Documentation/Runtime-Implementation-Details/Consul-Deployment.html"
+            }, {
+               "date_added": "13192955522835783",
+               "id": "133",
+               "meta_info": {
+                  "last_visited_desktop": "13194338930795847"
+               },
+               "name": "Window Consul  install",
+               "type": "url",
+               "url": "https://github.com/hashicorp/consul/issues/3964"
+            }, {
+               "date_added": "13192958774425687",
+               "id": "134",
+               "meta_info": {
+                  "last_visited_desktop": "13193287996824530"
+               },
+               "name": "How to setup Consul Cluster on Ubuntu 18.04 / Ubuntu 16.04 LTS - Computingforgeeks",
+               "type": "url",
+               "url": "https://computingforgeeks.com/how-to-install-consul-cluster-18-04-lts/"
+            }, {
+               "date_added": "13192962605599475",
+               "id": "135",
+               "meta_info": {
+                  "last_visited_desktop": "13192962605599844"
+               },
+               "name": "INSTALL CONSUL ON UBUNTU | AdminTome Blog",
+               "type": "url",
+               "url": "https://www.admintome.com/blog/installing-consul-on-ubuntu/"
+            }, {
+               "date_added": "13193090894289274",
+               "id": "145",
+               "meta_info": {
+                  "last_visited_desktop": "13193090894299698"
+               },
+               "name": "Making Docker and Consul Get Along – Zendesk Engineering – Medium",
+               "type": "url",
+               "url": "https://medium.com/zendesk-engineering/making-docker-and-consul-get-along-5fceda1d52b9"
+            }, {
+               "date_added": "13193210674420161",
+               "id": "156",
+               "meta_info": {
+                  "last_visited_desktop": "13193210674420501"
+               },
+               "name": "consul-template/haproxy.md at master · hashicorp/consul-template · GitHub",
+               "type": "url",
+               "url": "https://github.com/hashicorp/consul-template/blob/master/examples/haproxy.md"
+            }, {
+               "date_added": "13193210806587030",
+               "id": "157",
+               "meta_info": {
+                  "last_visited_desktop": "13193210806587307"
+               },
+               "name": "GitHub - hashicorp/consul-template: Template rendering, notifier, and supervisor for @HashiCorp Consul and Vault data.",
+               "type": "url",
+               "url": "https://github.com/hashicorp/consul-template"
+            }, {
+               "date_added": "13193263448000460",
+               "id": "158",
+               "meta_info": {
+                  "last_visited_desktop": "13193263448000876"
+               },
+               "name": "Consul, ProxySQL, and MySQL HA - DZone Database",
+               "type": "url",
+               "url": "https://dzone.com/articles/consul-proxysql-and-mysql-ha"
+            }, {
+               "date_added": "13194076765347993",
+               "id": "181",
+               "meta_info": {
+                  "last_visited_desktop": "13195105940765790"
+               },
+               "name": "Distributed locking with Consul | MiLk's BrainSystems",
+               "type": "url",
+               "url": "https://blog.emilienkenler.com/2017/05/20/distributed-locking-with-consul/"
+            } ],
+            "date_added": "13191662383287074",
+            "date_modified": "13201838711948487",
+            "id": "45",
+            "name": "consul",
+            "type": "folder"
+         }, {
+            "children": [ {
+               "date_added": "13191877905448738",
+               "id": "51",
+               "meta_info": {
+                  "last_visited_desktop": "13192690367806114"
+               },
+               "name": "The Twelve-Factor App",
+               "type": "url",
+               "url": "https://12factor.net/"
+            }, {
+               "date_added": "13192240557851339",
+               "id": "83",
+               "meta_info": {
+                  "last_visited_desktop": "13192264794595422"
+               },
+               "name": "Learing Instuqt Consul Connect - instruqt",
+               "type": "url",
+               "url": "https://instruqt.com/hashicorp/tracks/connect"
+            }, {
+               "date_added": "13192240771919798",
+               "id": "84",
+               "meta_info": {
+                  "last_visited_desktop": "13192240771920025"
+               },
+               "name": "Katacodas, Courses & Playgrounds | Katacoda",
+               "type": "url",
+               "url": "https://www.katacoda.com/learn"
+            }, {
+               "date_added": "13192240407664383",
+               "id": "82",
+               "meta_info": {
+                  "last_visited_desktop": "13192240407664559"
+               },
+               "name": "Course Introduction to Kubernetes ",
+               "type": "url",
+               "url": "https://www.edx.org/course/introduction-to-kubernetes"
+            }, {
+               "date_added": "13193269336875574",
+               "id": "159",
+               "meta_info": {
+                  "last_visited_desktop": "13193269336875747"
+               },
+               "name": "Java Best practices: Image Compression using Java JAI API",
+               "type": "url",
+               "url": "http://javapracs.blogspot.com/2011/06/image-compression-using-java-jai-api.html"
+            } ],
+            "date_added": "13191877941596634",
+            "date_modified": "13193356945926082",
+            "id": "52",
+            "name": "knowledge",
+            "type": "folder"
+         }, {
+            "children": [ {
+               "date_added": "13192238309626919",
+               "id": "76",
+               "meta_info": {
+                  "last_visited_desktop": "13192238309627484"
+               },
+               "name": "Web Application Security | Application Security Checklist | Incapsula",
+               "type": "url",
+               "url": "https://www.incapsula.com/web-application-security/application-security.html"
+            }, {
+               "date_added": "13192777709321263",
+               "id": "126",
+               "meta_info": {
+                  "last_visited_desktop": "13193003186821522"
+               },
+               "name": "Securing IoT applications – IBM Developer",
+               "type": "url",
+               "url": "https://developer.ibm.com/articles/iot-trs-secure-iot-solutions3/"
+            }, {
+               "date_added": "13193003170902143",
+               "id": "136",
+               "meta_info": {
+                  "last_visited_desktop": "13193003170902414"
+               },
+               "name": "Understanding OAuth2 « BubbleCode by Johann Reinke",
+               "type": "url",
+               "url": "http://www.bubblecode.net/en/2016/01/22/understanding-oauth2/"
+            }, {
+               "date_added": "13193200754910068",
+               "id": "155",
+               "meta_info": {
+                  "last_visited_desktop": "13193200754911392"
+               },
+               "name": "Spring Security Reference",
+               "type": "url",
+               "url": "https://docs.spring.io/spring-security/site/docs/current/reference/html5/#spring-security-core"
+            }, {
+               "date_added": "13201838673549554",
+               "id": "318",
+               "meta_info": {
+                  "last_visited_desktop": "13201838673550014"
+               },
+               "name": "How to define basic authentication on HAProxy",
+               "type": "url",
+               "url": "https://blog.sleeplessbeastie.eu/2018/03/08/how-to-define-basic-authentication-on-haproxy/"
+            } ],
+            "date_added": "13192238330897605",
+            "date_modified": "13201937193228051",
+            "id": "77",
+            "name": "security",
+            "type": "folder"
+         }, {
+            "children": [ {
+               "date_added": "13193186984348308",
+               "id": "152",
+               "meta_info": {
+                  "last_visited_desktop": "13196290506699400"
+               },
+               "name": "Spring Boot Actuator metrics monitoring with Prometheus and Grafana | CalliCoder",
+               "type": "url",
+               "url": "https://www.callicoder.com/spring-boot-actuator-metrics-monitoring-dashboard-prometheus-grafana/"
+            }, {
+               "date_added": "13193187165693871",
+               "id": "154",
+               "meta_info": {
+                  "last_visited_desktop": "13193187165694014"
+               },
+               "name": "Exposing Metrics of a Spring Boot Application for Prometheus - reflectoring",
+               "type": "url",
+               "url": "https://reflectoring.io/monitoring-spring-boot-with-prometheus/"
+            }, {
+               "date_added": "13193599837621767",
+               "id": "168",
+               "meta_info": {
+                  "last_visited_desktop": "13193599837622399"
+               },
+               "name": "Micrometer Application Monitoring",
+               "type": "url",
+               "url": "https://micrometer.io/docs/registry/prometheus"
+            }, {
+               "date_added": "13193599980569695",
+               "id": "169",
+               "meta_info": {
+                  "last_visited_desktop": "13193599980570251"
+               },
+               "name": "56. Metrics",
+               "type": "url",
+               "url": "https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-metrics.html"
+            }, {
+               "date_added": "13193611229127782",
+               "id": "171",
+               "meta_info": {
+                  "last_visited_desktop": "13193611229128248"
+               },
+               "name": "GitHub - openzipkin/zipkin: Zipkin is a distributed tracing system",
+               "type": "url",
+               "url": "https://github.com/openzipkin/zipkin"
+            }, {
+               "date_added": "13194832857015615",
+               "id": "215",
+               "meta_info": {
+                  "last_visited_desktop": "13194832857024711"
+               },
+               "name": "Spring Metrics",
+               "type": "url",
+               "url": "https://docs.spring.io/spring-metrics/docs/current/public/prometheus"
+            }, {
+               "date_added": "13195446926104279",
+               "id": "233",
+               "meta_info": {
+                  "last_visited_desktop": "13195446926105417"
+               },
+               "name": "SIGAR – Access operating system and hardware level information | arviarya",
+               "type": "url",
+               "url": "https://arviarya.wordpress.com/2013/09/22/sigar-access-operating-system-and-hardware-level-information/"
+            }, {
+               "date_added": "13196290446330704",
+               "id": "245",
+               "meta_info": {
+                  "last_visited_desktop": "13196290446331457"
+               },
+               "name": "Micrometer: Spring Boot 2's new application metrics collector",
+               "type": "url",
+               "url": "https://spring.io/blog/2018/03/16/micrometer-spring-boot-2-s-new-application-metrics-collector"
+            }, {
+               "date_added": "13196310558138514",
+               "id": "247",
+               "meta_info": {
+                  "last_visited_desktop": "13196310558139000"
+               },
+               "name": "Getting started | Prometheus",
+               "type": "url",
+               "url": "https://prometheus.io/docs/prometheus/latest/getting_started/"
+            } ],
+            "date_added": "13193187000295162",
+            "date_modified": "13196412809024141",
+            "id": "153",
+            "name": "monitor",
+            "type": "folder"
+         }, {
+            "children": [ {
+               "date_added": "13193520759954659",
+               "id": "165",
+               "meta_info": {
+                  "last_visited_desktop": "13201054627797330"
+               },
+               "name": "Log In - Futurewei Confluence",
+               "type": "url",
+               "url": "http://10.145.217.181:8090/login.action?os_destination=%2Findex.action&permissionViolation=true"
+            }, {
+               "date_added": "13193520795944977",
+               "id": "167",
+               "meta_info": {
+                  "last_visited_desktop": "13198892694466742"
+               },
+               "name": "System Dashboard - JIRA",
+               "type": "url",
+               "url": "http://10.145.217.181:8080/secure/Dashboard.jspa"
+            }, {
+               "date_added": "13192761739995874",
+               "id": "125",
+               "meta_info": {
+                  "last_visited_desktop": "13196210573081328"
+               },
+               "name": "BigDataUI",
+               "type": "url",
+               "url": "http://10.208.51.172:4200/equipments"
+            }, {
+               "date_added": "13194754728475533",
+               "id": "213",
+               "meta_info": {
+                  "last_visited_desktop": "13201915003750647"
+               },
+               "name": "Github mfgBigDataPlatform",
+               "type": "url",
+               "url": "http://rnd-github-usa-g.huawei.com/mfgBigDataPlatform/"
+            }, {
+               "date_added": "13198986991521439",
+               "id": "285",
+               "meta_info": {
+                  "last_visited_desktop": "13201738199158454"
+               },
+               "name": "AOISEM board - Agile Board - JIRA",
+               "type": "url",
+               "url": "http://10.208.136.33:8080/secure/RapidBoard.jspa?rapidView=6&projectKey=AOISEM&quickFilter=14"
+            } ],
+            "date_added": "13193520786173642",
+            "date_modified": "13199149705937588",
+            "id": "166",
+            "name": "iMBP",
+            "type": "folder"
+         }, {
+            "children": [ {
+               "date_added": "13194061721928377",
+               "id": "175",
+               "meta_info": {
+                  "last_visited_desktop": "13194061721937751"
+               },
+               "name": "GitHub - salesforce/ImageOptimization: ImageOptimization is a JAVA batch program / service used to optimize images by reducing the size (less bytes) of images without changing the quality of the images. This process is known as lossless compression.",
+               "type": "url",
+               "url": "https://github.com/salesforce/ImageOptimization"
+            }, {
+               "date_added": "13194062327362341",
+               "id": "177",
+               "meta_info": {
+                  "last_visited_desktop": "13194062327362561"
+               },
+               "name": "Reducing PNG file Size – Colt McAnlis – Medium",
+               "type": "url",
+               "url": "https://medium.com/@duhroach/reducing-png-file-size-8473480d0476"
+            }, {
+               "date_added": "13194062740343570",
+               "id": "178",
+               "meta_info": {
+                  "last_visited_desktop": "13194062740343753"
+               },
+               "name": "Efficient Image Resizing With ImageMagick — Smashing Magazine",
+               "type": "url",
+               "url": "https://www.smashingmagazine.com/2015/06/efficient-image-resizing-with-imagemagick/"
+            }, {
+               "date_added": "13194064251252695",
+               "id": "179",
+               "meta_info": {
+                  "last_visited_desktop": "13194064251252889"
+               },
+               "name": "Java Image Manipulation API - Aspose",
+               "type": "url",
+               "url": "https://products.aspose.com/imaging/java"
+            }, {
+               "date_added": "13194064850588100",
+               "id": "180",
+               "meta_info": {
+                  "last_visited_desktop": "13194064850588308"
+               },
+               "name": "15 Ways to Reduce Image Size without Losing on Quality",
+               "type": "url",
+               "url": "https://www.clickonf5.org/tutorial/image-compression-tools-wordpress-plugins/15311"
+            } ],
+            "date_added": "13194061739083518",
+            "date_modified": "13194076765347993",
+            "id": "176",
+            "name": "compression",
+            "type": "folder"
+         }, {
+            "children": [ {
+               "children": [ {
+                  "date_added": "13194305258535085",
+                  "id": "184",
+                  "meta_info": {
+                     "last_visited_desktop": "13194305258535671"
+                  },
+                  "name": "reflection - Creating classes dynamically with Java - Stack Overflow",
+                  "type": "url",
+                  "url": "https://stackoverflow.com/questions/2320404/creating-classes-dynamically-with-java"
+               }, {
+                  "date_added": "13194306011338812",
+                  "id": "187",
+                  "meta_info": {
+                     "last_visited_desktop": "13194309518142441"
+                  },
+                  "name": "How to Create a Java Class at Runtime via StringBuilder | Java - Rob Austin",
+                  "type": "url",
+                  "url": "http://robsjava.blogspot.com/2013/03/create-java-classes-at-runtime-from.html"
+               }, {
+                  "date_added": "13194306178492919",
+                  "id": "188",
+                  "meta_info": {
+                     "last_visited_desktop": "13194333014591389"
+                  },
+                  "name": "Creating Dynamic Java Class at Runtime (Java in General forum at Coderanch)",
+                  "type": "url",
+                  "url": "https://coderanch.com/t/654543/java/Creating-Dynamic-Java-Class-Runtime"
+               }, {
+                  "date_added": "13194306398429461",
+                  "id": "189",
+                  "meta_info": {
+                     "last_visited_desktop": "13194501328149514"
+                  },
+                  "name": "Create a java source dynamically, compile and call - Real's Java How-to",
+                  "type": "url",
+                  "url": "https://www.rgagnon.com/javadetails/java-0039.html"
+               }, {
+                  "date_added": "13194332125873712",
+                  "id": "190",
+                  "meta_info": {
+                     "last_visited_desktop": "13194332975761195"
+                  },
+                  "name": "blog/JavaDynamicClassCreation.java at master · robaustin123/blog · GitHub",
+                  "type": "url",
+                  "url": "https://github.com/robaustin123/blog/blob/master/src/main/java/JavaDynamicClassCreation.java"
+               }, {
+                  "date_added": "13198570398290124",
+                  "id": "277",
+                  "meta_info": {
+                     "last_visited_desktop": "13198570398290864"
+                  },
+                  "name": "nalloc/src/main/java/com/github/nalloc at master · alaisi/nalloc",
+                  "type": "url",
+                  "url": "https://github.com/alaisi/nalloc/tree/master/src/main/java/com/github/nalloc"
+               } ],
+               "date_added": "13194305286909866",
+               "date_modified": "13198810491452682",
+               "id": "186",
+               "name": "dyn",
+               "type": "folder"
+            }, {
+               "date_added": "13194337960075225",
+               "id": "191",
+               "meta_info": {
+                  "last_visited_desktop": "13194337960076046"
+               },
+               "name": "Java Magic. Part 4: sun.misc.Unsafe",
+               "type": "url",
+               "url": "http://mishadoff.com/blog/java-magic-part-4-sun-dot-misc-dot-unsafe/"
+            }, {
+               "date_added": "13194505391791047",
+               "id": "202",
+               "meta_info": {
+                  "last_visited_desktop": "13194505391791445"
+               },
+               "name": "Maven",
+               "type": "url",
+               "url": "https://howtodoinjava.com/maven/"
+            }, {
+               "date_added": "13194505917649212",
+               "id": "203",
+               "meta_info": {
+                  "last_visited_desktop": "13194505917649863"
+               },
+               "name": "Jackson vs Gson | Baeldung",
+               "type": "url",
+               "url": "https://www.baeldung.com/jackson-vs-gson"
+            }, {
+               "date_added": "13195417092483063",
+               "id": "228",
+               "meta_info": {
+                  "last_visited_desktop": "13202536116263396"
+               },
+               "name": "Overview (Java Platform SE 8 )",
+               "type": "url",
+               "url": "https://docs.oracle.com/javase/8/docs/api/"
+            }, {
+               "date_added": "13196103849382042",
+               "id": "241",
+               "meta_info": {
+                  "last_visited_desktop": "13198549679519892"
+               },
+               "name": "On Heap vs Off Heap Memory Usage - DZone Performance",
+               "type": "url",
+               "url": "https://dzone.com/articles/heap-vs-heap-memory-usage"
+            }, {
+               "date_added": "13196113403421177",
+               "id": "243",
+               "meta_info": {
+                  "last_visited_desktop": "13196113403422224"
+               },
+               "name": "What every programmer should know about memory, Part 1 [LWN.net]",
+               "type": "url",
+               "url": "https://lwn.net/Articles/250967/"
+            }, {
+               "date_added": "13196653298165330",
+               "id": "255",
+               "meta_info": {
+                  "last_visited_desktop": "13198743482064028"
+               },
+               "name": "Bitwise operation - Wikipedia",
+               "type": "url",
+               "url": "https://en.wikipedia.org/wiki/Bitwise_operation"
+            }, {
+               "children": [ {
+                  "date_added": "13199263174714955",
+                  "id": "297",
+                  "meta_info": {
+                     "last_visited_desktop": "13200811674995360"
+                  },
+                  "name": "Guide to sun.misc.Unsafe | Baeldung",
+                  "type": "url",
+                  "url": "https://www.baeldung.com/java-unsafe"
+               }, {
+                  "date_added": "13198558437157142",
+                  "id": "276",
+                  "meta_info": {
+                     "last_visited_desktop": "13199431346148721"
+                  },
+                  "name": "Compact Off-Heap Structures/Tuples In Java - DZone Java",
+                  "type": "url",
+                  "url": "https://dzone.com/articles/compact-heap-structurestuples"
+               } ],
+               "date_added": "13199263207415209",
+               "date_modified": "13199859040639184",
+               "id": "298",
+               "name": "unsafe",
+               "type": "folder"
+            } ],
+            "date_added": "13194305286909599",
+            "date_modified": "13198570398290124",
+            "id": "185",
+            "name": "java",
+            "type": "folder"
+         }, {
+            "children": [ {
+               "date_added": "13195029859462220",
+               "id": "217",
+               "meta_info": {
+                  "last_visited_desktop": "13195029859463027"
+               },
+               "name": "Kafka Producer and Consumer Examples Using Java - DZone Big Data",
+               "type": "url",
+               "url": "https://dzone.com/articles/kafka-producer-and-consumer-example"
+            }, {
+               "date_added": "13201937193228051",
+               "id": "319",
+               "meta_info": {
+                  "last_visited_desktop": "13201937193228873"
+               },
+               "name": "How To Install and Configure an Apache ZooKeeper Cluster on Ubuntu 18.04 | DigitalOcean",
+               "type": "url",
+               "url": "https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-an-apache-zookeeper-cluster-on-ubuntu-18-04"
+            }, {
+               "date_added": "13202028896759217",
+               "id": "320",
+               "meta_info": {
+                  "last_visited_desktop": "13202028896760383"
+               },
+               "name": "Manually delete Apache Kafka topics – Sunny Srinidhi – Medium",
+               "type": "url",
+               "url": "https://medium.com/@contactsunny/manually-delete-apache-kafka-topics-424c7e016ff3"
+            } ],
+            "date_added": "13195029882192700",
+            "date_modified": "13202071213167629",
+            "id": "218",
+            "name": "kafka",
+            "type": "folder"
+         }, {
+            "children": [ {
+               "date_added": "13193802401004211",
+               "id": "173",
+               "meta_info": {
+                  "last_visited_desktop": "13202893235438502"
+               },
+               "name": "Java Nio Large File Transfer Tutorial | Examples Java Code Geeks - 2019",
+               "type": "url",
+               "url": "https://examples.javacodegeeks.com/core-java/nio/java-nio-large-file-transfer-tutorial/"
+            }, {
+               "date_added": "13195371582544416",
+               "id": "222",
+               "meta_info": {
+                  "last_visited_desktop": "13202890221791936"
+               },
+               "name": "Fastest way to write huge data in text file Java - Stack Overflow",
+               "type": "url",
+               "url": "https://stackoverflow.com/questions/1062113/fastest-way-to-write-huge-data-in-text-file-java/1062454"
+            }, {
+               "date_added": "13195371966583355",
+               "id": "223",
+               "meta_info": {
+                  "last_visited_desktop": "13202890623383938"
+               },
+               "name": "Java Nio Append File Example | Examples Java Code Geeks - 2019",
+               "type": "url",
+               "url": "https://examples.javacodegeeks.com/core-java/nio/java-nio-append-file-example/"
+            }, {
+               "date_added": "13195372766395390",
+               "id": "224",
+               "meta_info": {
+                  "last_visited_desktop": "13202892347391618"
+               },
+               "name": "Java NIO File Read Write with Channels - Javapapers",
+               "type": "url",
+               "url": "https://javapapers.com/java/java-nio-file-read-write-with-channels/"
+            }, {
+               "date_added": "13195374555218237",
+               "id": "225",
+               "meta_info": {
+                  "last_visited_desktop": "13202893154512236"
+               },
+               "name": "A Guide To NIO2 Asynchronous File Channel | Baeldung",
+               "type": "url",
+               "url": "https://www.baeldung.com/java-nio2-async-file-channel"
+            }, {
+               "date_added": "13195410901568460",
+               "id": "226",
+               "meta_info": {
+                  "last_visited_desktop": "13199775598135650"
+               },
+               "name": "java - Merge huge files without loading whole file into memory? - Stack Overflow",
+               "type": "url",
+               "url": "https://stackoverflow.com/questions/25546750/merge-huge-files-without-loading-whole-file-into-memory"
+            }, {
+               "date_added": "13195416955155272",
+               "id": "227",
+               "meta_info": {
+                  "last_visited_desktop": "13195416955155762"
+               },
+               "name": "Guide to Java NIO2 Asynchronous Channel APIs | Baeldung",
+               "type": "url",
+               "url": "https://www.baeldung.com/java-nio-2-async-channels"
+            }, {
+               "date_added": "13195419156955951",
+               "id": "229",
+               "meta_info": {
+                  "last_visited_desktop": "13202890834692631"
+               },
+               "name": "Efficient data transfer through zero copy – IBM Developer",
+               "type": "url",
+               "url": "https://developer.ibm.com/articles/j-zerocopy/"
+            }, {
+               "date_added": "13195890213527126",
+               "id": "238",
+               "meta_info": {
+                  "last_visited_desktop": "13195890213528186"
+               },
+               "name": "How to Split a File Using Java — Admios",
+               "type": "url",
+               "url": "http://www.admios.com/blog/how-to-split-a-file-using-java"
+            }, {
+               "date_added": "13195890607062557",
+               "id": "239",
+               "meta_info": {
+                  "last_visited_desktop": "13195890607062978"
+               },
+               "name": "Today, guess what ...: Java split a large file – sample code – high performance",
+               "type": "url",
+               "url": "http://todayguesswhat.blogspot.com/2014/05/java-split-large-file-sample-code-high.html"
+            }, {
+               "date_added": "13196020338641994",
+               "id": "240",
+               "meta_info": {
+                  "last_visited_desktop": "13199775743195672"
+               },
+               "name": "Java nio: How to read characters from memory mapped file with correct charset - Stack Overflow",
+               "type": "url",
+               "url": "https://stackoverflow.com/questions/26740370/java-nio-how-to-read-characters-from-memory-mapped-file-with-correct-charset"
+            }, {
+               "date_added": "13202888813538831",
+               "id": "326",
+               "meta_info": {
+                  "last_visited_desktop": "13204590447331914"
+               },
+               "name": "Socket programming in Java for scalable systems | JavaWorld",
+               "type": "url",
+               "url": "https://www.javaworld.com/article/2853780/socket-programming-for-scalable-systems.html?page=2"
+            }, {
+               "date_added": "13203059244323423",
+               "id": "330",
+               "meta_info": {
+                  "last_visited_desktop": "13204090634650994"
+               },
+               "name": "Understanding Asynchronous Socket Channels in Java - Developer.com",
+               "type": "url",
+               "url": "https://www.developer.com/java/data/understanding-asynchronous-socket-channels-in-java.html"
+            }, {
+               "date_added": "13203061727732495",
+               "id": "331",
+               "meta_info": {
+                  "last_visited_desktop": "13203983593919803"
+               },
+               "name": "Java Network Tutorial - Java Asynchronous Socket Channels",
+               "type": "url",
+               "url": "http://www.java2s.com/Tutorials/Java/Java_Network/0080__Java_Network_Asynchronous_Socket_Channels.htm"
+            }, {
+               "date_added": "13203062944021622",
+               "id": "332",
+               "meta_info": {
+                  "last_visited_desktop": "13204441237778934"
+               },
+               "name": "Async socket demo in java",
+               "type": "url",
+               "url": "https://gist.github.com/ochinchina/72cc23220dc8a933fc46"
+            } ],
+            "date_added": "13195370927682307",
+            "date_modified": "13203301035155992",
+            "id": "221",
+            "name": "nio",
+            "type": "folder"
+         }, {
+            "children": [ {
+               "date_added": "13196413532362002",
+               "id": "250",
+               "meta_info": {
+                  "last_visited_desktop": "13196413532362172"
+               },
+               "name": "DBMS | File Organization - Set 1 - GeeksforGeeks",
+               "type": "url",
+               "url": "https://www.geeksforgeeks.org/dbms-file-organization-set-1/"
+            } ],
+            "date_added": "13196413570913540",
+            "date_modified": "13196494061276001",
+            "id": "251",
+            "name": "algr",
+            "type": "folder"
+         }, {
+            "children": [ {
+               "date_added": "13196926337123775",
+               "id": "257",
+               "meta_info": {
+                  "last_visited_desktop": "13196926337125721"
+               },
+               "name": "Choosing an HDFS data storage format- Avro vs. Parquet and more - Sta…",
+               "type": "url",
+               "url": "https://www.slideshare.net/StampedeCon/choosing-an-hdfs-data-storage-format-avro-vs-parquet-and-more-stampedecon-2015"
+            }, {
+               "children": [ {
+                  "date_added": "13199259742344381",
+                  "id": "288",
+                  "meta_info": {
+                     "last_visited_desktop": "13199259742345558"
+                  },
+                  "name": "Parquet Java Code Examples",
+                  "type": "url",
+                  "url": "https://www.programcreek.com/java-api-examples/index.php?source_dir=pbase-master/hbase-server/src/test/java/org/apache/hadoop/hbase/regionserver/pbase/util/GenerateParquetFile.java"
+               }, {
+                  "date_added": "13199259802202862",
+                  "id": "290",
+                  "meta_info": {
+                     "last_visited_desktop": "13199259802203473"
+                  },
+                  "name": "create parquet files in java - Stack Overflow",
+                  "type": "url",
+                  "url": "https://stackoverflow.com/questions/39728854/create-parquet-files-in-java"
+               }, {
+                  "date_added": "13199262610514457",
+                  "id": "291",
+                  "meta_info": {
+                     "last_visited_desktop": "13199262610514894"
+                  },
+                  "name": "Nikita Dolgov's technical blog: Writing Parquet file",
+                  "type": "url",
+                  "url": "https://ndolgov.blogspot.com/2015/08/writing-parquet-file.html"
+               }, {
+                  "date_added": "13199262619873953",
+                  "id": "292",
+                  "meta_info": {
+                     "last_visited_desktop": "13199262619874218"
+                  },
+                  "name": "Columnar Storage",
+                  "type": "url",
+                  "url": "https://www.the-paper-trail.org/post/2013-01-30-columnar-storage/"
+               }, {
+                  "date_added": "13199262634008463",
+                  "id": "293",
+                  "meta_info": {
+                     "last_visited_desktop": "13199262634008721"
+                  },
+                  "name": "apache/parquet-format: Apache Parquet",
+                  "type": "url",
+                  "url": "https://github.com/apache/parquet-format"
+               }, {
+                  "date_added": "13199262650167098",
+                  "id": "294",
+                  "meta_info": {
+                     "last_visited_desktop": "13199262650167282"
+                  },
+                  "name": "apache/parquet-mr: Apache Parquet",
+                  "type": "url",
+                  "url": "https://github.com/apache/parquet-mr"
+               } ],
+               "date_added": "13199259787692737",
+               "date_modified": "13199262962250259",
+               "id": "289",
+               "name": "parquet",
+               "type": "folder"
+            } ],
+            "date_added": "13196926357187318",
+            "date_modified": "13196974679919434",
+            "id": "258",
+            "name": "bgd",
+            "type": "folder"
+         }, {
+            "children": [ {
+               "date_added": "13197358744744670",
+               "id": "263",
+               "meta_info": {
+                  "last_visited_desktop": "13197358744746892"
+               },
+               "name": "Machine Learning – Towards Data Science",
+               "type": "url",
+               "url": "https://towardsdatascience.com/machine-learning/home"
+            } ],
+            "date_added": "13197358770760059",
+            "date_modified": "13197605329409708",
+            "id": "264",
+            "name": "ml",
+            "type": "folder"
+         }, {
+            "children": [ {
+               "date_added": "13197605329409708",
+               "id": "266",
+               "meta_info": {
+                  "last_visited_desktop": "13201311694822631"
+               },
+               "name": "Apache Spark | MapR",
+               "type": "url",
+               "url": "https://mapr.com/blog/apache-spark/"
+            }, {
+               "date_added": "13197605556545522",
+               "id": "268",
+               "meta_info": {
+                  "last_visited_desktop": "13205184616057329"
+               },
+               "name": "Getting Started with Apache Spark | MapR",
+               "type": "url",
+               "url": "https://mapr.com/getting-started-apache-spark/"
+            }, {
+               "date_added": "13197609178401172",
+               "id": "269",
+               "meta_info": {
+                  "last_visited_desktop": "13201307901254211"
+               },
+               "name": "DEV360–L3 Apply Operations on Datasets",
+               "type": "url",
+               "url": "https://courses.mapr.com/DEV360-v21/31-218VG-2684BQ.html#i3110-Commonly-Used-Actions"
+            }, {
+               "date_added": "13207438625048546",
+               "id": "346",
+               "name": "Deploy Spark with an Apache Cassandra cluster - OpenCredo",
+               "type": "url",
+               "url": "https://opencredo.com/blogs/deploy-spark-apache-cassandra/"
+            }, {
+               "date_added": "13207438853902471",
+               "id": "347",
+               "name": "Setup Spark with Cassandra Connector (Example)",
+               "type": "url",
+               "url": "https://coderwall.com/p/o9bkjg/setup-spark-with-cassandra-connector"
+            }, {
+               "date_added": "13207442509278532",
+               "id": "349",
+               "name": "Enable Distributed Data Processing for Cassandra With Spark - DZone Database",
+               "type": "url",
+               "url": "https://dzone.com/articles/enable-distributed-data-processing-for-cassandra-w"
+            }, {
+               "date_added": "13207442604861778",
+               "id": "350",
+               "name": "Kindling: An Introduction to Spark with Cassandra (Part 1) | DataStax",
+               "type": "url",
+               "url": "https://www.datastax.com/dev/blog/kindling-an-introduction-to-spark-with-cassandra-part-1"
+            }, {
+               "date_added": "13207442703933360",
+               "id": "351",
+               "name": "Setting up and Configuring Spark Cluster - Mustafa İleri - Medium",
+               "type": "url",
+               "url": "https://medium.com/@mustafa.ileri/setting-up-and-configuring-spark-cluster-21471378a9fe"
+            }, {
+               "date_added": "13207556470594108",
+               "id": "356",
+               "name": "Install_Spark_on_Windows10.pdf",
+               "type": "url",
+               "url": "https://www.ics.uci.edu/~shantas/Install_Spark_on_Windows10.pdf"
+            }, {
+               "date_added": "13207557723069557",
+               "id": "357",
+               "name": "spark-cassandra-connector download",
+               "type": "url",
+               "url": "https://spark-packages.org/package/datastax/spark-cassandra-connector"
+            }, {
+               "date_added": "13207692071420423",
+               "id": "358",
+               "name": "Title",
+               "type": "url",
+               "url": "https://koeninger.github.io/spark-cassandra-example/"
+            }, {
+               "date_added": "13207870430800685",
+               "id": "359",
+               "name": "Apache Storm vs Spark Streaming - Feature wise Comparison - DataFlair",
+               "type": "url",
+               "url": "https://data-flair.training/blogs/apache-storm-vs-spark-streaming/"
+            } ],
+            "date_added": "13197605345346033",
+            "date_modified": "13207870430800685",
+            "id": "267",
+            "name": "spark",
+            "type": "folder"
+         }, {
+            "date_added": "13198389374551763",
+            "id": "270",
+            "meta_info": {
+               "last_visited_desktop": "13202624664792242"
+            },
+            "name": "最佳女婿林羽何家荣江颜完整版小说免费阅读_最佳女婿小说全集无弹窗_日照小说网",
+            "type": "url",
+            "url": "https://www.rzlib.net/b/62/62930/"
+         }, {
+            "date_added": "13198810491452682",
+            "id": "278",
+            "meta_info": {
+               "last_visited_desktop": "13201220471237633"
+            },
+            "name": "Date to Millisecond Calculators – Code Chi",
+            "type": "url",
+            "url": "https://codechi.com/dev-tools/date-to-millisecond-calculators/"
+         }, {
+            "children": [ {
+               "date_added": "13199262962250259",
+               "id": "295",
+               "meta_info": {
+                  "last_visited_desktop": "13201673806674408"
+               },
+               "name": "Distributed Computing in Microservices: CAP Theorem",
+               "type": "url",
+               "url": "https://blog.kloia.com/distributed-computing-in-microservices-cap-theorem-253c16017a99"
+            }, {
+               "date_added": "13201544811245346",
+               "id": "314",
+               "meta_info": {
+                  "last_visited_desktop": "13201673827911787"
+               },
+               "name": "微服务的4个设计原则和19个解决方案 - 晓晨Master - 博客园",
+               "type": "url",
+               "url": "https://www.cnblogs.com/stulzq/p/8573828.html"
+            } ],
+            "date_added": "13199262995875158",
+            "date_modified": "13201766081675513",
+            "id": "296",
+            "name": "architecture",
+            "type": "folder"
+         }, {
+            "date_added": "13201488892653001",
+            "id": "312",
+            "meta_info": {
+               "last_visited_desktop": "13205620437544704"
+            },
+            "name": "最佳女婿-林羽江颜-都市小说-【笔趣阁小说官网】手机阅读",
+            "type": "url",
+            "url": "http://m.022003.com/info-45470/"
+         }, {
+            "children": [ {
+               "date_added": "13201766081675513",
+               "id": "316",
+               "meta_info": {
+                  "last_visited_desktop": "13201766081676448"
+               },
+               "name": "Elasticsearch Tutorial - Power Up Your Searches | Edureka",
+               "type": "url",
+               "url": "https://www.edureka.co/blog/elasticsearch-tutorial/"
+            } ],
+            "date_added": "13201766105351450",
+            "date_modified": "13201838673549554",
+            "id": "317",
+            "name": "search",
+            "type": "folder"
+         }, {
+            "date_added": "13203301035155992",
+            "id": "333",
+            "meta_info": {
+               "last_visited_desktop": "13204684905019929"
+            },
+            "name": "Online JSON Viewer",
+            "type": "url",
+            "url": "http://jsonviewer.stack.hu/"
+         }, {
+            "date_added": "13206571303078872",
+            "id": "340",
+            "name": "7 Tips for Managing Software Developers Effectively | GitPrime Blog",
+            "type": "url",
+            "url": "https://blog.gitprime.com/7-tips-for-managing-software-developers-effectively/"
+         }, {
+            "children": [ {
+               "date_added": "13207509775185882",
+               "id": "352",
+               "name": "The Tail at Scale | February 2013 | Communications of the ACM",
+               "type": "url",
+               "url": "https://cacm.acm.org/magazines/2013/2/160173-the-tail-at-scale/fulltext"
+            } ],
+            "date_added": "13207509796943586",
+            "date_modified": "13207533065664260",
+            "id": "353",
+            "name": "performance",
+            "type": "folder"
+         }, {
+            "date_added": "13207556088176039",
+            "id": "355",
+            "name": "20 Core Exercises Top Trainers Swear By | SELF",
+            "type": "url",
+            "url": "https://www.self.com/gallery/core-exercises-top-trainers-swear-by"
+         } ],
+         "date_added": "13187241112214167",
+         "date_modified": "13207556470594108",
+         "id": "1",
+         "name": "Bookmarks bar",
+         "type": "folder"
+      },
+      "other": {
+         "children": [  ],
+         "date_added": "13187241112214198",
+         "date_modified": "13191547596443564",
+         "id": "2",
+         "name": "Other bookmarks",
+         "type": "folder"
+      },
+      "synced": {
+         "children": [  ],
+         "date_added": "13187241112214202",
+         "date_modified": "0",
+         "id": "3",
+         "name": "Mobile bookmarks",
+         "type": "folder"
+      }
+   },
+   "version": 1
+}
