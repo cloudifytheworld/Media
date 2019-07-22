@@ -96,7 +96,7 @@ public class FileLoadService {
             payload.setImage(image);
             InputData inputData = new InputData();
             inputData.setPayload(payload);
-            webClient.post().uri("http://localhost:8085/api/aoi/etl")
+            webClient.post().uri("http://localhost:8082/api/aoi/etl")
                     .syncBody(inputData)
                     .exchange().subscribe();
             log.info(payload.getCreated_day());

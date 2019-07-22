@@ -6,6 +6,7 @@ import com.fw.imbp.rt.service.CassandraAsyncService;
 import com.fw.imbp.rt.entity.ClientData;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Component;
 
 @Component("fileAction")
 @Log4j2
+@Scope("prototype")
 public class FileAction extends UntypedAbstractActor {
 
     @Autowired

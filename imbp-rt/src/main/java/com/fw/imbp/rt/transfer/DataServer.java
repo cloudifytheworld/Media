@@ -34,7 +34,7 @@ public class DataServer {
 
         try {
             String ip = inetAddress.getAddress().getHostAddress();
-            dataWriter = new DataWriter(filePath, groupId+":"+ip, inMemoryWrite);
+            dataWriter = new DataWriter(filePath, groupId, inMemoryWrite);
             this.dataReader = new DataReader(dataWriter);
             this.serverGroup = AsynchronousChannelGroup.withThreadPool(Executors.newFixedThreadPool(poolSize));
             this.server = AsynchronousServerSocketChannel.open(this.serverGroup).setOption(

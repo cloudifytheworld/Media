@@ -44,15 +44,15 @@ public class CassandraService {
         try {
             BuildStatement buildStatement = build.get(system);
             Insert insert = buildStatement.build(payload, system);
-            String key = buildStatement.buildIndex(redisTemplate);
+            //String key = buildStatement.buildIndex(redisTemplate);
 
             cassandraDataTemplate.getReactiveCqlOperations().execute(insert)
                     .doOnError( e ->
                         loggingService.onFailure(e, system, payload)
                     ).subscribe(
-                            success -> log.debug("Done insertion on "+system+" for index "+key),
-                            error -> log.debug("Fail to insert system "+system+" for index " +
-                                    key+" on Error "+error)
+//                            success -> log.debug("Done insertion on "+system+" for index "+key),
+//                            error -> log.debug("Fail to insert system "+system+" for index " +
+//                                    key+" on Error "+error)
             );
             return Mono.empty();
         } catch (Exception e) {

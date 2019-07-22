@@ -43,13 +43,13 @@ public class AoiBuildStatement extends BuildStatement {
         DateTime dateTime = new DateTime(timestamp.getTime());
 
         int hour = dateTime.getHourOfDay();
-        insert.value("hour", hour);
+//        insert.value("hour", hour);
 
         int minute = dateTime.getMinuteOfHour();
-        insert.value("mins", minute);
+//        insert.value("mins", minute);
 
         int second = dateTime.getSecondOfMinute();
-        insert.value("sec", second);
+//        insert.value("sec", second);
 
         Object label = payload.get("label");
         insert.value("label", label);

@@ -29,7 +29,7 @@ public abstract class BuildStatement {
         try {
             KeySpaceTable aoi = new KeySpaceTable();
             aoi.setKeySpace("images");
-            aoi.setTable("aoi_single_component_image_1");
+            aoi.setTable("aoi_single_component_image");
 
             systemKeySpaceTable.put(OnSystem.valueOf("aoi"), aoi);
         }catch (Exception e){
