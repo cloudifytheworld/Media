@@ -20,7 +20,7 @@
         <bval.version>2.0.0</bval.version>
         <javax.validation>2.0.0.Final</javax.validation>
 
-        <jackson.version>2.9.5</jackson.version>
+        <jackson.version>2.10.0</jackson.version>
         <jersey.version>2.27</jersey.version>
         <netty.version>3.9.4.Final</netty.version>
         <guava.version>25.0-jre</guava.version>
