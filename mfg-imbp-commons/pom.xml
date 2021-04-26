@@ -24,7 +24,7 @@
         <jersey.version>2.27</jersey.version>
         <netty.version>3.9.4.Final</netty.version>
         <guava.version>25.0-jre</guava.version>
-        <commons-io.version>2.6</commons-io.version>
+        <commons-io.version>2.7</commons-io.version>
         <commons-lang3-version>3.4</commons-lang3-version>
         <commons-collections-version>4.2</commons-collections-version>
         <avro.version>1.8.2</avro.version>
